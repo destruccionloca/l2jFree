@@ -10,9 +10,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -28,9 +26,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -46,9 +42,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -64,9 +58,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -82,9 +74,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -100,9 +90,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -118,9 +106,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -136,9 +122,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -154,9 +138,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -172,9 +154,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -190,9 +170,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -208,9 +186,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -226,9 +202,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -244,9 +218,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -262,9 +234,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -280,9 +250,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -298,9 +266,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -316,9 +282,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -334,9 +298,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -352,9 +314,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -370,9 +330,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -388,9 +346,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -406,9 +362,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -424,9 +378,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -442,9 +394,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -460,9 +410,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -478,9 +426,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -496,9 +442,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -514,9 +458,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -532,9 +474,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -550,9 +490,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -568,9 +506,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -586,9 +522,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -604,9 +538,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -622,9 +554,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -640,9 +570,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -658,9 +586,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -676,9 +602,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -694,9 +618,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -712,9 +634,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -730,9 +650,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -748,9 +666,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -766,9 +682,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -784,9 +698,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -802,9 +714,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -820,9 +730,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -838,9 +746,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -856,9 +762,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -874,9 +778,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -892,9 +794,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -910,9 +810,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -928,9 +826,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -946,9 +842,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -964,9 +858,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -982,9 +874,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1000,9 +890,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1018,9 +906,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1036,9 +922,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1054,9 +938,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1072,9 +954,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1090,9 +970,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1108,9 +986,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1126,9 +1002,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1144,9 +1018,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1162,9 +1034,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1180,9 +1050,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1198,9 +1066,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1216,9 +1082,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1234,9 +1098,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="10"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1252,9 +1114,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="11"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1270,9 +1130,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="12"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1288,9 +1146,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="13"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1306,9 +1162,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="14"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1324,9 +1178,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="15"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1342,9 +1194,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="16"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1360,9 +1210,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="17"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1378,9 +1226,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="18"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1396,9 +1242,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="19"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1414,9 +1258,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="20"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>
@@ -1432,9 +1274,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
     <set name="transformId" val="21"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <cond msgId="1509">
+    <cond msgId="2955">
       <player olympiad="false"/>
     </cond>
     <for>

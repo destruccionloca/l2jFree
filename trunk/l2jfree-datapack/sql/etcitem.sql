@@ -8411,123 +8411,123 @@ INSERT INTO `etcitem` VALUES
 (13554,'Spellbook - Aurabird Owl','','false','none',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2791-1'),
 (13555,'Combined Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (13559,'Airship Summon License','','false','none',20,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13569,'Gludio Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13570,'Gludio Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13571,'Gludio Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13572,'Gludio Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13573,'Gludio Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13574,'Gludio Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13575,'Gludio Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13576,'Gludio Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13577,'Gludio Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13578,'Gludio White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13579,'Gludio Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13580,'Gludio Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13581,'Dion Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13582,'Dion Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13583,'Dion Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13584,'Dion Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13585,'Dion Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13586,'Dion Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13587,'Dion Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13588,'Dion Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13589,'Dion Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13590,'Dion White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13591,'Dion Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13592,'Dion Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13593,'Giran Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13594,'Giran Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13595,'Giran Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13596,'Giran Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13597,'Giran Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13598,'Giran Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13599,'Giran Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13600,'Giran Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13601,'Giran Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13602,'Giran White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13603,'Giran Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13604,'Giran Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13605,'Oren Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13606,'Oren Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13607,'Oren Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13608,'Oren Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13609,'Oren Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13610,'Oren Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13611,'Oren Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13612,'Oren Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13613,'Oren Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13614,'Oren White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13615,'Oren Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13616,'Oren Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13617,'Aden Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13618,'Aden Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13619,'Aden Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13620,'Aden Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13621,'Aden Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13622,'Aden Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13623,'Aden Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13624,'Aden Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13625,'Aden Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13626,'Aden White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13627,'Aden Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13628,'Aden Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13629,'Innadril Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13630,'Innadril Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13631,'Innadril Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13632,'Innadril Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13633,'Innadril Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13634,'Innadril Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13635,'Innadril Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13636,'Innadril Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13637,'Innadril Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13638,'Innadril White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13639,'Innadril Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13640,'Innadril Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13641,'Goddard Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13642,'Goddard Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13643,'Goddard Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13644,'Goddard Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13645,'Goddard Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13646,'Goddard Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13647,'Goddard Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13648,'Goddard Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13649,'Goddard Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13650,'Goddard White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13651,'Goddard Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13652,'Goddard Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13653,'Rune Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13654,'Rune Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13655,'Rune Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13656,'Rune Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13657,'Rune Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13658,'Rune Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13659,'Rune Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13660,'Rune Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13661,'Rune Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13662,'Rune White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13663,'Rune Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13664,'Rune Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13665,'Schuttgart Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13666,'Schuttgart Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13667,'Schuttgart Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13668,'Schuttgart Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13669,'Schuttgart Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13670,'Schuttgart Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13671,'Schuttgart Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13672,'Schuttgart Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13673,'Schuttgart Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13674,'Schuttgart White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13675,'Schuttgart Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13676,'Schuttgart Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13677,'Gludio Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13678,'Dion Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13679,'Giran Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13680,'Oren Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13681,'Aden Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13682,'Innadril Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13683,'Goddard Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13684,'Rune Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13685,'Schuttgart Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(13569,'Gludio Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2672-1'),
+(13570,'Gludio Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2673-1'),
+(13571,'Gludio Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2674-1'),
+(13572,'Gludio Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2675-1'),
+(13573,'Gludio Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2676-1'),
+(13574,'Gludio Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2677-1'),
+(13575,'Gludio Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2678-1'),
+(13576,'Gludio Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2679-1'),
+(13577,'Gludio Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2680-1'),
+(13578,'Gludio White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2681-1'),
+(13579,'Gludio Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2682-1'),
+(13580,'Gludio Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2683-1'),
+(13581,'Dion Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2684-1'),
+(13582,'Dion Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2685-1'),
+(13583,'Dion Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2686-1'),
+(13584,'Dion Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2687-1'),
+(13585,'Dion Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2688-1'),
+(13586,'Dion Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2689-1'),
+(13587,'Dion Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2690-1'),
+(13588,'Dion Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2691-1'),
+(13589,'Dion Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2692-1'),
+(13590,'Dion White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2693-1'),
+(13591,'Dion Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2694-1'),
+(13592,'Dion Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2695-1'),
+(13593,'Giran Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2696-1'),
+(13594,'Giran Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2697-1'),
+(13595,'Giran Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2698-1'),
+(13596,'Giran Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2699-1'),
+(13597,'Giran Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2700-1'),
+(13598,'Giran Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2701-1'),
+(13599,'Giran Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2702-1'),
+(13600,'Giran Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2703-1'),
+(13601,'Giran Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2704-1'),
+(13602,'Giran White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2705-1'),
+(13603,'Giran Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2706-1'),
+(13604,'Giran Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2707-1'),
+(13605,'Oren Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2708-1'),
+(13606,'Oren Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2709-1'),
+(13607,'Oren Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2710-1'),
+(13608,'Oren Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2711-1'),
+(13609,'Oren Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2712-1'),
+(13610,'Oren Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2713-1'),
+(13611,'Oren Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2714-1'),
+(13612,'Oren Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2715-1'),
+(13613,'Oren Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2716-1'),
+(13614,'Oren White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2717-1'),
+(13615,'Oren Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2718-1'),
+(13616,'Oren Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2719-1'),
+(13617,'Aden Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2720-1'),
+(13618,'Aden Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2721-1'),
+(13619,'Aden Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2722-1'),
+(13620,'Aden Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2723-1'),
+(13621,'Aden Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2724-1'),
+(13622,'Aden Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2725-1'),
+(13623,'Aden Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2726-1'),
+(13624,'Aden Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2727-1'),
+(13625,'Aden Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2728-1'),
+(13626,'Aden White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2729-1'),
+(13627,'Aden Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2730-1'),
+(13628,'Aden Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2731-1'),
+(13629,'Innadril Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2732-1'),
+(13630,'Innadril Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2733-1'),
+(13631,'Innadril Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2734-1'),
+(13632,'Innadril Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2735-1'),
+(13633,'Innadril Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2736-1'),
+(13634,'Innadril Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2737-1'),
+(13635,'Innadril Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2738-1'),
+(13636,'Innadril Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2739-1'),
+(13637,'Innadril Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2740-1'),
+(13638,'Innadril White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2741-1'),
+(13639,'Innadril Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2742-1'),
+(13640,'Innadril Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2743-1'),
+(13641,'Goddard Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2744-1'),
+(13642,'Goddard Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2745-1'),
+(13643,'Goddard Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2746-1'),
+(13644,'Goddard Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2747-1'),
+(13645,'Goddard Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2748-1'),
+(13646,'Goddard Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2749-1'),
+(13647,'Goddard Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2750-1'),
+(13648,'Goddard Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2751-1'),
+(13649,'Goddard Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2752-1'),
+(13650,'Goddard White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2753-1'),
+(13651,'Goddard Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2754-1'),
+(13652,'Goddard Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2755-1'),
+(13653,'Rune Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2756-1'),
+(13654,'Rune Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2757-1'),
+(13655,'Rune Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2758-1'),
+(13656,'Rune Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2759-1'),
+(13657,'Rune Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2760-1'),
+(13658,'Rune Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2761-1'),
+(13659,'Rune Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2762-1'),
+(13660,'Rune Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2763-1'),
+(13661,'Rune Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2764-1'),
+(13662,'Rune White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2765-1'),
+(13663,'Rune Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2766-1'),
+(13664,'Rune Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2767-1'),
+(13665,'Schuttgart Human Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2768-1'),
+(13666,'Schuttgart Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2769-1'),
+(13667,'Schuttgart Dark Elf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2770-1'),
+(13668,'Schuttgart Orc Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2771-1'),
+(13669,'Schuttgart Dwarf Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2772-1'),
+(13670,'Schuttgart Kamael Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2773-1'),
+(13671,'Schuttgart Knight Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2774-1'),
+(13672,'Schuttgart Archer Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2775-1'),
+(13673,'Schuttgart Wizard Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2776-1'),
+(13674,'Schuttgart White Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2777-1'),
+(13675,'Schuttgart Knight Captain Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2778-1'),
+(13676,'Schuttgart Commander Mercenary Transformation Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2779-1'),
+(13677,'Gludio Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13678,'Dion Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13679,'Giran Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13680,'Oren Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13681,'Aden Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13682,'Innadril Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13683,'Goddard Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13684,'Rune Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
+(13685,'Schuttgart Disguise Scroll','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','Disguise',''),
 (13686,'Sealed Knight\'s Cloak','','false','none',220,'normal','paper','none',-1,-1,28671000,0,'true','true','true','true','true','none',''),
 (13691,'Mark of Keucereus - Stage 1','','false','none',10,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (13692,'Mark of Keucereus - Stage 2','','false','none',10,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
@@ -10214,117 +10214,6 @@ UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
 
 -- Seed of Evil
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false' WHERE `item_id` IN (9593,9594,9595,9596,9597,9598);
-
--- Disguise Scrolls by Spire
-UPDATE `etcitem` SET `skills_item` = '2672-1', `handler` = 'ItemSkills' WHERE `item_id` = '13569'; -- Gludio Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2673-1', `handler` = 'ItemSkills' WHERE `item_id` = '13570'; -- Gludio Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2674-1', `handler` = 'ItemSkills' WHERE `item_id` = '13571'; -- Gludio Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2675-1', `handler` = 'ItemSkills' WHERE `item_id` = '13572'; -- Gludio Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2676-1', `handler` = 'ItemSkills' WHERE `item_id` = '13573'; -- Gludio Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2677-1', `handler` = 'ItemSkills' WHERE `item_id` = '13574'; -- Gludio Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2678-1', `handler` = 'ItemSkills' WHERE `item_id` = '13575'; -- Gludio Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2679-1', `handler` = 'ItemSkills' WHERE `item_id` = '13576'; -- Gludio Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2680-1', `handler` = 'ItemSkills' WHERE `item_id` = '13577'; -- Gludio Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2681-1', `handler` = 'ItemSkills' WHERE `item_id` = '13578'; -- Gludio Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2682-1', `handler` = 'ItemSkills' WHERE `item_id` = '13579'; -- Gludio Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2683-1', `handler` = 'ItemSkills' WHERE `item_id` = '13580'; -- Gludio Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2684-1', `handler` = 'ItemSkills' WHERE `item_id` = '13581'; -- Dion Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2685-1', `handler` = 'ItemSkills' WHERE `item_id` = '13582'; -- Dion Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2686-1', `handler` = 'ItemSkills' WHERE `item_id` = '13583'; -- Dion Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2687-1', `handler` = 'ItemSkills' WHERE `item_id` = '13584'; -- Dion Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2688-1', `handler` = 'ItemSkills' WHERE `item_id` = '13585'; -- Dion Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2689-1', `handler` = 'ItemSkills' WHERE `item_id` = '13586'; -- Dion Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2690-1', `handler` = 'ItemSkills' WHERE `item_id` = '13587'; -- Dion Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2691-1', `handler` = 'ItemSkills' WHERE `item_id` = '13588'; -- Dion Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2692-1', `handler` = 'ItemSkills' WHERE `item_id` = '13589'; -- Dion Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2693-1', `handler` = 'ItemSkills' WHERE `item_id` = '13590'; -- Dion Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2694-1', `handler` = 'ItemSkills' WHERE `item_id` = '13591'; -- Dion Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2695-1', `handler` = 'ItemSkills' WHERE `item_id` = '13592'; -- Dion Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2696-1', `handler` = 'ItemSkills' WHERE `item_id` = '13593'; -- Giran Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2697-1', `handler` = 'ItemSkills' WHERE `item_id` = '13594'; -- Giran Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2698-1', `handler` = 'ItemSkills' WHERE `item_id` = '13595'; -- Giran Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2699-1', `handler` = 'ItemSkills' WHERE `item_id` = '13596'; -- Giran Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2700-1', `handler` = 'ItemSkills' WHERE `item_id` = '13597'; -- Giran Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2701-1', `handler` = 'ItemSkills' WHERE `item_id` = '13598'; -- Giran Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2702-1', `handler` = 'ItemSkills' WHERE `item_id` = '13599'; -- Giran Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2703-1', `handler` = 'ItemSkills' WHERE `item_id` = '13600'; -- Giran Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2704-1', `handler` = 'ItemSkills' WHERE `item_id` = '13601'; -- Giran Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2705-1', `handler` = 'ItemSkills' WHERE `item_id` = '13602'; -- Giran Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2706-1', `handler` = 'ItemSkills' WHERE `item_id` = '13603'; -- Giran Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2707-1', `handler` = 'ItemSkills' WHERE `item_id` = '13604'; -- Giran Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2708-1', `handler` = 'ItemSkills' WHERE `item_id` = '13605'; -- Oren Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2709-1', `handler` = 'ItemSkills' WHERE `item_id` = '13606'; -- Oren Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2710-1', `handler` = 'ItemSkills' WHERE `item_id` = '13607'; -- Oren Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2711-1', `handler` = 'ItemSkills' WHERE `item_id` = '13608'; -- Oren Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2712-1', `handler` = 'ItemSkills' WHERE `item_id` = '13609'; -- Oren Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2713-1', `handler` = 'ItemSkills' WHERE `item_id` = '13610'; -- Oren Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2714-1', `handler` = 'ItemSkills' WHERE `item_id` = '13611'; -- Oren Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2715-1', `handler` = 'ItemSkills' WHERE `item_id` = '13612'; -- Oren Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2716-1', `handler` = 'ItemSkills' WHERE `item_id` = '13613'; -- Oren Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2717-1', `handler` = 'ItemSkills' WHERE `item_id` = '13614'; -- Oren Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2718-1', `handler` = 'ItemSkills' WHERE `item_id` = '13615'; -- Oren Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2719-1', `handler` = 'ItemSkills' WHERE `item_id` = '13616'; -- Oren Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2720-1', `handler` = 'ItemSkills' WHERE `item_id` = '13617'; -- Aden Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2721-1', `handler` = 'ItemSkills' WHERE `item_id` = '13618'; -- Aden Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2722-1', `handler` = 'ItemSkills' WHERE `item_id` = '13619'; -- Aden Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2723-1', `handler` = 'ItemSkills' WHERE `item_id` = '13620'; -- Aden Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2724-1', `handler` = 'ItemSkills' WHERE `item_id` = '13621'; -- Aden Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2725-1', `handler` = 'ItemSkills' WHERE `item_id` = '13622'; -- Aden Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2726-1', `handler` = 'ItemSkills' WHERE `item_id` = '13623'; -- Aden Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2727-1', `handler` = 'ItemSkills' WHERE `item_id` = '13624'; -- Aden Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2728-1', `handler` = 'ItemSkills' WHERE `item_id` = '13625'; -- Aden Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2729-1', `handler` = 'ItemSkills' WHERE `item_id` = '13626'; -- Aden Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2730-1', `handler` = 'ItemSkills' WHERE `item_id` = '13627'; -- Aden Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2731-1', `handler` = 'ItemSkills' WHERE `item_id` = '13628'; -- Aden Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2732-1', `handler` = 'ItemSkills' WHERE `item_id` = '13629'; -- Innadril Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2733-1', `handler` = 'ItemSkills' WHERE `item_id` = '13630'; -- Innadril Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2734-1', `handler` = 'ItemSkills' WHERE `item_id` = '13631'; -- Innadril Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2735-1', `handler` = 'ItemSkills' WHERE `item_id` = '13632'; -- Innadril Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2736-1', `handler` = 'ItemSkills' WHERE `item_id` = '13633'; -- Innadril Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2737-1', `handler` = 'ItemSkills' WHERE `item_id` = '13634'; -- Innadril Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2738-1', `handler` = 'ItemSkills' WHERE `item_id` = '13635'; -- Innadril Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2739-1', `handler` = 'ItemSkills' WHERE `item_id` = '13636'; -- Innadril Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2740-1', `handler` = 'ItemSkills' WHERE `item_id` = '13637'; -- Innadril Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2741-1', `handler` = 'ItemSkills' WHERE `item_id` = '13638'; -- Innadril Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2742-1', `handler` = 'ItemSkills' WHERE `item_id` = '13639'; -- Innadril Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2743-1', `handler` = 'ItemSkills' WHERE `item_id` = '13640'; -- Innadril Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2744-1', `handler` = 'ItemSkills' WHERE `item_id` = '13641'; -- Goddard Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2745-1', `handler` = 'ItemSkills' WHERE `item_id` = '13642'; -- Goddard Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2746-1', `handler` = 'ItemSkills' WHERE `item_id` = '13643'; -- Goddard Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2747-1', `handler` = 'ItemSkills' WHERE `item_id` = '13644'; -- Goddard Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2748-1', `handler` = 'ItemSkills' WHERE `item_id` = '13645'; -- Goddard Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2749-1', `handler` = 'ItemSkills' WHERE `item_id` = '13646'; -- Goddard Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2750-1', `handler` = 'ItemSkills' WHERE `item_id` = '13647'; -- Goddard Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2751-1', `handler` = 'ItemSkills' WHERE `item_id` = '13648'; -- Goddard Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2752-1', `handler` = 'ItemSkills' WHERE `item_id` = '13649'; -- Goddard Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2753-1', `handler` = 'ItemSkills' WHERE `item_id` = '13650'; -- Goddard Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2754-1', `handler` = 'ItemSkills' WHERE `item_id` = '13651'; -- Goddard Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2755-1', `handler` = 'ItemSkills' WHERE `item_id` = '13652'; -- Goddard Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2756-1', `handler` = 'ItemSkills' WHERE `item_id` = '13653'; -- Rune Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2757-1', `handler` = 'ItemSkills' WHERE `item_id` = '13654'; -- Rune Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2758-1', `handler` = 'ItemSkills' WHERE `item_id` = '13655'; -- Rune Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2759-1', `handler` = 'ItemSkills' WHERE `item_id` = '13656'; -- Rune Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2760-1', `handler` = 'ItemSkills' WHERE `item_id` = '13657'; -- Rune Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2761-1', `handler` = 'ItemSkills' WHERE `item_id` = '13658'; -- Rune Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2762-1', `handler` = 'ItemSkills' WHERE `item_id` = '13659'; -- Rune Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2763-1', `handler` = 'ItemSkills' WHERE `item_id` = '13660'; -- Rune Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2764-1', `handler` = 'ItemSkills' WHERE `item_id` = '13661'; -- Rune Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2765-1', `handler` = 'ItemSkills' WHERE `item_id` = '13662'; -- Rune Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2766-1', `handler` = 'ItemSkills' WHERE `item_id` = '13663'; -- Rune Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2767-1', `handler` = 'ItemSkills' WHERE `item_id` = '13664'; -- Rune Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2768-1', `handler` = 'ItemSkills' WHERE `item_id` = '13665'; -- Schuttgart Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2769-1', `handler` = 'ItemSkills' WHERE `item_id` = '13666'; -- Schuttgart Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2770-1', `handler` = 'ItemSkills' WHERE `item_id` = '13667'; -- Schuttgart Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2771-1', `handler` = 'ItemSkills' WHERE `item_id` = '13668'; -- Schuttgart Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2772-1', `handler` = 'ItemSkills' WHERE `item_id` = '13669'; -- Schuttgart Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2773-1', `handler` = 'ItemSkills' WHERE `item_id` = '13670'; -- Schuttgart Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2774-1', `handler` = 'ItemSkills' WHERE `item_id` = '13671'; -- Schuttgart Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2775-1', `handler` = 'ItemSkills' WHERE `item_id` = '13672'; -- Schuttgart Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2776-1', `handler` = 'ItemSkills' WHERE `item_id` = '13673'; -- Schuttgart Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2777-1', `handler` = 'ItemSkills' WHERE `item_id` = '13674'; -- Schuttgart Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2778-1', `handler` = 'ItemSkills' WHERE `item_id` = '13675'; -- Schuttgart Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `item_id` = '13676'; -- Schuttgart Fortress Captain
-UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 13569 AND 13685; -- Disguise Scrolls
 
 -- Water dragon Scale and claws (Psycho) 
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `etcitem`.`item_id` =9700 LIMIT 1 ; 

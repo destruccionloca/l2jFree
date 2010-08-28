@@ -11,7 +11,6 @@
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -31,7 +30,6 @@
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -50,7 +48,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
-    <set name="equipDelay" val="30000"/>
     <set name="staticHitTime" val="true"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
@@ -70,7 +67,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="equipDelay" val="30000"/>
     <for>
       <effect name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="1" stackType="item_skill"/>
     </for>
@@ -84,7 +80,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="300000"/>
     <set name="staticReuse" val="true"/>
-    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
@@ -105,7 +100,6 @@
     <set name="skillRadius" val="1000"/>
     <set name="reuseDelay" val="300000"/>
     <set name="staticReuse" val="true"/>
-    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="#hitTime"/>
     <set name="skillType" val="RECALL"/>
     <set name="isMagic" val="true"/>
@@ -662,6 +656,7 @@
   </skill>
   <skill id="3260" levels="1" name="Forgiveness">
     <!-- Description(s): Gathers up your love and throws a heart at the huge pig. -->
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <set name="castRange" val="750"/>
     <set name="hitTime" val="2500"/>
     <set name="mpConsume" val="1"/>
@@ -670,15 +665,13 @@
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="HEAL"/>
     <set name="target" val="TARGET_COUPLE"/>
-    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect count="15" name="HealOverTime" val="35" stackOrder="35" stackType="LifeForce"/>
     </for>
   </skill>
   <skill id="3261" levels="1" name="Forgiveness">
-    <!--
-      Description(s): Gathers up your love and throws a heart to the target. Warning: If you send
-      love to a monster, you may be attacked from all sides. -->
+    <!-- Description(s): Gathers up your love and throws a heart to the target. Warning: If you send love to a monster, you may be attacked from all sides. -->
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <set name="hitTime" val="2500"/>
     <set name="mpConsume" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -687,12 +680,9 @@
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MANARECHARGE"/>
     <set name="target" val="TARGET_COUPLE"/>
-    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
   </skill>
   <skill id="3262" levels="1" name="Pardon">
-    <!--
-      Description(s): Gathers up your love and throws two hearts at the huge pig. There is a low
-      chance that the huge pig will transform into either a golden pig or a super huge pig. -->
+    <!-- Description(s): Gathers up your love and throws two hearts at the huge pig. There is a low chance that the huge pig will transform into either a golden pig or a super huge pig. -->
     <set name="castRange" val="750"/>
     <set name="hitTime" val="3200"/>
     <set name="mpConsume" val="1"/>
@@ -795,11 +785,13 @@
     <set name="npcId" val="16026"/>
   </skill>
   <skill id="3271" levels="1" name="Blue Talisman of Power">
+    <!-- CT 2.3 Confirmed, P. Atk. +60 -->
     <set name="mpConsume" val="50"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -812,11 +804,13 @@
     </for>
   </skill>
   <skill id="3272" levels="1" name="Blue Talisman of Defense">
+    <!-- CT 2.3 Confirmed, P. Def. +70 -->
     <set name="mpConsume" val="50"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -838,6 +832,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="talismanId" val="9925"/>
     <set name="talismanManaConsume" val="6"/>
     <for>
@@ -851,6 +846,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -868,6 +864,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -880,11 +877,13 @@
     </for>
   </skill>
   <skill id="3276" levels="1" name="Blue Talisman - Magic Resistance">
+    <!-- CT 2.3 Confirmed, M. Def. +100 -->
     <set name="mpConsume" val="50"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -902,6 +901,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -919,6 +919,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -936,6 +937,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -952,6 +954,7 @@
     <set name="reuseDelay" val="60000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -969,6 +972,7 @@
     <set name="reuseDelay" val="900000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -987,6 +991,7 @@
     <set name="reuseDelay" val="900000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1005,6 +1010,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1042,6 +1048,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1066,6 +1073,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1079,6 +1087,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1092,6 +1101,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1104,7 +1114,8 @@
     <set name="mpConsume" val="40"/>
     <set name="hitTime" val="1200"/>
     <set name="reuseDelay" val="15000"/>
-    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
@@ -1120,6 +1131,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1134,6 +1146,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="MUTE"/> <!-- SILENCE -->
@@ -1151,6 +1164,7 @@
     <set name="reuseDelay" val="15000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>

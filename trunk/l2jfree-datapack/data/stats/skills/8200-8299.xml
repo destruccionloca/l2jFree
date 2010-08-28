@@ -642,6 +642,7 @@
   <!-- Inflicts a powerful physical water attack on the enemy using the power of the talisman attached to the Sword of Fire and Water. -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="59"/>
+    <set name="power" val="1500"/>
     <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
@@ -673,11 +674,11 @@
   <skill id="8242" levels="1" name="Ice Ball">
     <set name="mpInitialConsume" val="12"/>
     <set name="mpConsume" val="48"/>
-    <set name="power" val="150"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -687,12 +688,12 @@
   <skill id="8243" levels="1" name="Chill Strike">
     <set name="mpInitialConsume" val="12"/>
     <set name="mpConsume" val="48"/>
-    <set name="power" val="300"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="850"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>

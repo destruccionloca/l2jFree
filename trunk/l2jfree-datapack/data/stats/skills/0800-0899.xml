@@ -753,7 +753,7 @@
     <set name="skillType" val="SIEGEFLAG"/>
     <set name="skillRadius" val="900"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <!-- set name="isOutpost" val="true"/ -->
+    <set name="isOutpost" val="true"/>
   </skill>
   <skill id="845" levels="1" name="Outpost Demolition">
   <!-- Demolishes an outpost. After demolition, a new outpost can be constructed. -->
