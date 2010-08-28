@@ -1033,6 +1033,7 @@
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <enchant1 name="castRange" val="#ench1castRange"/>
     <enchant1 name="effectRange" val="#ench1effectRange"/>
+    <enchant1 name="reuseDelay" val="2000"/>
   </skill>
   <skill id="54" levels="49" name="Force Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 2151 2170 2189 2209 2228 2247 2266 2285 2305 2324 2343 2362 2381 2401 2420 2439 2458 2477 2497 2516 2535 2554 2573 2593 2612 2631 2650 2670 2689 2708 </table>

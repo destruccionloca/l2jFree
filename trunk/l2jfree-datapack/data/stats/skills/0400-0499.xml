@@ -919,8 +919,7 @@
     </enchant1for>
   </skill>
   <skill id="430" levels="1" name="Master of Combat" enchantLevels1="15" enchantLevels2="15">
-    <table name="#ench1pAtk"> 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 </table>
-    <table name="#ench2pAtk"> 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 </table>
+    <table name="#ench12pAtk"> 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -933,7 +932,7 @@
       </mul>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
+      <add order="0x40" stat="pAtk" val="#ench12pAtk">
         <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist"/>
       </add>
       <mul order="0x30" stat="maxCp" val="1.05">
@@ -941,7 +940,7 @@
       </mul>
     </enchant1for>
     <enchant2for>
-      <add order="0x40" stat="pAtk" val="#ench2pAtk">
+      <add order="0x40" stat="pAtk" val="#ench12pAtk">
         <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist"/>
       </add>
       <mul order="0x30" stat="maxCp" val="1.05">

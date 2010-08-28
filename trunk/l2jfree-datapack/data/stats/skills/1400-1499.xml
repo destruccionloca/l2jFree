@@ -1538,6 +1538,8 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="3000"/>
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="MDAM"/>
     <set name="skillRadius" val="200"/>

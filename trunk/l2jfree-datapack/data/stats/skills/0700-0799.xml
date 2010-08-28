@@ -1824,7 +1824,7 @@
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1power"> 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
-    <table name="#ench2reuseDelay"> 147000 144000 141000 138000 135000 132000 129000 126000 123000 120000 117000 114000 110000 108000 105000 </table> <!-- Guess -->
+    <table name="#ench2reuseDelay"> 145000 140000 135000 130000 125000 120000 115000 110000 105000 100000 95000 90000 85000 80000 75000 </table> <!-- Guess -->
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="46"/>
     <set name="isDebuff" val="true"/>

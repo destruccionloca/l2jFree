@@ -287,7 +287,7 @@
     <table name="#dot"> 44 44 44 44 44 44 44 44 44 54 54 54 54 54 54 54 54 54 54 62 62 62 62 62 62 62 62 62 62 67 67 67 67 67 </table>
     <table name="#ench1power"> 2325 2341 2357 2373 2389 2405 2420 2436 2452 2468 2484 2500 2515 2531 2547 2563 2579 2595 2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769 2784 </table>
     <table name="#ench2mpConsume"> 107 105 103 102 100 98 96 94 92 91 89 87 85 83 82 80 78 76 74 72 71 69 67 65 63 62 60 58 56 54 </table>
-    <table name="#ench3effectPower"> 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 68 69 70 71 72 73 74 75 76 77 78 </table>
+    <table name="#ench3effectPower"> 51 51 51 52 52 52 53 53 53 54 54 54 55 55 55 56 56 56 57 57 57 58 58 58 59 59 59 60 60 60 </table> <!-- Guess -->
     <table name="#power"> 530 562 595 630 666 703 742 782 823 866 910 955 1002 1050 1100 1150 1202 1255 1309 1364 1420 1476 1534 1592 1651 1710 1770 1830 1891 1951 2012 2072 2132 2192 </table>
     <table name="#magicLvl"> 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 </table>
     <table name="#mpConsume"> 56 58 59 61 63 65 66 68 70 72 72 74 76 78 80 81 83 85 87 88 89 91 92 94 96 97 99 100 102 103 105 106 108 109 </table>
@@ -571,10 +571,10 @@
     </enchant2for>
   </skill>
   <skill id="522" levels="4" name="Real Target" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench1pDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9 0.88 0.87 0.86 0.86 0.85 0.84 0.81 0.8 0.8 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table> <!-- Guess -->
-    <table name="#ench2pAtk"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9 0.88 0.87 0.86 0.86 0.85 0.84 0.81 0.8 0.8 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table> <!-- Guess -->
-    <table name="#ench3mDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9 0.88 0.87 0.86 0.86 0.85 0.84 0.81 0.8 0.8 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table> <!-- Guess -->
-    <table name="#ench4mAtk"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9 0.88 0.87 0.86 0.86 0.85 0.84 0.81 0.8 0.8 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table> <!-- Guess -->
+    <table name="#ench1pDef"> 0.99 0.98 0.97 0.96 0.95 0.94 0.93 0.92 0.91 0.9 0.89 0.88 0.87 0.86 0.85 0.84 0.83 0.82 0.81 0.8 0.79 0.78 0.77 0.76 0.75 0.74 0.73 0.72 0.71 0.7 </table>
+    <table name="#ench2pAtk"> 0.99 0.98 0.97 0.96 0.95 0.94 0.93 0.92 0.91 0.9 0.89 0.88 0.87 0.86 0.85 0.84 0.83 0.82 0.81 0.8 0.79 0.78 0.77 0.76 0.75 0.74 0.73 0.72 0.71 0.7 </table>
+    <table name="#ench3mDef"> 0.99 0.98 0.97 0.96 0.95 0.94 0.93 0.92 0.91 0.9 0.89 0.88 0.87 0.86 0.85 0.84 0.83 0.82 0.81 0.8 0.79 0.78 0.77 0.76 0.75 0.74 0.73 0.72 0.71 0.7 </table>
+    <table name="#ench4mAtk"> 0.99 0.98 0.97 0.96 0.95 0.94 0.93 0.92 0.91 0.9 0.89 0.88 0.87 0.86 0.85 0.84 0.83 0.82 0.81 0.8 0.79 0.78 0.77 0.76 0.75 0.74 0.73 0.72 0.71 0.7 </table>
     <table name="#magicLvl"> 40 52 62 70 </table>
     <table name="#mpInitialConsume"> 3 4 6 7 </table>
     <table name="#mpConsume"> 11 14 19 22 </table>
@@ -672,6 +672,7 @@
     <table name="#mpInitialConsume"> 15 19 22 25 26 27 </table>
     <table name="#mpConsume"> 60 75 88 98 104 110 </table>
     <table name="#magicLvl"> 43 52 60 66 70 74 </table>
+    <table name="#npcId"> 13071 13072 13073 13074 13075 13076 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -681,15 +682,14 @@
     <set name="summonTotalLifeTime" val="20000"/>
     <set name="skillType" val="DECOY"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="npcId" val="13071"/>
+    <set name="npcId" val="#npcId"/>
     <enchant1 name="mpInitialConsume" val="#ench1mpInitialConsume"/>
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
     <enchant3 name="npcId" val="#ench3npcId"/>
   </skill>
   <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15">
-    <!--
-      Enchant route 3 has been added only due to the fact that NC uses a script to translate mostly everything ingame. Only wording differs, in reality it's SAME as route 2 -->
+    <!-- Enchant route 3 has been added only due to the fact that NC uses a script to translate mostly everything ingame. Only wording differs, in reality it's SAME as route 2 -->
     <table name="#ench1power"> 6502 6535 6568 6601 6634 6667 6700 6733 6766 6799 6833 6866 6899 6932 6965 </table>
     <table name="#ench2mpConsume"> 78 77 76 74 73 72 70 69 68 67 65 64 63 61 60 </table>
     <table name="#ench3elementPower"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 </table>
@@ -745,9 +745,7 @@
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
       </effect>
-      <!--
-        Needs Core Support: absorbs most of the damage they (Party Members) will receive for the duration of the spell
-      -->
+      <!-- Needs Core Support: absorbs most of the damage they (Party Members) will receive for the duration of the spell -->
     </for>
     <enchant1for>
       <effect name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special_party">
