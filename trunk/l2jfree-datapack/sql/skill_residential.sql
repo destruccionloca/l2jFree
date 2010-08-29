@@ -33,15 +33,15 @@ INSERT INTO `skill_residential` VALUES
 (9,600,1), -- Schuttgart Castle Residence Guidance
 (9,610,1), -- Schuttgart Castle Residence Death Fortune
 -- Territory Ward skills
-(81,848,1),
-(82,849,1),
-(83,850,1),
-(84,851,1),
-(85,852,1),
-(86,853,1),
-(87,854,1),
-(88,855,1),
-(89,856,1),
+(81,848,1), -- Gludio Territory Benefaction
+(82,849,1), -- Dion Territory Benefaction
+(83,850,1), -- Giran Territory Benefaction
+(84,851,1), -- Oren Territory Benefaction
+(85,852,1), -- Aden Territory Benefaction
+(86,853,1), -- Innadril Territory Benefaction
+(87,854,1), -- Goddard Territory Benefaction
+(88,855,1), -- Rune Territory Benefaction
+(89,856,1), -- Schuttgart Territory Benefaction
 (101,590,1), -- Shanty Fort Residence Body
 (101,602,1), -- Shanty Fort Residence Shield Block
 (102,602,1), -- Southern Fort Residence Shield Block

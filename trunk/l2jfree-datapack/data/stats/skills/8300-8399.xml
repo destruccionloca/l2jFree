@@ -132,14 +132,15 @@
   <skill id="8308" levels="1" name="Red Talisman - Guardian of the Territory">
     <!-- Immediately recovers 1200 CP and increases Max CP to 1200. -->
     <set name="mpConsume" val="50"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="COMBATPOINTHEAL"/>
     <set name="power" val="1200"/>
     <set name="hitTime" val="1200"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="talismanId" val="14604"/>
     <set name="talismanManaConsume" val="6"/>
     <for>
@@ -151,14 +152,15 @@
   <skill id="8309" levels="1" name="Red Talisman - Territory Convoy">
     <!-- Immediately recovers 800 CP and increases Max CP to 800. -->
     <set name="mpConsume" val="50"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="COMBATPOINTHEAL"/>
     <set name="power" val="800"/>
     <set name="hitTime" val="1200"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="talismanId" val="14605"/>
     <set name="talismanManaConsume" val="6"/>
     <for>
@@ -338,6 +340,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="100"/>
     <set name="skillType" val="CANCEL"/>
@@ -353,6 +356,7 @@
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="STEAL_BUFF"/>
