@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
  */
 public enum SpecialEffect
 {
-	S_INVULNERABLE("invulnerable", 0x000001),
+	S_INVINCIBLE("invincible", 0x000001),
 	S_AIR_STUN("redglow", 0x000002),
 	S_AIR_ROOT("redglow2", 0x000004),
 	S_BAGUETTE_SWORD("baguettesword", 0x000008),

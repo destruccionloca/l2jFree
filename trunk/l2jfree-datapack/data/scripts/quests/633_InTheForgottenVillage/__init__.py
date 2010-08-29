@@ -12,7 +12,7 @@ qn = "633_InTheForgottenVillage"
 MINA = 31388
 #ITEMS
 RIB_BONE = 7544
-Z_LIVER = 7545
+Z_LIVER  = 7545
 # Mobid : DROP CHANCES
 DAMOBS = {
     21557 : 328,#Bone Snatcher

@@ -326,7 +326,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="dispelOnAttack" val="true"/>
     <for>
-      <effect count="1" name="Invincible" time="5400" val="0" special="invulnerable"/>
+      <effect count="1" name="Invincible" time="5400" val="0" special="invincible"/>
     </for>
   </skill>
   <skill id="5226" levels="1" name="Imprison">

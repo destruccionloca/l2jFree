@@ -896,7 +896,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Invincible" time="5" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
+      <effect name="Invincible" time="5" val="0" stackOrder="1" stackType="Instant_Shield" special="invincible"/>
     </for>
   </skill>
   <skill id="2578" levels="1" name="Cure Poison Paralyze">

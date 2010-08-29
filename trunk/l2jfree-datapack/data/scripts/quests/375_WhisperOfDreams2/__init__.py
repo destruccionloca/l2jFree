@@ -117,6 +117,6 @@ QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRI
 QUEST.addStartNpc(MANAKIA)
 # Quest initialization
 QUEST.addTalkId(MANAKIA)
- 
+
 for i in DROPLIST.keys() :
   QUEST.addKillId(i)

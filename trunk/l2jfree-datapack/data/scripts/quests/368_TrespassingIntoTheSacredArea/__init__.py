@@ -50,16 +50,16 @@ class Quest (JQuest) :
             bonus = 5730
          else :
             bonus = 2000
-         st.rewardItems(ADENA,bonus+amount*250)
+         st.rewardItems(ADENA,bonus+amount*1250)
          st.takeItems(BLADE_STAKATO_FANG,-1)
          st.playSound("ItemSound.quest_middle")
      return htmltext
-    
+
  def onKill(self,npc,player,isPet):
      partyMember = self.getRandomPartyMemberState(player,State.STARTED)
      if not partyMember : return
      st = partyMember.getQuestState(qn)
-   
+
      npcId = npc.getNpcId()
      random = st.getRandom(100)
      chance = CHANCE + npcId - 20794

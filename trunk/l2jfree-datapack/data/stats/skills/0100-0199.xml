@@ -217,7 +217,7 @@
   <skill id="107" levels="9" name="Holy Aura" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1power"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 </table>
     <table name="#ench2mpConsume"> 51 50 50 49 48 48 47 47 46 45 45 44 44 43 42 42 41 41 40 39 39 38 38 37 37 36 35 35 34 34 </table>
-    <table name="#ench3rCrit"> 0.1 0.1 0.11 0.11 0.11 0.12 0.12 0.12 0.13 0.13 0.13 0.14 0.14 0.14 0.15 0.15 0.15 0.16 0.16 0.16 0.17 0.17 0.17 0.18 0.18 0.18 0.19 0.19 0.19 0.20 </table> <!-- Guess -->
+    <table name="#ench3rCrit"> 0.1 0.11 0.12 0.12 0.13 0.14 0.14 0.15 0.16 0.16 0.17 0.18 0.18 0.19 0.2 0.2 0.21 0.22 0.22 0.23 0.24 0.24 0.25 0.26 0.26 0.27 0.28 0.28 0.29 0.3 </table>
     <table name="#mpConsume"> 40 42 43 45 46 48 49 50 51 </table>
     <table name="#magicLvl"> 58 60 62 64 66 68 70 72 74 </table>
     <set name="mpConsume" val="#mpConsume"/>

@@ -15,7 +15,7 @@ DROP_RATE   = 50*Config.RATE_DROP_QUEST
 DROP_MAX = 100 #in % unless you change this
 #Mysterious Stone drop rate
 DROP_RATE_2 = 1*Config.RATE_DROP_QUEST
-DROP_MAX_2  = 500 # default: ~ 1/500
+DROP_MAX_2  = 1000 # default: ~ 1/1000
 #Rewards
 SHOP_LIST={
 5485:["etc_leather_yellow_i00",4,10450,"Sealed Tallum Tunic Textures"    ],# 4xTallum Tunic Textures: 10450a
@@ -54,7 +54,7 @@ class Quest (JQuest) :
      self.questItemIds = [CB_TOOTH, DW_LIGHT]
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "30515-4.htm" :
        st.setState(State.STARTED)

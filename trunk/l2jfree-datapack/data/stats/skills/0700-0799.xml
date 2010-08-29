@@ -1411,7 +1411,7 @@
     </for>
   </skill>
   <skill id="776" levels="1" name="Force of Destruction">
-    <!-- TODO: Reuse & effecPower needs to be verified -->
+    <!-- TODO: effecPower needs to be verified -->
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>

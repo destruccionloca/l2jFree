@@ -111,7 +111,7 @@
     <set name="skillRadius" val="1000"/>
     <set name="dispelOnAttack" val="true"/>
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
+      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invincible"/>
     </for>
   </skill>
   <skill id="1506" levels="1" name="Blessing of Eva">
@@ -149,7 +149,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="30" val="0" stackOrder="10" stackType="vampRage">
-        <add order="0x40" stat="absorbDam" val="80"/>
+        <add order="0x40" stat="absorbDam" val="80"/> <!-- absorb 80% HP from damage inflicted on enemies -->
       </effect>
     </for>
   </skill>

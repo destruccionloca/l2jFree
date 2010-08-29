@@ -10,22 +10,22 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 qn = "115_TheOtherSideOfTruth"
 
 #NPCs
-Misa = 32018
+Misa       = 32018
 Suspicious = 32019
-Rafforty = 32020
+Rafforty   = 32020
 Sculpture1 = 32021
-Kierre = 32022
+Kierre     = 32022
 Sculpture2 = 32077
 Sculpture3 = 32078
 Sculpture4 = 32079
 
 #Items
-Letter = 8079
+Letter  = 8079
 Letter2 = 8080
-Tablet = 8081
-Report = 8082
+Tablet  = 8081
+Report  = 8082
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)

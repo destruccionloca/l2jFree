@@ -319,7 +319,7 @@
     <set name="hitTime" val="100"/>
     <set name="isPotion" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
+      <effect count="1" name="Buff" event="afrobaguette1" time="600" val="0" stackOrder="1" stackType="event_herb">
         <mul order="0x30" stat="pAtkSpd" val="1.08"/>
       </effect>
     </for>
@@ -335,7 +335,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
+      <effect name="Buff" event="afrobaguette2" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -347,7 +347,7 @@
     <set name="hitTime" val="100"/>
     <set name="isPotion" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
+      <effect count="1" name="Buff" event="afrobaguette3" time="600" val="0" stackOrder="1" stackType="event_herb">
         <mul order="0x30" stat="mAtkSpd" val="1.08"/>
       </effect>
     </for>

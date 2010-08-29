@@ -1,9 +1,9 @@
 # Created by Gnacik
 # 2010-02-09 based on official Franz server
 import sys
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.quest			import State
+from com.l2jfree.gameserver.model.quest			import QuestState
+from com.l2jfree.gameserver.model.quest.jython	import QuestJython as JQuest
 
 qn = "377_GiantsExploration2"
 
