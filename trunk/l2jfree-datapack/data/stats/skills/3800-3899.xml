@@ -835,7 +835,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="maxMp" val="319"/> <!-- Guess -->
+      <add order="0x40" stat="maxMp" val="539"/> <!-- Guess -->
     </for>
   </skill>
   <skill id="3891" levels="2" name="Sword Weapon of Boost HP">

@@ -757,20 +757,17 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5567" levels="1" name="Flame Armor">
-    <set name="power" val="80"/> <!-- Need retail value -->
+    <set name="power" val="35"/> <!-- Need retail value -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="magicLvl" val="83"/>
     <set name="elementPower" val="20"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="DOT"/>
+    <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <for>
-      <effect count="10" name="DamOverTime" val="173"/>
-    </for>
   </skill>
   <skill id="5568" levels="1" name="Frost Armor">
     <set name="power" val="80"/> <!-- Base Land Rate -->
@@ -785,8 +782,8 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Debuff" time="15" val="0" stackOrder="0.7" stackType="RunSpeedDown">
-        <sub order="0x40" stat="runSpd" val="30"/>
+      <effect name="Debuff" time="60" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+        <mul order="0x30" stat="runSpd" val="0.7"/>
       </effect>
     </for>
   </skill>
@@ -803,7 +800,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Debuff" time="15" val="0" stackOrder="0.77" stackType="attack_time_up">
+      <effect name="Debuff" time="30" val="0" stackOrder="0.77" stackType="attack_time_up">
         <mul order="0x30" stat="pAtkSpd" val="0.77"/>
       </effect>
     </for>

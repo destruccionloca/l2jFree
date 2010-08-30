@@ -1116,10 +1116,14 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="negateStats" val="POISON"/>
     <enchant3 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant3 name="effectType" val="NEGATE"/>
     <enchant4 name="negateStats" val="BLEED"/>
     <enchant4 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant4 name="effectType" val="NEGATE"/>
+    <enchant3for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant3for>
+    <enchant4for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant4for>
   </skill>
   <skill id="60" levels="1" name="Fake Death">
     <set name="mpInitialConsume" val="200"/>
@@ -1197,8 +1201,9 @@
     <enchant1 name="power" val="#ench1power"/>
   </skill>
   <skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench1power"> 1177 1183 1190 1196 1203 1209 1216 1222 1228 1235 1241 1248 1254 1261 1267 1274 1280 1287 1293 1300 1306 1313 1319 1326 1332 1339 1345 1351 1358 1364 </table>
-    <table name="#ench2hpConsume"> 1546 1532 1517 1503 1489 1475 1460 1446 1432 1418 1403 1389 1375 1360 1346 1332 1318 1303 1289 1275 1261 1246 1232 1218 1204 1189 1175 1161 1147 1132 </table>
+    <table name="#ench1power"> 1231 1292 1353 1415 1476 1537 1598 1659 1720 1781 1842 1903 1964 2025 2086 2147 2208 2269 2331 2392 2453 2514 2575 2636 2697 2758 2819 2880 2941 3002 </table>
+    <table name="#ench2hpConsume"> 1534 1508 1482 1456 1430 1404 1378 1352 1326 1300 1274 1248 1222 1196 1170 1144 1118 1092 1066 1040 1014 988 962 936 910 884 858 832 806 780 </table>
+    <table name="#ench34hpConsume"> 1544 1528 1513 1497 1482 1466 1450 1435 1419 1404 1388 1372 1357 1341 1326 1310 1294 1279 1263 1248 1232 1216 1201 1185 1170 1154 1138 1123 1107 1092 </table>
     <table name="#hpConsume"> 988 1015 1042 1070 1097 1123 1150 1177 1203 1229 1255 1280 1305 1329 1353 1377 1400 1422 1444 1465 1486 1506 1525 1543 1560 </table>
     <table name="#enchnegateLvl"> 3 3 3 3 3 3 3 3 3 3 7 7 7 7 7 7 7 7 7 7 9 9 9 9 9 9 9 9 9 9 </table>
     <table name="#magicLvl"> 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
@@ -1220,10 +1225,16 @@
     <enchant2 name="hpConsume" val="#ench2hpConsume"/>
     <enchant3 name="negateStats" val="POISON"/>
     <enchant3 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant3 name="effectType" val="NEGATE"/>
+    <enchant3 name="hpConsume" val="#ench34hpConsume"/>
     <enchant4 name="negateStats" val="BLEED"/>
     <enchant4 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant4 name="effectType" val="NEGATE"/>
+    <enchant4 name="hpConsume" val="#ench34hpConsume"/>
+    <enchant3for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant3for>
+    <enchant4for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant4for>
   </skill>
   <skill id="70" levels="53" name="Drain Health" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119 120 120 121 122 122 123 124 124 125 125 126 127 127 </table>

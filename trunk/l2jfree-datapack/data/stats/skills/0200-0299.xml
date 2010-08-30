@@ -1733,10 +1733,14 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="negateStats" val="POISON"/>
     <enchant3 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant3 name="effectType" val="NEGATE"/>
     <enchant4 name="negateStats" val="BLEED"/>
     <enchant4 name="negateLvl" val="#enchnegateLvl"/>
-    <enchant4 name="effectType" val="NEGATE"/>
+    <enchant3for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant3for>
+    <enchant4for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </enchant4for>
   </skill>
   <skill id="263" levels="37" name="Deadly Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30">
     <table name="#ench1power"> 5536 5593 5650 5708 5765 5822 5879 5936 5993 6050 6107 6164 6222 6279 6336 6396 6450 6507 6564 6621 6678 6736 6793 6850 6907 6964 7021 7078 7135 7192 </table>
