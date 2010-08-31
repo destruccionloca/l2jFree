@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
   `Description` varchar(255) default NULL,
   `repCost` int(11) default NULL,
   `itemId` int(11) default NULL,
-  `itemCount` int(11) DEFAULT NULL
+  `itemCount` int(11) DEFAULT NULL,
   PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 

@@ -9450,7 +9450,7 @@ INSERT INTO `etcitem` VALUES
 (15465,'Halloween Nectar Pumpkin Pack - event','Event','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
 (15466,'Halloween King Pumpkin Pack - event','Event','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
 (15467,'Halloween Nectar Pumpkin - event','Event','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
-(15468,'Halloween King Pumpkin - event','Event','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none','');
+(15468,'Halloween King Pumpkin - event','Event','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
 (16383,'Christmas Cake Pack','','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
 (16384,'Special Christmas Cake Pack','','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
 (16385,'Teddy Boy Gift Box Pack','','false','none',0,'normal','wood','none',-1,-1,0,0,'false','false','false','false','false','none',''),
