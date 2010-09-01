@@ -668,9 +668,16 @@
   </skill>
   <skill id="8361" levels="1" name="Sixth Anniversary Party Earring">
     <!-- Increases resistance to shock/mind attack by 20% and shock/mind attack bonus by 20%. Recovers 4% of the damage to the enemy as your HP. Excludes damage caused by skills and long-range attack. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="stunRes" val="0.8"/> <!-- Stun Resistance +20 -->
+      <mul order="0x30" stat="derangementVuln" val="0.8"/> <!-- Derangement Resistance +20 -->
+      <add order="0x30" stat="stunProf" val="20"/> <!-- Stun Proficency +20 -->
+      <mul order="0x30" stat="derangementProf" val="1.2"/> <!-- Derangement Proficency +20 -->
+      <add order="0x40" stat="absorbDam" val="4"/> <!-- absorb 4% HP from damage inflicted on enemies -->
+    </for>
   </skill>
   <skill id="8365" levels="1" name="Dynasty Tunic">
     <set name="target" val="TARGET_NONE"/>

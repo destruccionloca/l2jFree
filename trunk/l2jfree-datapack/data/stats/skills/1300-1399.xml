@@ -1552,7 +1552,7 @@
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
         <mul order="0x30" stat="runSpd" val="0.8"/>
-        <add order="0x40" stat="absorbDam" val="5"/>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP from damage inflicted on enemies -->
       </effect>
     </enchant1for>
     <enchant3for>
@@ -1568,7 +1568,7 @@
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
         <mul order="0x30" stat="runSpd" val="#ench3runSpd"/>
-        <add order="0x40" stat="absorbDam" val="5"/>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP from damage inflicted on enemies -->
       </effect>
     </enchant3for>
   </skill>

@@ -8,7 +8,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="runSpd" val="3"/> <!-- increase Run Speed +3 -->
+      <add order="0x40" stat="runSpd" val="5"/> <!-- increase Run Speed +5 -->
     </for>
   </skill>
   <skill id="3301" levels="1" name="Yellow Talisman of Violent Haste">
@@ -32,39 +32,60 @@
     </for>
   </skill>
   <skill id="3303" levels="1" name="White Talisman of Bandages">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="bleedVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3304" levels="1" name="White Talisman of Attention">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="sleepVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3305" levels="1" name="White Talisman of Grounding">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="stunVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3306" levels="1" name="White Talisman of Bravery">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="derangementVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3307" levels="1" name="White Talisman of Motion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="paralyzeVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3308" levels="1" name="White Talisman of Freedom">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="rootVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3309" levels="1" name="White Talisman of Protection">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="cancelVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="3310" levels="1" name="Yellow Talisman of Physical Regeneration">
     <!-- Guessing, based on 593 -->
@@ -184,7 +205,8 @@
     <set name="talismanManaConsume" val="6"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_blue">
-        <add order="0x40" stat="rEvas" val="5"/>
+        <add order="0x40" stat="rEvas" val="2"/>
+        <mul order="0x30" stat="critDamEvas" val="1.2"/> <!-- Guess -->
       </effect>
     </for>
   </skill>
@@ -271,9 +293,10 @@
     <set name="itemConsumeCount" val="16"/>
     <set name="mpConsume" val="50"/>
     <set name="hitTime" val="100"/>
-    <set name="reuseDelay" val="15000"/>
+    <set name="reuseDelay" val="6000000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -283,10 +306,11 @@
   </skill>
   <skill id="3333" levels="1" name="Orange Talisman - A Grade Elixir of Life">
     <set name="mpConsume" val="50"/>
+    <set name="hitTime" val="20000"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="reuseDelay" val="600000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="10000"/>
     <set name="skillType" val="CREATE_ITEM"/>
-    <set name="reuseDelay" val="10000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="itemConsumeId" val="1785"/>
     <set name="itemConsumeCount" val="50"/>
@@ -297,10 +321,11 @@
   </skill>
   <skill id="3334" levels="1" name="Orange Talisman - A Grade Elixir of Mental Strength">
     <set name="mpConsume" val="50"/>
+    <set name="hitTime" val="20000"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="reuseDelay" val="600000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="10000"/>
     <set name="skillType" val="CREATE_ITEM"/>
-    <set name="reuseDelay" val="10000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="itemConsumeId" val="1785"/>
     <set name="itemConsumeCount" val="57"/>
@@ -320,13 +345,11 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="300" val="0"/> <!-- Transformation lasts 5 minutes -->
     </for>
   </skill>
   <skill id="3336" levels="1" name="Transform Buffalo">
-    <!--
-      Done by Skatershi
-      Description: Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form. -->
+    <!-- Done by Skatershi - Description: Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -336,7 +359,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="300" val="0"/> <!-- Transformation lasts 5 minutes -->
     </for>
   </skill>
   <skill id="3337" levels="1" name="Transform Cutie Pig">
