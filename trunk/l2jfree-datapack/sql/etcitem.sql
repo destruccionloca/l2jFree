@@ -10606,3 +10606,6 @@ UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '674-1' WHERE (item_i
 
 -- Prison Gate Key (Psycho)
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2362-1' WHERE `item_id` =10015;
+
+-- Chest Key - For Events Only (Spire)
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2322-1' WHERE `item_id` =9205;
