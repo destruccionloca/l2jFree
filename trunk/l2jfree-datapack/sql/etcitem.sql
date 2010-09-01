@@ -7084,7 +7084,7 @@ INSERT INTO `etcitem` VALUES
 (9699,'Red Coral Key','','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','PaganKeys','2367-1'),
 (9700,'Water Dragon Claw','','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2360-1'),
 (9701,'Sealed Magic Field Key','','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(9702,'Caravaner\'s Remedy','','false','potion',5,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(9702,'Caravaner\'s Remedy','','false','potion',5,'stackable','liquid','none',-1,-1,0,0,'true','false','true','false','true','ItemSkills','2341-1'),
 (9703,'Gate Key: Kamael','','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (9704,'Gate Key: Archives','','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (9705,'Gate Key: Observation','','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
@@ -10287,7 +10287,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (8056,8192,8273
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2440-1' WHERE `item_id` = 9599;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2359-1' WHERE `item_id` = 9672;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2358-1' WHERE `item_id` = 9673;
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2341-1' WHERE `item_id` = 9702;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true' where item_id >= 8570 and item_id <= 8575;
 -- Temp fix for Sound Crystals 
@@ -10422,7 +10421,6 @@ UPDATE `etcitem` SET `skills_item` = '2946-1' WHERE `item_id` = 13720;
 UPDATE `etcitem` SET `skills_item` = '2947-1' WHERE `item_id` = 13721;
 
 -- Caravaner\'s Remedy and Certificates
-UPDATE `etcitem` SET `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` = '9702';
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (9850,9851,9852);
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` IN (9850,9851,9852);
 

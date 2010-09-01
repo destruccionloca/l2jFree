@@ -103,9 +103,11 @@
     </cond>
   </skill>
   <skill id="2307" levels="1" name="Remove Petrification Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="600"/>
+    <set name="skillType" val="CANCEL_DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="effectRange" val="1100"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -308,40 +310,98 @@
     <set name="effectRange" val="600"/>
   </skill>
   <skill id="2322" levels="1" name="Chest Key - For Events Only">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="OPEN_DOOR"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="itemConsumeId" val="9205"/>
+    <set name="itemConsumeCount" val="1"/>
   </skill>
   <skill id="2323" levels="1" name="Red Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9171"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2324" levels="1" name="Blue Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9172"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2325" levels="1" name="Orange Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9173"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2326" levels="1" name="Black Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9174"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2327" levels="1" name="White Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9175"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2328" levels="1" name="Green Sage's Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9176"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2329" levels="4" name="Fire Stone/Crystal/Jewel/Energy">
     <set name="target" val="TARGET_NONE"/>
@@ -476,6 +536,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
+    <set name="canBeDispeled" val="false"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -608,7 +669,7 @@
     <set name="itemConsumeId" val="9687"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">
-      <target doorId="20260005"/>
+      <target doorId="20260005 20260002"/>
     </cond>
   </skill>
   <skill id="2357" levels="1" name="Fiery Demon Blood">
@@ -637,7 +698,7 @@
     <cond msgId="113" addName="1">
       <and>
         <player flyMounted="False"/>
-        <target npcId="18463,18464,18465"/>
+        <target npcId="18463,18464,18465,22330"/>
       </and>
     </cond>
   </skill>
@@ -665,7 +726,7 @@
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="500"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="8000"/> <!-- guess -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="neutral" val="true"/>
@@ -762,7 +823,7 @@
     <set name="hitTime" val="8000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="reuseDelay" val="8000"/> <!-- unknown -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess -->
     <set name="skillType" val="AGGREDUCE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
@@ -809,7 +870,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/>
+      <effect name="Transformation" time="3600" val="0"/> <!-- Transformation lasts 60 minutes -->
     </for>
   </skill>
   <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">

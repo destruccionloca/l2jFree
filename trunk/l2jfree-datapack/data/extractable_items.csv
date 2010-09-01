@@ -1,5 +1,5 @@
 #itemId;Production1,Quantity1,Chance1[;Production2,Quantity2,Chance2... ;ProductionN,QuantityN,ChanceN]
-#itemId;[Production1,Quantity1,Production2,Quantity2,....],Chance1 - for 2 or more rewards (use witout [ ] )
+#itemId;[Production1,Quantity1,Production2,Quantity2,....],Chance1 - for 2 or more rewards (use without [ ] )
 
 # Shiny Agathion
 55;14102,1,100

@@ -839,7 +839,6 @@
     </for>
   </skill>
   <skill id="532" levels="1" name="Counter Chance">
-    <!-- Needs to be verified -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -849,7 +848,6 @@
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
   <skill id="533" levels="1" name="Counter Rapid Shot">
-    <!-- Needs to be verified -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -859,7 +857,6 @@
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
   <skill id="534" levels="1" name="Counter Dash">
-    <!-- Needs to be verified -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -869,7 +866,6 @@
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
   <skill id="535" levels="1" name="Counter Mind">
-    <!-- Needs to be verified -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1861,7 +1857,6 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <!-- <set name="nextAction" val="attack"/> --> <!-- To prevent character stop from attacking -->
     <for>
       <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="40" effectType="BLEED"> <!-- Guess effectPower -->
         <mul order="0x30" stat="runSpd" val="0.8"/>
