@@ -188,7 +188,7 @@
     <ingredient id="9597" count="1"/> <!-- White -->
     <production id="9993" count="3"/>
   </item>
-     <!-- Recipe: Sealed Dynasty Blast Plate x1 -->
+  <!-- Recipe: Sealed Dynasty Blast Plate x1 -->
   <item id="21">
     <ingredient id="9593" count="1120"/> <!-- Yellow -->
     <ingredient id="9594" count="561"/> <!-- Green -->

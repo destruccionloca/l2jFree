@@ -3,160 +3,160 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- Blacksmith Crafting Service -->
-  <item id="1"> <!-- Braided Hemp -->
-    <ingredient id="2135" count="1" maintainIngredient="true"/>
-    <ingredient id="1864" count="5"/>
-    <production id="1878" count="1"/>
+  <item id="1">
+    <ingredient id="2135" count="1" mantainIngredient="true"/> <!-- Recipe: Braided Hemp -->
+    <ingredient id="1864" count="5"/> <!-- Stem -->
+    <production id="1878" count="1"/> <!-- Braided Hemp -->
   </item>
-  <item id="2"> <!-- Cokes -->
-    <ingredient id="2136" count="1" maintainIngredient="true"/>
-    <ingredient id="1870" count="3"/>
-    <ingredient id="1871" count="3"/>
-    <production id="1879" count="1"/>
+  <item id="2">
+    <ingredient id="2136" count="1" mantainIngredient="true"/> <!-- Recipe: Cokes -->
+    <ingredient id="1870" count="3"/> <!-- Coal -->
+    <ingredient id="1871" count="3"/> <!-- Charcoal -->
+    <production id="1879" count="1"/> <!-- Cokes -->
   </item>
-  <item id="3"> <!-- Steel -->
-    <ingredient id="2137" count="1" maintainIngredient="true"/>
-    <ingredient id="1865" count="5"/>
-    <ingredient id="1869" count="5"/>
-    <production id="1880" count="1"/>
+  <item id="3">
+    <ingredient id="2137" count="1" mantainIngredient="true"/> <!-- Recipe: Steel -->
+    <ingredient id="1865" count="5"/> <!-- Varnish -->
+    <ingredient id="1869" count="5"/> <!-- Iron Ore -->
+    <production id="1880" count="1"/> <!-- Steel -->
   </item>
-  <item id="4"> <!-- Coarse Bone Powder -->
-    <ingredient id="2138" count="1" maintainIngredient="true"/>
-    <ingredient id="1872" count="10"/>
-    <production id="1881" count="1"/>
+  <item id="4">
+    <ingredient id="2138" count="1" mantainIngredient="true"/>  <!-- Recipe: Coarse Bone Powder (100%) -->
+    <ingredient id="1872" count="10"/> <!-- Animal Bone -->
+    <production id="1881" count="1"/> <!-- Coarse Bone Powder -->
   </item>
-  <item id="5"> <!-- Leather -->
-    <ingredient id="1814" count="1" maintainIngredient="true"/>
-    <ingredient id="1867" count="6"/>
-    <production id="1882" count="1"/>
+  <item id="5">
+    <ingredient id="1814" count="1" mantainIngredient="true"/> <!-- Recipe: Leather -->
+    <ingredient id="1867" count="6"/> <!-- Animal Skin -->
+    <production id="1882" count="1"/> <!-- Leather -->
   </item>
-  <item id="6"> <!-- Steel Mold -->
-    <ingredient id="2139" count="1" maintainIngredient="true"/>
-    <ingredient id="1878" count="5"/>
-    <ingredient id="1869" count="5"/>
-    <ingredient id="1870" count="5"/>
-    <production id="1883" count="1"/>
+  <item id="6">
+    <ingredient id="2139" count="1" mantainIngredient="true"/>  <!-- Recipe: Steel Mold -->
+    <ingredient id="1878" count="5"/> <!-- Braided Hemp -->
+    <ingredient id="1869" count="5"/> <!-- Iron Ore -->
+    <ingredient id="1870" count="5"/> <!-- Coal -->
+    <production id="1883" count="1"/>  <!-- Steel Mold -->
   </item>
-  <item id="7"> <!-- Cord -->
-    <ingredient id="1817" count="1" maintainIngredient="true"/>
-    <ingredient id="1880" count="2"/>
-    <ingredient id="1868" count="25"/>
-    <production id="1884" count="20"/>
+  <item id="7">
+    <ingredient id="1817" count="1" mantainIngredient="true"/> <!-- Recipe: Cord -->
+    <ingredient id="1880" count="2"/> <!-- Steal -->
+    <ingredient id="1868" count="25"/> <!-- Thread -->
+    <production id="1884" count="20"/> <!-- Cord -->
   </item>
-  <item id="8"> <!-- High Grade Suede -->
-    <ingredient id="2140" count="1" maintainIngredient="true"/>
-    <ingredient id="1881" count="1"/>
-    <ingredient id="1866" count="3"/>
-    <production id="1885" count="1"/>
+  <item id="8">
+    <ingredient id="2140" count="1" mantainIngredient="true"/> <!-- Recipe: High Grade Suede -->
+    <ingredient id="1881" count="1"/> <!-- Coarse Bone Powder -->
+    <ingredient id="1866" count="3"/> <!-- Suede -->
+    <production id="1885" count="1"/> <!-- High Grade Suede -->
   </item>
-  <item id="9"> <!-- Silver Mold -->
-    <ingredient id="2141" count="1" maintainIngredient="true"/>
-    <ingredient id="1878" count="5"/>
-    <ingredient id="1879" count="5"/>
-    <ingredient id="1873" count="10"/>
-    <production id="1886" count="1"/>
+  <item id="9">
+    <ingredient id="2141" count="1" mantainIngredient="true"/> <!-- Recipe: Silver Mold -->
+    <ingredient id="1878" count="5"/> <!-- Braided Hemp -->
+    <ingredient id="1879" count="5"/> <!-- Cokes -->
+    <ingredient id="1873" count="10"/> <!-- Silver Nugget -->
+    <production id="1886" count="1"/> <!-- Silver Mold -->
   </item>
-  <item id="10"> <!-- Varnish of Purity -->
-    <ingredient id="2142" count="1" maintainIngredient="true"/>
-    <ingredient id="1881" count="3"/>
-    <ingredient id="1865" count="3"/>
-    <ingredient id="1875" count="1"/>
-    <production id="1887" count="1"/>
+  <item id="10">
+    <ingredient id="2142" count="1" mantainIngredient="true"/> <!-- Recipe: Varnish of Purity -->
+    <ingredient id="1881" count="3"/> <!-- Coarse Bone Powder -->
+    <ingredient id="1865" count="3"/> <!-- Varnish -->
+    <ingredient id="1875" count="1"/> <!-- Stone of Purity -->
+    <production id="1887" count="1"/> <!-- Varnish of Purity -->
   </item>
-  <item id="11"> <!-- Synthethic Cokes -->
-    <ingredient id="2143" count="1" maintainIngredient="true"/>
-    <ingredient id="1879" count="3"/>
-    <ingredient id="1874" count="1"/>
-    <production id="1888" count="1"/>
+  <item id="11">
+    <ingredient id="2143" count="1" mantainIngredient="true"/> <!-- Recipe: Synthethic Cokes -->
+    <ingredient id="1879" count="3"/> <!-- Cokes -->
+    <ingredient id="1874" count="1"/> <!-- Oriharukon Ore -->
+    <production id="1888" count="1"/> <!-- Synthethic Cokes -->
   </item>
-  <item id="12"> <!-- Compound Braid -->
-    <ingredient id="2144" count="1" maintainIngredient="true"/>
-    <ingredient id="1878" count="5"/>
-    <ingredient id="1868" count="5"/>
-    <production id="1889" count="1"/>
+  <item id="12">
+    <ingredient id="2144" count="1" mantainIngredient="true"/> <!-- Recipe: Compound Braid -->
+    <ingredient id="1878" count="5"/> <!-- Braided Hemp -->
+    <ingredient id="1868" count="5"/> <!-- Thread -->
+    <production id="1889" count="1"/> <!-- Compound Braid -->
   </item>
-  <item id="13"> <!-- Mithril alloy -->
-    <ingredient id="2145" count="1" maintainIngredient="true"/>
-    <ingredient id="1887" count="1"/>
-    <ingredient id="1880" count="2"/>
-    <ingredient id="1876" count="1"/>
-    <production id="1890" count="1"/>
+  <item id="13">
+    <ingredient id="2145" count="1" mantainIngredient="true"/> <!-- Recipe: Mithril Alloy -->
+    <ingredient id="1887" count="1"/> <!-- Varnish of Purify -->
+    <ingredient id="1880" count="2"/> <!-- Steel -->
+    <ingredient id="1876" count="1"/> <!-- Mithril Ore -->
+    <production id="1890" count="1"/> <!-- Mithril Alloy -->
   </item>
-  <item id="14"> <!-- Artisan's Frame -->
-    <ingredient id="2146" count="1" maintainIngredient="true"/>
-    <ingredient id="1883" count="1"/>
-    <ingredient id="1887" count="5"/>
-    <ingredient id="1877" count="10"/>
-    <production id="1891" count="1"/>
+  <item id="14">
+    <ingredient id="2146" count="1" mantainIngredient="true"/> <!-- Recipe: Artisan's Frame -->
+    <ingredient id="1883" count="1"/> <!-- Steel Mold -->
+    <ingredient id="1887" count="5"/> <!-- Varnish of Purity -->
+    <ingredient id="1877" count="10"/> <!-- Adamantite Nugget -->
+    <production id="1891" count="1"/> <!-- Artisan's Frame -->
   </item>
-  <item id="15"> <!-- Blacksmith Frame -->
-    <ingredient id="2147" count="1" maintainIngredient="true"/>
-    <ingredient id="1886" count="1"/>
-    <ingredient id="1887" count="5"/>
-    <ingredient id="1876" count="10"/>
-    <production id="1892" count="1"/>
+  <item id="15">
+    <ingredient id="2147" count="1" mantainIngredient="true"/> <!-- Recipe: Blacksmith Frame -->
+    <ingredient id="1886" count="1"/> <!-- Silver Mold -->
+    <ingredient id="1887" count="5"/> <!-- Varnish of Purity -->
+    <ingredient id="1876" count="10"/> <!-- Mithril Ore -->
+    <production id="1892" count="1"/> <!-- Blacksmith Frame -->
   </item>
-  <item id="16"> <!-- Oriharukon -->
-    <ingredient id="1825" count="1" maintainIngredient="true"/>
-    <ingredient id="1888" count="1"/>
-    <ingredient id="1873" count="12"/>
-    <ingredient id="1874" count="4"/>
-    <production id="1893" count="1"/>
+  <item id="16">
+    <ingredient id="1825" count="1" mantainIngredient="true"/> <!-- Recipe: Oriharukon -->
+    <ingredient id="1888" count="1"/> <!-- Synthetic Cokes -->
+    <ingredient id="1873" count="12"/> <!-- Silver Nugget -->
+    <ingredient id="1874" count="4"/> <!-- Oriharukon Ore -->
+    <production id="1893" count="1"/> <!-- Oriharukon -->
   </item>
-  <item id="17"> <!-- Crafted Leather -->
-    <ingredient id="2148" count="1" maintainIngredient="true"/>
-    <ingredient id="1884" count="4"/>
-    <ingredient id="1882" count="4"/>
-    <ingredient id="1870" count="4"/>
-    <production id="1894" count="1"/>
+  <item id="17">
+    <ingredient id="2148" count="1" mantainIngredient="true"/> <!-- Recipe: Crafted Leather -->
+    <ingredient id="1884" count="4"/> <!-- Cord -->
+    <ingredient id="1882" count="4"/> <!-- Leather -->
+    <ingredient id="1870" count="4"/> <!-- Coal -->
+    <production id="1894" count="1"/> <!-- Crafted Leather -->
   </item>
-  <item id="18"> <!-- Metallic Fiber -->
-    <ingredient id="2149" count="1" maintainIngredient="true"/>
-    <ingredient id="1884" count="20"/>
-    <ingredient id="1873" count="15"/>
-    <production id="1895" count="20"/>
+  <item id="18">
+    <ingredient id="2149" count="1" mantainIngredient="true"/> <!-- Recipe: Metallic Fiber -->
+    <ingredient id="1884" count="20"/> <!-- Cord -->
+    <ingredient id="1873" count="15"/> <!-- Silver Nugget -->
+    <production id="1895" count="20"/> <!-- Metallic Fiber -->
   </item>
-  <item id="19"> <!-- Metallic Thread -->
-    <ingredient id="5472" count="1" maintainIngredient="true"/>
-    <ingredient id="1868" count="10"/>
-    <ingredient id="1869" count="5"/>
-    <production id="5549" count="1"/>
+  <item id="19">
+    <ingredient id="5472" count="1" mantainIngredient="true"/> <!-- Recipe: Metallic Thread -->
+    <ingredient id="1868" count="10"/> <!-- Thread -->
+    <ingredient id="1869" count="5"/> <!-- Iron Ore -->
+    <production id="5549" count="1"/> <!-- Metallic Thread -->
   </item>
-  <item id="20"> <!-- Metal Hardener -->
-    <ingredient id="5231" count="1" maintainIngredient="true"/>
-    <ingredient id="1864" count="10"/>
-    <ingredient id="1865" count="10"/>
-    <ingredient id="1869" count="10"/>
-    <production id="5220" count="1"/>
+  <item id="20">
+    <ingredient id="5231" count="1" mantainIngredient="true"/> <!-- Recipe: Metal Hardener (100%) -->
+    <ingredient id="1864" count="10"/> <!-- Stem -->
+    <ingredient id="1865" count="10"/> <!-- Varnish -->
+    <ingredient id="1869" count="10"/> <!-- Iron Ore -->
+    <production id="5220" count="1"/> <!-- Metal Hardener -->
   </item>
-  <item id="21"> <!-- Durable Metal Plate -->
-    <ingredient id="5473" count="1" maintainIngredient="true"/>
-    <ingredient id="5549" count="5"/>
-    <ingredient id="1876" count="5"/>
-    <production id="5550" count="1"/>
+  <item id="21">
+    <ingredient id="5473" count="1" mantainIngredient="true"/> <!-- Recipe: Durable Metal Plate(100%) -->
+    <ingredient id="5549" count="5"/> <!-- Metallic Thread -->
+    <ingredient id="1876" count="5"/> <!-- Mithril Ore -->
+    <production id="5550" count="1"/> <!-- Durable Metal Plate -->
   </item>
-  <item id="22"> <!-- Leolin's Mold -->
-    <ingredient id="1884" count="40"/>
-    <ingredient id="5550" count="10"/>
-    <ingredient id="1877" count="15"/>
-    <production id="5551" count="1"/>
+  <item id="22">
+    <ingredient id="1884" count="40"/> <!-- Cord -->
+    <ingredient id="5550" count="10"/> <!-- Durable Metal Plate -->
+    <ingredient id="1877" count="15"/> <!-- Adamantite Nugget -->
+    <production id="5551" count="1"/> <!-- Leolin's Mold -->
   </item>
-  <item id="23"> <!-- Warsmith's Mold -->
-    <ingredient id="1891" count="1"/>
-    <ingredient id="4041" count="10"/>
-    <ingredient id="4042" count="5"/>
-    <production id="5552" count="1"/>
+  <item id="23">
+    <ingredient id="1891" count="1"/> <!-- Artisan's Frame -->
+    <ingredient id="4041" count="10"/> <!-- Mold Hardener -->
+    <ingredient id="4042" count="5"/> <!-- Enria -->
+    <production id="5552" count="1"/> <!-- Warsmith's Mold -->
   </item>
-  <item id="24"> <!-- Arcsmith's Anvil -->
-    <ingredient id="4046" count="3"/>
-    <ingredient id="4040" count="20"/>
-    <ingredient id="4044" count="10"/>
-    <production id="5553" count="1"/>
+  <item id="24">
+    <ingredient id="4046" count="3"/> <!-- Maestro Anvil Lock -->
+    <ingredient id="4040" count="20"/> <!-- Mold Lubricant -->
+    <ingredient id="4044" count="10"/> <!-- Thons -->
+    <production id="5553" count="1"/> <!-- Arcsmith's Anvil -->
   </item>
-  <item id="25"> <!-- Warsmith's Holder -->
-    <ingredient id="4045" count="2"/>
-    <ingredient id="4039" count="10"/>
-    <ingredient id="1868" count="20"/>
-    <production id="5554" count="1"/>
+  <item id="25">
+    <ingredient id="4045" count="2"/> <!-- Mastro Holder -->
+    <ingredient id="4039" count="10"/> <!-- Mold Glue -->
+    <ingredient id="1868" count="20"/> <!-- Thread -->
+    <production id="5554" count="1"/> <!-- Warsmith's Holder -->
   </item>
 </list>

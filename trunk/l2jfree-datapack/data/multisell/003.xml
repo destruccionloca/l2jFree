@@ -3,641 +3,769 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- Newbie Exchange -->
+  <!-- Heavy Chisel -->
   <item id="1">
     <ingredient id="4" count="1"/>
     <ingredient id="57" count="8032"/>
     <production id="152" count="1"/>
   </item>
+  <!-- Mace -->
   <item id="2">
     <ingredient id="152" count="1"/>
     <ingredient id="57" count="4873"/>
     <production id="5" count="1"/>
   </item>
+  <!-- Sickle -->
   <item id="3">
     <ingredient id="5" count="1"/>
     <ingredient id="57" count="6600"/>
     <production id="153" count="1"/>
   </item>
+  <!-- Dwarven Mace -->
   <item id="4">
     <ingredient id="153" count="1"/>
     <ingredient id="57" count="39160"/>
     <production id="154" count="1"/>
   </item>
+  <!-- Dwarven Mace -->
   <item id="5">
     <ingredient id="1511" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="154" count="1"/>
   </item>
+  <!-- Flanged Mace -->
   <item id="6">
     <ingredient id="154" count="1"/>
     <ingredient id="57" count="208890"/>
     <production id="155" count="1"/>
   </item>
+  <!-- Flanged Mace -->
   <item id="7">
     <ingredient id="2501" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="155" count="1"/>
   </item>
+  <!-- Bow -->
   <item id="8">
     <ingredient id="13" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="14" count="1"/>
   </item>
+  <!-- Hunting Bow -->
   <item id="9">
     <ingredient id="14" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="271" count="1"/>
   </item>
+  <!-- Forest Bow -->
   <item id="10">
     <ingredient id="271" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="272" count="1"/>
   </item>
+  <!-- Composite Bow -->
   <item id="11">
     <ingredient id="272" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="273" count="1"/>
   </item>
+  <!-- Doom Dagger -->
   <item id="12">
     <ingredient id="11" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="215" count="1"/>
   </item>
+  <!-- Dirk -->
   <item id="13">
     <ingredient id="12" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="216" count="1"/>
   </item>
+  <!-- Dirk -->
   <item id="14">
     <ingredient id="215" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="216" count="1"/>
   </item>
+  <!-- Dirk -->
   <item id="15">
     <ingredient id="989" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="216" count="1"/>
   </item>
+  <!-- Dirk -->
   <item id="16">
     <ingredient id="2372" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="216" count="1"/>
   </item>
+  <!-- Dirk -->
   <item id="17">
     <ingredient id="2374" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="216" count="1"/>
   </item>
+  <!-- Throwing Knife -->
   <item id="18">
     <ingredient id="216" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="218" count="1"/>
   </item>
+  <!-- Throwing Knife -->
   <item id="19">
     <ingredient id="946" count="1"/>
     <ingredient id="57" count="76340"/>
     <production id="218" count="1"/>
   </item>
+  <!-- Sword Breaker -->
   <item id="20">
     <ingredient id="217" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="219" count="1"/>
   </item>
+  <!-- Sword Breaker -->
   <item id="21">
     <ingredient id="218" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="219" count="1"/>
   </item>
+  <!-- Iron Gloves -->
   <item id="22">
     <ingredient id="253" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="254" count="1"/>
   </item>
+  <!-- Fox Claw Gloves -->
   <item id="23">
     <ingredient id="254" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="255" count="1"/>
   </item>
+  <!-- Fox Claw Gloves -->
   <item id="24">
     <ingredient id="2371" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="255" count="1"/>
   </item>
+  <!-- Cestus -->
   <item id="25">
     <ingredient id="255" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="256" count="1"/>
   </item>
+  <!-- Viper Fang -->
   <item id="26">
     <ingredient id="256" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="257" count="1"/>
   </item>
+  <!-- Great Spear -->
   <item id="27">
     <ingredient id="15" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="16" count="1"/>
   </item>
+  <!-- Brandish -->
   <item id="28">
     <ingredient id="981" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="1333" count="1"/>
   </item>
+  <!-- Zweihander -->
   <item id="29">
     <ingredient id="1333" count="1"/>
     <ingredient id="57" count="208890"/>
     <production id="5284" count="1"/>
   </item>
+  <!-- Broadsword -->
   <item id="30">
     <ingredient id="1" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="3" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="31">
     <ingredient id="3" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="32">
     <ingredient id="738" count="1"/>
     <ingredient id="57" count="39160"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="33">
     <ingredient id="1510" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="34">
     <ingredient id="9720" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="35">
     <ingredient id="743" count="1"/>
     <ingredient id="57" count="22550"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Gladius -->
   <item id="36">
     <ingredient id="975" count="1"/>
     <ingredient id="57" count="22550"/>
     <production id="66" count="1"/>
   </item>
+  <!-- Long Sword -->
   <item id="37">
     <ingredient id="66" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="2" count="1"/>
   </item>
+  <!-- Long Sword -->
   <item id="38">
     <ingredient id="67" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="2" count="1"/>
   </item>
+  <!-- Long Sword -->
   <item id="39">
     <ingredient id="122" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="2" count="1"/>
   </item>
+  <!-- Falchion -->
   <item id="40">
     <ingredient id="2" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="68" count="1"/>
   </item>
+  <!-- Falchion -->
   <item id="41">
     <ingredient id="120" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="68" count="1"/>
   </item>
+  <!-- Falchion -->
   <item id="42">
     <ingredient id="121" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="68" count="1"/>
   </item>
+  <!-- Willow Staff -->
   <item id="43">
     <ingredient id="7" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="8" count="1"/>
   </item>
+  <!-- Apprentice's Spellbook -->
   <item id="44">
     <ingredient id="7" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="99" count="1"/>
   </item>
+  <!-- Willow Staff -->
   <item id="45">
     <ingredient id="308" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="8" count="1"/>
   </item>
+  <!-- Apprentice's Spellbook -->
   <item id="46">
     <ingredient id="308" count="1"/>
     <ingredient id="57" count="12905"/>
     <production id="99" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="47">
     <ingredient id="8" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="48">
     <ingredient id="99" count="1"/>
     <ingredient id="57" count="45760"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="49">
     <ingredient id="754" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="50">
     <ingredient id="2373" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="51">
     <ingredient id="747" count="1"/>
     <ingredient id="57" count="31460"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Cedar Staff -->
   <item id="52">
     <ingredient id="744" count="1"/>
     <ingredient id="57" count="22550"/>
     <production id="9" count="1"/>
   </item>
+  <!-- Journeyman's Staff -->
   <item id="53">
     <ingredient id="9" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="176" count="1"/>
   </item>
+  <!-- Relic of the Saints -->
   <item id="54">
     <ingredient id="9" count="1"/>
     <ingredient id="57" count="90090"/>
     <production id="310" count="1"/>
   </item>
+  <!-- Mage Staff -->
   <item id="55">
     <ingredient id="176" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="177" count="1"/>
   </item>
+  <!-- Crucifix of Blessing -->
   <item id="56">
     <ingredient id="176" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="311" count="1"/>
   </item>
+  <!-- Mage Staff -->
   <item id="57">
     <ingredient id="309" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="177" count="1"/>
   </item>
+  <!-- Crucifix of Blessing -->
   <item id="58">
     <ingredient id="309" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="311" count="1"/>
   </item>
+  <!-- Mage Staff -->
   <item id="59">
     <ingredient id="310" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="177" count="1"/>
   </item>
+  <!-- Crucifix of Blessing -->
   <item id="60">
     <ingredient id="310" count="1"/>
     <ingredient id="57" count="118800"/>
     <production id="311" count="1"/>
   </item>
+  <!-- Leather Shirt -->
   <item id="61">
     <ingredient id="21" count="1"/>
     <ingredient id="57" count="2511"/>
     <production id="22" count="1"/>
   </item>
+  <!-- Wooden Breastplate -->
   <item id="62">
     <ingredient id="22" count="1"/>
     <ingredient id="57" count="6083"/>
     <production id="23" count="1"/>
   </item>
+  <!-- Bone Breastplate -->
   <item id="63">
     <ingredient id="23" count="1"/>
     <ingredient id="57" count="13574"/>
     <production id="24" count="1"/>
   </item>
+  <!-- Piece Bone Breastplate -->
   <item id="64">
     <ingredient id="24" count="1"/>
     <ingredient id="57" count="12650"/>
     <production id="25" count="1"/>
   </item>
+  <!-- Hard Leather Shirt -->
   <item id="65">
     <ingredient id="24" count="1"/>
     <ingredient id="57" count="18260"/>
     <production id="27" count="1"/>
   </item>
+  <!-- Piece Bone Breastplate -->
   <item id="66">
     <ingredient id="390" count="1"/>
     <ingredient id="57" count="12650"/>
     <production id="25" count="1"/>
   </item>
+  <!-- Hard Leather Shirt -->
   <item id="67">
     <ingredient id="390" count="1"/>
     <ingredient id="57" count="18260"/>
     <production id="27" count="1"/>
   </item>
+  <!-- Hard Leather Shirt -->
   <item id="68">
     <ingredient id="25" count="1"/>
     <ingredient id="57" count="5610"/>
     <production id="27" count="1"/>
   </item>
+  <!-- Bronze Breastplate -->
   <item id="69">
     <ingredient id="25" count="1"/>
     <ingredient id="57" count="19140"/>
     <production id="26" count="1"/>
   </item>
+  <!-- Bronze Breastplate -->
   <item id="70">
     <ingredient id="27" count="1"/>
     <ingredient id="57" count="13530"/>
     <production id="26" count="1"/>
   </item>
+  <!-- Feriotic Tunic -->
   <item id="71">
     <ingredient id="426" count="1"/>
     <ingredient id="57" count="2511"/>
     <production id="428" count="1"/>
   </item>
+  <!-- Leather Tunic -->
   <item id="72">
     <ingredient id="428" count="1"/>
     <ingredient id="57" count="6083"/>
     <production id="429" count="1"/>
   </item>
+  <!-- Leather Tunic -->
   <item id="73">
     <ingredient id="1100" count="1"/>
     <ingredient id="57" count="6083"/>
     <production id="429" count="1"/>
   </item>
+  <!-- Tunic of Devotion -->
   <item id="74">
     <ingredient id="429" count="1"/>
     <ingredient id="57" count="13574"/>
     <production id="1101" count="1"/>
   </item>
+  <!-- Tunic of Magic -->
   <item id="75">
     <ingredient id="1101" count="1"/>
     <ingredient id="57" count="18260"/>
     <production id="1102" count="1"/>
   </item>
+  <!-- Cloth Shoes -->
   <item id="76">
     <ingredient id="1121" count="1"/>
     <ingredient id="57" count="33"/>
     <production id="35" count="1"/>
   </item>
+  <!-- Cotton Shoes -->
   <item id="77">
     <ingredient id="35" count="1"/>
     <ingredient id="57" count="627"/>
     <production id="1122" count="1"/>
   </item>
+  <!-- Cotton Shoes -->
   <item id="78">
     <ingredient id="36" count="1"/>
     <ingredient id="57" count="627"/>
     <production id="1122" count="1"/>
   </item>
+  <!-- Leather Shoes -->
   <item id="79">
     <ingredient id="1122" count="1"/>
     <ingredient id="57" count="2247"/>
     <production id="37" count="1"/>
   </item>
+  <!-- Leather Shoes -->
   <item id="80">
     <ingredient id="1129" count="1"/>
     <ingredient id="57" count="2247"/>
     <production id="37" count="1"/>
   </item>
+  <!-- Low Boots -->
   <item id="81">
     <ingredient id="37" count="1"/>
     <ingredient id="57" count="4532"/>
     <production id="38" count="1"/>
   </item>
+  <!-- Boots -->
   <item id="82">
     <ingredient id="38" count="1"/>
     <ingredient id="57" count="6083"/>
     <production id="39" count="1"/>
   </item>
+  <!-- Short Leather Gloves -->
   <item id="83">
     <ingredient id="48" count="1"/>
     <ingredient id="57" count="627"/>
     <production id="1119" count="1"/>
   </item>
+  <!-- Gloves -->
   <item id="84">
     <ingredient id="1119" count="1"/>
     <ingredient id="57" count="2247"/>
     <production id="49" count="1"/>
   </item>
+  <!-- Leather Gloves -->
   <item id="85">
     <ingredient id="49" count="1"/>
     <ingredient id="57" count="4532"/>
     <production id="50" count="1"/>
   </item>
+  <!-- Bracer -->
   <item id="86">
     <ingredient id="50" count="1"/>
     <ingredient id="57" count="6083"/>
     <production id="51" count="1"/>
   </item>
+  <!-- Leather Cap -->
   <item id="87">
     <ingredient id="41" count="1"/>
     <ingredient id="57" count="941"/>
     <production id="42" count="1"/>
   </item>
+  <!-- Wooden Helmet -->
   <item id="88">
     <ingredient id="42" count="1"/>
     <ingredient id="57" count="3375"/>
     <production id="43" count="1"/>
   </item>
+  <!-- Leather Helmet -->
   <item id="89">
     <ingredient id="43" count="1"/>
     <ingredient id="57" count="6842"/>
     <production id="44" count="1"/>
   </item>
+  <!-- Hard Leather Helmet -->
   <item id="90">
     <ingredient id="44" count="1"/>
     <ingredient id="57" count="9020"/>
     <production id="1148" count="1"/>
   </item>
+  <!-- Leather Pants -->
   <item id="91">
     <ingredient id="28" count="1"/>
     <ingredient id="57" count="1570"/>
     <production id="29" count="1"/>
   </item>
+  <!-- Wooden Gaiters -->
   <item id="92">
     <ingredient id="29" count="1"/>
     <ingredient id="57" count="3795"/>
     <production id="2386" count="1"/>
   </item>
+  <!-- Bone Gaiters -->
   <item id="93">
     <ingredient id="30" count="1"/>
     <ingredient id="57" count="8503"/>
     <production id="31" count="1"/>
   </item>
+  <!-- Bone Gaiters -->
   <item id="94">
     <ingredient id="2386" count="1"/>
     <ingredient id="57" count="8503"/>
     <production id="31" count="1"/>
   </item>
+  <!-- Piece Bone Gaiters -->
   <item id="95">
     <ingredient id="31" count="1"/>
     <ingredient id="57" count="7920"/>
     <production id="32" count="1"/>
   </item>
+  <!-- Hard Leather Gaiters -->
   <item id="96">
     <ingredient id="31" count="1"/>
     <ingredient id="57" count="11330"/>
     <production id="33" count="1"/>
   </item>
+  <!-- Piece Bone Gaiters -->
   <item id="97">
     <ingredient id="412" count="1"/>
     <ingredient id="57" count="7920"/>
     <production id="32" count="1"/>
   </item>
+  <!-- Hard Leather Gaiters -->
   <item id="98">
     <ingredient id="412" count="1"/>
     <ingredient id="57" count="11330"/>
     <production id="33" count="1"/>
   </item>
+  <!-- Hard Leather Gaiters -->
   <item id="99">
     <ingredient id="32" count="1"/>
     <ingredient id="57" count="3410"/>
     <production id="33" count="1"/>
   </item>
+  <!-- Bronze Gaiters -->
   <item id="100">
     <ingredient id="32" count="1"/>
     <ingredient id="57" count="11880"/>
     <production id="34" count="1"/>
   </item>
+  <!-- Bronze Gaiters -->
   <item id="101">
     <ingredient id="33" count="1"/>
     <ingredient id="57" count="8470"/>
     <production id="34" count="1"/>
   </item>
+  <!-- Feriotic Stockings -->
   <item id="102">
     <ingredient id="462" count="1"/>
     <ingredient id="57" count="1570"/>
     <production id="463" count="1"/>
   </item>
+  <!-- Leather Stockings -->
   <item id="103">
     <ingredient id="463" count="1"/>
     <ingredient id="57" count="3795"/>
     <production id="464" count="1"/>
   </item>
+  <!-- Leather Stockings -->
   <item id="104">
     <ingredient id="1103" count="1"/>
     <ingredient id="57" count="3795"/>
     <production id="464" count="1"/>
   </item>
+  <!-- Stockings of Devotion -->
   <item id="105">
     <ingredient id="464" count="1"/>
     <ingredient id="57" count="8503"/>
     <production id="1104" count="1"/>
   </item>
+  <!-- Stockings of Magic -->
   <item id="106">
     <ingredient id="1104" count="1"/>
     <ingredient id="57" count="11330"/>
     <production id="1105" count="1"/>
   </item>
+  <!-- Small Shield -->
   <item id="107">
     <ingredient id="18" count="1"/>
     <ingredient id="57" count="658"/>
     <production id="19" count="1"/>
   </item>
+  <!-- Buckler -->
   <item id="108">
     <ingredient id="19" count="1"/>
     <ingredient id="57" count="2356"/>
     <production id="20" count="1"/>
   </item>
+  <!-- Round Shield -->
   <item id="109">
     <ingredient id="20" count="1"/>
     <ingredient id="57" count="4763"/>
     <production id="102" count="1"/>
   </item>
+  <!-- Round Shield -->
   <item id="110">
     <ingredient id="945" count="1"/>
     <ingredient id="57" count="4037"/>
     <production id="102" count="1"/>
   </item>
+  <!-- Bone Shield -->
   <item id="111">
     <ingredient id="102" count="1"/>
     <ingredient id="57" count="6369"/>
     <production id="625" count="1"/>
   </item>
+  <!-- Necklace of Knowledge -->
   <item id="112">
     <ingredient id="118" count="1"/>
     <ingredient id="57" count="1115"/>
     <production id="906" count="1"/>
   </item>
+  <!-- Necklace of Knowledge -->
   <item id="113">
     <ingredient id="1506" count="1"/>
     <ingredient id="57" count="1115"/>
     <production id="906" count="1"/>
   </item>
+  <!-- Necklace of Anguish -->
   <item id="114">
     <ingredient id="906" count="1"/>
     <ingredient id="57" count="3960"/>
     <production id="907" count="1"/>
   </item>
+  <!-- Necklace of Wisdom -->
   <item id="115">
     <ingredient id="907" count="1"/>
     <ingredient id="57" count="7942"/>
     <production id="908" count="1"/>
   </item>
+  <!-- Necklace of Wisdom -->
   <item id="116">
     <ingredient id="1507" count="1"/>
     <ingredient id="57" count="7942"/>
     <production id="908" count="1"/>
   </item>
+  <!-- Blue Diamond Necklace -->
   <item id="117">
     <ingredient id="908" count="1"/>
     <ingredient id="57" count="10340"/>
     <production id="909" count="1"/>
   </item>
+  <!-- Mystic's Earring -->
   <item id="118">
     <ingredient id="112" count="1"/>
     <ingredient id="57" count="838"/>
     <production id="113" count="1"/>
   </item>
+  <!-- Earring of Wisdom -->
   <item id="119">
     <ingredient id="113" count="1"/>
     <ingredient id="57" count="2968"/>
     <production id="115" count="1"/>
   </item>
+  <!-- Cat's Eye Earring -->
   <item id="120">
     <ingredient id="114" count="1"/>
     <ingredient id="57" count="5918"/>
     <production id="845" count="1"/>
   </item>
+  <!-- Cat's Eye Earring -->
   <item id="121">
     <ingredient id="115" count="1"/>
     <ingredient id="57" count="5918"/>
     <production id="845" count="1"/>
   </item>
+  <!-- Coral Earring -->
   <item id="122">
     <ingredient id="845" count="1"/>
     <ingredient id="57" count="7821"/>
     <production id="846" count="1"/>
   </item>
+  <!-- Ring of Knowledge -->
   <item id="123">
     <ingredient id="116" count="1"/>
     <ingredient id="57" count="557"/>
     <production id="875" count="1"/>
   </item>
+  <!-- Ring of Anguish -->
   <item id="124">
     <ingredient id="875" count="1"/>
     <ingredient id="57" count="1980"/>
     <production id="876" count="1"/>
   </item>
+  <!-- Ring of Wisdom -->
   <item id="125">
     <ingredient id="876" count="1"/>
     <ingredient id="57" count="3938"/>
     <production id="877" count="1"/>
   </item>
+  <!-- Ring of Wisdom -->
   <item id="126">
     <ingredient id="1508" count="1"/>
     <ingredient id="57" count="3938"/>
     <production id="877" count="1"/>
   </item>
+  <!-- Ring of Wisdom -->
   <item id="127">
     <ingredient id="1509" count="1"/>
     <ingredient id="57" count="3938"/>
     <production id="877" count="1"/>
   </item>
+  <!-- Blue Coral Ring -->
   <item id="128">
     <ingredient id="877" count="1"/>
     <ingredient id="57" count="5258"/>

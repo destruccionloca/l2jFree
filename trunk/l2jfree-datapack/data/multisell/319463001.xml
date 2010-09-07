@@ -184,4 +184,22 @@
     <production id="8858" count="1"/>
     <ingredient id="57" count="93500" isTaxIngredient="true"/>
   </item>
+  <!-- Shadow Item: Military Fleuret for 93500 Adena -->
+  <item id="31">
+    <ingredient id="57" count="93500"/>
+    <production id="9846" count="1"/>
+    <ingredient id="57" count="93500" isTaxIngredient="true"/>
+  </item>
+  <!-- Shadow Item: Innominate Victory for 93500 Adena -->
+  <item id="32">
+    <ingredient id="57" count="93500"/>
+    <production id="9847" count="1"/>
+    <ingredient id="57" count="93500" isTaxIngredient="true"/>
+  </item>
+  <!-- Shadow Item: Peacemaker for 93500 Adena -->
+  <item id="33">
+    <ingredient id="57" count="93500"/>
+    <production id="9848" count="1"/>
+    <ingredient id="57" count="93500" isTaxIngredient="true"/>
+  </item>
 </list>
