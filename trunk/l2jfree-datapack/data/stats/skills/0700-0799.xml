@@ -1652,8 +1652,6 @@
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="skillRadius" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
     <set name="aggroPoints" val="811"/>
     <cond msgId="113" addName="1">
       <player active_effect_id="5563,3"/>

@@ -396,7 +396,7 @@
         <mul order="0x30" stat="regCp" val="1.2"/>
         <mul order="0x30" stat="maxMp" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
-        <basemul order="0x30" stat="mCritRate" val="0.2"/>
+        <!-- TODO: Needs core-side support for... "the power of Prominent Damage through damage magic by 20%" -->
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
@@ -413,7 +413,7 @@
         <mul order="0x30" stat="regCp" val="1.2"/>
         <mul order="0x30" stat="maxMp" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
-        <basemul order="0x30" stat="mCritRate" val="0.2"/>
+        <!-- TODO: Needs core-side support for... "the power of Prominent Damage through damage magic by 20%" -->
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
@@ -430,7 +430,7 @@
         <mul order="0x30" stat="regCp" val="1.2"/>
         <mul order="0x30" stat="maxMp" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
-        <basemul order="0x30" stat="mCritRate" val="0.2"/>
+        <!-- TODO: Needs core-side support for... "the power of Prominent Damage through damage magic by 20%" -->
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
@@ -660,7 +660,7 @@
         <mul order="0x30" stat="runSpd" val="0.8"/>
         <mul order="0x30" stat="mDef" val="0.7"/>
         <mul order="0x30" stat="regMp" val="0.7"/>
-        <mul order="0x30" stat="MagicalMpConsumeRate" val="1.20"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="1.2"/>
     </effect>
     </for>
   </skill>

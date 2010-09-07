@@ -7017,10 +7017,10 @@ INSERT INTO `etcitem` VALUES
 (9596,'Red Seed of Evil - Shard','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
 (9597,'White Seed of Evil - Shard','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
 (9598,'Black Seed of Evil - Shard','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
-(9599,'Ancient Tome of the Demon','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(9600,'Hidden First Page','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(9601,'Hidden Second Page','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(9602,'Demon Contract Fragment','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(9599,'Ancient Tome of the Demon','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2440-1'),
+(9600,'Hidden First Page','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
+(9601,'Hidden Second Page','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
+(9602,'Demon Contract Fragment','','false','none',0,'stackable','wood','none',-1,-1,0,0,'false','false','true','false','true','none',''),
 (9603,'Hellbound Item 5','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (9604,'Hellbound Item 6','','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (9616,'Dynasty Sword Piece','','false','material',60,'stackable','wood','none',-1,-1,239800,0,'true','true','true','true','true','none',''),
@@ -10284,7 +10284,6 @@ UPDATE `etcitem` SET `material` = 'adamantaite', `crystal_type` = 's', `price` =
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true', `handler` = 'SummonItems' WHERE `item_id` = 5249;
 UPDATE `etcitem` SET `item_type` = 'castle_guard' WHERE `item_id` = 8029;
 UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (8056,8192,8273,8274,8275,8379,9698,9699,20272,20273,20274,20335,20336,20337,20338,20339,20340,20341,20342,20343,20344,20345,20346,20347,20348,20349,20350,20351,20352,20391,20392,22000,22001,22002,22003,22004,22005,22038,22054,22055,22056,22057,22058,22059,22060,22061,22062,22063,22064,22065,22066);
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2440-1' WHERE `item_id` = 9599;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2359-1' WHERE `item_id` = 9672;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2358-1' WHERE `item_id` = 9673;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
