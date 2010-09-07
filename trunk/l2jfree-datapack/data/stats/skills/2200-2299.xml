@@ -448,7 +448,7 @@
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="8273"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
+    <cond msgId="113" addName="1">
       <target doorId="19160002 19160003 19160004 19160005 19160006 19160007 19160008 19160009"/>
     </cond>
   </skill>
@@ -462,7 +462,7 @@
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="8274"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
+    <cond msgId="113" addName="1">
       <target doorId="19160014 19160015 19160016 19160017"/>
     </cond>
   </skill>
@@ -476,7 +476,7 @@
     <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="8275"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
+    <cond msgId="113" addName="1">
       <target doorId="19160012 19160013"/>
     </cond>
   </skill>
@@ -490,7 +490,7 @@
     <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="8056"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
+    <cond msgId="113" addName="1">
       <target doorId="23150003 23150004"/>
     </cond>
   </skill>

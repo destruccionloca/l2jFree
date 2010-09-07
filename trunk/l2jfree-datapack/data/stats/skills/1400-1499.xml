@@ -444,10 +444,10 @@
   </skill>
   <skill id="1415" levels="1" name="Pa'agrio's Emblem" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1time"> 320 340 360 380 400 420 440 460 480 500 520 540 560 580 600 </table>
-    <table name="#ench2mpInitialConsume"> 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 </table>
-    <table name="#ench2mpConsume"> 222 218 214 212 208 204 200 196 193 189 185 181 177 174 170 </table>
+    <table name="#ench2mpInitialConsume"> 54 53 51 49 47 45 43 41 39 37 35 34 32 30 28 </table>
+    <table name="#ench2mpConsume"> 219 212 204 196 189 181 174 166 159 151 143 136 128 121 113 </table>
     <set name="mpInitialConsume" val="57"/>
-    <set name="mpConsume" val="227"/>
+    <set name="mpConsume" val="228"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="2000"/>
