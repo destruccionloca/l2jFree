@@ -137,6 +137,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		TARGET_AREA_MOB,
 		TARGET_KNOWNLIST,
 		TARGET_GROUND,
+		TARGET_PARTY_NOTME,
 		TARGET_INITIATOR
 		// TARGET_BOSS
 	}
@@ -2530,6 +2531,49 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							return new L2Character[] { targetSummon };
 					}
 					return null;
+				}
+				case TARGET_PARTY_NOTME:
+				{
+						//target all party members except yourself
+					if (onlyFirst)
+						return new L2Character[] { activeChar };
+
+					L2PcInstance player = null;
+
+						if (activeChar instanceof L2Summon)
+						{
+						player = ((L2Summon) activeChar).getOwner();
+						targetList.add(player);
+					}
+					else if (activeChar instanceof L2PcInstance)
+					{
+						player = (L2PcInstance) activeChar;
+						if (activeChar.getPet() != null)
+							targetList.add(activeChar.getPet());
+					}
+
+					if (activeChar.getParty() != null)
+					{
+						List<L2PcInstance> partyList = activeChar.getParty().getPartyMembers();
+
+						for (L2PcInstance partyMember : partyList)
+						{
+							if (partyMember == null)
+								continue;
+							if (partyMember == player)
+								continue;
+							if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
+							{
+								targetList.add(partyMember);
+
+								if (partyMember.getPet() != null && !partyMember.getPet().isDead())
+								{
+									targetList.add(partyMember.getPet());
+								}
+							}
+						}
+					}
+					return targetList.moveToArray(new L2Character[targetList.size()]);
 				}
 				case TARGET_GATE:
 				{

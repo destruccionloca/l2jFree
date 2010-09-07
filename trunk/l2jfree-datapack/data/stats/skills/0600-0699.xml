@@ -290,18 +290,19 @@
   <skill id="623" levels="1" name="Find Trap">
     <set name="mpInitialConsume" val="13"/>
     <set name="mpConsume" val="53"/>
-    <set name="power" val="100"/>
+    <set name="power" val="78"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="DETECT_TRAP"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillRadius" val="400"/>
+    <set name="neutral" val="true"/>
   </skill>
   <skill id="624" levels="1" name="Remove Trap">
     <set name="mpInitialConsume" val="3"/>
     <set name="mpConsume" val="13"/>
-    <set name="power" val="100"/>
+    <set name="power" val="78"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>

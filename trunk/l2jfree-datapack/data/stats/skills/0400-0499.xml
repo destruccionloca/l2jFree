@@ -445,6 +445,7 @@
   </skill>
   <skill id="410" levels="3" name="Mortal Strike" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1blowRate"> 1.2 1.2 1.21 1.21 1.21 1.22 1.22 1.22 1.23 1.23 1.23 1.24 1.24 1.24 1.25 1.25 1.25 1.26 1.26 1.26 1.27 1.27 1.27 1.28 1.28 1.28 1.29 1.29 1.29 1.3 </table>
+    <table name="#ench2blowRate"> 1.21 1.21 1.21 1.21 1.21 1.21 1.22 1.22 1.22 1.22 1.22 1.22 1.23 1.23 1.23 1.23 1.23 1.23 1.24 1.24 1.24 1.24 1.24 1.24 1.25 1.25 1.25 1.25 1.25 1.25 </table>
     <table name="#ench2time"> 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200 204 208 212 216 220 224 228 232 236 240 </table>
     <table name="#mpConsume"> 27 31 34 </table>
     <table name="#blowRate"> 1.1 1.15 1.2 </table>
@@ -467,7 +468,7 @@
     </enchant1for>
     <enchant2for>
       <effect name="Buff" time="#ench2time" val="0">
-        <mul order="0x30" stat="rCrit" val="1.2"/>
+        <mul order="0x30" stat="blowRate" val="#ench2blowRate"/>
       </effect>
     </enchant2for>
   </skill>
@@ -1885,6 +1886,7 @@
     <set name="skillType" val="DETECT_TRAP"/>
     <set name="skillRadius" val="400"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="neutral" val="true"/>
   </skill>
   <skill id="471" levels="7" name="Defuse Trap">
     <!-- CT2.2 retail confirmed -->

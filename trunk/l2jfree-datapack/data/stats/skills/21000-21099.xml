@@ -122,6 +122,8 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="43200000"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="1200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -135,6 +137,8 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="43200000"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="1200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -148,6 +152,8 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="43200000"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="1200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -839,6 +845,8 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -1223,6 +1231,8 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>

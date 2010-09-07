@@ -101,8 +101,9 @@
     <set name="mpInitialConsume" val="43"/>
     <set name="mpConsume" val="174"/>
     <set name="hpConsume" val="4000"/>
-    <set name="target" val="TARGET_PARTY"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_PARTY_NOTME"/>
+    <set name="skillType" val="HEAL_PERCENT"/>
     <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -111,7 +112,7 @@
     <set name="skillRadius" val="1000"/>
     <set name="dispelOnAttack" val="true"/>
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invincible"/>
+      <effect name="Invincible" time="15" val="0" stackOrder="2" stackType="Instant_Shield" special="invincible"/>
     </for>
   </skill>
   <skill id="1506" levels="1" name="Blessing of Eva">

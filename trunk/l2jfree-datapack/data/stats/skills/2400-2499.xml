@@ -354,7 +354,7 @@
       </and>
     </cond>
   </skill>
-  <skill id="2428" levels="1" name="Scroll of Transformation  - Rabbit">
+  <skill id="2428" levels="1" name="Scroll of Transformation - Rabbit">
     <!-- Done by Skatershi - Description: Transform into a cute bunny. -->
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>

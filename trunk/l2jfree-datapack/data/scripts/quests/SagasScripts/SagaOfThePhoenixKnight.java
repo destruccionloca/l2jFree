@@ -22,7 +22,7 @@ package quests.SagasScripts;
 public class SagaOfThePhoenixKnight extends SagasSuperClass
 {
 	public static String	qn1	= "70_SagaOfThePhoenixKnight";
-	public static String	qna	= "Saga of the Pheonix Knight";
+	public static String	qna	= "Saga of the Phoenix Knight";
 
 	public SagaOfThePhoenixKnight()
 	{
