@@ -8579,7 +8579,7 @@ INSERT INTO `etcitem` VALUES
 (13738,'Rune Blessed Scroll of Escape','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2649-8'),
 (13739,'Schuttgart Blessed Scroll of Escape','','false','scroll',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2649-9'),
 (13749,'Emery Piece','','false','none',1,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(13750,'Warrior\'s Temporary Healing Potion','','false','potion',180,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(13750,'Warrior\'s Temporary Healing Potion','','false','potion',180,'stackable','paper','none',-1,-1,0,0,'true','false','true','false','true','ItemSkills','2592-1'),
 (13757,'Gludio Territory Badge','','false','quest',0,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','false','none',''),
 (13758,'Dion Territory Badge','','false','quest',0,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','false','none',''),
 (13759,'Giran Territory Badge','','false','quest',0,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','false','none',''),
@@ -10300,8 +10300,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (4677,4678,4679
 UPDATE `etcitem` SET `skills_item` = '2499-2' WHERE `item_id` = 10412;
 UPDATE `etcitem` SET `consume_type` = 'normal' WHERE `item_id` IN (10480,10481,10482);
 
--- Emergency Dressing skills
-UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
 
 -- Seed of Evil
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false' WHERE `item_id` IN (9593,9594,9595,9596,9597,9598);
@@ -10313,9 +10311,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `e
 -- Birthday cake pack & birthday cake (savormix)
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1', `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false' WHERE `item_id` = 20314;
 UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'ItemSkills', `skills_item` = '22035-1' WHERE `item_id` = 20320;
-
-UPDATE `etcitem` SET `skills_item` = '2592-1', `handler` = 'ItemSkills' WHERE `item_id` = '13033'; -- Quick Healing Potion
-UPDATE `etcitem` SET `skills_item` = '2403-1', `handler` = 'ItemSkills' WHERE `item_id` = '10166'; -- Spring CP Potion
 
 -- Fix seed price (Psycho)
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10171';
