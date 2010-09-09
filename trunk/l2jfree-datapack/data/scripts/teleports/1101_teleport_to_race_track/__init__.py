@@ -45,7 +45,7 @@ class Quest (JQuest) :
    if TELEPORTERS.has_key(npcId) :
      st.getPlayer().teleToLocation(12661,181687,-3560)
      st.setState(State.STARTED)
-     st.set("id",str(TELEPORTERS[npcId]))     
+     st.set("id",str(TELEPORTERS[npcId]))
    ############################
    # Monster Derby Race Track #
    ############################
@@ -58,7 +58,7 @@ class Quest (JQuest) :
            st.unset("id")
      else:
          # no base location
-         player.sendPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"You've arrived here from a different way. I'll send you to Rune Township which is the nearest town."))
+         player.sendPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"You've arrived here from a different way. I'll send you to Dion Castle Town which is the nearest town."))
          st.getPlayer().teleToLocation(15670,142983,-2700)
      st.exitQuest(1)
    return

@@ -205,7 +205,7 @@
     </cond>
   </skill>
   <skill id="6125" levels="1" name="Paralysis">
-    <!-- Cubic Skill Effect -->
+    <!-- Cubic Skill Effect 4164 -->
     <set name="ignoreResists" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
