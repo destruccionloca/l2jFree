@@ -22,9 +22,9 @@
       <add order="0x40" stat="maxHp" val="531"/> <!-- Max HP +531 -->
       <mul order="0x30" stat="sleepVuln" val="0.3"/> <!-- resistance to sleep by 70% -->
       <mul order="0x30" stat="rootVuln" val="0.3"/> <!-- resistance to hold by 70% -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
     </for>
   </skill>
   <skill id="8302" levels="1" name="Vesper Noble Heavy Armor Set for Adults">
@@ -39,9 +39,9 @@
       <add order="0x40" stat="maxHp" val="540"/> <!-- Max HP +540 -->
       <mul order="0x30" stat="sleepVuln" val="0.3"/> <!-- resistance to sleep by 70% -->
       <mul order="0x30" stat="rootVuln" val="0.3"/> <!-- resistance to hold by 70% -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
       <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
@@ -57,9 +57,9 @@
       <mul order="0x30" stat="pAtkSpd" val="1.0557"/> <!-- Atk. Spd. +5.57% -->
       <mul order="0x30" stat="regMp" val="1.0557"/> <!-- MP Recovery Rate by 5.57% -->
       <add order="0x40" stat="maxMp" val="347"/> <!-- Max MP by 347 -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
     </for>
   </skill>
   <skill id="8304" levels="1" name="Vesper Noble Light Armor Set for Adults">
@@ -74,9 +74,9 @@
       <mul order="0x30" stat="pAtkSpd" val="1.0557"/> <!-- Atk. Spd. +5.57% -->
       <mul order="0x30" stat="regMp" val="1.0557"/> <!-- MP Recovery Rate by 5.57% -->
       <add order="0x40" stat="maxMp" val="354"/> <!-- Max MP by 354 -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
       <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
@@ -93,9 +93,9 @@
       <mul order="0x30" stat="regMp" val="1.0557"/> <!-- MP Recovery Rate by 5.57% -->
       <mul order="0x30" stat="stunVuln" val="0.5"/> <!-- resistance to Stun Attacks by 50% -->
       <sub order="0x40" stat="cancel" val="30"/> <!-- decreases the damage to be cancelled by magic by 30 -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
     </for>
   </skill>
   <skill id="8306" levels="1" name="Vesper Noble Robe Set for Adults">
@@ -111,9 +111,9 @@
       <mul order="0x30" stat="regMp" val="1.0557"/> <!-- MP Recovery Rate by 5.57% -->
       <mul order="0x30" stat="stunVuln" val="0.5"/> <!-- resistance to Stun Attacks by 50% -->
       <sub order="0x40" stat="cancel" val="30"/> <!-- decreases the damage to be cancelled by magic by 30 -->
-      <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
-      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <mul order="0x30" stat="pvpPhysDef" val="1.05"/> <!-- PvP Physical Damage Received -5% -->
+      <mul order="0x30" stat="pvpMagicalDef" val="1.05"/> <!-- PvP Magical Damage Received -5% -->
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/> <!-- PvP Physical Skill Damage Received -5% -->
       <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
@@ -481,26 +481,26 @@
     </for>
   </skill>
   <skill id="8343" levels="4" name="Low-grade Magic Ornament Iron Belt">
-    <table name="#pvp"> 1.02 1.04 1.06 1.08 </table>
+    <table name="#pvpBonus"> 1.02 1.04 1.06 1.08 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvp"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvp"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
     </for>
   </skill>
   <skill id="8344" levels="4" name="Low-grade Magic Ornament Iron Belt">
-    <table name="#pvp"> 1.02 1.04 1.06 1.08 </table>
+    <table name="#pvpBonus"> 1.02 1.04 1.06 1.08 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <mul order="0x30" stat="pvpMagicalDef" val="#pvp"/>
-      <mul order="0x30" stat="pvpPhysDef" val="#pvp"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="#pvp"/>
+      <mul order="0x30" stat="pvpMagicalDef" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpPhysDef" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="#pvpBonus"/>
     </for>
   </skill>
   <skill id="8345" levels="4" name="Low-grade Magic Ornament Mithril Belt">
@@ -514,26 +514,26 @@
     </for>
   </skill>
   <skill id="8346" levels="4" name="Low-grade Magic Ornament Mithril Belt">
-    <table name="#pvp"> 1.04 1.06 1.08 1.1 </table>
+    <table name="#pvpBonus"> 1.04 1.06 1.08 1.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvp"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvp"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
     </for>
   </skill>
   <skill id="8347" levels="4" name="Low-grade Magic Ornament Mithril Belt">
-    <table name="#pvp"> 1.04 1.06 1.08 1.1 </table>
+    <table name="#pvpBonus"> 1.04 1.06 1.08 1.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <mul order="0x30" stat="pvpMagicalDef" val="#pvp"/>
-      <mul order="0x30" stat="pvpPhysDef" val="#pvp"/>
-      <mul order="0x30" stat="pvpPhysSkillsDef" val="#pvp"/>
+      <mul order="0x30" stat="pvpMagicalDef" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpPhysDef" val="#pvpBonus"/>
+      <mul order="0x30" stat="pvpPhysSkillsDef" val="#pvpBonus"/>
     </for>
   </skill>
   <skill id="8348" levels="2" name="Royal Guard Earring - Gludio">

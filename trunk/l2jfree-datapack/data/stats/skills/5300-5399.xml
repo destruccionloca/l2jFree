@@ -1879,7 +1879,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="120" val="0" stackOrder="0" stackType="Great">
+      <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1902,6 +1902,7 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5399" levels="1" name="Heat of Desert">
+    <!-- Zone Skill -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_ACTIVE"/>

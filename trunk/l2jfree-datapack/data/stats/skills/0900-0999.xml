@@ -534,7 +534,7 @@
     <set name="effectRange" val="1100"/>
     <set name="transformId" val="219"/>
     <for>
-      <effect name="Transformation" time="300" val="0">
+      <effect name="Transformation" time="300" val="0"> <!-- Transformation lasts 5 minutes -->
         <set order="0x08" stat="STR" val="45"/>
         <set order="0x08" stat="DEX" val="30"/>
         <set order="0x08" stat="CON" val="43"/>
@@ -560,7 +560,7 @@
     <set name="effectRange" val="1100"/>
     <set name="transformId" val="221"/>
     <for>
-      <effect name="Transformation" time="300" val="0">
+      <effect name="Transformation" time="300" val="0"> <!-- Transformation lasts 5 minutes -->
         <set order="0x08" stat="STR" val="45"/>
         <set order="0x08" stat="DEX" val="30"/>
         <set order="0x08" stat="CON" val="43"/>
@@ -586,7 +586,7 @@
     <set name="effectRange" val="1200"/>
     <set name="transformId" val="220"/>
     <for>
-      <effect name="Transformation" time="300" val="0">
+      <effect name="Transformation" time="300" val="0"> <!-- Transformation lasts 5 minutes -->
         <set order="0x08" stat="STR" val="45"/>
         <set order="0x08" stat="DEX" val="30"/>
         <set order="0x08" stat="CON" val="43"/>

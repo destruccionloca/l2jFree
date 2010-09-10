@@ -729,7 +729,7 @@
       <effect name="ChanceSkillTrigger" time="20" triggeredId="5564" triggeredLevel="#triggeredLevel" activationChance="#activationChance" chanceType="ON_ATTACKED_HIT" stackOrder="#stackOrder" stackType="increaseTrigger" val="0">
         <mul order="0x30" stat="cAtk" val="#cAtk"/>
         <add order="0x40" stat="windPower" val="#windPower"/>
-        <add order="0x40" stat="absorbDam" val="#absorbDam"/>
+        <add order="0x40" stat="absorbDam" val="#absorbDam"/> <!-- absorb HP from damage inflicted on enemies -->
       </effect>
     </for>
   </skill>
@@ -864,7 +864,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="5575" levels="1" name="Wizard Ability - Mana Steel">
+  <skill id="5575" levels="1" name="Wizard Ability - Mana Steal">
     <set name="power" val="10"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="MANARECHARGE"/>

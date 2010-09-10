@@ -381,7 +381,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="absorbDam" val="2"/> <!-- Guess -->
+      <add order="0x40" stat="absorbDam" val="2"/> <!-- absorb 2% HP from damage inflicted on enemies -->
     </for>
   </skill>
   <skill id="3843" levels="1" name="Two-handed Sword of Boost HP">
@@ -438,7 +438,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="absorbDam" val="2"/> <!-- Guess -->
+      <add order="0x40" stat="absorbDam" val="2"/> <!-- absorb 2% HP from damage inflicted on enemies -->
     </for>
   </skill>
   <skill id="3849" levels="1" name="Ancient Sword of Boost HP">

@@ -2661,7 +2661,7 @@
     <table name="#ench1pAtkSpd"> 1.121 1.122 1.123 1.124 1.125 1.126 1.127 1.128 1.129 1.13 1.131 1.132 1.133 1.134 1.135 1.136 1.137 1.138 1.139 1.14 1.141 1.142 1.143 1.144 1.145 1.146 1.147 1.148 1.149 1.15 </table>
     <table name="#ench2pvp"> 1.11 1.11 1.12 1.12 1.13 1.13 1.14 1.14 1.15 1.15 1.16 1.16 1.17 1.17 1.18 1.18 1.18 1.19 1.19 1.20 1.20 1.21 1.21 1.22 1.22 1.23 1.23 1.24 1.24 1.25 </table>
     <table name="#pAtkSpd"> 1.08 1.12 </table>
-    <table name="#pvp"> 1.05 1.1 </table>
+    <table name="#pvpBonus"> 1.05 1.1 </table>
     <table name="#mpConsume"> 30 34 </table>
     <table name="#aggroPoints"> 597 646 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
@@ -2675,8 +2675,8 @@
     <for>
       <effect name="Buff" time="60" val="0" stackOrder="1" stackType="duelist_spirit">
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
-        <mul order="0x30" stat="pvpPhysDmg" val="#pvp"/>
-        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvp"/>
+        <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus"/>
+        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpBonus"/>
       </effect>
     </for>
     <enchant1for>

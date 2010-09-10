@@ -1467,7 +1467,7 @@
     <set name="staticReuse" val="true"/>
     <set name="transformId" val="259"/>
     <for>
-      <effect name="Transformation" time="300" val="0">
+      <effect name="Transformation" time="300" val="0"> <!-- Transformation lasts 5 minutes -->
         <mul order="0x30" stat="maxHp" val="1.1"/>
         <mul order="0x30" stat="maxMp" val="1.1"/>
         <mul order="0x30" stat="maxCp" val="0.72"/>
@@ -1703,7 +1703,7 @@
         <mul order="0x30" stat="cAtk" val="2">
           <using kind="Blunt,Big Blunt"/>
         </mul>
-        <add order="0x40" stat="absorbDam" val="40"/> <!-- Recovers as HP 40% of general close rate physical damage inflicted on the enemy -->
+        <add order="0x40" stat="absorbDam" val="40"/> <!-- absorb 40% HP of general close rate physical damage inflicted on the enemy -->
         <mul order="0x30" stat="gainHp" val="0.2"/>
       </effect>
     </for>

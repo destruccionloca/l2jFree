@@ -726,7 +726,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0">
+      <effect name="Transformation" time="3600" val="0"> <!-- Transformation lasts 60 minutes -->
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -878,8 +878,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <for>
       <mul order="0x30" stat="ancientWpnVuln" val="#ancientWpnVuln"/>
     </for>
@@ -890,8 +888,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <for>
       <mul order="0x30" stat="ancientWpnVuln" val="#ancientWpnVuln"/>
     </for>

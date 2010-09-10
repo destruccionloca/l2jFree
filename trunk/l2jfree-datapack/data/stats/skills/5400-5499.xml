@@ -484,7 +484,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="StunSelf" time="3" val="0" stackOrder="1" stackType="Stun" effectPower="100" effectType="STUN"/>
-      <!-- Not intended! noicon="1"/> -->
+      <!-- Not intended! noicon="1"/ -->
     </for>
   </skill>
   <skill id="5450" levels="7" name="Thin Skin">

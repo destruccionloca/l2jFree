@@ -1167,12 +1167,12 @@
         <mul order="0x30" stat="cAtk" val="1.2">
           <player behind="true"/>
         </mul>
-        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP of standard short-range physical damage inflicted on the enemy -->
         <basemul order="0x30" stat="rCrit" val="0.2">
           <player behind="true"/>
         </basemul>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
-        <add order="0x40" stat="absorbDam" val="5"/>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP of standard short-range physical damage inflicted on the enemy -->
       </effect>
     </for>
     <enchant1for>
@@ -1183,12 +1183,12 @@
         <mul order="0x30" stat="cAtk" val="1.2">
           <player behind="true"/>
         </mul>
-        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP of standard short-range physical damage inflicted on the enemy -->
         <basemul order="0x30" stat="rCrit" val="0.2">
           <player behind="true"/>
         </basemul>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
-        <add order="0x40" stat="absorbDam" val="5"/>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP of standard short-range physical damage inflicted on the enemy -->
       </effect>
     </enchant1for>
   </skill>

@@ -2095,7 +2095,7 @@
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench2time" val="0">
-        <add order="0x40" stat="absorbDam" val="80"/> <!-- absorb HP from damage inflicted on enemies -->
+        <add order="0x40" stat="absorbDam" val="80"/> <!-- absorb 80% HP from damage inflicted on enemies -->
       </effect>
     </enchant1for>
   </skill>

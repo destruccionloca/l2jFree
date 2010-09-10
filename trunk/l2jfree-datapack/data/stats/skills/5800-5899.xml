@@ -601,12 +601,13 @@
    -->
     <set name="mpInitialConsume" val="26"/>
     <set name="mpConsume" val="104"/>
+    <set name="power" val="946"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="HEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
   </skill>
@@ -616,15 +617,19 @@
     Used by NPCs:
     18790 22547 22580
    -->
-    <set name="power" val="1.0"/>
+    <set name="power" val="100"/>
     <set name="mpInitialConsume" val="51"/>
     <set name="mpConsume" val="207"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="6000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="target" val="TARGET_CLAN"/>
+    <set name="skillType" val="HEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect count="5" name="HealOverTime" val="20" stackOrder="27" stackType="LifeForce"/>
+    </for>
   </skill>
   <skill id="5837" levels="1" name="Double Throwing Javelin">
   <!-- none -->
