@@ -73,14 +73,8 @@ public class ExShowSentPost extends L2GameServerPacket
 				
 				writeD(0x00); // unknown
 				
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-					writeH(item.getElementDefAttr(i));
-				
-				writeH(0x00); // Enchant effect 1
-				writeH(0x00); // Enchant effect 2
-				writeH(0x00); // Enchant effect 3
+				writeElementalInfo(item);
+				writeEnchantEffectInfo();
 			}
 			_items = null;
 		}

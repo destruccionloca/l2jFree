@@ -15,7 +15,7 @@
 package com.l2jfree.util;
 
 /**
- * @author NB4La
+ * @author NB4L1
  */
 public abstract class AbstractObjectPool<E>
 {
