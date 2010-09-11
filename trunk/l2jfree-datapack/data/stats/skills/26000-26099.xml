@@ -2,34 +2,76 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="26000" levels="1" name="Small fortuna box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26001" levels="1" name="Middle fortuna box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26002" levels="1" name="Large fortuna box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26003" levels="1" name="Small fortuna cube">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26004" levels="1" name="Middle fortuna cube">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26005" levels="1" name="Large fortuna cube">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="26006" levels="1" name="Weapon Enchant Scroll - D Grade">
     <set name="target" val="TARGET_NONE"/>
