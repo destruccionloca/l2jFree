@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -23,7 +22,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
@@ -43,16 +41,13 @@ public final class EffectSignet extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.SIGNET_EFFECT;
+		return L2EffectType.SIGNET;
 	}
 	
 	@Override
 	protected boolean onStart()
 	{
-		if (getSkill() instanceof L2SkillSignet)
-			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet)getSkill()).getSignetEffectId(), getLevel());
-		else if (getSkill() instanceof L2SkillSignetCasttime)
-			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime)getSkill()).effectId, getLevel());
+		_skill = ((L2SkillSignet)getSkill()).getSignetEffectSkill();
 		_actor = (L2EffectPointInstance)getEffected();
 		return true;
 	}
@@ -63,6 +58,7 @@ public final class EffectSignet extends L2Effect
 		//if (getCount() == getTotalCount() - 1) return true; // do nothing first time
 		if (_skill == null)
 			return true;
+		
 		int mpConsume = _skill.getMpConsume();
 		
 		if (mpConsume > getEffector().getStatus().getCurrentMp())
@@ -77,10 +73,12 @@ public final class EffectSignet extends L2Effect
 		{
 			if (cha == null)
 				continue;
+			
 			_skill.getEffects(_actor, cha);
 			// there doesn't seem to be a visible effect with MagicSkillLaunched packet...
-			_actor.broadcastPacket(new MagicSkillUse(_actor, cha, _skill.getId(), _skill.getLevel(), 0, 0));
+			_actor.broadcastPacket(new MagicSkillUse(_actor, cha, _skill, 0, 0));
 		}
+		
 		return true;
 	}
 	
@@ -88,8 +86,6 @@ public final class EffectSignet extends L2Effect
 	protected void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }

@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @authors Forsaiken, Sami
  */
-
 public final class EffectSignetNoise extends L2Effect
 {
 	private L2EffectPointInstance _actor;
@@ -37,7 +36,7 @@ public final class EffectSignetNoise extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.SIGNET_GROUND;
+		return L2EffectType.SIGNET;
 	}
 	
 	@Override
@@ -50,7 +49,7 @@ public final class EffectSignetNoise extends L2Effect
 	@Override
 	protected boolean onActionTime()
 	{
-		if (getCount() == getTotalCount() - 1)
+		if (getCount() >= getTotalCount() - 1)
 			return true; // do nothing first time
 			
 		for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
@@ -58,15 +57,12 @@ public final class EffectSignetNoise extends L2Effect
 			if (target == null)
 				continue;
 			
-			L2Effect[] effects = target.getAllEffects();
-			if (effects != null)
-				for (L2Effect effect : effects)
-				{
-					if (effect.getSkill().isDanceOrSong())
-						effect.exit();
-				}
+			for (L2Effect effect : target.getAllEffects())
+				if (effect.getSkill().isDanceOrSong())
+					effect.exit();
 			// there doesn't seem to be a visible effect?
 		}
+		
 		return true;
 	}
 	
@@ -74,8 +70,6 @@ public final class EffectSignetNoise extends L2Effect
 	protected void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }

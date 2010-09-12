@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author Forsaiken
  */
-
 public final class EffectSignetAntiSummon extends L2Effect
 {
 	private L2EffectPointInstance _actor;
@@ -41,7 +40,7 @@ public final class EffectSignetAntiSummon extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.SIGNET_GROUND;
+		return L2EffectType.SIGNET;
 	}
 	
 	@Override
@@ -54,8 +53,9 @@ public final class EffectSignetAntiSummon extends L2Effect
 	@Override
 	protected boolean onActionTime()
 	{
-		if (getCount() == getTotalCount() - 1)
+		if (getCount() >= getTotalCount() - 1)
 			return true; // do nothing first time
+		
 		int mpConsume = getSkill().getMpConsume();
 		
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
@@ -82,6 +82,7 @@ public final class EffectSignetAntiSummon extends L2Effect
 				}
 			}
 		}
+		
 		return true;
 	}
 	
@@ -89,8 +90,6 @@ public final class EffectSignetAntiSummon extends L2Effect
 	protected void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }

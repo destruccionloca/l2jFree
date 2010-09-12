@@ -569,7 +569,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+      <effect count="9" name="SignetMDam" time="2" val="0"/>
       <effect name="ImmobileBuff" time="15" val="0" noicon="1"/> <!-- TEMP FIX -->
     </for>
   </skill>
@@ -599,7 +599,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+      <effect count="9" name="SignetMDam" time="2" val="0"/>
       <effect name="ImmobileBuff" time="15" val="0" noicon="1"/> <!-- TEMP FIX -->
     </for>
   </skill>
@@ -629,7 +629,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+      <effect count="9" name="SignetMDam" time="2" val="0"/>
       <effect name="ImmobileBuff" time="15" val="0" noicon="1"/> <!-- TEMP FIX -->
     </for>
   </skill>
@@ -690,7 +690,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+      <effect count="9" name="SignetMDam" time="2" val="0"/>
       <effect name="ImmobileBuff" time="15" val="0" noicon="1"/> <!-- TEMP FIX -->
     </for>
   </skill>

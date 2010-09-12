@@ -14,16 +14,11 @@
  */
 package com.l2jfree.gameserver.skills.l2skills;
 
-import com.l2jfree.gameserver.datatables.NpcTable;
-import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.tools.geometry.Point3D;
 
 /**
  * @author Forsaiken
@@ -32,50 +27,25 @@ public final class L2SkillSignet extends L2Skill
 {
 	private final int _effectNpcId;
 	private final int _effectId;
-
+	
 	public L2SkillSignet(StatsSet set)
 	{
 		super(set);
 		_effectNpcId = set.getInteger("effectNpcId", -1);
 		_effectId = set.getInteger("effectId", -1);
 	}
-
-	public int getSignetEffectId()
+	
+	public L2Skill getSignetEffectSkill()
 	{
-		return _effectId;
+		return SkillTable.getInstance().getInfo(_effectId, getLevel());
 	}
-
+	
 	@Override
 	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		if (caster.isAlikeDead())
 			return;
-
-		L2NpcTemplate template = NpcTable.getInstance().getTemplate(_effectNpcId);
-		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, caster);
-		effectPoint.getStatus().setCurrentHp(effectPoint.getMaxHp());
-		effectPoint.getStatus().setCurrentMp(effectPoint.getMaxMp());
-		L2World.getInstance().storeObject(effectPoint);
-
-		int x = caster.getX();
-		int y = caster.getY();
-		int z = caster.getZ();
-
-		if (caster instanceof L2PcInstance && getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
-		{
-			Point3D wordPosition = ((L2PcInstance) caster).getCurrentSkillWorldPosition();
-
-			if (wordPosition != null)
-			{
-				x = wordPosition.getX();
-				y = wordPosition.getY();
-				z = wordPosition.getZ();
-			}
-		}
-		getEffects(caster, effectPoint);
-
-		effectPoint.setIsInvul(true);
-		effectPoint.setInstanceId(caster.getInstanceId());
-		effectPoint.spawnMe(x, y, z);
+		
+		L2EffectPointInstance.newInstance(_effectNpcId, caster, this);
 	}
 }

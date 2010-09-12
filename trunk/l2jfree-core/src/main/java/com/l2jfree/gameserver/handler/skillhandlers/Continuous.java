@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -46,8 +45,8 @@ public class Continuous implements ICubicSkillHandler
 			L2SkillType.CONT,
 			L2SkillType.WEAKNESS,
 			L2SkillType.REFLECT,
-			L2SkillType.AGGDEBUFF,
-			L2SkillType.FUSION			};
+			L2SkillType.AGGDEBUFF/*,
+			L2SkillType.FUSION*/			};
 
 	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
@@ -56,6 +55,7 @@ public class Continuous implements ICubicSkillHandler
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
 
+		/*
 		if (skill.getEffectId() != 0)
 		{
 			int skillLevel = (int) skill.getEffectLvl();
@@ -74,6 +74,7 @@ public class Continuous implements ICubicSkillHandler
 			if (skill2 != null)
 				skill = skill2;
 		}
+		*/
 
 		for (L2Character target : targets)
 		{

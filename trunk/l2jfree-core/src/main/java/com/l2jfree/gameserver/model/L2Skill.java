@@ -48,8 +48,8 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -221,8 +221,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final L2SkillType		_effectType;				// additional effect has a type
 	private final int				_effectAbnormalLvl;		// abnormal level for the additional effect type, e.g. poison lvl 1
 	private final int				_effectPower;
-	private final int				_effectId;
-	private final float				_effectLvl;				// normal effect level
+	//private final int				_effectId;
+	//private final float				_effectLvl;				// normal effect level
 	private final int				_skill_landing_percent;
 
 	private final boolean			_isPotion;
@@ -421,8 +421,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_effectType = set.getEnum("effectType", L2SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
-		_effectId = set.getInteger("effectId", 0);
-		_effectLvl = set.getFloat("effectLevel", 0.f);
+		//_effectId = set.getInteger("effectId", 0);
+		//_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
 		_element = set.getByte("element", (byte) -1);
 		_elementPower = set.getInteger("elementPower", 0);
@@ -893,19 +893,19 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * Return the additional effect Id.<BR>
 	 * <BR>
 	 */
-	public final int getEffectId()
-	{
-		return _effectId;
-	}
+	//public final int getEffectId()
+	//{
+	//	return _effectId;
+	//}
 
 	/**
 	 * Return the additional effect level.<BR>
 	 * <BR>
 	 */
-	public final float getEffectLvl()
-	{
-		return _effectLvl;
-	}
+	//public final float getEffectLvl()
+	//{
+	//	return _effectLvl;
+	//}
 
 	/**
 	 * Return the additional effect skill type (ex : STUN, PARALYZE,...).<BR>
@@ -1986,7 +1986,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							|| (target != null && activeChar instanceof L2PcInstance && target instanceof L2Summon && activeChar.getPet() == target)
 							|| (target != null && activeChar instanceof L2Summon && target instanceof L2PcInstance && activeChar == target.getPet()))
 					{
-						if (target != null && !target.isDead())
+						if (!target.isDead())
 						{
 							// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
 							return new L2Character[] { target };

@@ -26,8 +26,8 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.BuffTemplateTable;
@@ -2983,12 +2983,7 @@ public class L2Npc extends L2Character
 
 		try
 		{
-			if (_fusionSkill != null)
-				abortCast();
-
-			for (L2Character character : getKnownList().getKnownCharacters())
-				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
-					character.abortCast();
+			stopCasttimeSkills();
 		}
 		catch (Exception e)
 		{

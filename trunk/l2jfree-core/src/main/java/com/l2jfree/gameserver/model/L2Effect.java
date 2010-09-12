@@ -27,11 +27,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.ShortBuffStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -575,7 +575,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 
 		switch (getEffectType())
 		{
-			case SIGNET_GROUND:
+			case SIGNET:
 				return;
 		}
 

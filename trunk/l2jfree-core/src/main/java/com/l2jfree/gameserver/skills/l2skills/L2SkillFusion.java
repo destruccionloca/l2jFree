@@ -15,7 +15,9 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
@@ -50,6 +52,21 @@ public final class L2SkillFusion extends L2Skill
 		// can't have effects
 		if (getEffectTemplates() != null)
 			throw new IllegalStateException(toString());
+	}
+	
+	@Override
+	public void useSkill(L2Character caster, L2Character... targets)
+	{
+		for (L2Character target : targets)
+		{
+			if (target == null)
+				continue;
+			
+			if (caster.getCasttimeSkill() != null)
+				continue;
+			
+			caster.setCasttimeSkill(new FusionSkill(caster, target, this));
+		}
 	}
 	
 	public L2Skill getFusionTriggeredSkill()

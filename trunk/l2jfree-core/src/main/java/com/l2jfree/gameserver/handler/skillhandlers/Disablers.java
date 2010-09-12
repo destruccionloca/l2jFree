@@ -424,8 +424,7 @@ public class Disablers implements ICubicSkillHandler
 						// do not delete signet effects!
 						switch (e.getEffectType())
 						{
-							case SIGNET_GROUND:
-							case SIGNET_EFFECT:
+							case SIGNET:
 								continue;
 						}
 						

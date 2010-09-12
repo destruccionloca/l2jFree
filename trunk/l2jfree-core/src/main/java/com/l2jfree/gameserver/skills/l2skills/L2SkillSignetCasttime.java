@@ -15,7 +15,9 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.SignetCasttimeSkill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
@@ -23,21 +25,27 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public final class L2SkillSignetCasttime extends L2Skill
 {
-	public int	_effectNpcId;
-	public int	effectId;
-
+	private final int _effectNpcId;
+	//private final int _effectId;
+	
 	public L2SkillSignetCasttime(StatsSet set)
 	{
 		super(set);
 		_effectNpcId = set.getInteger("effectNpcId", -1);
-		effectId = set.getInteger("effectId", -1);
+		//_effectId = set.getInteger("effectId", -1);
 	}
-
+	
 	@Override
 	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		if (caster.isAlikeDead())
 			return;
+		
+		if (caster.getCasttimeSkill() != null)
+			return;
+		
+		final L2EffectPointInstance effectPoint = L2EffectPointInstance.newInstance(_effectNpcId, caster, this);
+		
+		caster.setCasttimeSkill(new SignetCasttimeSkill(caster, effectPoint, this));
 	}
-
 }

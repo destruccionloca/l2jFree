@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.model.CasttimeSkill;
 import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2CharPosition;
@@ -108,7 +109,6 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.CoordRevalidator;
@@ -215,8 +215,8 @@ public abstract class L2Character extends L2Object
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Character */
 	private Map<Integer, L2Skill>	_skills;
 	private ChanceSkillList			_chanceSkills;
-	/** Current force buff this caster is casting to a target */
-	protected FusionSkill			_fusionSkill;
+	/** Current force buff/signet mdam this caster is casting to a target */
+	private CasttimeSkill<?>		_casttimeSkill;
 
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
@@ -1676,10 +1676,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
-			if (skill.getSkillType() == L2SkillType.FUSION)
-				startFusionSkill(target, skill);
-			else
-				callSkill(skill, targets);
+			callSkill(skill, targets);
 		}
 
 		if (!skill.isToggle()) // otherwise stops movement client side
@@ -1976,15 +1973,6 @@ public abstract class L2Character extends L2Object
 		return true;
 	}
 
-	public void startFusionSkill(L2Character target, L2Skill skill)
-	{
-		if (skill.getSkillType() != L2SkillType.FUSION)
-			return;
-
-		if (_fusionSkill == null)
-			_fusionSkill = new FusionSkill(this, target, (L2SkillFusion)skill);
-	}
-
 	/**
 	 * Kill the L2Character.<BR>
 	 * <BR>
@@ -2105,12 +2093,7 @@ public abstract class L2Character extends L2Object
 
 		try
 		{
-			if (_fusionSkill != null)
-				abortCast();
-
-			for (L2Character character : getKnownList().getKnownCharacters())
-				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
-					character.abortCast();
+			stopCasttimeSkills();
 		}
 		catch (Exception e)
 		{
@@ -4153,10 +4136,10 @@ public abstract class L2Character extends L2Object
 	{
 		if (isCastingNow() || isCastingSimultaneouslyNow())
 		{
-			if (getFusionSkill() != null)
-				getFusionSkill().onCastAbort();
+			if (getCasttimeSkill() != null)
+				getCasttimeSkill().onCastAbort();
 
-			stopEffects(L2EffectType.SIGNET_GROUND);
+			//stopEffects(L2EffectType.SIGNET_GROUND);
 
 			if (_allSkillsDisabled)
 				enableAllSkills(); // this remains for forced skill use, e.g. scroll of escape
@@ -5951,7 +5934,7 @@ public abstract class L2Character extends L2Object
 //			return;
 //		}
 
-		if (getFusionSkill() != null)
+		if (getCasttimeSkill() != null)
 		{
 			if (simultaneously)
 			{
@@ -5962,10 +5945,11 @@ public abstract class L2Character extends L2Object
 				setIsCastingNow(false);
 			}
 			notifyQuestEventSkillFinished(magicEnv);
-			getFusionSkill().onCastAbort();
+			getCasttimeSkill().onCastAbort();
 			return;
 		}
 
+		/*
 		L2Effect mog = getFirstEffect(L2EffectType.SIGNET_GROUND);
 		if (mog != null)
 		{
@@ -5981,6 +5965,7 @@ public abstract class L2Character extends L2Object
 			notifyQuestEventSkillFinished(magicEnv);
 			return;
 		}
+		*/
 
 		try
 		{
@@ -6848,14 +6833,34 @@ public abstract class L2Character extends L2Object
 		sendDamageMessage(target, -1, false, false, true);
 	}
 
-	public FusionSkill getFusionSkill()
+	public CasttimeSkill<?> getCasttimeSkill()
 	{
-		return _fusionSkill;
+		return _casttimeSkill;
 	}
-
-	public void setFusionSkill(FusionSkill fs)
+	
+	public void setCasttimeSkill(CasttimeSkill<?> cts)
 	{
-		_fusionSkill = fs;
+		_casttimeSkill = cts;
+	}
+	
+	public void stopFusionSkills()
+	{
+		if (getCasttimeSkill() instanceof FusionSkill)
+			abortCast();
+		
+		for (L2Character character : getKnownList().getKnownCharacters())
+			if (character.getCasttimeSkill() instanceof FusionSkill && character.getCasttimeSkill().getTarget() == this)
+				character.abortCast();
+	}
+	
+	public void stopCasttimeSkills()
+	{
+		if (getCasttimeSkill() != null)
+			abortCast();
+		
+		for (L2Character character : getKnownList().getKnownCharacters())
+			if (character.getCasttimeSkill() != null && character.getCasttimeSkill().getTarget() == this)
+				character.abortCast();
 	}
 
 	public ChanceSkillList getChanceSkills()

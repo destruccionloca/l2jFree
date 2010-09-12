@@ -26,24 +26,13 @@ import com.l2jfree.gameserver.util.Util;
 /**
  * @author kombat/crion
  */
-public final class FusionSkill implements Runnable
+public final class FusionSkill extends CasttimeSkill<L2SkillFusion> implements Runnable
 {
-	private final L2Character _caster;
-	private final L2Character _target;
-	private final L2SkillFusion _skill;
-	
 	private final Future<?> _geoCheckTask;
-	
-	public L2Character getTarget()
-	{
-		return _target;
-	}
 	
 	public FusionSkill(L2Character caster, L2Character target, L2SkillFusion skill)
 	{
-		_caster = caster;
-		_target = target;
-		_skill = skill;
+		super(caster, target, skill);
 		
 		EffectFusion effect = getFusionTriggeredEffect();
 		
@@ -61,9 +50,10 @@ public final class FusionSkill implements Runnable
 		return (EffectFusion)_target.getFirstEffect(_skill.getFusionTriggeredSkill().getId());
 	}
 	
+	@Override
 	public void onCastAbort()
 	{
-		_caster.setFusionSkill(null);
+		super.onCastAbort();
 		
 		EffectFusion effect = getFusionTriggeredEffect();
 		if (effect != null)

@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
+import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
@@ -1899,7 +1900,7 @@ public final class Formulas
 	/** Returns true in case when ATTACK is canceled due to hit */
 	public static final boolean calcAtkBreak(L2Character target, double dmg)
 	{
-		if (target.getFusionSkill() != null)
+		if (target.getCasttimeSkill() instanceof FusionSkill)
 			return true;
 
 		if (target.isRaid() || target.isInvul())

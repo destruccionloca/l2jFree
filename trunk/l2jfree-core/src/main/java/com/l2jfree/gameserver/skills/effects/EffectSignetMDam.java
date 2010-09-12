@@ -17,11 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ai.CtrlEvent;
-import com.l2jfree.gameserver.datatables.NpcTable;
-import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -32,11 +28,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.tools.geometry.Point3D;
 
 /**
  * @author Forsaiken
@@ -53,44 +46,13 @@ public final class EffectSignetMDam extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.SIGNET_GROUND;
+		return L2EffectType.SIGNET;
 	}
 	
 	@Override
 	protected boolean onStart()
 	{
-		L2NpcTemplate template;
-		if (getSkill() instanceof L2SkillSignetCasttime)
-			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime)getSkill())._effectNpcId);
-		else
-			return false;
-		
-		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template,
-				getEffector());
-		effectPoint.getStatus().setCurrentHp(effectPoint.getMaxHp());
-		effectPoint.getStatus().setCurrentMp(effectPoint.getMaxMp());
-		L2World.getInstance().storeObject(effectPoint);
-		
-		int x = getEffector().getX();
-		int y = getEffector().getY();
-		int z = getEffector().getZ();
-		
-		if (getEffector() instanceof L2PcInstance
-				&& getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
-		{
-			Point3D wordPosition = ((L2PcInstance)getEffector()).getCurrentSkillWorldPosition();
-			
-			if (wordPosition != null)
-			{
-				x = wordPosition.getX();
-				y = wordPosition.getY();
-				z = wordPosition.getZ();
-			}
-		}
-		effectPoint.setIsInvul(true);
-		effectPoint.spawnMe(x, y, z);
-		
-		_actor = effectPoint;
+		_actor = (L2EffectPointInstance)getEffected();
 		return true;
 	}
 	
@@ -99,6 +61,7 @@ public final class EffectSignetMDam extends L2Effect
 	{
 		if (getCount() >= getTotalCount() - 2)
 			return true; // do nothing first 2 times
+		
 		int mpConsume = getSkill().getMpConsume();
 		
 		L2PcInstance caster = (L2PcInstance)getEffector();
@@ -180,6 +143,7 @@ public final class EffectSignetMDam extends L2Effect
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, caster);
 			}
 		}
+		
 		return true;
 	}
 	
@@ -187,8 +151,6 @@ public final class EffectSignetMDam extends L2Effect
 	protected void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }
