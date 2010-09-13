@@ -21,7 +21,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -651,8 +653,20 @@ public class L2Spawn
 		}
 	}
 	
-	public static void notifyNpcSpawned(L2Npc npc)
+	public static void notifyNpcSpawned(final L2Npc npc)
 	{
+		if (!GameServer.isLoaded())
+		{
+			GameServer.addStartupHook(new StartupHook() {
+				@Override
+				public void onStartup()
+				{
+					L2Spawn.notifyNpcSpawned(npc);
+				}
+			});
+			return;
+		}
+		
 		synchronized (_spawnListeners)
 		{
 			for (SpawnListener listener : _spawnListeners)

@@ -23,10 +23,12 @@ import java.util.StringTokenizer;
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
@@ -2903,6 +2905,24 @@ public class L2Npc extends L2Character
 
 		setQuestFirstAttacker(null);
 		setQuestAttackStatus(Quest.ATTACK_NOONE);
+		notifyQuestEventSpawn();
+	}
+	
+	private void notifyQuestEventSpawn()
+	{
+		if (!GameServer.isLoaded())
+		{
+			GameServer.addStartupHook(new StartupHook() {
+				@Override
+				public void onStartup()
+				{
+					notifyQuestEventSpawn();
+				}
+			});
+			return;
+		}
+		
+		
 		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null)
 			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN))
 				quest.notifySpawn(this);

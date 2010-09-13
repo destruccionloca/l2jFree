@@ -1251,6 +1251,8 @@ public class Quest extends ManagedScript
 			{
 				t.addQuestEvent(eventType, this);
 			}
+			else
+				_log.warn("Missing NPC (ID: " + npcId + ") for " + eventType + " at " + getName());
 			return t;
 		}
 		catch (Exception e)
@@ -1367,31 +1369,25 @@ public class Quest extends ManagedScript
 
 	public L2Zone addEnterZoneId(int zoneId)
 	{
-		try
-		{
-			L2Zone zone = ZoneManager.getInstance().getZoneById(zoneId);
-			if (zone != null)
-			{
-				zone.addQuestEvent(Quest.QuestZoneEventType.ON_ENTER_ZONE, this);
-			}
-			return zone;
-		}
-		catch (Exception e)
-		{
-			_log.warn("", e);
-			return null;
-		}
+		return addZoneEventId(zoneId, Quest.QuestZoneEventType.ON_ENTER_ZONE);
 	}
 	
 	public L2Zone addExitZoneId(int zoneId)
+	{
+		return addZoneEventId(zoneId, Quest.QuestZoneEventType.ON_EXIT_ZONE);
+	}
+	
+	public L2Zone addZoneEventId(int zoneId, QuestZoneEventType eventType)
 	{
 		try
 		{
 			L2Zone zone = ZoneManager.getInstance().getZoneById(zoneId);
 			if (zone != null)
 			{
-				zone.addQuestEvent(Quest.QuestZoneEventType.ON_EXIT_ZONE, this);
+				zone.addQuestEvent(eventType, this);
 			}
+			else
+				_log.warn("Missing Zone (ID: " + zoneId + ") for " + eventType + " at " + getName());
 			return zone;
 		}
 		catch (Exception e)
@@ -1698,6 +1694,8 @@ public class Quest extends ManagedScript
 
 				return result;
 			}
+			else
+				_log.warn("Missing NPC (ID: " + npcId + ") for addSpawn() at " + getName());
 		}
 		catch (Exception e1)
 		{

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.l2jfree.Config;
@@ -154,6 +153,7 @@ import com.l2jfree.gameserver.util.OfflineTradeManager;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
+import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 public class GameServer extends Config
@@ -429,22 +429,22 @@ public class GameServer extends Config
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
+		if (Config.ALLOW_MAIL)
+			MailManager.getInstance();
+		AutoAnnouncements.getInstance();
 		
+		Util.printSection("OnStartup");
 		MerchantPriceConfigTable.getInstance().updateReferences();
 		CastleManager.getInstance().activateInstances();
 		FortManager.getInstance().activateInstances();
 		
-		if (Config.ALLOW_MAIL)
-			MailManager.getInstance();
-		
-		//CommunityServerThread.initialize();
+		onStartup();
 		
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		
-		System.gc();
-		System.runFinalization();
-		
 		Util.printSection("ServerThreads");
+		//CommunityServerThread.initialize();
+		
 		LoginServerThread.getInstance().start();
 		
 		L2GameSelectorThread.getInstance().openServerSocket(Config.GAMESERVER_HOSTNAME, Config.PORT_GAME);
@@ -469,15 +469,14 @@ public class GameServer extends Config
 		_log.info("Available CPUs: " + Util.getAvailableProcessors());
 		
 		Util.printSection("Memory");
+		System.gc();
+		System.runFinalization();
+		
 		for (String line : Util.getMemUsage())
 			_log.info(line);
 		
 		_log.info("Maximum number of connected players: " + Config.MAXIMUM_ONLINE_USERS);
 		_log.info("Server loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds.");
-		
-		AutoAnnouncements.getInstance();
-		
-		onStartup();
 		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
@@ -487,7 +486,12 @@ public class GameServer extends Config
 		}
 	}
 	
-	private static Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
+	private static Set<StartupHook> _startupHooks = new L2FastSet<StartupHook>();
+	
+	public synchronized static boolean isLoaded()
+	{
+		return _startupHooks == null;
+	}
 	
 	public synchronized static void addStartupHook(StartupHook hook)
 	{

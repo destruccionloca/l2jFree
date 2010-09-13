@@ -18,9 +18,9 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 
 import javolution.util.FastMap;
 
@@ -863,6 +863,17 @@ public class L2Zone implements FuncOwner
 	
 	public void addQuestEvent(Quest.QuestZoneEventType EventType, Quest q)
 	{
+		// ugly hax
+		switch (EventType)
+		{
+			case ON_ENTER_ZONE:
+			{
+				for (L2Character cha : getCharactersInsideActivated())
+					q.notifyEnterZone(cha, this);
+				break;
+			}
+		}
+		
 		if (_questEvents == null)
 			_questEvents = new Quest[Quest.QuestZoneEventType.values().length][];
 		
