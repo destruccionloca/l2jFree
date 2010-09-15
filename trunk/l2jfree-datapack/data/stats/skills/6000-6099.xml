@@ -205,10 +205,19 @@
     <set name="effectRange" val="2000"/>
   </skill>
   <skill id="6034" levels="1" name="Freeze">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3500"/>
+    <set name="power" val="80"/>
+    <set name="ignoreResists" val="true"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="1000"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="200"/>
+    <set name="effectRange" val="250"/>
+    <for>
+      <effect name="Stun" time="6" val="0" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="6035" levels="1" name="Transform Red Team">
     <set name="target" val="TARGET_SELF"/>
@@ -219,7 +228,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/>
+      <effect name="Transformation" time="3600" val="0"/> <!-- Transformation lasts 60 minutes -->
     </for>
   </skill>
   <skill id="6036" levels="1" name="Transform Blue Team">
@@ -231,7 +240,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/>
+      <effect name="Transformation" time="3600" val="0"/> <!-- Transformation lasts 60 minutes -->
     </for>
   </skill>
   <skill id="6037" levels="1" name="Soul Unleash">
@@ -331,52 +340,160 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="6046" levels="14" name="Piercing Attack">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: A powerful stab pierces the target. -->
+    <table name="#mpInitialConsume"> 2 4 5 7 10 12 14 14 15 15 15 15 15 16 </table>
+    <table name="#mpConsume"> 10 16 22 30 40 48 56 58 60 61 62 62 63 64 </table>
+    <table name="#power"> 11 16 23 31 41 51 61 66 70 73 76 78 83 90 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="540"/>
   </skill>
   <skill id="6047" levels="14" name="Whirlwind">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Caster spins rapidly, targeting nearby enemies. -->
+    <table name="#mpInitialConsume"> 5 8 11 15 19 24 28 29 30 30 31 31 31 31 </table>
+    <table name="#mpConsume"> 20 32 44 60 79 96 113 116 120 122 124 124 126 127 </table>
+    <table name="#power"> 22 32 46 62 82 102 122 132 140 146 152 156 166 180 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="skillRadius" val="200"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6048" levels="14" name="Lance Smash">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Flourishes a lance and frontally attacks enemies. -->
+    <table name="#mpInitialConsume"> 5 8 11 15 19 24 28 29 30 30 31 31 31 31 </table>
+    <table name="#mpConsume"> 20 32 44 60 79 96 113 116 120 122 124 124 126 127 </table>
+    <table name="#power"> 22 32 46 62 82 102 122 132 140 146 152 156 166 180 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="540"/>
   </skill>
-  <skill id="6049" levels="14" name="Battle Cry">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="6049" levels="4" name="Battle Cry">
+    <!-- Lv1: Utters a battle cry that increases one's own P. Atk., P. Def. and M. Def. -->
+    <table name="#mpInitialConsume"> 9 13 13 14 </table>
+    <table name="#mpConsume"> 36 52 55 57 </table>
+    <table name="#pAtk"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <table name="#pDef"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <table name="#mDef"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="120" count="1" val="0">
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
+        <mul order="0x30" stat="pDef" val="#pDef"/>
+        <mul order="0x30" stat="mDef" val="#mDef"/>
+      </effect>
+    </for>
   </skill>
   <skill id="6050" levels="14" name="Power Smash">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Powerfully strikes a target. -->
+    <table name="#mpInitialConsume"> 2 4 5 7 10 12 14 14 15 15 15 15 15 16 </table>
+    <table name="#mpConsume"> 10 16 22 30 40 48 56 58 60 61 62 62 63 64 </table>
+    <table name="#power"> 11 16 23 31 41 51 61 66 70 73 76 78 83 90 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="overHit" val="true"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="540"/>
   </skill>
   <skill id="6051" levels="14" name="Energy Burst">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Fires energy gathered in one's body at the enemies to the front. -->
+    <table name="#mpInitialConsume"> 4 7 10 14 18 22 26 26 27 27 28 28 28 29 </table>
+    <table name="#mpConsume"> 19 31 42 56 72 88 104 106 109 111 112 114 115 116 </table>
+    <table name="#power"> 22 32 46 62 82 102 122 132 140 146 152 156 166 180 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="skillRadius" val="200"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6052" levels="14" name="Shockwave">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Fires energy gathered in one's body at the enemies to the front. -->
+    <table name="#mpInitialConsume"> 4 7 10 14 18 22 26 26 27 27 28 28 28 29 </table>
+    <table name="#mpConsume"> 19 31 42 56 72 88 104 106 109 111 112 114 115 116 </table>
+    <table name="#power"> 11 16 23 31 41 51 61 66 70 73 76 78 83 90 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="isDebuff" val="true"/>
+    <for>
+      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="6053" levels="4" name="Howl">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lv1: Amplifies one's own abilities with a loud roar, raising P. Atk., P. Def., M. Atk., and M. Def. -->
+    <table name="#mpInitialConsume"> 18 26 27 29 </table>
+    <table name="#mpConsume"> 72 104 109 116 </table>
+    <table name="#pAtk"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <table name="#mAtk"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <table name="#pDef"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <table name="#mDef"> 1.05 1.08 1.12 1.15 </table> <!-- Guess -->
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="120" count="1" val="0">
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
+        <mul order="0x30" stat="mAtk" val="#mAtk"/>
+        <mul order="0x30" stat="pDef" val="#pDef"/>
+        <mul order="0x30" stat="mDef" val="#mDef"/>
+      </effect>
+    </for>
   </skill>
   <skill id="6054" levels="1" name="Switch State">
   <!-- The pet's condition changes. -->

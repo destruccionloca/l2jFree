@@ -336,6 +336,9 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <cond msgId="113" addName="1">
+      <player SiegeZone="126"/>
+    </cond>
   </skill>
   <skill id="2531" levels="1" name="Adventurer's Scroll of Escape">
     <set name="itemConsumeCount" val="1"/>
@@ -900,9 +903,20 @@
     </for>
   </skill>
   <skill id="2578" levels="1" name="Cure Poison Paralyze">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Cures Poison Paralyze. -->
+    <set name="itemConsumeId" val="13048"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="staticReuse" val="true"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="POISON"/>
+    <set name="negateLvl" val="7"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <player flyMounted="False"/>
+    </cond>
   </skill>
   <skill id="2579" levels="1" name="Cure Death Clock">
     <set name="target" val="TARGET_NONE"/>
@@ -995,9 +1009,19 @@
     </cond>
   </skill>
   <skill id="2593" levels="1" name="Bow/Crossbow Attack Resistance Potion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <player flyMounted="false"/>
+    </cond>
+    <for>
+      <effect name="Buff" time="240" val="0">
+        <mul order="0x30" stat="bowWpnVuln" val="0.6"/>
+        <mul order="0x30" stat="crossbowWpnVuln" val="0.8"/>
+      </effect>
+    </for>
   </skill>
   <skill id="2594" levels="1" name="Pailaka Scroll of Escape">
     <set name="itemConsumeCount" val="1"/>

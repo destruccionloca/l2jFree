@@ -578,8 +578,8 @@
     <!-- One's Weight Limit increases by 20% -->
     <table name="#maxLoad"> 1.2 </table>
     <set name="itemConsumeCount" val="1"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <mul order="0x30" stat="maxLoad" val="#maxLoad"/>

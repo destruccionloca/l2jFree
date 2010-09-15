@@ -623,9 +623,17 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2838" levels="1" name="Treasure Sack of the Ancient Giants">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13799"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2839" levels="1" name="Sacred Light Fragment">
     <!-- Resistance to divinity attribute is decreased. -->
@@ -647,6 +655,7 @@
         <not>
           <player active_skill_id="932"/>
         </not>
+        <player level="75"/>
       </and>
     </cond>
   </skill>
@@ -656,74 +665,186 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2842" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13777"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2843" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2843" levels="1" name="Mother-of-Pearl Ornamented Duel Supplies">
+    <set name="itemConsumeId" val="13778"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2844" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2844" levels="1" name="Gold-Ornamented Duel Supplies">
+    <set name="itemConsumeId" val="13779"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2845" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2845" levels="1" name="Silver-Ornamented Duel Supplies">
+    <set name="itemConsumeId" val="13780"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2846" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2846" levels="1" name="Bronze-Ornamented Duel Supplies">
+    <set name="itemConsumeId" val="13781"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2847" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2847" levels="1" name="Non-Ornamented Duel Supplies">
+    <set name="itemConsumeId" val="13782"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2848" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2848" levels="1" name="Weak-Looking Duel Supplies">
+    <set name="itemConsumeId" val="13783"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2849" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2849" levels="1" name="Sad-Looking Duel Supplies">
+    <set name="itemConsumeId" val="13784"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2850" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2850" levels="1" name="Poor-Looking Duel Supplies">
+    <set name="itemConsumeId" val="13785"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2851" levels="1" name="Duel Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2851" levels="1" name="Worthless Duel Supplies">
+    <set name="itemConsumeId" val="13786"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2852" levels="1" name="Duel Reward Box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2852" levels="1" name="Low Quality Battle Reward Chest">
+    <set name="itemConsumeId" val="14635"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2853" levels="1" name="Duel Reward Box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2853" levels="1" name="Middle Quality Battle Reward Chest">
+    <set name="itemConsumeId" val="14636"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2854" levels="1" name="Duel Reward Box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2854" levels="1" name="High Quality Battle Reward Chest">
+    <set name="itemConsumeId" val="14637"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
-  <skill id="2855" levels="1" name="Duel Reward Box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <skill id="2855" levels="1" name="Best Quality Battle Reward Chest">
+    <set name="itemConsumeId" val="14638"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2856" levels="1" name="Santa's Buff Gift Set">
     <set name="itemConsumeCount" val="1"/>
@@ -786,9 +907,17 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2859" levels="1" name="Christmas Gift">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="14616"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="1139">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2860" levels="6" name="Highest Power Secret Medicine of Life">
     <table name="#minLvl"> 0 20 40 52 61 76 </table>
@@ -888,16 +1017,38 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2869" levels="1" name="Event - Milk Cow Summon Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="itemConsumeId" val="14724"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="mpConsume" val="3"/>
+    <set name="itemConsumeSteps" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="18600000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="SUMMON"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <!-- Summon-specific -->
+    <set name="npcId" val="13187"/>
+    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTimeLostIdle" val="500"/>
+    <set name="summonTimeLostActive" val="1000"/>
   </skill>
   <skill id="2870" levels="1" name="Event - Head Milk Cow Summon Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="itemConsumeId" val="14725"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="mpConsume" val="3"/>
+    <set name="itemConsumeSteps" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="18600000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="SUMMON"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <!-- Summon-specific -->
+    <set name="npcId" val="13188"/>
+    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTimeLostIdle" val="500"/>
+    <set name="summonTimeLostActive" val="1000"/>
   </skill>
   <skill id="2871" levels="1" name="Summon Gloomy Milk Cow">
     <set name="target" val="TARGET_NONE"/>
@@ -994,16 +1145,38 @@
     </for>
   </skill>
   <skill id="2880" levels="1" name="Event - Gloomy Milk Cow Summon Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="itemConsumeId" val="14726"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="mpConsume" val="3"/>
+    <set name="itemConsumeSteps" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="18600000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="SUMMON"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <!-- Summon-specific -->
+    <set name="npcId" val="13191"/>
+    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTimeLostIdle" val="500"/>
+    <set name="summonTimeLostActive" val="1000"/>
   </skill>
   <skill id="2881" levels="1" name="Event - Gloomy Head Milk Cow Summon Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="itemConsumeId" val="14727"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="mpConsume" val="3"/>
+    <set name="itemConsumeSteps" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="18600000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="SUMMON"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <!-- Summon-specific -->
+    <set name="npcId" val="13192"/>
+    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTimeLostIdle" val="500"/>
+    <set name="summonTimeLostActive" val="1000"/>
   </skill>
   <skill id="2882" levels="1" name="Crystal Cube">
     <set name="target" val="TARGET_NONE"/>

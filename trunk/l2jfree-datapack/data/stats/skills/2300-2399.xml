@@ -690,7 +690,7 @@
     <set name="skillType" val="MAKE_KILLABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <set name="reuseDelay" val="8000"/> <!-- guess -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess -->
     <set name="hitTime" val="500"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -707,11 +707,10 @@
     <set name="skillType" val="MAKE_QUEST_DROPABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <set name="reuseDelay" val="8000"/> <!-- guess -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess -->
     <set name="hitTime" val="500"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="reuseDelay" val="100"/>
     <set name="effectRange" val="400"/>
     <cond msgId="113" addName="1">
       <and>
@@ -726,7 +725,7 @@
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="500"/>
-    <set name="reuseDelay" val="8000"/> <!-- guess -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="neutral" val="true"/>

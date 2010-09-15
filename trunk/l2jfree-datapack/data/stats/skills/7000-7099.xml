@@ -216,8 +216,12 @@
   </skill>
   <skill id="7028" levels="1" name="For Stationary NPCs">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="runSpd" val="0"/>
+      <mul order="0x30" stat="walkSpd" val="0"/>
+    </for>
   </skill>
   <skill id="7029" levels="4" name="Super Haste">
     <!-- GM Skill -->
