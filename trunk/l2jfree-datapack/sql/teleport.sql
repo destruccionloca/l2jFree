@@ -983,118 +983,118 @@ INSERT INTO `teleport` VALUES
 
 -- Add for Castles teleports (ID are high values to limit the risk of duplicates values)
 INSERT INTO `teleport` VALUES
-('Innadril(artifact -> out)',15000,116046,247094,-930,0,0),
-('Innadril(artifact -> hall)',15001,116028,249163,-787,0,0),
-('Innadril(artifact -> outofcastle)',15002,116373,244729,-1059,0,0),
-('Innadril(hall -> artifact)',15003,116028,250136,-867,0,0),
-('Innadril(hall -> out)',15004,116046,247094,-930,0,0),
-('Innadril(hall -> outofcastle)',15005,116373,244729,-1059,0,0),
-('Innadril(out -> artifact)',15006,116028,250136,-867,0,0),
-('Innadril(out -> hall)',15007,116028,249163,-787,0,0),
-('Innadril(out -> outofcastle)',15008,116373,244729,-1059,0,0),
-('Innadril(outofcastle -> artifact)',15009,116028,250136,-867,0,0),
-('Innadril(outofcastle -> out)',15010,116046,247094,-930,0,0),
-('Innadril(outofcastle -> hall)',15011,116028,249163,-787,0,0),
-('Goddard(artifact -> out)',15012,147466,-48514,-2085,0,0),
-('Goddard(artifact -> hall)',15013,147463,-48504,-2277,0,0),
-('Goddard(artifact -> outofcastle)',15014,147265,-44908,-2085,0,0),
-('Goddard(hall -> artifact)',15015,146165,-50478,-1604,0,0),
-('Goddard(hall -> out)',15016,147466,-48514,-2085,0,0),
-('Goddard(hall -> outofcastle)',15017,147265,-44908,-2085,0,0),
-('Goddard(out -> artifact)',15018,146165,-50478,-1604,0,0),
-('Goddard(out -> hall)',15019,147463,-48504,-2277,0,0),
-('Goddard(out -> outofcastle)',15020,147265,-44908,-2085,0,0),
-('Goddard(outofcastle -> artifact)',15021,146165,-50478,-1604,0,0),
-('Goddard(outofcastle -> out)',15022,147466,-48514,-2085,0,0),
-('Goddard(outofcastle -> hall)',15023,147463,-48504,-2277,0,0),
-('Rune(artifact -> outofcastle)',15025,19049,-49141,-1258,0,0),
-('Rune(artifact -> out)',15026,16981,-49170,-1098,0,0),
-('Rune(artifact -> hall)',15027,11729,-49154,-537,0,0),
--- ('Rune(hall -> artifact)',15028,19049,-49141,-1258,0,0), -- Need coord
-('Rune(hall -> out)',15029,16981,-49170,-1098,0,0),
-('Rune(hall -> outofcastle)',15030,19049,-49141,-1258,0,0),
--- ('Rune(out -> artifact)',15031,19049,-49141,-1258,0,0), -- Need coord
-('Rune(out -> hall)',15032,11732,-49154,-537,0,0),
-('Rune(out -> outofcastle)',15033,19049,-49141,-1258,0,0),
--- ('Rune(outofcastle -> artifact)',15034,11729,-49154,-537,0,0), -- Need coord
-('Rune(outofcastle -> hall)',15035,11729,-49154,-537,0,0),
-('Rune(outofcastle -> out)',15036,16981,-49170,-1098,0,0),
-('Schuttgart(hall -> outofcastle)',15037,77562,-149119,-353,0,0),
-('Schuttgart(hall -> out)',15038,77501,-149943,-353,0,0),
-('Schuttgart(hall -> artifact)',15039,77557,-154975,387,0,0),
-('Schuttgart(out -> artifact)',15040,77557,-154975,387,0,0),
-('Schuttgart(out -> outofcastle)',15041,77562,-149119,-353,0,0),
-('Schuttgart(out -> hall)',15042,77547,-152461,-545,0,0),
-('Schuttgart(outofcastle -> artifact)',15043,77557,-154975,387,0,0),
-('Schuttgart(outofcastle -> out)',15044,77501,-149943,-353,0,0),
-('Schuttgart(outofcastle -> hall)',15045,77547,-152461,-545,0,0),
-('Schuttgart(artifact -> out)',15046,77501,-149943,-353,0,0),
-('Schuttgart(artifact -> hall)',15047,77547,-152461,-545,0,0),
-('Schuttgart(artifact -> outofcastle)',15048,77562,-149119,-353,0,0);
+('Innadril(artifact -> out)',15000,116046,247094,-930,0,0,57),
+('Innadril(artifact -> hall)',15001,116028,249163,-787,0,0,57),
+('Innadril(artifact -> outofcastle)',15002,116373,244729,-1059,0,0,57),
+('Innadril(hall -> artifact)',15003,116028,250136,-867,0,0,57),
+('Innadril(hall -> out)',15004,116046,247094,-930,0,0,57),
+('Innadril(hall -> outofcastle)',15005,116373,244729,-1059,0,0,57),
+('Innadril(out -> artifact)',15006,116028,250136,-867,0,0,57),
+('Innadril(out -> hall)',15007,116028,249163,-787,0,0,57),
+('Innadril(out -> outofcastle)',15008,116373,244729,-1059,0,0,57),
+('Innadril(outofcastle -> artifact)',15009,116028,250136,-867,0,0,57),
+('Innadril(outofcastle -> out)',15010,116046,247094,-930,0,0,57),
+('Innadril(outofcastle -> hall)',15011,116028,249163,-787,0,0,57),
+('Goddard(artifact -> out)',15012,147466,-48514,-2085,0,0,57),
+('Goddard(artifact -> hall)',15013,147463,-48504,-2277,0,0,57),
+('Goddard(artifact -> outofcastle)',15014,147265,-44908,-2085,0,0,57),
+('Goddard(hall -> artifact)',15015,146165,-50478,-1604,0,0,57),
+('Goddard(hall -> out)',15016,147466,-48514,-2085,0,0,57),
+('Goddard(hall -> outofcastle)',15017,147265,-44908,-2085,0,0,57),
+('Goddard(out -> artifact)',15018,146165,-50478,-1604,0,0,57),
+('Goddard(out -> hall)',15019,147463,-48504,-2277,0,0,57),
+('Goddard(out -> outofcastle)',15020,147265,-44908,-2085,0,0,57),
+('Goddard(outofcastle -> artifact)',15021,146165,-50478,-1604,0,0,57),
+('Goddard(outofcastle -> out)',15022,147466,-48514,-2085,0,0,57),
+('Goddard(outofcastle -> hall)',15023,147463,-48504,-2277,0,0,57),
+('Rune(artifact -> outofcastle)',15025,19049,-49141,-1258,0,0,57),
+('Rune(artifact -> out)',15026,16981,-49170,-1098,0,0,57),
+('Rune(artifact -> hall)',15027,11729,-49154,-537,0,0,57),
+-- ('Rune(hall -> artifact)',15028,19049,-49141,-1258,0,0,57), -- Need coord
+('Rune(hall -> out)',15029,16981,-49170,-1098,0,0,57),
+('Rune(hall -> outofcastle)',15030,19049,-49141,-1258,0,0,57),
+-- ('Rune(out -> artifact)',15031,19049,-49141,-1258,0,0,57), -- Need coord
+('Rune(out -> hall)',15032,11732,-49154,-537,0,0,57),
+('Rune(out -> outofcastle)',15033,19049,-49141,-1258,0,0,57),
+-- ('Rune(outofcastle -> artifact)',15034,11729,-49154,-537,0,0,57), -- Need coord
+('Rune(outofcastle -> hall)',15035,11729,-49154,-537,0,0,57),
+('Rune(outofcastle -> out)',15036,16981,-49170,-1098,0,0,57),
+('Schuttgart(hall -> outofcastle)',15037,77562,-149119,-353,0,0,57),
+('Schuttgart(hall -> out)',15038,77501,-149943,-353,0,0,57),
+('Schuttgart(hall -> artifact)',15039,77557,-154975,387,0,0,57),
+('Schuttgart(out -> artifact)',15040,77557,-154975,387,0,0,57),
+('Schuttgart(out -> outofcastle)',15041,77562,-149119,-353,0,0,57),
+('Schuttgart(out -> hall)',15042,77547,-152461,-545,0,0,57),
+('Schuttgart(outofcastle -> artifact)',15043,77557,-154975,387,0,0,57),
+('Schuttgart(outofcastle -> out)',15044,77501,-149943,-353,0,0,57),
+('Schuttgart(outofcastle -> hall)',15045,77547,-152461,-545,0,0,57),
+('Schuttgart(artifact -> out)',15046,77501,-149943,-353,0,0,57),
+('Schuttgart(artifact -> hall)',15047,77547,-152461,-545,0,0,57),
+('Schuttgart(artifact -> outofcastle)',15048,77562,-149119,-353,0,0,57);
 
 -- Update Boss Manager
 DELETE FROM teleport WHERE id IN ( 20000, 20001, 20002 );
 INSERT INTO teleport VALUES
-('Lair of Antharas -> Town of Giran',20000,83400,147943,-3404,0,0),
-('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0),
-('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0),
-('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);
+('Lair of Antharas -> Town of Giran',20000,83400,147943,-3404,0,0,57),
+('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0,57),
+('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0,57),
+('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0,57);
 
 -- Castle Mass GK
 
 INSERT INTO teleport VALUES
-('Gludio Throne',60000,-18112,109413,-2496,0,0),
-('Gludio Inside',60001,-18171,111572,-2649,0,0),
-('Gludio Artefacts Room',60002,-18115,108365,-2590,0,0),
-('Gludio Out of the Castle',60003,-18361,113887,-2767,0,0),
-('Giran Throne',60004,116507,145095,-2563,0,0),
-('Giran Inside',60005,114174,145058,-2751,0,0),
-('Giran Artefacts Room',60006,117557,145092,-2644,0,0),
-('Giran Out of the Castle',60007,112122,144855,-2751,0,0),
-('Oren Throne',60008,82576,37189,-2290,0,0),
-('Oren Inside',60009,80318,37174,-2561,0,0),
-('Oren Artefacts Room',60010,83638,37180,-2371,0,0),
-('Oren Out of the Castle',60011,78116,36961,-2458,0,0),
-('Aden Throne',60012,147446,4652,-340,0,0),
-('Aden Balcony',60013,147439,1120,218,0,0),
-('Aden Inside',60014,147470,7902,-470,0,0),
-('Aden Hall',60015,146372,4649,-403,0,0),
-('Aden Artefacts Room',60016,147499,2544,-473,0,0),
-('Aden Out of the Castle',60017,116025,10843,-736,0,0),
-('Innadril Throne',60018,116025,249097,-787,0,0),
-('Innadril Inside',60019,116026,246975,-967,0,0),
-('Innadril Artefacts Room',60020,116033,250158,-867,0,0),
-('Innadril Out of the Castle',60021,116265,244631,-1057,0,0),
-('Goddard Throne',60022,147460,-48274,-2276,0,0),
-('Goddard Inside',60023,145671,-46510,-1743,0,0),
-('Goddard Artefacts Room',60024,148899,-50461,-1603,0,0),
-('Goddard Out of the Castle',60025,147482,-45026,-2084,0,0),
-('Dion Throne',60026,22074,160352,-2690,0,0),
-('Dion Inside',60027,22150,158042,-2873,0,0),
-('Dion Artefacts Room',60028,22078,161387,-2771,0,0),
-('Dion Out of the Castle',60029,22306,156027,-2953,0,0),
-('Rune Throne',60030,11780,-49153,-530,0,0),
-('Rune Inside',60031,17252,-49160,-1125,0,0),
-('Rune Artefacts Room',60032,10133,-49152,997,0,0),
-('Rune Out of the Castle',60033,19118,-49136,-1266,0,0);
+('Gludio Throne',60000,-18112,109413,-2496,0,0,57),
+('Gludio Inside',60001,-18171,111572,-2649,0,0,57),
+('Gludio Artefacts Room',60002,-18115,108365,-2590,0,0,57),
+('Gludio Out of the Castle',60003,-18361,113887,-2767,0,0,57),
+('Giran Throne',60004,116507,145095,-2563,0,0,57),
+('Giran Inside',60005,114174,145058,-2751,0,0,57),
+('Giran Artefacts Room',60006,117557,145092,-2644,0,0,57),
+('Giran Out of the Castle',60007,112122,144855,-2751,0,0,57),
+('Oren Throne',60008,82576,37189,-2290,0,0,57),
+('Oren Inside',60009,80318,37174,-2561,0,0,57),
+('Oren Artefacts Room',60010,83638,37180,-2371,0,0,57),
+('Oren Out of the Castle',60011,78116,36961,-2458,0,0,57),
+('Aden Throne',60012,147446,4652,-340,0,0,57),
+('Aden Balcony',60013,147439,1120,218,0,0,57),
+('Aden Inside',60014,147470,7902,-470,0,0,57),
+('Aden Hall',60015,146372,4649,-403,0,0,57),
+('Aden Artefacts Room',60016,147499,2544,-473,0,0,57),
+('Aden Out of the Castle',60017,116025,10843,-736,0,0,57),
+('Innadril Throne',60018,116025,249097,-787,0,0,57),
+('Innadril Inside',60019,116026,246975,-967,0,0,57),
+('Innadril Artefacts Room',60020,116033,250158,-867,0,0,57),
+('Innadril Out of the Castle',60021,116265,244631,-1057,0,0,57),
+('Goddard Throne',60022,147460,-48274,-2276,0,0,57),
+('Goddard Inside',60023,145671,-46510,-1743,0,0,57),
+('Goddard Artefacts Room',60024,148899,-50461,-1603,0,0,57),
+('Goddard Out of the Castle',60025,147482,-45026,-2084,0,0,57),
+('Dion Throne',60026,22074,160352,-2690,0,0,57),
+('Dion Inside',60027,22150,158042,-2873,0,0,57),
+('Dion Artefacts Room',60028,22078,161387,-2771,0,0,57),
+('Dion Out of the Castle',60029,22306,156027,-2953,0,0,57),
+('Rune Throne',60030,11780,-49153,-530,0,0,57),
+('Rune Inside',60031,17252,-49160,-1125,0,0,57),
+('Rune Artefacts Room',60032,10133,-49152,997,0,0,57),
+('Rune Out of the Castle',60033,19118,-49136,-1266,0,0,57);
 
 -- Baylor Teleport
 INSERT INTO teleport VALUES 
-('Baylors room',800001,153743,142103,-9775,0,0);
+('Baylors room',800001,153743,142103,-9775,0,0,57);
 
 -- l2jfree addon from forced_updates
 DELETE FROM teleport WHERE id IN ( 20001,20002 );
 INSERT INTO teleport VALUES
-('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0),
-('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0);
+('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0,57),
+('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0,57);
 
 -- Update Teleport
 DELETE FROM teleport WHERE id = 20004;
-INSERT INTO teleport VALUES ('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);
+INSERT INTO teleport VALUES ('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0,57);
 
 UPDATE `teleport` SET `loc_x` = '17724',`loc_y` = '114004',`loc_z` = '-11667' WHERE `id` = 24;
 
 -- Seed of Destruction Temporary Teleporter (Psycho)
-INSERT INTO teleport VALUES ('Main Square',70500,-245823,220494,-12110,0,0);
-INSERT INTO teleport VALUES ('Fortress of Destruction',70501,-251426,213810,-12090,0,0);
-INSERT INTO teleport VALUES ('Jinryong''s Room',70502,-250073,207304,-11970,0,0);
+INSERT INTO teleport VALUES ('Main Square',70500,-245823,220494,-12110,0,0,57);
+INSERT INTO teleport VALUES ('Fortress of Destruction',70501,-251426,213810,-12090,0,0,57);
+INSERT INTO teleport VALUES ('Jinryong''s Room',70502,-250073,207304,-11970,0,0,57);
