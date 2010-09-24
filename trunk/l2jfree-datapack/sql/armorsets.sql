@@ -236,7 +236,7 @@ INSERT INTO `armorsets` VALUES
 -- Special Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
   (144,  9670,  9671, 9669,0,    0,    '8277-1;',                      0,    0,    0,        0,       0,       0,         0,       0),     -- Natives Set (bestows Native transform skill when all are worn together)
-  (145, 13806, 13807,13805,0,    0,    '8278-1;',                      0,    0,    0,        0,       0,       0,         0,       0);     -- Guard of Dawns Set (bestows Guard transform skill when all are worn together)
+  (145, 13806, 13807,13805,0,    0,    '8278-1;',                      0,    0,    0,        0,       0,       0,         0,       0),     -- Guard of Dawns Set (bestows Guard transform skill when all are worn together)
 
 --  Newly added or custom sets should be added here, at the end of the file adjusting IDs to avoid conflics
 
