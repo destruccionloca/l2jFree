@@ -322,7 +322,7 @@ public class IceFairySirra extends L2AttackableAIScript
 			else
 			{
 				String filename = "";
-				if (player.isInParty() && player.getParty().getPartyLeaderOID() == player.getObjectId())
+				if (player.isInParty() && player.getParty().getLeader() == player)
 				{
 					if (checkItems(player) == true)
 					{

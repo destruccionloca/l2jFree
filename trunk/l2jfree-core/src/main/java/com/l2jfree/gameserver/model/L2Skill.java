@@ -1982,7 +1982,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				case TARGET_PARTY_MEMBER:
 				{
-					if ((target != null && target == activeChar) || (target != null && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
+					if ((target != null && target == activeChar) || (target != null && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty() == target.getParty())
 							|| (target != null && activeChar instanceof L2PcInstance && target instanceof L2Summon && activeChar.getPet() == target)
 							|| (target != null && activeChar instanceof L2Summon && target instanceof L2PcInstance && activeChar == target.getPet()))
 					{
@@ -2000,7 +2000,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				case TARGET_PARTY_OTHER:
 				{
-					if (target != null && target != activeChar && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
+					if (target != null && target != activeChar && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty() == target.getParty())
 					{
 						if (!target.isDead())
 						{
@@ -2069,7 +2069,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 						}
 
 						if (!((hasClan && obj.getClanId() == player.getClanId())
-								|| (hasParty && obj.isInParty() && player.getParty().getPartyLeaderOID() == obj.getParty().getPartyLeaderOID())))
+								|| (hasParty && obj.isInParty() && player.getParty() == obj.getParty())))
 							continue;
 
 						// Don't add this target if this is a Pc->Pc pvp
