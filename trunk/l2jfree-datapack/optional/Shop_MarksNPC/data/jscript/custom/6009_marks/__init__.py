@@ -124,7 +124,8 @@ class Quest (JQuest) :
  def onTalk (self,npc,player):
 
    npcId = npc.getNpcId()
-   st = player.getQuestState(qn)
+   st = player.getQuestState(qn)
+
    htmltext = "<html><body>I have nothing to say with you</body></html>"
    id = st.getState()
    st.setState(STARTED)

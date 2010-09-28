@@ -39,7 +39,8 @@ class Quest (JQuest) :
    htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
-   return "1.htm"
+   return "1.htm"
+
 
 QUEST       = Quest(5007,"5007_santa","custom")
 CREATED     = State('Start', QUEST)
