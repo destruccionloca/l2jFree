@@ -78,13 +78,6 @@ public final class PcEffects extends CharEffects
 		
 		final ArrayList<StoredEffect> list = getEffectList();
 		
-		list.clear();
-		
-		if (storeActiveEffects)
-			for (L2Effect e : getAllEffects())
-				if (e != null && e.canBeStoredInDb())
-					list.add(new StoredEffect(e));
-		
 		// TODO: delay effect storage
 		Connection con = null;
 		try
@@ -92,6 +85,11 @@ public final class PcEffects extends CharEffects
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
 			deleteEffects(con, getOwner().getClassIndex());
+			
+			if (storeActiveEffects)
+				for (L2Effect e : getAllEffects())
+					if (e != null && e.canBeStoredInDb())
+						list.add(new StoredEffect(e));
 			
 			PreparedStatement statement = con
 					.prepareStatement("INSERT INTO character_effects (charId,classIndex,buffIndex,skillId,skillLvl,count,remaining) VALUES (?,?,?,?,?,?,?)");
@@ -153,12 +151,17 @@ public final class PcEffects extends CharEffects
 		statement.execute();
 		statement.close();
 		
-		_storedEffects.remove(classIndex);
+		getEffectList(classIndex).clear();
 	}
 	
 	private ArrayList<StoredEffect> getEffectList()
 	{
-		ArrayList<StoredEffect> list = _storedEffects.get(getOwner().getClassIndex());
+		return getEffectList(getOwner().getClassIndex());
+	}
+	
+	private ArrayList<StoredEffect> getEffectList(int classIndex)
+	{
+		ArrayList<StoredEffect> list = _storedEffects.get(classIndex);
 		
 		if (list != null)
 			return list;
@@ -173,7 +176,7 @@ public final class PcEffects extends CharEffects
 			PreparedStatement statement = con
 					.prepareStatement("SELECT skillId,skillLvl,count,remaining FROM character_effects WHERE charId=? AND classIndex=? ORDER BY buffIndex ASC");
 			statement.setInt(1, getOwner().getObjectId());
-			statement.setInt(2, getOwner().getClassIndex());
+			statement.setInt(2, classIndex);
 			
 			ResultSet rset = statement.executeQuery();
 			
@@ -194,7 +197,7 @@ public final class PcEffects extends CharEffects
 			L2DatabaseFactory.close(con);
 		}
 		
-		_storedEffects.set(getOwner().getClassIndex(), list);
+		_storedEffects.set(classIndex, list);
 		
 		return list;
 	}

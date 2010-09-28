@@ -168,7 +168,7 @@ public final class PcSkills
 		statement.execute();
 		statement.close();
 		
-		_storedSkills.remove(classIndex);
+		getSkillMap(classIndex).clear();
 	}
 	
 	private SkillMap getSkillMap()
