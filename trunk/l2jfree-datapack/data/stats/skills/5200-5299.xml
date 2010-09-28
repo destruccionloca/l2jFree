@@ -609,7 +609,7 @@
     <table name="#mpConsume"> 14 23 32 42 54 66 78 83 87 90 92 93 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="element" val="5"/> <!-- Unholy -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>

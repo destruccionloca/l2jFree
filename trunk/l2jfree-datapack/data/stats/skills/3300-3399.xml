@@ -276,7 +276,7 @@
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="skillRadius" val="300"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="-1"/>
