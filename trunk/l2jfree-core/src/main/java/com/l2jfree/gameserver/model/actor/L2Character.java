@@ -5648,80 +5648,80 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill == null || _skills == null)
 			return null;
-
+		
 		// Remove the skill from the L2Character _skills
-		final L2Skill oldSkill = _skills.remove(skill.getId());
-
+		skill = _skills.remove(skill.getId());
+		
+		if (skill == null)
+			return null;
+		
 		// Remove all its Func objects from the L2Character calculator set
-		if (oldSkill != null)
+		skillChanged(skill, null);
+		
+		// does not abort casting of the transformation dispell
+		if (skill.getSkillType() != L2SkillType.TRANSFORMDISPEL)
 		{
-			skillChanged(oldSkill, null);
-
-			// does not abort casting of the transformation dispell
-			if (oldSkill.getSkillType() != L2SkillType.TRANSFORMDISPEL)
+			// Stop casting if this skill is used right now
+			if (isCastingNow() && this instanceof L2PcInstance)
 			{
-				// Stop casting if this skill is used right now
-				if (isCastingNow() && this instanceof L2PcInstance)
-				{
-					SkillUsageRequest currentSkill = ((L2PcInstance)this).getCurrentSkill();
-					if (currentSkill != null && currentSkill.getSkillId() == oldSkill.getId())
-						abortCast();
-				}
-	
-				if (isCastingSimultaneouslyNow())
-				{
-					L2Skill lastSimultaneousSkillCast = getLastSimultaneousSkillCast();
-					if (lastSimultaneousSkillCast != null && lastSimultaneousSkillCast.getId() == oldSkill.getId())
-						abortCast();
-				}
+				SkillUsageRequest currentSkill = ((L2PcInstance)this).getCurrentSkill();
+				if (currentSkill != null && currentSkill.getSkillId() == skill.getId())
+					abortCast();
 			}
-
-			// for now, to support transformations, we have to let their
-			// effects stay when skill is removed
-			for (L2Effect e : getAllEffects())
+			
+			if (isCastingSimultaneouslyNow())
 			{
-				if (e == null || e.getSkill().getId() != oldSkill.getId())
-					continue; // remove only effects with the same id
-
-				if (e.getEffectType() == L2EffectType.TRANSFORMATION)
-					continue; // remove only non-transformation effects
-
-				if (e.getSkill().isChance())
-					continue; // don't remove triggered effects
-				
-				if (Config.ALT_KEEP_ITEM_BUFFS && e.getSkill().isItemSkill() && e.getSkill().isActive())
-					continue; // skip item/augmentation active/self buffs
-
-				if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
-					e.exit(); // remove self skills only - there is no reason to remove normal buffs
-			}
-
-			if (this instanceof L2PcInstance)
-			{
-				L2PcInstance player = (L2PcInstance)this;
-
-				if (oldSkill instanceof L2SkillAgathion && player.getAgathionId() > 0)
-				{
-					player.setAgathionId(0);
-					player.broadcastUserInfo();
-				}
-
-				if (oldSkill instanceof L2SkillMount && player.isMounted())
-				{
-					player.dismount();
-				}
-
-				if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710)
-				{
-					L2Summon summon = player.getPet();
-
-					if (summon != null && summon.getNpcId() == 14870)
-						summon.unSummon();
-				}
+				L2Skill lastSimultaneousSkillCast = getLastSimultaneousSkillCast();
+				if (lastSimultaneousSkillCast != null && lastSimultaneousSkillCast.getId() == skill.getId())
+					abortCast();
 			}
 		}
-
-		return oldSkill;
+		
+		// for now, to support transformations, we have to let their
+		// effects stay when skill is removed
+		for (L2Effect e : getAllEffects())
+		{
+			if (e == null || e.getSkill().getId() != skill.getId())
+				continue; // remove only effects with the same id
+				
+			if (e.getEffectType() == L2EffectType.TRANSFORMATION)
+				continue; // remove only non-transformation effects
+				
+			if (e.getSkill().isChance())
+				continue; // don't remove triggered effects
+				
+			if (Config.ALT_KEEP_ITEM_BUFFS && e.getSkill().isItemSkill() && e.getSkill().isActive())
+				continue; // skip item/augmentation active/self buffs
+				
+			if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
+				e.exit(); // remove self skills only - there is no reason to remove normal buffs
+		}
+		
+		if (this instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)this;
+			
+			if (skill instanceof L2SkillAgathion && player.getAgathionId() > 0)
+			{
+				player.setAgathionId(0);
+				player.broadcastUserInfo();
+			}
+			
+			if (skill instanceof L2SkillMount && player.isMounted())
+			{
+				player.dismount();
+			}
+			
+			if (skill instanceof L2SkillSummon && skill.getId() == 710)
+			{
+				L2Summon summon = player.getPet();
+				
+				if (summon != null && summon.getNpcId() == 14870)
+					summon.unSummon();
+			}
+		}
+		
+		return skill;
 	}
 
 	protected void skillChanged(L2Skill removed, L2Skill added)

@@ -180,16 +180,12 @@ public class NewCharacter extends L2GameClientPacket
 		if (Config.STARTING_SP > 0)
 			newChar.getStat().addSp(Config.STARTING_SP);
 		
-		L2ShortCut shortcut;
 		//add attack shortcut
-		shortcut = new L2ShortCut(0, 0, 3, 2, 0, 1);
-		newChar.registerShortCut(shortcut);
+		newChar.registerShortCut(new L2ShortCut(0, 0, L2ShortCut.TYPE_ACTION, 2, 0, 1));
 		//add take shortcut
-		shortcut = new L2ShortCut(3, 0, 3, 5, 0, 1);
-		newChar.registerShortCut(shortcut);
+		newChar.registerShortCut(new L2ShortCut(3, 0, L2ShortCut.TYPE_ACTION, 5, 0, 1));
 		//add sit shortcut
-		shortcut = new L2ShortCut(10, 0, 3, 0, 0, 1);
-		newChar.registerShortCut(shortcut);
+		newChar.registerShortCut(new L2ShortCut(10, 0, L2ShortCut.TYPE_ACTION, 0, 0, 1));
 		
 		for (PcTemplateItem ia : template.getItems())
 		{
@@ -198,8 +194,7 @@ public class NewCharacter extends L2GameClientPacket
 			// add tutorial guide shortcut
 			if (item.getItemId() == 5588)
 			{
-				shortcut = new L2ShortCut(11, 0, 1, item.getObjectId(), 0, 1);
-				newChar.registerShortCut(shortcut);
+				newChar.registerShortCut(new L2ShortCut(11, 0, L2ShortCut.TYPE_ITEM, item.getObjectId(), 0, 1));
 			}
 			
 			if (item.isEquipable() && ia.isEquipped())
@@ -213,13 +208,11 @@ public class NewCharacter extends L2GameClientPacket
 			newChar.addSkill(SkillTable.getInstance().getInfo(skill.getId(), skill.getLevel()), true);
 			if (skill.getId() == 1001 || skill.getId() == 1177)
 			{
-				shortcut = new L2ShortCut(1, 0, 2, skill.getId(), skill.getLevel(), 1);
-				newChar.registerShortCut(shortcut);
+				newChar.registerShortCut(new L2ShortCut(1, 0, L2ShortCut.TYPE_SKILL, skill.getId(), skill.getLevel(), 1));
 			}
 			if (skill.getId() == 1216)
 			{
-				shortcut = new L2ShortCut(10, 0, 2, skill.getId(), skill.getLevel(), 1);
-				newChar.registerShortCut(shortcut);
+				newChar.registerShortCut(new L2ShortCut(10, 0, L2ShortCut.TYPE_SKILL, skill.getId(), skill.getLevel(), 1));
 			}
 			if (_log.isDebugEnabled())
 				_log.debug("adding starter skill:" + skill.getId() + " / " + skill.getLevel());

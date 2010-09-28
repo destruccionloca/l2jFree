@@ -1319,12 +1319,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		else
 			_log.warn("Attempted to remove unknown RecipeList: " + recipeId);
 
-		L2ShortCut[] allShortCuts = getAllShortCuts();
-		for (L2ShortCut sc : allShortCuts)
-		{
-			if (sc != null && sc.getId() == recipeId && sc.getType() == L2ShortCut.TYPE_RECIPE)
-				deleteShortCut(sc.getSlot(), sc.getPage());
-		}
+		getShortCuts().deleteShortCutByTypeAndId(L2ShortCut.TYPE_RECIPE, recipeId);
 	}
 
 	private void insertNewRecipeData(int recipeId, boolean isDwarf)
@@ -1660,7 +1655,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		return _NotifyQuestOfDeathList;
 	}
 
-	private ShortCuts getShortCuts()
+	public ShortCuts getShortCuts()
 	{
 		if (_shortCuts == null)
 			_shortCuts = new ShortCuts(this);
@@ -7325,30 +7320,23 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	@Override
 	public L2Skill removeSkill(L2Skill skill)
 	{
+		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
+		skill = super.removeSkill(skill);
+		
 		if (skill == null)
 			return null;
-
-		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
-		L2Skill oldSkill = super.removeSkill(skill);
-
+		
 		_pcSkills.deleteSkill(skill);
-
+		
 		if (transformId() > 0 || isCursedWeaponEquipped())
-			return oldSkill;
-
-		for (L2ShortCut sc : getAllShortCuts())
-		{
-			if (sc != null && sc.getId() == skill.getId()
-					&& sc.getType() == L2ShortCut.TYPE_SKILL
-					&& !skill.isItemSkill())
-			{
-				deleteShortCut(sc.getSlot(), sc.getPage());
-			}
-		}
-
-		return oldSkill;
+			return skill;
+		
+		if (!skill.isItemSkill())
+			getShortCuts().deleteShortCutByTypeAndId(L2ShortCut.TYPE_SKILL, skill.getId());
+		
+		return skill;
 	}
-
+	
 	/**
 	 * check player skills and remove unlegit ones (excludes hero, noblesse and cursed weapon skills)
 	 */

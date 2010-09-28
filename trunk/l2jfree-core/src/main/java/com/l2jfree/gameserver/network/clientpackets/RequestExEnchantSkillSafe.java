@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -28,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillResult;
-import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.tools.random.Rnd;
@@ -192,30 +190,13 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
 		
 		player.sendSkillList();
 		
-		sendPacket(new ExEnchantSkillInfo(_skillId, player.getSkillLevel(_skillId)));
+		sendPacket(new ExEnchantSkillInfo(_skillId, player));
 		sendPacket(new ExEnchantSkillInfoDetail(ExEnchantSkillInfoDetail.TYPE_SAFE_ENCHANT, _skillId, player
 				.getSkillLevel(_skillId) + 1, player));
 		
-		updateSkillShortcuts(player);
+		player.getShortCuts().updateSkillShortcuts(_skillId);
 		
 		sendPacket(ActionFailed.STATIC_PACKET);
-	}
-	
-	private void updateSkillShortcuts(L2PcInstance player)
-	{
-		// update all the shortcuts to this skill
-		L2ShortCut[] allShortCuts = player.getAllShortCuts();
-		
-		for (L2ShortCut sc : allShortCuts)
-		{
-			if (sc.getId() == _skillId && sc.getType() == L2ShortCut.TYPE_SKILL)
-			{
-				L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), player
-						.getSkillLevel(_skillId), 1);
-				player.sendPacket(new ShortCutRegister(newsc));
-				player.registerShortCut(newsc);
-			}
-		}
 	}
 	
 	@Override

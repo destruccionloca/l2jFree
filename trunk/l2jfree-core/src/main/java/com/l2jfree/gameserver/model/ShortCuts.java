@@ -28,6 +28,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
+import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 public final class ShortCuts
@@ -119,11 +120,16 @@ public final class ShortCuts
 			_owner.sendPacket(new ExAutoSoulShot(shotId, 1));
 	}
 	
-	public synchronized void deleteShortCutByObjectId(int objectId)
+	public void deleteShortCutByObjectId(int objectId)
+	{
+		deleteShortCutByTypeAndId(L2ShortCut.TYPE_ITEM, objectId);
+	}
+	
+	public synchronized void deleteShortCutByTypeAndId(int type, int id)
 	{
 		for (L2ShortCut sc : _shortCuts.values())
-			if (sc.getType() == L2ShortCut.TYPE_ITEM)
-				if (sc.getId() == objectId)
+			if (sc.getType() == type)
+				if (sc.getId() == id)
 					deleteShortCut(sc.getSlot(), sc.getPage());
 	}
 	
@@ -168,5 +174,24 @@ public final class ShortCuts
 			if (sc.getType() == L2ShortCut.TYPE_ITEM)
 				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
 					deleteShortCut(sc.getSlot(), sc.getPage());
+	}
+	
+	public synchronized void updateSkillShortcuts(int skillId)
+	{
+		// update all the shortcuts to this skill
+		for (L2ShortCut sc : _shortCuts.values())
+		{
+			if (sc.getType() == L2ShortCut.TYPE_SKILL)
+			{
+				if (sc.getId() == skillId)
+				{
+					final int skillLvl = _owner.getSkillLevel(skillId);
+					
+					L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), skillLvl, 1);
+					_owner.sendPacket(new ShortCutRegister(newsc));
+					registerShortCut(newsc);
+				}
+			}
+		}
 	}
 }

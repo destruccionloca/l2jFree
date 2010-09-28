@@ -97,12 +97,7 @@ public class MacroList
 		}
 		_macroses.remove(id);
 
-		L2ShortCut[] allShortCuts = _owner.getAllShortCuts();
-		for (L2ShortCut sc : allShortCuts)
-		{
-			if (sc.getId() == id && sc.getType() == L2ShortCut.TYPE_MACRO)
-				_owner.deleteShortCut(sc.getSlot(), sc.getPage());
-		}
+		_owner.getShortCuts().deleteShortCutByTypeAndId(L2ShortCut.TYPE_MACRO, id);
 
 		sendUpdate();
 	}

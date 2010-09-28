@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
-import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
@@ -37,7 +36,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.PledgeSkillList;
-import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
@@ -471,17 +469,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		// update all the shortcuts to this skill
 		if (_level > 1)
 		{
-			L2ShortCut[] allShortCuts = player.getAllShortCuts();
-			
-			for (L2ShortCut sc : allShortCuts)
-			{
-				if (sc.getId() == _id && sc.getType() == L2ShortCut.TYPE_SKILL)
-				{
-					L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _level, 1);
-					sendPacket(new ShortCutRegister(newsc));
-					player.registerShortCut(newsc);
-				}
-			}
+			player.getShortCuts().updateSkillShortcuts(_id);
 		}
 		
 		if (_skillType == 4)

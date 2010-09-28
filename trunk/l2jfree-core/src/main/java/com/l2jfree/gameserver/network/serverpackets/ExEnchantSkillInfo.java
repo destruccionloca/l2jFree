@@ -21,6 +21,7 @@ import javolution.util.FastList;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class ExEnchantSkillInfo extends L2GameServerPacket
 {
@@ -31,6 +32,11 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
 	private final int _id;
 	private final int _lvl;
 	private boolean _maxEnchanted = false;
+	
+	public ExEnchantSkillInfo(int skillId, L2PcInstance player)
+	{
+		this(skillId, player.getSkillLevel(skillId));
+	}
 	
 	public ExEnchantSkillInfo(int id, int lvl)
 	{
