@@ -586,7 +586,7 @@ public class CharEffects
 		}
 	}
 	
-	private void stopStackedEffects(L2Effect e)
+	private synchronized void stopStackedEffects(L2Effect e)
 	{
 		for (String stackType : e.getStackTypes())
 		{
