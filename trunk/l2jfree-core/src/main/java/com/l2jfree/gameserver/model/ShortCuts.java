@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -30,12 +31,13 @@ import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.util.LookupTable;
 
 public final class ShortCuts
 {
 	private static final Log _log = LogFactory.getLog(ShortCuts.class);
 	
-	private final Map<Integer, L2ShortCut> _shortCuts = new FastMap<Integer, L2ShortCut>().setShared(true);
+	private final LookupTable<Map<Integer, L2ShortCut>> _storedShortCuts = new LookupTable<Map<Integer, L2ShortCut>>();
 	private final L2PcInstance _owner;
 	
 	public ShortCuts(L2PcInstance owner)
@@ -45,19 +47,20 @@ public final class ShortCuts
 	
 	public L2ShortCut[] getAllShortCuts()
 	{
-		return _shortCuts.values().toArray(new L2ShortCut[_shortCuts.size()]);
+		return getShortCutMap().values().toArray(new L2ShortCut[getShortCutMap().size()]);
 	}
 	
 	public synchronized void registerShortCut(L2ShortCut shortcut)
 	{
-		_shortCuts.put(shortcut.getSlot() + 12 * shortcut.getPage(), shortcut);
+		getShortCutMap().put(shortcut.getSlot() + 12 * shortcut.getPage(), shortcut);
 		
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement statement = con.prepareStatement("REPLACE INTO character_shortcuts (charId,slot,page,type,shortcut_id,level,class_index) values(?,?,?,?,?,?,?)");
+			PreparedStatement statement = con
+					.prepareStatement("REPLACE INTO character_shortcuts (charId,slot,page,type,shortcut_id,level,class_index) values(?,?,?,?,?,?,?)");
 			statement.setInt(1, _owner.getObjectId());
 			statement.setInt(2, shortcut.getSlot());
 			statement.setInt(3, shortcut.getPage());
@@ -80,16 +83,17 @@ public final class ShortCuts
 	
 	public synchronized void deleteShortCut(int slot, int page)
 	{
-		L2ShortCut old = _shortCuts.remove(slot + page * 12);
+		final L2ShortCut old = getShortCutMap().remove(slot + page * 12);
 		if (old == null)
 			return;
 		
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE charId=? AND slot=? AND page=? AND class_index=?");
+			PreparedStatement statement = con
+					.prepareStatement("DELETE FROM character_shortcuts WHERE charId=? AND slot=? AND page=? AND class_index=?");
 			statement.setInt(1, _owner.getObjectId());
 			statement.setInt(2, old.getSlot());
 			statement.setInt(3, old.getPage());
@@ -127,35 +131,47 @@ public final class ShortCuts
 	
 	public synchronized void deleteShortCutByTypeAndId(int type, int id)
 	{
-		for (L2ShortCut sc : _shortCuts.values())
+		for (L2ShortCut sc : getShortCutMap().values())
 			if (sc.getType() == type)
 				if (sc.getId() == id)
 					deleteShortCut(sc.getSlot(), sc.getPage());
 	}
 	
-	public synchronized void restore()
+	private Map<Integer, L2ShortCut> getShortCutMap()
 	{
-		_shortCuts.clear();
+		return getShortCutMap(_owner.getClassIndex());
+	}
+	
+	private synchronized Map<Integer, L2ShortCut> getShortCutMap(int classIndex)
+	{
+		Map<Integer, L2ShortCut> map = _storedShortCuts.get(classIndex);
+		
+		if (map != null)
+			return map;
+		
+		map = new FastMap<Integer, L2ShortCut>().setShared(true);
 		
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT slot, page, type, shortcut_id, level FROM character_shortcuts WHERE charId=? AND class_index=?");
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con
+					.prepareStatement("SELECT slot,page,type,shortcut_id,level FROM character_shortcuts WHERE charId=? AND class_index=?");
 			statement.setInt(1, _owner.getObjectId());
-			statement.setInt(2, _owner.getClassIndex());
+			statement.setInt(2, classIndex);
 			
 			ResultSet rset = statement.executeQuery();
 			
 			while (rset.next())
 			{
-				int slot = rset.getInt("slot");
-				int page = rset.getInt("page");
-				int type = rset.getInt("type");
-				int id = rset.getInt("shortcut_id");
-				int level = rset.getInt("level");
+				final int slot = rset.getInt("slot");
+				final int page = rset.getInt("page");
+				final int type = rset.getInt("type");
+				final int id = rset.getInt("shortcut_id");
+				final int level = rset.getInt("level");
 				
-				_shortCuts.put(slot + page * 12, new L2ShortCut(slot, page, type, id, level, 1));
+				map.put(slot + page * 12, new L2ShortCut(slot, page, type, id, level, 1));
 			}
 			
 			rset.close();
@@ -170,7 +186,16 @@ public final class ShortCuts
 			L2DatabaseFactory.close(con);
 		}
 		
-		for (L2ShortCut sc : _shortCuts.values())
+		_storedShortCuts.set(classIndex, map);
+		
+		return map;
+	}
+	
+	public synchronized void restore()
+	{
+		getShortCutMap();
+		
+		for (L2ShortCut sc : getShortCutMap().values())
 			if (sc.getType() == L2ShortCut.TYPE_ITEM)
 				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
 					deleteShortCut(sc.getSlot(), sc.getPage());
@@ -179,7 +204,7 @@ public final class ShortCuts
 	public synchronized void updateSkillShortcuts(int skillId)
 	{
 		// update all the shortcuts to this skill
-		for (L2ShortCut sc : _shortCuts.values())
+		for (L2ShortCut sc : getShortCutMap().values())
 		{
 			if (sc.getType() == L2ShortCut.TYPE_SKILL)
 			{
@@ -193,5 +218,17 @@ public final class ShortCuts
 				}
 			}
 		}
+	}
+	
+	public synchronized void deleteShortCuts(Connection con, int classIndex) throws SQLException
+	{
+		PreparedStatement statement = con
+				.prepareStatement("DELETE FROM character_shortcuts WHERE charId=? AND class_index=?");
+		statement.setInt(1, _owner.getObjectId());
+		statement.setInt(2, classIndex);
+		statement.execute();
+		statement.close();
+		
+		getShortCutMap(classIndex).clear();
 	}
 }

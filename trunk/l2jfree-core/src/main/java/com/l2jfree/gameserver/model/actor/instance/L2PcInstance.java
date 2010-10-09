@@ -348,9 +348,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private static final String	DELETE_CHAR_HENNA				= "DELETE FROM character_hennas WHERE charId=? AND slot=? AND class_index=?";
 	private static final String	DELETE_CHAR_HENNAS				= "DELETE FROM character_hennas WHERE charId=? AND class_index=?";
 
-	// Character Shortcut SQL String Definitions:
-	private static final String	DELETE_CHAR_SHORTCUTS			= "DELETE FROM character_shortcuts WHERE charId=? AND class_index=?";
-
 	// Character Transformation SQL String Definitions:
 	private static final String	SELECT_CHAR_TRANSFORM			= "SELECT transform_id FROM characters WHERE charId=?";
 	private static final String	UPDATE_CHAR_TRANSFORM			= "UPDATE characters SET transform_id=? WHERE charId=?";
@@ -9788,11 +9785,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				statement.close();
 
 				// Remove all shortcuts info stored for this sub-class.
-				statement = con.prepareStatement(DELETE_CHAR_SHORTCUTS);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, classIndex);
-				statement.execute();
-				statement.close();
+				getShortCuts().deleteShortCuts(con, classIndex);
 
 				// Remove all effects info stored for this sub-class.
 				getEffects().deleteEffects(con, classIndex);
