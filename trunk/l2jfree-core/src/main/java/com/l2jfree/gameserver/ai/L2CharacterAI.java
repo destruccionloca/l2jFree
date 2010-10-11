@@ -30,9 +30,9 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -235,6 +235,15 @@ public class L2CharacterAI extends AbstractAI
 		if (getIntention() == AI_INTENTION_REST && skill.isMagic())
 		{
 			clientActionFailed();
+			return;
+		}
+		
+		if (_actor.isAfraid())
+		{
+			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
+			clientActionFailed();
+			// TODO
+			//saveNextIntention(AI_INTENTION_CAST, request, target);
 			return;
 		}
 		
@@ -671,14 +680,6 @@ public class L2CharacterAI extends AbstractAI
 		}
 		clientStoppedMoving();
 
-		// Currently done for NPCs only
-		Quest[] quests = null;
-		if (_actor instanceof L2Npc)
-			quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
-		if (quests != null)
-			for (Quest quest: quests)
-				quest.notifyArrived((L2Npc)_actor);
-
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
 			setIntention(AI_INTENTION_ACTIVE);
@@ -694,6 +695,14 @@ public class L2CharacterAI extends AbstractAI
 		{
 			((L2AirShipInstance) _actor).evtArrived();
 		}
+
+		// Currently done for NPCs only
+		Quest[] quests = null;
+		if (_actor instanceof L2Npc)
+			quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
+		if (quests != null)
+			for (Quest quest: quests)
+				quest.notifyArrived((L2Npc) _actor);
 	}
 
 	/**

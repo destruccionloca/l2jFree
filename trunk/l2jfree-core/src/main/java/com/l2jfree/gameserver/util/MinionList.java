@@ -201,7 +201,19 @@ public final class MinionList
 		L2NpcTemplate minionTemplate = NpcTable.getInstance().getTemplate(minionid);
 
 		// Create and Init the Minion and generate its Identifier
-		L2MinionInstance monster = new L2MinionInstance(IdFactory.getInstance().getNextId(), minionTemplate);
+		L2MinionInstance monster = null;
+		if (minionTemplate.isAssignableTo(L2MinionInstance.class))
+		{
+			try
+			{
+				monster = (L2MinionInstance) minionTemplate.getDefaultConstructor().newInstance(IdFactory.getInstance().getNextId(), minionTemplate);
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		if (monster == null) // generally not a minion, but assigned as one
+			monster = new L2MinionInstance(IdFactory.getInstance().getNextId(), minionTemplate);
 
 		if (Config.CHAMPION_MINIONS && master.isChampion())
 			monster.setChampion(true);
