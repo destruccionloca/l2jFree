@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `custom_armor` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(120) NOT NULL DEFAULT '',
-  `additionalname` varchar(120) NOT NULL default '',
+  `additionalname` VARCHAR(120) NOT NULL DEFAULT '',
   `bodypart` VARCHAR(15) NOT NULL DEFAULT 'none',
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `armor_type` VARCHAR(5) NOT NULL DEFAULT 'none',
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `custom_armor` (
   `crystal_count` SMALLINT(4) UNSIGNED NOT NULL DEFAULT 0,
   `sellable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `destroyable` VARCHAR(5) NOT NULL default 'false',
+  `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `depositable` VARCHAR(5) NOT NULL default 'false',
+  `depositable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `enchant4_skill` VARCHAR(8) NOT NULL DEFAULT '',
   `skills_item` VARCHAR(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`)

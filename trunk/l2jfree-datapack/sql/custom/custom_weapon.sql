@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(120) NOT NULL DEFAULT '',
-  `additionalname` varchar(120) NOT NULL default '', 
+  `additionalname` VARCHAR(120) NOT NULL DEFAULT '',
   `bodypart` VARCHAR(15) NOT NULL DEFAULT '',
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `weight` MEDIUMINT(5) NOT NULL DEFAULT 0,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `depositable` VARCHAR(5) NOT NULL default 'false',
+  `depositable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `enchant4_skill` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCast` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCrit` VARCHAR(70) NOT NULL DEFAULT '',

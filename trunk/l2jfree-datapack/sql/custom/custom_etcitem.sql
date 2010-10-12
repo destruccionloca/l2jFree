@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(100) NOT NULL DEFAULT '',
-  `additionalname` varchar(100) NOT NULL default '', 
+  `additionalname` VARCHAR(100) NOT NULL DEFAULT '',
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `item_type` VARCHAR(14) NOT NULL DEFAULT 'none',
   `weight` MEDIUMINT(5) NOT NULL DEFAULT 0,
@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `crystal_count` SMALLINT(4) UNSIGNED NOT NULL DEFAULT 0,
   `sellable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
+  `destroyable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `depositable` VARCHAR(5) NOT NULL default 'false',
+  `depositable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `handler` VARCHAR(70) NOT NULL DEFAULT 'none',
   `skills_item` VARCHAR(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`)
