@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.L2NpcAIData;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2XmassTreeInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -1412,5 +1413,13 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public boolean isSpecialTree()
 	{
 		return _npcId == L2XmassTreeInstance.SPECIAL_TREE_ID;
+	}
+	
+	public void validateInstance(L2Character cha)
+	{
+		if (_clazz.equals(cha.getClass()))
+			return;
+		
+		_log.info("L2NpcTemplate: (" + cha + ") was instanced as " + cha.getClass() + ", while it should be " + _clazz);
 	}
 }

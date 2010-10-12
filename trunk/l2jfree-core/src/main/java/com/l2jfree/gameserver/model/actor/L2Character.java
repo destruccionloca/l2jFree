@@ -264,6 +264,8 @@ public abstract class L2Character extends L2Object
 
 		// Set its template to the new L2Character
 		_template = template;
+		if (_template instanceof L2NpcTemplate)
+			((L2NpcTemplate)_template).validateInstance(this);
 
 		_view = initView();
 		_stat = initStat();

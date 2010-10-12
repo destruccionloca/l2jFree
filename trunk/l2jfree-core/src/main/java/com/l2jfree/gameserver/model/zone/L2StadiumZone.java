@@ -15,6 +15,10 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 
 public class L2StadiumZone extends L2Zone
 {
@@ -24,8 +28,24 @@ public class L2StadiumZone extends L2Zone
 		character.setInsideZone(FLAG_STADIUM, true);
 		character.setInsideZone(FLAG_PVP, true);
 		character.setInsideZone(FLAG_NOLANDING, true);
+		character.setInsideZone(FLAG_NOSUMMON, true);
 		
 		super.onEnter(character);
+		
+		if (character instanceof L2Playable)
+		{
+			final L2PcInstance player = character.getActingPlayer();
+			if (player != null)
+			{
+				// only participants, observers and GMs allowed
+				if (!player.isGM() && !player.isInOlympiadMode() && !player.inObserverMode())
+				{
+					if (character instanceof L2Summon)
+						((L2Summon)character).unSummon(player);
+					player.teleToLocation(TeleportWhereType.Town);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -33,7 +53,8 @@ public class L2StadiumZone extends L2Zone
 	{
 		character.setInsideZone(FLAG_STADIUM, false);
 		character.setInsideZone(FLAG_PVP, false);
-		character.setInsideZone(FLAG_NOLANDING, true);
+		character.setInsideZone(FLAG_NOLANDING, false);
+		character.setInsideZone(FLAG_NOSUMMON, false);
 		
 		super.onExit(character);
 	}

@@ -260,50 +260,30 @@ public class SkillTreeTable
 		try
 		{
 			_enchantSkillTrees = new FastMap<Integer, L2EnchantSkillLearn>();
-
+			
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("SELECT skill_id, level, base_lvl, sp, min_skill_lvl, exp, success_rate76, success_rate77, success_rate78, success_rate79, success_rate80, success_rate81, success_rate82, success_rate83, success_rate84, success_rate85 FROM enchant_skill_trees ORDER BY skill_id, level");
+					.prepareStatement("SELECT * FROM enchant_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree3 = statement.executeQuery();
-
-			int prevSkillId = -1;
-
+			
 			while (skilltree3.next())
 			{
 				int id = skilltree3.getInt("skill_id");
-				int lvl = skilltree3.getInt("level");
 				int baseLvl = skilltree3.getInt("base_lvl");
-				int minSkillLvl = skilltree3.getInt("min_skill_lvl");
-				int sp = skilltree3.getInt("sp");
-				int exp = skilltree3.getInt("exp");
-				int adena = skilltree3.getInt("adena");
-				byte rate76 = skilltree3.getByte("success_rate76");
-				byte rate77 = skilltree3.getByte("success_rate77");
-				byte rate78 = skilltree3.getByte("success_rate78");
-				byte rate79 = skilltree3.getByte("success_rate79");
-				byte rate80 = skilltree3.getByte("success_rate80");
-				byte rate81 = skilltree3.getByte("success_rate81");
-				byte rate82 = skilltree3.getByte("success_rate82");
-				byte rate83 = skilltree3.getByte("success_rate83");
-				byte rate84 = skilltree3.getByte("success_rate84");
-				byte rate85 = skilltree3.getByte("success_rate85");
-
-				if (prevSkillId != id)
-					prevSkillId = id;
-
+				
 				L2EnchantSkillLearn skill = _enchantSkillTrees.get(id);
 				if (skill == null)
 				{
 					skill = new L2EnchantSkillLearn(id, baseLvl);
 					_enchantSkillTrees.put(id, skill);
 				}
-				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, adena, sp, exp, rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
+				EnchantSkillDetail esd = new EnchantSkillDetail(skilltree3);
 				skill.addEnchantDetail(esd);
 			}
-
+			
 			skilltree3.close();
 			statement.close();
-
+			
 			count4 = _enchantSkillTrees.size();
 		}
 		catch (Exception e)

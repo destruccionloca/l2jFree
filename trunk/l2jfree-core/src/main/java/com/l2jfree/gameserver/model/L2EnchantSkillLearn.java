@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastTable;
 
+import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class L2EnchantSkillLearn
@@ -100,31 +103,28 @@ public final class L2EnchantSkillLearn
 	
 	public static class EnchantSkillDetail
 	{
-		private final int		_level;
-		private final int		_adenaCost;
-		private final int		_expCost;
-		private final int		_spCost;
-		private final int		_minSkillLevel;
-		private final byte[]	_rates	= new byte[10];
+		private final int _level;
+		private final int _minSkillLevel;
+		private final int _expCost;
+		private final int _spCost;
+		private final byte[] _rates = new byte[10];
 		
-		public EnchantSkillDetail(int lvl, int minSkillLvl, int adenaCost, int expCost, int spCost, byte rate76, byte rate77, byte rate78, byte rate79,
-				byte rate80, byte rate81, byte rate82, byte rate83, byte rate84, byte rate85)
+		public EnchantSkillDetail(ResultSet rset) throws SQLException
 		{
-			_level = lvl;
-			_minSkillLevel = minSkillLvl;
-			_adenaCost = adenaCost;
-			_expCost = expCost;
-			_spCost = spCost;
-			_rates[0] = rate76;
-			_rates[1] = rate77;
-			_rates[2] = rate78;
-			_rates[3] = rate79;
-			_rates[4] = rate80;
-			_rates[5] = rate81;
-			_rates[6] = rate82;
-			_rates[7] = rate83;
-			_rates[8] = rate84;
-			_rates[9] = rate85;
+			_level = rset.getInt("level");
+			_minSkillLevel = rset.getInt("min_skill_lvl");
+			_expCost = rset.getInt("exp");
+			_spCost = rset.getInt("sp");
+			_rates[0] = rset.getByte("success_rate76");
+			_rates[1] = rset.getByte("success_rate77");
+			_rates[2] = rset.getByte("success_rate78");
+			_rates[3] = rset.getByte("success_rate79");
+			_rates[4] = rset.getByte("success_rate80");
+			_rates[5] = rset.getByte("success_rate81");
+			_rates[6] = rset.getByte("success_rate82");
+			_rates[7] = rset.getByte("success_rate83");
+			_rates[8] = rset.getByte("success_rate84");
+			_rates[9] = rset.getByte("success_rate85");
 		}
 		
 		public int getLevel()
@@ -137,16 +137,9 @@ public final class L2EnchantSkillLearn
 			return _minSkillLevel;
 		}
 		
-		public int getExpCost()
-		{
-			return _expCost;
-		}
-		
 		public int getAdenaCost()
 		{
-			return _adenaCost;
-			// FIXME 1.4.0
-			//return _expCost / SkillTreeTable.ADENA_XP_DIV;
+			return _expCost / SkillTreeTable.ADENA_XP_DIV;
 		}
 		
 		public int getSpCost()
