@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombM
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+//FIXME: 1.4.0 - check l2jserver's version
 public class L2BossZone extends L2Zone
 {
 	public static enum Boss

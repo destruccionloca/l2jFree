@@ -38,12 +38,12 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
 
 	private static final int[] _talismanIds =
 	{
-		9914,9915,9917,9918,9919,9920,9921,9922,9923,9924, 
-		9926,9927,9928,9930,9931,9932,9933,9934,9935,9936, 
-		9937,9938,9939,9940,9941,9942,9943,9944,9945,9946, 
-		9947,9948,9949,9950,9951,9952,9953,9954,9955,9956, 
-		9957,9958,9959,9960,9961,9962,9963,9964,9965,9966, 
-		10141,10142,10158 
+		9914,9915,9917,9918,9919,9920,9921,9922,9923,9924,
+		9926,9927,9928,9930,9931,9932,9933,9934,9935,9936,
+		9937,9938,9939,9940,9941,9942,9943,9944,9945,9946,
+		9947,9948,9949,9950,9951,9952,9953,9954,9955,9956,
+		9957,9958,9959,9960,9961,9962,9963,9964,9965,9966,
+		10141,10142,10158
     };
 
     @Override
@@ -94,7 +94,7 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
     }
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player)) return;
 
@@ -104,7 +104,7 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!canInteract(player))

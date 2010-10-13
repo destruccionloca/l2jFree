@@ -65,7 +65,7 @@ public class L2ControlTowerInstance extends L2Npc
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player)) return;
 
@@ -81,18 +81,17 @@ public class L2ControlTowerInstance extends L2Npc
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
 			player.sendPacket(su);
 		}
-		else
+		else if (interact)
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo
 					&& GeoData.getInstance().canSeeTarget(player, this))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-
-				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
     /**
@@ -107,8 +106,11 @@ public class L2ControlTowerInstance extends L2Npc
      * @see com.l2jfree.gameserver.model.actor.instance.L2NpcInstance#decayMe()
      */
     @Override
-    public final void decayMe()
+    public boolean doDie(L2Character killer)
     {
+        if (!super.doDie(killer))
+            return false;
+        
         if (getCastle().getSiege().getIsInProgress())
         {
             getCastle().getSiege().killedCT(this);
@@ -120,9 +122,10 @@ public class L2ControlTowerInstance extends L2Npc
                     if (spawn == null) continue;
                     spawn.stopRespawn();
                 }
+                getGuards().clear();
             }
         }
-        super.decayMe();
+        return true;
         // TODO: now spawn another NPC (id + 1) which represents dead tower
     }
 

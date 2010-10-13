@@ -624,10 +624,10 @@ public abstract class ItemContainer
 
                 L2World.getInstance().storeObject(item);
 
-                L2Character owner = getOwner(); // may be null for clan WH
+                L2PcInstance owner = getOwner() == null ? null : getOwner().getActingPlayer(); // may be null for clan WH
                 // If stackable item is found in inventory just add to current quantity
                 if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
-                    addItem("Restore", item, owner != null ? owner.getActingPlayer() : null, null);
+                    addItem("Restore", item, owner, null);
                 else
                     addItem(item);
             }

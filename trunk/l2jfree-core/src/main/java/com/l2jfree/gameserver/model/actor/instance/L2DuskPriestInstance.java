@@ -102,5 +102,4 @@ public class L2DuskPriestInstance extends L2SignsPriestInstance
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
-	
 }

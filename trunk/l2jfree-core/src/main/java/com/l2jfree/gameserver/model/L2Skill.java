@@ -3525,18 +3525,18 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _canBeReflected;
 	}
 
-	public boolean canBeDispeled()
+	public final boolean canBeDispeled()
 	{
 		return _canBeDispeled;
 	}
 	
 	// TODO: 1.4.0
-	public boolean isClanSkill()
+	public final boolean isClanSkill()
 	{
 		return _isClanSkill;
 	}
 	
-	public boolean isDisabled(L2Character cha)
+	public final boolean isDisabled(L2Character cha)
 	{
 		if (getSkillType() == L2SkillType.NOTDONE || getTargetType() == SkillTargetType.TARGET_NONE)
 			return true;
@@ -3564,12 +3564,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _removedOnAnyActionExceptMove;
 	}
 	
-	public boolean isDispeledOnAction()
+	public final boolean isDispeledOnAction()
 	{
 		return _dispelOnAction;
 	}
 	
-	public boolean isDispeledOnAttack()
+	public final boolean isDispeledOnAttack()
 	{
 		return _dispelOnAttack;
 	}
