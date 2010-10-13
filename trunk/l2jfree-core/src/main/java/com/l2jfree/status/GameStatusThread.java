@@ -70,10 +70,8 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
@@ -692,10 +690,7 @@ public final class GameStatusThread extends Thread
 							InventoryUpdate iu = new InventoryUpdate();
 							iu.addItem(item);
 							player.sendPacket(iu);
-							SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-							sm.addItemName(item);
-							sm.addNumber(amount);
-							player.sendPacket(sm);
+							player.sendItemPickedUpMessage(item);
 							_print.println("ok - was online");
 						}
 						else

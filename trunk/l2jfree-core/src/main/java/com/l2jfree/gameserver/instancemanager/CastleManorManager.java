@@ -353,12 +353,12 @@ public class CastleManorManager
 	public long getMillisToManorRefresh()
 	{
 		// use safe interval 120s to prevent double run
-		if (_manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() < 120000)
+		if (_manorRefresh.getTimeInMillis() -System.currentTimeMillis() < 120000)
 			setNewManorRefresh();
 		
 		_log.info("Manor System: New Schedule for manor refresh @ " + _manorRefresh.getTime());
 		
-		return (_manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (_manorRefresh.getTimeInMillis() - System.currentTimeMillis());
 	}
 
 	public void setNewManorRefresh()

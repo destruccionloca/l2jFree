@@ -250,19 +250,7 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 					// unequip item on enchant failure to avoid item skills stack
 					if (item.isEquipped())
 					{
-						if (item.getEnchantLevel() > 0)
-						{
-							sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-							sm.addNumber(item.getEnchantLevel());
-							sm.addItemName(item);
-							sendPacket(sm);
-						}
-						else
-						{
-							sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-							sm.addItemName(item);
-							sendPacket(sm);
-						}
+						activeChar.sendItemUnequippedMessage(item);
 						L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
 						InventoryUpdate iu = new InventoryUpdate();
 						for (L2ItemInstance element : unequiped)

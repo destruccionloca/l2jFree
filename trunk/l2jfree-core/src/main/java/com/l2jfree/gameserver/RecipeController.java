@@ -69,7 +69,7 @@ public class RecipeController
 	private static final Map<L2PcInstance, RecipeItemMaker> _activeMakers = Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
 
 	private final FastMap<Integer, L2RecipeList> _lists;
-	private int[] _itemIds;
+	private final int[] _itemIds;
 
 	public static RecipeController getInstance()
 	{

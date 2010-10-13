@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class CombatFlag
 {
@@ -81,9 +80,7 @@ public class CombatFlag
 		// Equip with the weapon
 		_item = item;
 		_player.getInventory().equipItemAndRecord(_item);
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-		sm.addItemName(_item);
-		_player.sendPacket(sm);
+		_player.sendItemEquippedMessage(_item);
 
 		// Refresh inventory
 		if (!Config.FORCE_INVENTORY_UPDATE)

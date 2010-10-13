@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Calendar;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -36,8 +35,8 @@ public class ExShowDominionRegistry extends L2GameServerPacket
 	private String		_clanName		= "";
 	private String		_clanLeader		= "";
 	private String		_allyName		= "";
-	private final int	_warTime		= (int) (Calendar.getInstance().getTimeInMillis() / 1000);
-	private final int	_currentTime	= (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	private final int	_warTime		= (int) (System.currentTimeMillis() / 1000);
+	private final int	_currentTime	= (int) (System.currentTimeMillis() / 1000);
 	
 	public ExShowDominionRegistry(int castleId)
 	{

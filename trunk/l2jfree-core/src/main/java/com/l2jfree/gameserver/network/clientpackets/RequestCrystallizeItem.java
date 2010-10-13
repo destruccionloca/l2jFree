@@ -138,19 +138,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 				iu.addModifiedItem(element);
 			sendPacket(iu);
 
-			SystemMessage sm;
-			if (item.getEnchantLevel() > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-				sm.addNumber(item.getEnchantLevel());
-				sm.addItemName(item);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-				sm.addItemName(item);
-			}
-			sendPacket(sm);
+			activeChar.sendItemUnequippedMessage(item);
 		}
 
 		// remove from inventory

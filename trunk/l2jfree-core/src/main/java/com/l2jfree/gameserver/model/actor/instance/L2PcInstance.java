@@ -2160,7 +2160,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		L2ItemInstance[] items = null;
 		final boolean isEquiped = item.isEquipped();
 		final int oldInvLimit = getInventoryLimit();
-		SystemMessage sm = null;
 		L2ItemInstance old = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
 		if (old == null)
 			old = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
@@ -2168,18 +2167,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		int bodyPart = item.getItem().getBodyPart();
 		if (isEquiped)
 		{
-			if (item.getEnchantLevel() > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-				sm.addNumber(item.getEnchantLevel());
-				sm.addItemName(item);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-				sm.addItemName(item);
-			}
-			sendPacket(sm);
+			sendItemUnequippedMessage(item);
 
 			switch (bodyPart)
 			{
@@ -2226,18 +2214,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				if (tempItem != null && tempItem.isWear()) return;
 			}
 
-			if (item.getEnchantLevel() > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-				sm.addNumber(item.getEnchantLevel());
-				sm.addItemName(item);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-				sm.addItemName(item);
-			}
-			sendPacket(sm);
+			sendItemEquippedMessage(item);
 
 			if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
 					|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
@@ -2983,26 +2960,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// Sends message to client if requested
 			if (sendMessage)
 			{
-				if (item.getCount() > 1)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-					sm.addItemName(item);
-					sm.addItemNumber(item.getCount());
-					sendPacket(sm);
-				}
-				else if (item.getEnchantLevel() > 0)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2);
-					sm.addNumber(item.getEnchantLevel());
-					sm.addItemName(item);
-					sendPacket(sm);
-				}
-				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-					sm.addItemName(item);
-					sendPacket(sm);
-				}
+				sendItemPickedUpMessage(item);
 			}
 
 			// Add the item to inventory
@@ -3319,10 +3277,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				}
 
 				// Send an Unequipped Message in system window of the player for each Item
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-				sm.addItemName(item);
-				sendPacket(sm);
-
+				sendItemUnequippedMessage(item);
 			}
 		}
 
@@ -5824,19 +5779,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// This can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
 			{
-				SystemMessage sm = null;
-				if (unequipped[0].getEnchantLevel() > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-					sm.addNumber(unequipped[0].getEnchantLevel());
-					sm.addItemName(unequipped[0]);
-				}
-				else
-				{
-					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-					sm.addItemName(unequipped[0]);
-				}
-				sendPacket(sm);
+				sendItemUnequippedMessage(unequipped[0]);
 			}
 			broadcastFullInfoImpl();
 		}
@@ -5863,19 +5806,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// This can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
 			{
-				SystemMessage sm = null;
-				if (unequipped[0].getEnchantLevel() > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-					sm.addNumber(unequipped[0].getEnchantLevel());
-					sm.addItemName(unequipped[0]);
-				}
-				else
-				{
-					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-					sm.addItemName(unequipped[0]);
-				}
-				sendPacket(sm);
+				sendItemUnequippedMessage(unequipped[0]);
 			}
 			broadcastFullInfoImpl();
 		}
@@ -13041,21 +12972,10 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				if (equippedItem.isWear())
 					continue;
 
-				SystemMessage sm = null;
 				if (equippedItem.getItem().getBodyPart() == L2Item.SLOT_BACK)
-					sm = SystemMessageId.CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED.getSystemMessage();
-				else if (equippedItem.getEnchantLevel() > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-					sm.addNumber(equippedItem.getEnchantLevel());
-					sm.addItemName(equippedItem);
-				}
+					sendPacket(SystemMessageId.CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED);
 				else
-				{
-					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-					sm.addItemName(equippedItem);
-				}
-				sendPacket(sm);
+					sendItemUnequippedMessage(equippedItem);
 			}
 		}
 	}
@@ -14307,6 +14227,64 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend != null)
 				friend.sendPacket(pkt);
+		}
+	}
+	
+	public void sendItemEquippedMessage(L2ItemInstance item)
+	{
+		if (item.getEnchantLevel() > 0)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+			sm.addNumber(item.getEnchantLevel());
+			sm.addItemName(item);
+			sendPacket(sm);
+		}
+		else
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+			sm.addItemName(item);
+			sendPacket(sm);
+		}
+	}
+	
+	public void sendItemUnequippedMessage(L2ItemInstance item)
+	{
+		if (item.getEnchantLevel() > 0)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+			sm.addNumber(item.getEnchantLevel());
+			sm.addItemName(item);
+			sendPacket(sm);
+		}
+		else
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+			sm.addItemName(item);
+			sendPacket(sm);
+		}
+	}
+	
+	public void sendItemPickedUpMessage(L2ItemInstance item)
+	{
+		if (item.getCount() > 1)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
+			sm.addItemName(item);
+			sm.addItemNumber(item.getCount());
+			sendPacket(sm);
+		}
+		else if (item.getEnchantLevel() > 0)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2);
+			sm.addNumber(item.getEnchantLevel());
+			sm.addItemName(item);
+			sendPacket(sm);
+		}
+		else
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
+			sm.addItemName(item);
+			sendPacket(sm);
 		}
 	}
 }

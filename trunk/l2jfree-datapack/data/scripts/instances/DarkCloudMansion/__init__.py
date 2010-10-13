@@ -465,10 +465,7 @@ class DarkCloudMansion(JQuest):
             iu = InventoryUpdate()
             iu.addItem(item)
             player.sendPacket(iu)
-            sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
-            sm.addItemName(item)
-            sm.addNumber(1)
-            player.sendPacket(sm)
+            player.sendItemPickedUpMessage(item)
 
             tele = PyObject()
             tele.x = 139968

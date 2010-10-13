@@ -567,7 +567,7 @@ public final class CCHSiege extends AbstractSiege
 	{
 		setNextSiegeDate(); // Set the next set date for a week from now
 		// Schedule Time registration end
-		getTimeRegistrationOverDate().setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+		getTimeRegistrationOverDate().setTimeInMillis(System.currentTimeMillis());
 		getTimeRegistrationOverDate().add(Calendar.DAY_OF_MONTH, 1);
 		_hideout.setIsTimeRegistrationOver(false);
 

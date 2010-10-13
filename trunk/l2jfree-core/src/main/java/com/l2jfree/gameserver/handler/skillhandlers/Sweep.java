@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSweep;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -118,10 +117,7 @@ public class Sweep extends ISkillConditionChecker
 							iu.addItem(item);
 						send = true;
 
-						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
-						smsg.addNumber(ritem.getCount());
-						smsg.addItemName(item);
-						player.sendPacket(smsg);
+						player.sendItemPickedUpMessage(item);
 					}
 				}
 			}

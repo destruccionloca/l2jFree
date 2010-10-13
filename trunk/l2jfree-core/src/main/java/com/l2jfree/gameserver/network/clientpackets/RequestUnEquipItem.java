@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
@@ -93,19 +92,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		// this can be 0 if the user pressed the right mouse button twice very fast
 		if (unequiped.length > 0)
 		{
-			SystemMessage sm = null;
-			if (unequiped[0].getEnchantLevel() > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-				sm.addNumber(unequiped[0].getEnchantLevel());
-				sm.addItemName(unequiped[0]);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-				sm.addItemName(unequiped[0]);
-			}
-			sendPacket(sm);
+			activeChar.sendItemUnequippedMessage(unequiped[0]);
 		}
 
 		sendAF();

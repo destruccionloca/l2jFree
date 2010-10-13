@@ -109,7 +109,6 @@ public final class L2TeleporterInstance extends L2Npc
 		}
 		else if (command.startsWith("Chat"))
 		{
-			Calendar cal = Calendar.getInstance();
 			int val = 0;
 			try
 			{
@@ -127,11 +126,15 @@ public final class L2TeleporterInstance extends L2Npc
 				showNewbieHtml(player);
 				return;
 			}
-			else if (val == 1 && cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23
-					&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
+			else if (val == 1)
 			{
-				showHalfPriceHtml(player);
-				return;
+				Calendar cal = Calendar.getInstance();
+				if (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23
+						&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
+				{
+					showHalfPriceHtml(player);
+					return;
+				}
 			}
 			showChatWindow(player, val);
 		}
@@ -279,7 +282,6 @@ public final class L2TeleporterInstance extends L2Npc
 			if (player.isAlikeDead())
 				return;
 
-			Calendar cal = Calendar.getInstance();
 			int price = list.getPrice();
 			// From CT2 all players lvl 40 or below (quote) have all ports for free
 			if (player.getLevel() <= 40 && !getTemplate().isCustom())
@@ -289,6 +291,7 @@ public final class L2TeleporterInstance extends L2Npc
 			// But only adena teleports
 			else if (!list.isForNoble())
 			{
+				Calendar cal = Calendar.getInstance();
 				if (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23
 							&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
 					price /= 2;

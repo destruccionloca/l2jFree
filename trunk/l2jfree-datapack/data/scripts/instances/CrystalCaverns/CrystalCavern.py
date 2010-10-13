@@ -763,18 +763,12 @@ class CrystalCavern(JQuest):
                 iu = InventoryUpdate()
                 iu.addItem(item)
                 player.sendPacket(iu);
-                sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
-                sm.addItemName(item)
-                sm.addNumber(1)
-                player.sendPacket(sm)
+                player.sendItemPickedUpMessage(item)
                 item = player.getInventory().addItem("Crystal Cavern", SHARDS[Rnd.get(len(SHARDS))], 1, player, None)
                 iu = InventoryUpdate()
                 iu.addItem(item)
                 player.sendPacket(iu);
-                sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
-                sm.addItemName(item)
-                sm.addNumber(1)
-                player.sendPacket(sm)
+                player.sendItemPickedUpMessage(item)
                 if event == "out":
                     tele = PyObject()
                     tele.x = 149361

@@ -20,9 +20,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
@@ -106,19 +104,7 @@ public class L2SkillChangeWeapon extends L2Skill
 							continue;
 						}
 
-						SystemMessage sm = null;
-						if (item.getEnchantLevel() > 0)
-						{
-							sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-							sm.addNumber(item.getEnchantLevel());
-							sm.addItemName(item);
-						}
-						else
-						{
-							sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-							sm.addItemName(item);
-						}
-						player.sendPacket(sm);
+						player.sendItemUnequippedMessage(item);
 					}
 
 					if (count == unequiped.length)
@@ -145,20 +131,7 @@ public class L2SkillChangeWeapon extends L2Skill
 				player.getInventory().equipItem(newItem);
 				player.refreshExpertisePenalty();
 
-				SystemMessage msg = null;
-
-				if (newItem.getEnchantLevel() > 0)
-				{
-					msg = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-					msg.addNumber(newItem.getEnchantLevel());
-					msg.addItemName(newItem);
-				}
-				else
-				{
-					msg = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-					msg.addItemName(newItem);
-				}
-				player.sendPacket(msg);
+				player.sendItemEquippedMessage(newItem);
 
 				InventoryUpdate u = new InventoryUpdate();
 				u.addRemovedItem(destroyItem);
