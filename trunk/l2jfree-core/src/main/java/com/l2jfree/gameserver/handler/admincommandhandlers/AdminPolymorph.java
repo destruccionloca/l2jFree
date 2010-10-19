@@ -141,7 +141,6 @@ public class AdminPolymorph implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
-	@SuppressWarnings("deprecation")
 	private void doPolymorph(L2PcInstance activeChar, L2Object obj, String id, String type)
 	{
 		if (obj != null)
@@ -157,8 +156,12 @@ public class AdminPolymorph implements IAdminCommandHandler
 				L2Character Char = (L2Character) obj;
 				MagicSkillUse msk = new MagicSkillUse(Char, 1008, 1, 4000, 0);
 				Char.broadcastPacket(msk);
-				SetupGauge sg = new SetupGauge(0, 4000);
-				Char.sendPacket(sg);
+				if (obj instanceof L2PcInstance)
+				{
+					L2PcInstance player = (L2PcInstance)obj;
+	 				SetupGauge sg = new SetupGauge(0, 4000);
+	 				player.sendPacket(sg);
+				}
 			}
 			//end of animation
 			obj.decayMe();

@@ -10634,7 +10634,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				break;
 			
 			start += 10;
-			i = start;
+			i = finish;
 			int finish2 = replaceable.indexOf("$", start);
 			
 			if (0 < finish2 && finish2 < finish)
