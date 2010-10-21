@@ -219,7 +219,7 @@ public class NewCharacter extends L2GameClientPacket
 		}
 		startTutorialQuest(newChar);
 		RecommendationManager.getInstance().onCreate(newChar);
-		new Disconnection(getClient(), newChar).store().deleteMe();
+		new Disconnection(getClient(), newChar).storeAndDeleteMe();
 		
 		// send char list
 		sendPacket(new CharSelectionInfo(getClient()));

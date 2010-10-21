@@ -45,7 +45,7 @@ public final class RequestRestart extends L2GameClientPacket
 			return;
 		}
 		
-		new Disconnection(client, activeChar).store().deleteMe();
+		new Disconnection(client, activeChar).storeAndDeleteMe();
 		
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);

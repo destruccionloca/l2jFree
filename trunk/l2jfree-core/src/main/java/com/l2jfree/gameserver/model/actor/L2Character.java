@@ -913,6 +913,8 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
+		stopEffectsOnAction();
+
 		// Get the active weapon instance (always equipped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
 
@@ -1417,7 +1419,24 @@ public abstract class L2Character extends L2Object
 				continue;
 			if (!target.isInFrontOf(this, maxAngleDiff))
 				continue;
-
+			
+			if (this instanceof L2Attackable)
+			{
+				final L2Attackable npc = (L2Attackable)this;
+				
+				if (obj instanceof L2Playable && target instanceof L2Attackable)
+					continue;
+				
+				if (obj instanceof L2Attackable && npc.getIsChaos() == 0)
+				{
+					if (npc.getEnemyClan().equals("none"))
+						continue;
+					
+					if (!npc.getEnemyClan().equals(((L2Attackable)obj).getClan()))
+						continue;
+				}
+			}
+			
 			L2Character cha = (L2Character)obj;
 
 			// Launch a simple attack against the L2Character targeted
@@ -1550,6 +1569,8 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 		
+		stopEffectsOnAction();
+		
 		// Get all possible targets of the skill in a table in function of the skill target type
 		final L2Character[] targets = skill.getTargetList(this);
 		
@@ -1644,7 +1665,7 @@ public abstract class L2Character extends L2Object
 			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
 			if (skill.getItemConsume() > 0)
 			{
-				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
+				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, true))
 				{
 					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 
@@ -1704,6 +1725,19 @@ public abstract class L2Character extends L2Object
 			SystemMessage sm = new SystemMessage(SystemMessageId.USE_S1);
 			sm.addSkillName(skill);
 			getActingPlayer().sendPacket(sm);
+		}
+		
+		if (this instanceof L2PcInstance)
+		{
+			if (!effectWhileCasting && skill.getItemConsume() > 0)
+			{
+				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, true))
+				{
+					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					abortCast();
+					return;
+				}
+			}
 		}
 
 //		switch (skill.getTargetType())
@@ -1774,7 +1808,13 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
-	private boolean checkDoCastConditions(L2Skill skill)
+	/**
+	 * Check if casting of skill is possible
+	 * 
+	 * @param skill
+	 * @return True if casting is possible
+	 */
+	protected boolean checkDoCastConditions(L2Skill skill)
 	{
 		if (skill == null || isSkillDisabled(skill.getId()) || skill.getSkillType() == L2SkillType.NOTDONE || (skill.getFlyType() != null && isRooted()))
 		{
@@ -1813,43 +1853,16 @@ public abstract class L2Character extends L2Object
 
 		switch (skill.getSkillType())
 		{
-		case SUMMON_TRAP:
-		{
-			if (isInsideZone(L2Zone.FLAG_PEACE))
+			case HEAL:
 			{
-				if (this instanceof L2PcInstance)
-					sendPacket(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE);
-				return false;
+				if (isInsideZone(L2Zone.FLAG_NOHEAL))
+				{
+					if (this instanceof L2PcInstance)
+						getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
+					return false;
+				}
+				break;
 			}
-			if (this instanceof L2PcInstance && ((L2PcInstance) this).getTrap() != null)
-			{
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-
-			break;
-		}
-		case SUMMON:
-		{
-			if (!((L2SkillSummon) skill).isCubic() && this instanceof L2PcInstance && (getPet() != null || ((L2PcInstance) this).isMounted()))
-			{
-				if (_log.isDebugEnabled())
-					_log.info("player has a pet already. ignore summon skill");
-
-				sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
-				return false;
-			}
-			break;
-		}
-		case HEAL:
-		{
-			if (isInsideZone(L2Zone.FLAG_NOHEAL))
-			{
-				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
-				return false;
-			}
-		}
 		}
 
 		if (!skill.isPotion())
@@ -6018,17 +6031,6 @@ public abstract class L2Character extends L2Object
 				getStatus().reduceCp((int)consumeCp);
 			}
 
-			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
-			if (skill.getItemConsume() > 0)
-			{
-				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
-				{
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-					abortCast();
-					return;
-				}
-			}
-
 			if (this instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance)this;
@@ -6408,63 +6410,77 @@ public abstract class L2Character extends L2Object
 					|| skill.getSkillType() == L2SkillType.AGGREDUCE
 					|| skill.getSkillType() == L2SkillType.AGGREDUCE_CHAR;
 			
-			for (L2Object target : targets)
+			for (L2Character target : targets)
 			{
+				final L2PcInstance targetPlayer = L2Object.getActingPlayer(target);
+				
 				// EVT_ATTACKED and PvPStatus
-				if (target instanceof L2Character)
+				if (skill.isNeutral())
 				{
-					if (skill.isNeutral())
+					// no flags
+				}
+				else if (skill.isOffensive())
+				{
+					if (targetPlayer != null)
 					{
-						// no flags
-					}
-					else if (skill.isOffensive())
-					{
-						if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
-						{
-							if (skill.getSkillType() != L2SkillType.SIGNET && skill.getSkillType() != L2SkillType.SIGNET_CASTTIME)
-							{
-								if (!isAggroReducingSkill)
-								{
-									// notify target AI about the attack
-									((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
-								}
-								
-								if (!(target instanceof L2Summon) || player.getPet() != target)
-									player.updatePvPStatus(target.getActingPlayer());
-							}
-						}
-						else if (target instanceof L2Attackable)
+						// Signets are a special case, casted on target_self but don't harm self
+						if (skill.getSkillType() != L2SkillType.SIGNET && skill.getSkillType() != L2SkillType.SIGNET_CASTTIME)
 						{
 							if (!isAggroReducingSkill)
 							{
-								switch (skill.getId())
-								{
-								case 51: case 511:
+								// notify target AI about the attack
+								target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
+							}
+							
+							// attack of the own pet does not flag player (and vice versa)
+							// triggering trap not flag trap owner
+							if (player != targetPlayer && !(this instanceof L2Trap))
+								player.updatePvPStatus(targetPlayer);
+						}
+					}
+					else if (target instanceof L2Attackable)
+					{
+						if (!isAggroReducingSkill)
+						{
+							switch (skill.getId())
+							{
+								case 51: // Lure
+								case 511: // Temptation
 									break;
 								default:
 									// add attacker into list
-									((L2Character)target).addAttackerToAttackByList(this);
-								}
-								// notify target AI about the attack
-								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
+									target.addAttackerToAttackByList(this);
+									break;
 							}
+							// notify target AI about the attack
+							target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
 						}
 					}
-					else
+				}
+				else
+				{
+					if (targetPlayer != null)
 					{
-						if (target instanceof L2PcInstance)
-						{
-							// Casting non offensive skill on player with pvp flag set or with karma
-							if (target != this && target != player && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
-								player.updatePvPStatus();
-						}
-						else if (target instanceof L2Attackable && !(skill.getSkillType() == L2SkillType.SUMMON)
-								&& !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK)
-								&& !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK)
-								&& !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE)
-								&& !(skill.getSkillType() == L2SkillType.MAKE_QUEST_DROPABLE)
-								&& (!(target instanceof L2Summon) || player.getPet() != target))
+						// Casting non offensive skill on player with pvp flag set or with karma
+						if (player != targetPlayer && (targetPlayer.getPvpFlag() > 0 || targetPlayer.getKarma() > 0))
 							player.updatePvPStatus();
+					}
+					else if (target instanceof L2Attackable)
+					{
+						switch (skill.getSkillType())
+						{
+							case SUMMON:
+							case BEAST_FEED:
+							case UNLOCK:
+							case DELUXE_KEY_UNLOCK:
+							case HEAL_MOB:
+							case MAKE_KILLABLE:
+							case MAKE_QUEST_DROPABLE:
+								break;
+							default:
+								player.updatePvPStatus();
+								break;
+						}
 					}
 				}
 			}

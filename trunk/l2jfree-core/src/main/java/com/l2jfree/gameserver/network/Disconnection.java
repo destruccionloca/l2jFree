@@ -90,12 +90,18 @@ public final class Disconnection
 		return this;
 	}
 	
+	@Deprecated
 	public Disconnection deleteMe()
+	{
+		return storeAndDeleteMe();
+	}
+	
+	public Disconnection storeAndDeleteMe()
 	{
 		try
 		{
 			if (_activeChar != null)
-				_activeChar.deleteMe();
+				_activeChar.storeAndDeleteMe();
 		}
 		catch (RuntimeException e)
 		{
@@ -115,8 +121,7 @@ public final class Disconnection
 	
 	public void defaultSequence(boolean toLoginScreen)
 	{
-		store();
-		deleteMe();
+		storeAndDeleteMe();
 		close(toLoginScreen);
 	}
 	
@@ -128,8 +133,7 @@ public final class Disconnection
 				@Override
 				public void run()
 				{
-					store();
-					deleteMe();
+					storeAndDeleteMe();
 				}
 			}, _activeChar.canLogout() ? 0 : AttackStanceTaskManager.COMBAT_TIME);
 		}

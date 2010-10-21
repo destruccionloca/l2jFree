@@ -284,6 +284,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
@@ -8242,6 +8243,64 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Finally, after passing all conditions
 		return true;
 	}
+	
+	@Override
+	protected boolean checkDoCastConditions(L2Skill skill)
+	{
+		if (!super.checkDoCastConditions(skill))
+			return false;
+		
+		switch (skill.getSkillType())
+		{
+			case SUMMON_TRAP:
+			{
+				final L2SkillTrap skillTrap = (L2SkillTrap)skill;
+				if (isInsideZone(L2Zone.FLAG_PEACE))
+				{
+					sendPacket(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE);
+					return false;
+				}
+				if (getTrap() != null && getTrap().getSkill().getId() == skillTrap.getTriggerSkillId())
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+					sm.addSkillName(skill);
+					sendPacket(sm);
+					return false;
+				}
+				break;
+			}
+			case SUMMON:
+			{
+				final L2SkillSummon skillSummon = (L2SkillSummon)skill;
+				if (!skillSummon.isCubic() && (getPet() != null || isMounted()))
+				{
+					if (_log.isDebugEnabled())
+						_log.info("player has a pet already. ignore summon skill");
+					
+					sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
+					return false;
+				}
+				break;
+			}
+		}
+		
+		// Can't use Hero and resurrect skills during Olympiad
+		if (isInOlympiadMode() && (HeroSkillTable.isHeroSkill(skill.getId()) || skill.getSkillType() == L2SkillType.RESURRECT))
+		{
+			sendPacket(SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			return false;
+		}
+		
+		if (isInAirShip())
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+			sendPacket(sm);
+			return false;
+		}
+		
+		return true;
+	}
 
 	public boolean isInLooterParty(int LooterId)
 	{
@@ -10836,19 +10895,32 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 * <li>Close the connection with the client </li><BR><BR>
 	 *
 	 */
+	@Deprecated
 	public void deleteMe()
 	{
+		storeAndDeleteMe();
+	}
+	
+	public void storeAndDeleteMe()
+	{
 		final HashSet<L2Zone> before = getZonesPlayerIn();
-
+		
 		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
-
-		// Pause restrictions
-		ObjectRestrictions.getInstance().pauseTasks(getObjectId());
-
+		
+		// ======================================================================
+		// preparing character for pre-delete save
+		
 		abortCast();
 		abortAttack();
-
+		stopMove(null);
+		
+		// Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
+		if (inObserverMode())
+			getPosition().setXYZ(_obsX, _obsY, _obsZ);
+		else if (isInAirShip())
+			getAirShip().oustPlayer(this);
+		
 		try
 		{
 			if (isFlying())
@@ -10858,7 +10930,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
+		
+		// remove combat flag
 		try
 		{
 			L2ItemInstance flag = getInventory().getItemByItemId(9819);
@@ -10879,7 +10952,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
+		
 		// If the L2PcInstance has Pet, unsummon it
 		if (getPet() != null)
 		{
@@ -10895,19 +10968,54 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				_log.error(e.getMessage(), e);
 			}// Return pet to the control item
 		}
-
+		
+		// remove player from instance and set spawn location if any
+		try
+		{
+			if (isInInstance() && !Config.RESTORE_PLAYER_INSTANCE)
+			{
+				final Instance inst = InstanceManager.getInstance().getInstance(getInstanceId());
+				if (inst != null)
+				{
+					inst.removePlayer(getObjectId());
+					final Location spawn = inst.getSpawnLoc();
+					if (spawn != null)
+					{
+						final int x = spawn.getX() + Rnd.get(-30, 30);
+						final int y = spawn.getY() + Rnd.get(-30, 30);
+						getPosition().setXYZ(x, y, spawn.getZ());
+						if (getPet() != null) // dead pet
+						{
+							getPet().teleToLocation(x, y, spawn.getZ());
+							// ??? unset pet's instance id, but not players
+							getPet().decayMe();
+							getPet().spawnMe();
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
+		
+		// ======================================================================
+		// storing character
+		store(true, true);
+		
+		// ======================================================================
+		// deleting character
+		
+		// Pause restrictions
+		ObjectRestrictions.getInstance().pauseTasks(getObjectId());
+		
 		// Cancel trade
 		if (getActiveRequester() != null)
 		{
 			cancelActiveTrade();
 			setActiveRequester(null);
 		}
-
-		// Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
-		if (inObserverMode())
-			getPosition().setXYZ(_obsX, _obsY, _obsZ);
-		else if (isInAirShip())
-			getAirShip().oustPlayer(this);
 
 		Castle castle = null;
 		if (getClan() != null) {
@@ -11061,37 +11169,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			}
 		}
 
-		// remove player from instance and set spawn location if any
-		try
-		{
-			if (isInInstance())
-			{
-				final Instance inst = InstanceManager.getInstance().getInstance(getInstanceId());
-				if (inst != null)
-				{
-					inst.removePlayer(getObjectId());
-					final Location spawn = inst.getSpawnLoc();
-					if (spawn != null)
-					{
-						final int x = spawn.getX() + Rnd.get(-30, 30);
-						final int y = spawn.getY() + Rnd.get(-30, 30);
-						getPosition().setXYZ(x, y, spawn.getZ());
-						if (getPet() != null) // dead pet
-						{
-							getPet().teleToLocation(x, y, spawn.getZ());
-							// ??? unset pet's instance id, but not players
-							getPet().decayMe();
-							getPet().spawnMe();
-						}
-					}
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			_log.fatal(e.getMessage(), e);
-		}
-
 		// Update database with items in its inventory and remove them from the world
 		try
 		{
@@ -11122,6 +11199,18 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		catch (Exception e)
 		{
 			_log.fatal(e.getMessage(), e);
+		}
+		
+		if (isCursedWeaponEquipped())
+		{
+			try
+			{
+				CursedWeaponsManager.getInstance().getCursedWeapon(getCursedWeaponEquippedId()).setPlayer(null);
+			}
+			catch (Exception e)
+			{
+				_log.fatal("deleteMe()", e);
+			}
 		}
 		
 		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
@@ -11182,6 +11271,16 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		}
 
 		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.NONE);
+		
+		try
+		{
+			//CommunityServerThread.getInstance().sendPacket(
+			//		new WorldInfo(this, null, WorldInfo.TYPE_UPDATE_PLAYER_STATUS));
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
 
 		notifyFriends();
 		
