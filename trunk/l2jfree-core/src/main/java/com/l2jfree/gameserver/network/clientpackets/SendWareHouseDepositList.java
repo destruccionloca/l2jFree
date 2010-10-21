@@ -217,7 +217,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		sendAF();
 	}
 
-	private class WarehouseItem
+	private static class WarehouseItem
 	{
 		private final int	_objectId;
 		private final long	_count;

@@ -14,17 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.List;
-
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
-import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -63,16 +58,9 @@ public final class RequestRefundItem extends L2GameClientPacket
 		if (player == null)
 			return;
 		
-		// FIXME 1.4.0
-		// if (!player.getFloodProtectors().getTransaction().tryPerformAction("refund"))
-		// {
-		// player.sendMessage("You using refund too fast.");
-		// return;
-		// }
-		
 		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		
@@ -82,68 +70,23 @@ public final class RequestRefundItem extends L2GameClientPacket
 			return;
 		}
 		
-		L2Object target = player.getTarget();
-		// FIXME ?
-		if (!player.isGM()
-				&& (target == null // No target (ie GM Shop)
-						|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)
-						|| player.getInstanceId() != target.getInstanceId() || !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, true, false)))
+		final L2Object merchant = (L2Object)player.getTarget(L2Merchant.class);
+		final L2TradeList list = L2MerchantInstance.getTradeList(player, merchant, _listId);
+		
+		if (list == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		
-		L2Character merchant = null;
-		if (target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)
-			merchant = (L2Character) target;
-		else if (!player.isGM())
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		
-		L2TradeList list = null;
 		double taxRate = 0;
 		
 		if (merchant != null)
 		{
-			List<L2TradeList> lists;
 			if (merchant instanceof L2MerchantInstance)
-			{
-				lists = TradeListTable.getInstance().getBuyListByNpcId(((L2MerchantInstance) merchant).getNpcId());
 				taxRate = ((L2MerchantInstance) merchant).getMpc().getTotalTaxRate();
-			}
 			else
-			{
-				lists = TradeListTable.getInstance().getBuyListByNpcId(((L2MerchantSummonInstance) merchant).getNpcId());
 				taxRate = 50;
-			}
-			
-			if (!player.isGM())
-			{
-				if (lists == null)
-				{
-					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-							+ " sent a false BuyList list_id", Config.DEFAULT_PUNISH);
-					return;
-				}
-				for (L2TradeList tradeList : lists)
-				{
-					if (tradeList.getListId() == _listId)
-						list = tradeList;
-				}
-			}
-			else
-				list = TradeListTable.getInstance().getBuyList(_listId);
-		}
-		else
-			list = TradeListTable.getInstance().getBuyList(_listId);
-		
-		if (list == null)
-		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-					+ " sent a false BuyList list_id", Config.DEFAULT_PUNISH);
-			return;
 		}
 		
 		long weight = 0;

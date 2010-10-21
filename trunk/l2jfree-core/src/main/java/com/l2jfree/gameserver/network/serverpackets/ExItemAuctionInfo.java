@@ -30,7 +30,7 @@ public final class ExItemAuctionInfo extends L2GameServerPacket
 		_auction = new AuctionInfo(chest, 1, 25000000);
 	}
 
-	private class AuctionInfo {
+	private static class AuctionInfo {
 		private final int _id;
 		private final int _count;
 		private final long _started;

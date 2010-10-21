@@ -150,7 +150,7 @@ public class RequestSetSeed extends L2GameClientPacket
 		sendAF();
 	}
 
-	private class Seed
+	private static class Seed
 	{
 		private final int	_itemId;
 		private final long	_sales;

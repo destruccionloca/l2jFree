@@ -36,7 +36,7 @@ public class AcquireSkillList extends L2GameServerPacket
 	private final List<Skill> _skills;
 	private final SkillType _fishingSkills;
 	
-	private class Skill
+	private static class Skill
 	{
 		public int id;
 		public int nextLevel;

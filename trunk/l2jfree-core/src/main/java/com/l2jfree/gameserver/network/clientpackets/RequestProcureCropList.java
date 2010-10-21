@@ -243,7 +243,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 		return _C__D0_09_REQUESTPROCURECROPLIST;
 	}
 
-	private class Crop
+	private static class Crop
 	{
 		private final int	_objectId;
 		private final int	_itemId;

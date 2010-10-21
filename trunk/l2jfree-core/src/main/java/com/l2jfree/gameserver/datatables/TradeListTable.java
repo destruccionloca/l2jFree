@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -209,24 +208,20 @@ public class TradeListTable
 
 	public L2TradeList getBuyList(int listId)
 	{
-		if (_lists.containsKey(listId))
-			return _lists.get(listId);
-		return null;
+		return _lists.get(listId);
 	}
-
-	public FastList<L2TradeList> getBuyListByNpcId(int npcId)
+	
+	public L2TradeList getBuyListByNpcId(int listId, int npcId)
 	{
-		FastList<L2TradeList> lists = new FastList<L2TradeList>();
-
-		for (L2TradeList list : _lists.values())
-		{
-			if (list.isGm())
-				continue;
-			if (npcId == list.getNpcId())
-				lists.add(list);
-		}
-
-		return lists;
+		final L2TradeList list = getBuyList(listId);
+		
+		if (list.isGm())
+			return null;
+		
+		if (npcId != list.getNpcId())
+			return null;
+		
+		return list;
 	}
 
 	protected void restoreCount(int time)

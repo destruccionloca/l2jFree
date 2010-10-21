@@ -83,7 +83,7 @@ public final class BuyListSeed extends L2GameServerPacket
 		return _S__E9_BUYLISTSEED;
 	}
 	
-	private class Seed
+	private static class Seed
 	{
 		public final int	_itemId;
 		public final long	_count;

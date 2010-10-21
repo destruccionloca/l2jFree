@@ -179,7 +179,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		return _C__C3_REQUESTBUYPROCURE;
 	}
 
-	private class Procure
+	private static class Procure
 	{
 		private final int _itemId;
 		private final long _count;

@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -193,7 +194,7 @@ public abstract class L2Object implements L2Entity<Integer>
 	 * <BR>
 	 * <BR>
 	 */
-	public void decayMe()
+	public final void decayMe()
 	{
 		//if (Config.ASSERT)
 		//	assert getPosition().getWorldRegion() != null;
@@ -564,6 +565,16 @@ public abstract class L2Object implements L2Entity<Integer>
 	public final static L2Summon getActingSummon(L2Object obj)
 	{
 		return (obj == null ? null : obj.getActingSummon());
+	}
+	
+	public L2Merchant getActingMerchant()
+	{
+		return this instanceof L2Merchant ? (L2Merchant)this : null;
+	}
+	
+	public final static L2Merchant getActingMerchant(L2Object obj)
+	{
+		return (obj == null ? null : obj.getActingMerchant());
 	}
 	
 	public boolean isInFunEvent()

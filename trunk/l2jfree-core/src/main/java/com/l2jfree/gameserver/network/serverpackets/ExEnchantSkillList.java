@@ -32,7 +32,7 @@ public class ExEnchantSkillList extends L2GameServerPacket
     private final EnchantSkillType _type;
     private final List<Skill> _skills;
 
-    class Skill
+    static class Skill
     {
         public int id;
         public int nextLevel;

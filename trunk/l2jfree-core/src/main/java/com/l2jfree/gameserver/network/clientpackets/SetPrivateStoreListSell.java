@@ -146,7 +146,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		sendAF();
 	}
 
-	private class Item
+	private static class Item
 	{
 		private final int	_itemId;
 		private final long	_count;

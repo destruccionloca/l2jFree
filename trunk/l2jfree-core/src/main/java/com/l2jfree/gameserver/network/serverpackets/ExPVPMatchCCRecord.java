@@ -55,7 +55,7 @@ public class ExPVPMatchCCRecord extends L2GameServerPacket
 	}
 
 	/** Example of usage */
-	public class CCPlayer {
+	public static class CCPlayer {
 		private final String _name;
 		private int _points;
 

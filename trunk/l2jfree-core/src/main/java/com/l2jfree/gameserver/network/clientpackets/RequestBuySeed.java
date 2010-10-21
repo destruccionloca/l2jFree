@@ -193,7 +193,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		return _C__C4_REQUESTBUYSEED;
 	}
 
-	private class Seed
+	private static class Seed
 	{
 		private final int _seedId;
 		private final long _count;

@@ -121,7 +121,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		sendAF();
 	}
 
-	private class Recipe
+	private static class Recipe
 	{
 		private final int	_recipeId;
 		private final long	_cost;

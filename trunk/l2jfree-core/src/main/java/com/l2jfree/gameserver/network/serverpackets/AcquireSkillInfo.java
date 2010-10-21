@@ -22,7 +22,7 @@ public class AcquireSkillInfo extends L2GameServerPacket
     private final FastList<Req> _reqs;
     private final int _id, _level, _spCost, _mode;
     
-	private class Req
+	private static class Req
     {
 		public int itemId;
 		public int count;

@@ -27,7 +27,7 @@ public class AdminForgePacket extends L2GameServerPacket
 {
 	private final List<Part> _parts = new ArrayList<Part>();
 	
-	private class Part
+	private static class Part
 	{
 		public byte b;
 		public String str;

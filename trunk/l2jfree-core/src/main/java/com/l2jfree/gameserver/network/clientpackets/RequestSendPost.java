@@ -330,7 +330,7 @@ public final class RequestSendPost extends L2GameClientPacket
 		return true;
 	}
 	
-	private class AttachmentItem
+	private static class AttachmentItem
 	{
 		private final int _objectId;
 		private final long _count;

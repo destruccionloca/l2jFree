@@ -14,22 +14,17 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.Shutdown.DisableType;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
-import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.ExBuySellListPacket;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 
 public class RequestSellItem extends L2GameClientPacket
@@ -84,12 +79,7 @@ public class RequestSellItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		processSell();
-	}
-	
-	protected void processSell()
-	{
-		L2PcInstance player = getClient().getActiveChar();
+		final L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
 		
@@ -99,35 +89,23 @@ public class RequestSellItem extends L2GameClientPacket
 			return;
 		}
 		
-		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
-		{
-			player.cancelActiveTrade();
-			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
-			return;
-		}
+		final L2Object merchant = (L2Object)player.getTarget(L2Merchant.class);
+		final L2TradeList list = L2MerchantInstance.getTradeList(player, merchant, _listId);
 		
-		L2Merchant merchant = player.getTarget(L2Merchant.class);
-		String htmlFolder;
-		if (merchant instanceof L2FishermanInstance)
-			htmlFolder = "fisherman";
-		else if (merchant instanceof L2PetManagerInstance)
-			htmlFolder = "petmanager";
-		else
-			htmlFolder = "merchant";
-		
-		if (!canShop(player, merchant))
+		if (list == null)
 		{
 			sendAF();
 			return;
 		}
 		
-		if (merchant != null && _listId > 1000000) // lease
+		double taxRate = 0;
+		
+		if (merchant != null)
 		{
-			if (merchant.getTemplate().getNpcId() != _listId - 1000000)
-			{
-				sendAF();
-				return;
-			}
+			if (merchant instanceof L2MerchantInstance)
+				taxRate = ((L2MerchantInstance)merchant).getMpc().getTotalTaxRate();
+			else
+				taxRate = 50;
 		}
 		
 		long totalPrice = 0;
@@ -146,56 +124,23 @@ public class RequestSellItem extends L2GameClientPacket
 				return;
 			}
 			
-			item = player.getInventory().destroyItem("Sell", i.getObjectId(), i.getCount(), player, null);
+			if (Config.ALLOW_REFUND)
+				item = player.getInventory().transferItem("Sell", i.getObjectId(), i.getCount(), player.getRefund(), player, merchant);
+			else
+				item = player.getInventory().destroyItem("Sell", i.getObjectId(), i.getCount(), player, merchant);
 		}
-		player.addAdena("Sell", totalPrice, (L2Character) merchant, false);
-		
-		if (merchant != null)
-		{
-			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getNpcId() + "-sold.htm");
-			
-			if (html != null)
-			{
-				NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
-				soldMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
-				player.sendPacket(soldMsg);
-			}
-		}
+		player.addAdena("Sell", totalPrice, merchant, false);
 		
 		// Update current load as well
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		sendPacket(su);
-		sendPacket(new ItemList(player, true));
+		sendPacket(new ExBuySellListPacket(player, list, taxRate, true));
 		
 		sendAF();
 	}
 	
-	private boolean canShop(L2PcInstance player, L2Merchant target)
-	{
-		if (player.isGM())
-			return true;
-		
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
-			return false;
-		
-		if (target == null)
-			return false;
-		
-		L2Character merchant = (L2Character) target;
-		if (!player.isSameInstance(merchant))
-			return false;
-		
-		if (!player.isInsideRadius(merchant, INTERACTION_DISTANCE, false, false))
-		{
-			player.sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
-			return false;
-		}
-		
-		return true;
-	}
-	
-	private class Item
+	private static class Item
 	{
 		private final int	_objectId;
 		// private final int _itemId;

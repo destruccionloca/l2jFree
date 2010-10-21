@@ -153,7 +153,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		return _C__D0_0B_REQUESTSETCROP;
 	}
 
-	private class Crop
+	private static class Crop
 	{
 		private final int	_itemId;
 		private final long	_sales;

@@ -17,12 +17,16 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable;
-import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable.MerchantPriceConfig;
 import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable.MerchantPriceConfig;
 import com.l2jfree.gameserver.model.L2Multisell;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExBuySellListPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -31,7 +35,10 @@ import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.ShopPreviewList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.StringUtil;
+import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 import com.l2jfree.lang.L2TextBuilder;
 
 /**
@@ -317,5 +324,78 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 			player.sendPacket(html);
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+	
+	public static L2TradeList getTradeList(L2PcInstance player, L2Object target, int listId)
+	{
+		final L2Merchant merchant = L2Object.getActingMerchant(target);
+		
+		if (!L2MerchantInstance.canShop(player, target))
+			return null;
+		
+		L2TradeList list = null;
+		
+		if (player.isGM())
+			list = TradeListTable.getInstance().getBuyList(listId);
+		else if (merchant != null)
+			list = TradeListTable.getInstance().getBuyListByNpcId(listId, merchant.getNpcId());
+		
+		if (list == null)
+		{
+			if (!player.isGM())
+			{
+				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account "
+						+ player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+			}
+			else
+				player.sendMessage("Buylist " + listId + " empty or not exists.");
+			return null;
+		}
+		
+		if (list.isGm() && !player.isGM())
+		{
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account "
+					+ player.getAccountName() + " sent a modified packet to buy from gmshop.", Config.DEFAULT_PUNISH);
+			return null;
+		}
+		
+		return list;
+	}
+	
+	public static boolean canShop(L2PcInstance player, L2Object target)
+	{
+		if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
+		{
+			player.sendMessage("You are acting too fast.");
+			return false;
+		}
+		
+		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
+		{
+			player.cancelActiveTrade();
+			player.sendPacket(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
+			return false;
+		}
+		
+		if (player.isGM())
+			return true;
+		
+		// Alt game - Karma punishment
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
+			return false;
+		
+		if (target == null)
+			return false;
+		
+		if (!player.isSameInstance(target))
+			return false;
+		
+		if (!player.isInsideRadius(target, INTERACTION_DISTANCE, false, false))
+		{
+			player.sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
+			return false;
+		}
+		
+		return true;
 	}
 }

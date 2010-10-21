@@ -44,7 +44,7 @@ public final class UseItem extends L2GameClientPacket
 	//private int				_unk;
 
 	/** Weapon Equip Task */
-	public class WeaponEquipTask implements Runnable
+	public static class WeaponEquipTask implements Runnable
 	{
 		L2ItemInstance	item;
 		L2PcInstance	activeChar;

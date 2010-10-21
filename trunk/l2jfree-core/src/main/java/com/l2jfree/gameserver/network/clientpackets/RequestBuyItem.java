@@ -14,17 +14,13 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
-
-import java.util.List;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -33,9 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExBuySellListPacket;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class represents a packet sent by the client when the player confirms his item
@@ -96,43 +90,26 @@ public class RequestBuyItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		final L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
 		
-		if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
-		{
-			player.sendMessage("You are buying too fast.");
-			return;
-		}
-		
 		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		
-		final L2Merchant merchant = player.getTarget(L2Merchant.class);
+		final L2Object merchant = (L2Object)player.getTarget(L2Merchant.class);
+		final L2TradeList list = L2MerchantInstance.getTradeList(player, merchant, _listId);
 		
-		// FIXME: 1.4.0
-		/*
-		final String htmlFolder;
-		if (merchant instanceof L2FishermanInstance)
-			htmlFolder = "fisherman";
-		else if (merchant instanceof L2PetManagerInstance)
-			htmlFolder = "petmanager";
-		else
-			htmlFolder = "merchant";
-		*/
-		
-		if (!canShop(player, merchant))
+		if (list == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		
 		int npcId = -1;
-		L2TradeList list = null;
 		
 		// FIXME: 1.4.0 -> fix taxing, because it's a mess
 		double castleTaxRate = 0;
@@ -140,9 +117,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		
 		if (merchant != null)
 		{
-			npcId = merchant.getTemplate().getNpcId();
-			
-			List<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(npcId);
+			npcId = merchant.getActingMerchant().getTemplate().getNpcId();
 			
 			// FIXME: 1.4.0 -> fix taxing, because it's a mess
 			if (merchant instanceof L2MerchantInstance)
@@ -154,57 +129,6 @@ public class RequestBuyItem extends L2GameClientPacket
 			{
 				baseTaxRate = 50;
 			}
-			
-			/*
-			 * if (lists == null)
-			 * {
-			 * sendPacket(ActionFailed.STATIC_PACKET);
-			 * Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-			 * + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
-			 * return;
-			 * }
-			 */
-
-			if (!player.isGM())
-			{
-				if (lists == null)
-				{
-					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-							+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
-					return;
-				}
-				for (L2TradeList tradeList : lists)
-				{
-					if (tradeList.getListId() == _listId)
-						list = tradeList;
-				}
-			}
-			else
-				list = TradeListTable.getInstance().getBuyList(_listId);
-		}
-		else
-			list = TradeListTable.getInstance().getBuyList(_listId);
-		
-		if (list == null)
-		{
-			if (!player.isGM())
-			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-						+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
-				return;
-			}
-			else
-				player.sendMessage("Buylist " + _listId + " empty or not exists.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		
-		if (list.isGm() && !player.isGM())
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-					+ " sent a modified packet to buy from gmshop.", Config.DEFAULT_PUNISH);
-			return;
 		}
 		
 		_listId = list.getListId();
@@ -315,7 +239,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		
 		if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
 		{
-			if ((taxedPriceTotal < 0) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character) merchant, false))
+			if ((taxedPriceTotal < 0) || !player.reduceAdena("Buy", taxedPriceTotal, merchant, false))
 			{
 				requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;
@@ -357,58 +281,16 @@ public class RequestBuyItem extends L2GameClientPacket
 			}
 			
 			// Add item to Inventory and adjust update packet
-			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, (L2Character) merchant);
+			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, merchant);
 		}
-		
-		// FIXME: 1.4.0
-		/*
-		if (merchant != null)
-		{
-			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getTemplate().getNpcId() + "-bought.htm");
-			
-			if (html != null)
-			{
-				NpcHtmlMessage boughtMsg = new NpcHtmlMessage(merchant.getObjectId());
-				boughtMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
-				sendPacket(boughtMsg);
-				boughtMsg = null;
-			}
-		}
-		*/
 		
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		sendPacket(su);
-		su = null;
 		sendPacket(new ExBuySellListPacket(player, list, castleTaxRate + baseTaxRate, true));
 	}
 	
-	private boolean canShop(L2PcInstance player, L2Merchant target)
-	{
-		if (player.isGM())
-			return true;
-		
-		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
-			return false;
-		
-		if (target == null)
-			return false;
-		
-		L2Character merchant = (L2Character) target;
-		if (!player.isSameInstance(merchant))
-			return false;
-		
-		if (!player.isInsideRadius(merchant, INTERACTION_DISTANCE, false, false))
-		{
-			sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
-			return false;
-		}
-		
-		return true;
-	}
-	
-	private class Item
+	private static class Item
 	{
 		private final int	_itemId;
 		private final long	_count;

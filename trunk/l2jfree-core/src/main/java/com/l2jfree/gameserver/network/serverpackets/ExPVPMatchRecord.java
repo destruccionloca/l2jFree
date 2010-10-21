@@ -64,17 +64,17 @@ public class ExPVPMatchRecord extends L2GameServerPacket
 		writeD(0x00); // ??
 
 		writeD(_t1.length + _t2.length); // total players
-		for (int i = 0; i < _t1.length; i++)
+		for (PlayerRecord element : _t1)
 		{
-			writeS(_t1[i].getPcName()); // player name
-			writeD(_t1[i].getKills()); // kills
-			writeD(_t1[i].getDeaths()); // deaths
+			writeS(element.getPcName()); // player name
+			writeD(element.getKills()); // kills
+			writeD(element.getDeaths()); // deaths
 		}
-		for (int i = 0; i < _t2.length; i++)
+		for (PlayerRecord element : _t2)
 		{
-			writeS(_t2[i].getPcName()); // player name
-			writeD(_t2[i].getKills()); // kills
-			writeD(_t2[i].getDeaths()); // deaths
+			writeS(element.getPcName()); // player name
+			writeD(element.getKills()); // kills
+			writeD(element.getDeaths()); // deaths
 		}
 	}
 
@@ -88,7 +88,7 @@ public class ExPVPMatchRecord extends L2GameServerPacket
 	 * An <U>example</U> class to use with this packet.
 	 * @author savormix
 	 */
-	public class PlayerRecord
+	public static class PlayerRecord
 	{
 		private final String _name;
 		private int _kills;

@@ -181,35 +181,37 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			switch (_sortorder)
 			{
 				case A2Z:
+					Arrays.sort(_objects, WarehouseItemNameComparator.A2Z_INSTANCE);
+					break;
 				case Z2A:
-					Arrays.sort(_objects, new WarehouseItemNameComparator(_sortorder));
+					Arrays.sort(_objects, WarehouseItemNameComparator.Z2A_INSTANCE);
 					break;
 				case GRADE:
 					if (_itemtype == WarehouseListType.ARMOR || _itemtype == WarehouseListType.WEAPON)
 					{
-						Arrays.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Arrays.sort(_objects, new WarehouseItemGradeComparator(A2Z));
+						Arrays.sort(_objects, WarehouseItemNameComparator.A2Z_INSTANCE);
+						Arrays.sort(_objects, WarehouseItemGradeComparator.A2Z_INSTANCE);
 					}
 					break;
 				case LEVEL:
 					if (_itemtype == WarehouseListType.RECIPE)
 					{
-						Arrays.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Arrays.sort(_objects, new WarehouseItemRecipeComparator(A2Z));
+						Arrays.sort(_objects, WarehouseItemNameComparator.A2Z_INSTANCE);
+						Arrays.sort(_objects, WarehouseItemRecipeComparator.A2Z_INSTANCE);
 					}
 					break;
 				case TYPE:
 					if (_itemtype == WarehouseListType.MATERIAL)
 					{
-						Arrays.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Arrays.sort(_objects, new WarehouseItemTypeComparator(A2Z));
+						Arrays.sort(_objects, WarehouseItemNameComparator.A2Z_INSTANCE);
+						Arrays.sort(_objects, WarehouseItemTypeComparator.A2Z_INSTANCE);
 					}
 					break;
 				case WEAR:
 					if (_itemtype == WarehouseListType.ARMOR)
 					{
-						Arrays.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Arrays.sort(_objects, new WarehouseItemBodypartComparator(A2Z));
+						Arrays.sort(_objects, WarehouseItemNameComparator.A2Z_INSTANCE);
+						Arrays.sort(_objects, WarehouseItemBodypartComparator.A2Z_INSTANCE);
 					}
 					break;
 			}
@@ -259,9 +261,12 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	 */
 	private static class WarehouseItemNameComparator implements Comparator<L2WarehouseItem>
 	{
-		private byte order = 0;
+		public static final WarehouseItemNameComparator A2Z_INSTANCE = new WarehouseItemNameComparator(A2Z);
+		public static final WarehouseItemNameComparator Z2A_INSTANCE = new WarehouseItemNameComparator(Z2A);
 		
-		protected WarehouseItemNameComparator(byte sortOrder)
+		private final byte order;
+		
+		private WarehouseItemNameComparator(byte sortOrder)
 		{
 			order = sortOrder;
 		}
@@ -284,11 +289,14 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	 */
 	private static class WarehouseItemRecipeComparator implements Comparator<L2WarehouseItem>
 	{
-		private int order = 0;
+		public static final WarehouseItemRecipeComparator A2Z_INSTANCE = new WarehouseItemRecipeComparator(A2Z);
+		public static final WarehouseItemRecipeComparator Z2A_INSTANCE = new WarehouseItemRecipeComparator(Z2A);
 		
-		private RecipeController rc = null;
+		private final int order;
 		
-		protected WarehouseItemRecipeComparator(int sortOrder)
+		private final RecipeController rc;
+		
+		private WarehouseItemRecipeComparator(int sortOrder)
 		{
 			order = sortOrder;
 			rc = RecipeController.getInstance();
@@ -336,9 +344,12 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	 */
 	private static class WarehouseItemBodypartComparator implements Comparator<L2WarehouseItem>
 	{
-		private byte order = 0;
+		public static final WarehouseItemBodypartComparator A2Z_INSTANCE = new WarehouseItemBodypartComparator(A2Z);
+		public static final WarehouseItemBodypartComparator Z2A_INSTANCE = new WarehouseItemBodypartComparator(Z2A);
 		
-		protected WarehouseItemBodypartComparator(byte sortOrder)
+		private final byte order;
+		
+		private WarehouseItemBodypartComparator(byte sortOrder)
 		{
 			order = sortOrder;
 		}
@@ -361,9 +372,12 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	 */
 	private static class WarehouseItemGradeComparator implements Comparator<L2WarehouseItem>
 	{
-		byte order = 0;
+		public static final WarehouseItemGradeComparator A2Z_INSTANCE = new WarehouseItemGradeComparator(A2Z);
+		public static final WarehouseItemGradeComparator Z2A_INSTANCE = new WarehouseItemGradeComparator(Z2A);
 		
-		protected WarehouseItemGradeComparator(byte sortOrder)
+		private final byte order;
+		
+		private WarehouseItemGradeComparator(byte sortOrder)
 		{
 			order = sortOrder;
 		}
@@ -387,9 +401,12 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	 */
 	private static class WarehouseItemTypeComparator implements Comparator<L2WarehouseItem>
 	{
-		byte order = 0;
+		public static final WarehouseItemTypeComparator A2Z_INSTANCE = new WarehouseItemTypeComparator(A2Z);
+		public static final WarehouseItemTypeComparator Z2A_INSTANCE = new WarehouseItemTypeComparator(Z2A);
 		
-		protected WarehouseItemTypeComparator(byte sortOrder)
+		private final byte order;
+		
+		private WarehouseItemTypeComparator(byte sortOrder)
 		{
 			order = sortOrder;
 		}
