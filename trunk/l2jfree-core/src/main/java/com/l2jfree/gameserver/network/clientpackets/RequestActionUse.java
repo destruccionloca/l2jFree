@@ -345,7 +345,7 @@ public class RequestActionUse extends L2GameClientPacket
 				if (target instanceof L2DoorInstance)
 					useSkill(4079);
 				break;
-			case 1001: // Sin Eater - Ultimate Bombastic Buster
+			case 1001: // TODO Sin Eater - Ultimate Bombastic Buster
 				break;
 			case 1003: // Wind Hatchling/Strider - Wild Stun
 				useSkill(4710);
@@ -486,61 +486,61 @@ public class RequestActionUse extends L2GameClientPacket
 			case 1060: // Guidance (Nightshade)
 				useSkill(5654);
 				break;
-			case 1061: // Death Blow
+			case 1061: // Death Blow (Wild Beast Fighter, White Weasel)
 				useSkill(5745);
 				break;
-			case 1062: // Double Attack
+			case 1062: // Double Attack (Wild Beast Fighter)
 				useSkill(5746);
 				break;
-			case 1063: // Spin Attack
+			case 1063: // Spin Attack (Wild Beast Fighter)
 				useSkill(5747);
 				break;
-			case 1064: // Meteor Shower
+			case 1064: // Meteor Shower (Wild Beast Fighter)
 				useSkill(5748);
 				break;
-			case 1065: // Awakening
+			case 1065: // Awakening (Fox Shaman, Wild Beast Fighter, White Weasel, Fairy Princess)
 				useSkill(5753);
 				break;
-			case 1066: // Thunder Bolt
+			case 1066: // Thunder Bolt (Fox Shaman, Spirit Shaman)
 				useSkill(5749);
 				break;
-			case 1067: // Flash
+			case 1067: // Flash (Fox Shaman, Spirit Shaman)
 				useSkill(5750);
 				break;
-			case 1068: // Lightning Wave
+			case 1068: // Lightning Wave (Fox Shaman, Spirit Shaman)
 				useSkill(5751);
 				break;
-			case 1069: // Flare
+			case 1069: // Flare (Fox Shaman, Fairy Princess)
 				useSkill(5752);
 				break;
-			case 1070: // Buff Control
+			case 1070: // Buff Control (White Weasel, Fairy Princess, Improved Baby Buffalo, Improved Baby Kookaburra, Improved Baby Cougar, Spirit Shaman, Toy Knight, Turtle Ascetic)
 				useSkill(5771);
 				break;
-			case 1071: // Power Strike
+			case 1071: // Power Strike (Tigress)
 				useSkill(5761);
 				break;
-			case 1072: // Piercing Attack
+			case 1072: // Piercing Attack (Toy Knight)
 				useSkill(6046);
 				break;
-			case 1073: // Whirlwind
+			case 1073: // Whirlwind (Toy Knight)
 				useSkill(6047);
 				break;
-			case 1074: // Lance Smash
+			case 1074: // Lance Smash (Toy Knight)
 				useSkill(6048);
 				break;
-			case 1075: // Battle Cry
+			case 1075: // Battle Cry (Toy Knight)
 				useSkill(6049);
 				break;
-			case 1076: // Power Smash
+			case 1076: // Power Smash (Turtle Ascetic)
 				useSkill(6050);
 				break;
-			case 1077: // Energy Burst
+			case 1077: // Energy Burst (Turtle Ascetic)
 				useSkill(6051);
 				break;
-			case 1078: // Shockwave
+			case 1078: // Shockwave (Turtle Ascetic)
 				useSkill(6052);
 				break;
-			case 1079: // Howl
+			case 1079: // Howl (Turtle Ascetic)
 				useSkill(6053);
 				break;
 			case 1080: // Rush (Phoenix)
@@ -566,6 +566,20 @@ public class RequestActionUse extends L2GameClientPacket
 				break;
 			case 1088: // Fatal Claw (Panther)
 				useSkill(6096);
+				break;
+			case 1089: // Tail Strike (Deinonychus)
+				useSkill(6199);
+				break;
+			case 1090: // Strider Bite (Guardian's Strider)
+				useSkill(6205);
+				break;
+			case 1091: // Strider Fear (Guardian's Strider)
+				useSkill(6206);
+				break;
+			case 1092: // Strider Dash (Guardian's Strider)
+				useSkill(6207);
+				break;
+			case 5000: // TODO Reindeer Scratch (Baby Rudolph)
 				break;
 			// CT2.3 Social Packets
 			case 12:

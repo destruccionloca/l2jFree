@@ -39,7 +39,7 @@ public class ExBasicActionList extends L2GameServerPacket
 		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1061, 1062,
 		1063, 1064, 1065, 1066, 1067, 1068, 1069, 1070, 1071, 1072, 1073, 1074,
 		1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086,
-		1087, 1088
+		1087, 1088, 1089, 1090, 1091, 1092, 5000
 	};
 
 	private static final int[]				TRANSFORMED_ACTIONS			= {
@@ -53,7 +53,7 @@ public class ExBasicActionList extends L2GameServerPacket
 		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1061, 1062,
 		1063, 1064, 1065, 1066, 1067, 1068, 1069, 1070, 1071, 1072, 1073, 1074,
 		1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086,
-		1087, 1088
+		1087, 1088, 1089, 1090, 1091, 1092, 5000
 	};
 
 	private static final ExBasicActionList	DEFAULT_ACTION_LIST			= new ExBasicActionList(DEFAULT_ACTIONS);
@@ -134,7 +134,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	
 
 	1000 - Siege Hammer (Siege Golem)
-	1001 -
+	1001 - TODO Ultimate Bombastic Buster (Sin Eater)
 	1002 -
 	1003 - Wild Stun (Wind Hatchling)
 	1004 - Wild Defense (Wind Hatchling)
@@ -152,7 +152,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	1016 - Cursed Blow (Cursed Man)
 	1017 - Cursed Strike/Stun (Cursed Man)
 	1018 -
-	...
+
 	1030 -
 	1031 - Slash (Feline King)
 	1032 - Spinning Slash (Feline King)
@@ -189,20 +189,20 @@ public class ExBasicActionList extends L2GameServerPacket
 	1063 - Spin Attack (Wild Beast Fighter)
 	1064 - Meteor Shower (Wild Beast Fighter)
 	1065 - Awakening (Fox Shaman, Wild Beast Fighter, White Weasel, Fairy Princess)
-	1066 - Thunder Bolt (Fox Shaman)
-	1067 - Flash (Fox Shaman)
-	1068 - Lightning Wave (Fox Shaman)
+	1066 - Thunder Bolt (Fox Shaman, Spirit Shaman)
+	1067 - Flash (Fox Shaman, Spirit Shaman)
+	1068 - Lightning Wave (Fox Shaman, Spirit Shaman)
 	1069 - Flare (Fox Shaman, Fairy Princess)
-	1070 - Buff Control (Improved Baby Buffalo, Improved Baby Kookaburra, Improved Baby Cougar, White Weasel, Fairy Princess)
+	1070 - Buff Control (White Weasel, Fairy Princess, Improved Baby Buffalo, Improved Baby Kookaburra, Improved Baby Cougar, Spirit Shaman, Toy Knight, Turtle Ascetic)
 	1071 - Power Strike (Tigress)
-	1072 - Peircing Attack
-	1073 - Whirlwind
-	1074 - Lance Smash
-	1075 - Battle Cry
-	1076 - Power Smash
-	1077 - Energy Burst
-	1078 - Shockwave
-	1079 - Howl
+	1072 - Peircing Attack (Toy Knight)
+	1073 - Whirlwind (Toy Knight)
+	1074 - Lance Smash (Toy Knight)
+	1075 - Battle Cry (Toy Knight)
+	1076 - Power Smash (Turtle Ascetic)
+	1077 - Energy Burst (Turtle Ascetic)
+	1078 - Shockwave (Turtle Ascetic)
+	1079 - Howl (Turtle Ascetic)
 	1080 - Phoenix Rush (Imperial Phoenix)
 	1081 - Phoenix Cleanse (Imperial Phoenix)
 	1082 - Phoenix Flame Feather (Imperial Phoenix)
@@ -211,6 +211,11 @@ public class ExBasicActionList extends L2GameServerPacket
 	1086 - Panther Cancel (Dark Panther)
 	1087 - Panther Dark Claw (Dark Panther)
 	1088 - Panther Fatal Claw (Dark Panther)
+	1089 - Tail Strike (Deinonychus)
+	1090 - Strider Bite (Guardian's Strider)
+	1091 - Strider Fear (Guardian's Strider)
+	1092 - Strider Dash (Guardian's Strider)
+	5000 - Reindeer Scratch (Baby Rudolph)
 	*/
 
 	private ExBasicActionList(int... actionIds)
