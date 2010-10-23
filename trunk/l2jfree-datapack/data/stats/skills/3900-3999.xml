@@ -3,7 +3,9 @@
 <list>
   <skill id="3900" levels="2" name="Staff of Divine Power">
     <!-- Increases Max HP of Masterwork Two-handed Blunt Weapon. -->
+    <table name="#magicLvl"> 61 80 </table>
     <table name="#giveHp"> 1.1 1.15 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -12,8 +14,10 @@
     </for>
   </skill>
   <skill id="3901" levels="2" name="Staff of Mana Boost">
-    <!-- Increases Max MP of Masterwork Two-handed Blunt Weapon. -->
-    <table name="#maxMp"> 319 444 </table> <!-- Guess -->
+    <!-- Increases Max MP of Masterwork BigBlunt Weapon. (a-s grade bigblunt) -->
+    <table name="#magicLvl"> 61 80 </table>
+    <table name="#maxMp"> 289 334 </table> <!-- Guess -->
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -23,11 +27,14 @@
   </skill>
   <skill id="3902" levels="1" name="Staff of Clarity">
     <!-- Decreases skills MP consumption of Masterwork Two-handed Blunt Weapon. -->
+    <set name="magicLvl" val="61"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95"/>
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.95"/>
+      <mul order="0x30" stat="DanceMpConsumeRate" val="0.95"/>
     </for>
   </skill>
   <skill id="3904" levels="1" name="Refine Option - Divine Attack">
