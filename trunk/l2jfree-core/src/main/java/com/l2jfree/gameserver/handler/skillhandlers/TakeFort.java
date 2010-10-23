@@ -69,11 +69,13 @@ public class TakeFort implements ISkillHandler
 	 * @param activeChar The L2Character of the character placing the flag
 	 *
 	 */
+	// FIXME 1.4.0
 	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, boolean isCheckOnly, L2Skill skill, L2Object target)
 	{
 		return checkIfOkToCastFlagDisplay(activeChar, FortManager.getInstance().getFort(activeChar), isCheckOnly, skill, target);
 	}
 
+	// FIXME: 1.4.0
 	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, Fort fort, boolean isCheckOnly,L2Skill skill, L2Object target)
 	{
 		if (activeChar == null || !(activeChar instanceof L2PcInstance))

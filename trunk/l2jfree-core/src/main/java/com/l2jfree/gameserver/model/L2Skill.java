@@ -1079,7 +1079,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final boolean isEnchantable()
 	{
-		return SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(getId()) != null;
+		return SkillTreeTable.getInstance().getSkillEnchantmentForSkill(this) != null;
 	}
 
 	/**

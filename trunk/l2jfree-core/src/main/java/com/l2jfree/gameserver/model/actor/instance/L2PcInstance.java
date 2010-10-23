@@ -83,6 +83,7 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
+import com.l2jfree.gameserver.instancemanager.AntiFeedManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
@@ -499,6 +500,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private int								_curWeightPenalty		= 0;
 
 	private long							_deleteTimer;
+	// FIXME: 1.4.0
+	//private long							_creationTime;
 	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
 	private PcRefund 						_refund;
@@ -896,6 +899,10 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		// Set the name of the L2PcInstance
 		player.setName(name);
+		
+		// FIXME: 1.4.0
+		// Set Character's create time
+		//player.setCreateTime(System.currentTimeMillis());
 
 		// Set the base class ID to that of the actual class ID.
 		player.setBaseClass(player.getClassId());
@@ -3658,7 +3665,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 *
 	 */
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (player == null)
 			return;
@@ -3681,6 +3688,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			// Send a Server->Client packet ActionFailed to the player
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
 		// Aggression target lock effect
 		if (!player.canChangeLockedTarget(this))
@@ -3692,7 +3700,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// Set the target of the player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			if (player != this)
 				player.sendPacket(new ValidateLocation(this));
@@ -3732,21 +3740,22 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				}
 			}
 		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
-	public void onActionShift(L2PcInstance gm)
+	public void onActionShift(L2PcInstance player)
 	{
-		gm.sendPacket(ActionFailed.STATIC_PACKET);
-		if (gm.isGM())
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		if (player.isGM())
 		{
-			if (this != gm.getTarget())
+			if (this != player.getTarget())
 			{
-				gm.setTarget(this);
+				player.setTarget(this);
 			}
 			else
 			{
-				AdminEditChar.gatherCharacterInfo(gm, this, "charinfo.htm");
+				AdminEditChar.gatherCharacterInfo(player, this, "charinfo.htm");
 			}
 		}
 	}
@@ -4605,7 +4614,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				ArenaManager.getInstance().onDeath(getObjectId(), getName());
 			}
 
-			if (bothWayClanWarKill && pk != null)
+			if (bothWayClanWarKill && pk != null && AntiFeedManager.getInstance().check(killer, this))
 			{
 				// When your reputation score is 0 or below, the other clan cannot acquire any reputation points
 				if (getClan().getReputationScore() > 0)
@@ -4686,6 +4695,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		// Calculate death penalty buff
 		calculateDeathPenaltyBuffLevel(killer);
+		
+		AntiFeedManager.getInstance().setLastDeathTime(getObjectId());
 
 		// [L2J_JP ADD SANDMAN]
 		// When the player has been annihilated, the player is banished from the Four Sepulcher.
@@ -4894,8 +4905,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				targetPlayer.isInsideZone(L2Zone.FLAG_PVP) // Target player is inside pvp zone
 		))
 		{
-			if (target instanceof L2PcInstance)
-				increasePvpKills();
+			increasePvpKills(target);
 			// Give faction pvp points
 			if (Config.FACTION_ENABLED && targetPlayer.getSide() != getSide() && targetPlayer.getSide() != 0 && getSide() != 0 && Config.FACTION_KILL_REWARD)
 				increaseFactionKillPoints(targetPlayer.getLevel(), false);
@@ -4918,8 +4928,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			if (clanWarKill)
 			{
 				// 'Both way war' -> 'PvP Kill'
-				if (target instanceof L2PcInstance)
-					increasePvpKills();
+				increasePvpKills(target);
 				return;
 			}
 
@@ -4928,13 +4937,12 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			{
 				if (Config.KARMA_AWARD_PK_KILL)
 				{
-					if (target instanceof L2PcInstance)
-						increasePvpKills();
+					increasePvpKills(target);
 				}
 			}
 			else if (targetPlayer.getPvpFlag() == 0) // Target player doesn't have karma
 			{
-				increasePkKillsAndKarma(targetPlayer.getLevel(), target instanceof L2PcInstance);
+				increasePkKillsAndKarma(target);
 				// Unequip adventurer items
 				if (getInventory().getPaperdollItemId(7) >= 7816 && getInventory().getPaperdollItemId(7) <= 7831)
 				{
@@ -4972,13 +4980,16 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 * Increase the pvp kills count and send the info to the player
 	 *
 	 */
-	private void increasePvpKills()
+	private void increasePvpKills(L2Character target)
 	{
-		// Add karma to attacker and increase its PK counter
-		setPvpKills(getPvpKills() + 1);
-
-		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
-		sendPacket(new UserInfo(this));
+		if (target instanceof L2PcInstance && AntiFeedManager.getInstance().check(this, target))
+		{
+			// Add karma to attacker and increase its PK counter
+			setPvpKills(getPvpKills() + 1);
+			
+			// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
+			sendPacket(new UserInfo(this));
+		}
 	}
 
 	/**
@@ -4987,7 +4998,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 * @param targLVL : level of the killed player
 	 * @param increasePk : true if PK counter should be increased too
 	 */
-	private void increasePkKillsAndKarma(int targLVL, boolean increasePk)
+	private void increasePkKillsAndKarma(L2Character target)
 	{
 		int baseKarma = (int)(Config.KARMA_MIN_KARMA * Config.KARMA_RATE);
 		int newKarma = baseKarma;
@@ -4996,6 +5007,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		int pkLVL = getLevel();
 		int pkPKCount = getPkKills();
 
+		int targLVL = target.getLevel();
+		
 		int lvlDiffMulti = 0;
 		int pkCountMulti = 0;
 
@@ -5029,7 +5042,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			newKarma = Integer.MAX_VALUE - getKarma();
 
 		// Add karma to attacker and increase its PK counter
-		if (increasePk)
+		if (target instanceof L2PcInstance && AntiFeedManager.getInstance().check(this, target))
 			setPkKills(getPkKills() + 1);
 		setKarma(getKarma() + newKarma);
 
@@ -5223,7 +5236,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Get the level of the L2PcInstance
 		final int lvl = getLevel();
 
-		byte level = (byte)getLevel();
+		//byte level = (byte)getLevel();
 
 		int clan_luck = getSkillLevel(L2Skill.SKILL_CLAN_LUCK);
 
@@ -5269,6 +5282,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// The death steal you some Exp
 		double percentLost = Config.PLAYER_XP_PERCENT_LOST[getLevel()]*clan_luck_modificator;
 
+		/*
 		switch (level)
 		{
 		case 78:
@@ -5287,6 +5301,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				percentLost = (4.0*clan_luck_modificator);
 			break;
 		}
+		*/
 
 		if (getKarma() > 0)
 			percentLost *= Config.RATE_KARMA_EXP_LOST;
@@ -5721,6 +5736,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			_lvlJoinedAcademy = 0;
 			_apprentice = 0;
 			_sponsor = 0;
+			//if (_isOnline)
+			//	CommunityServerThread.getInstance().sendPacket(
+			//			new WorldInfo(this, null, WorldInfo.TYPE_UPDATE_PLAYER_DATA));
 			return;
 		}
 
@@ -5732,6 +5750,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		}
 
 		_clanId = clan.getClanId();
+		//if (_isOnline)
+		//	CommunityServerThread.getInstance()
+		//			.sendPacket(new WorldInfo(this, null, WorldInfo.TYPE_UPDATE_PLAYER_DATA));
 	}
 
 	/**
@@ -6583,6 +6604,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				player.setNoble(rset.getInt("nobless") == 1);
 
 				player.setTitle(rset.getString("title"));
+				// FIXME: 1.4.0
+				//player.getAppearance().setTitleColor(rset.getInt("title_color"));
 				player.setAccessLevel(rset.getInt("accesslevel"));
 				player.setFistsWeaponItem(player.findFistsWeaponItem(activeClassId));
 				player.setUptime(System.currentTimeMillis());
@@ -6716,6 +6739,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// refresh overloaded already done when loading inventory
 			// Update the expertise status of the L2PcInstance
 			player.refreshExpertisePenalty();
+			
+			player.getFriendList();
 		}
 		catch (Exception e)
 		{
@@ -8715,6 +8740,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		_obsY = getY();
 		_obsZ = getZ();
 
+		_observerMode = true;
+
 		setTarget(null);
 		stopMove(null);
 		startParalyze();
@@ -8723,8 +8750,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		sendPacket(GMHide.ENABLE);
 		sendPacket(new ObservationMode(x, y, z));
 		getPosition().setXYZ(x, y, z);
-
-		_observerMode = true;
 
 		updateInvisibilityStatus();
 	}
@@ -8748,13 +8773,15 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			_obsY = getY();
 			_obsZ = getZ();
 		}
+
+		_observerMode = true;
+
 		setTarget(null);
 		setIsInvul(true);
 		getAppearance().setInvisible();
 		teleToLocation(loc, false);
 		sendPacket(GMHide.ENABLE);
 		sendPacket(ExOlympiadMode.SPECTATE);
-		_observerMode = true;
 
 		updateInvisibilityStatus();
 	}
@@ -10686,13 +10713,17 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		
 		for (int i = 0; i < replaceable.length(); i++)
 		{
-			int start = replaceable.indexOf("bypass -h", i);
-			int finish = replaceable.indexOf("\"", start);
+			int start = replaceable.indexOf("\"bypass ", i);
+			int finish = replaceable.indexOf("\"", start + 1);
 			
 			if (start < 0 || finish < 0)
 				break;
 			
-			start += 10;
+			if (replaceable.substring(start + 8, start + 10).equals("-h"))
+				start += 11;
+			else
+				start += 8;
+			
 			i = finish;
 			int finish2 = replaceable.indexOf("$", start);
 			

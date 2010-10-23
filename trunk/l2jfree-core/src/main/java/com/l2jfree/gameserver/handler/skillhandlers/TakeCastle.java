@@ -68,6 +68,7 @@ public class TakeCastle implements ISkillHandler
 	 * @param activeChar The L2Character of the character placing the flag
 	 * 
 	 */
+	// FIXME: 1.4.0
 	public static boolean checkIfOkToCastSealOfRule(L2Character activeChar)
 	{
 		return SiegeManager.getInstance().checkIfOkToCastSealOfRule(activeChar, CastleManager.getInstance().getCastle(activeChar));

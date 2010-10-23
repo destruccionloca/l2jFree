@@ -39,7 +39,7 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 		
 		final L2PcInstance player = (L2PcInstance) activeChar;
 		
-		if (!SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
+		if (!checkIfOkToUseStriderSiegeAssault(player, false))
 			return false;
 		
 		return super.checkConditions(activeChar, skill);
@@ -53,12 +53,18 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 		
 		L2PcInstance player = (L2PcInstance)activeChar;
 		
-		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) ||
-				FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) ||
-				CCHManager.checkIfOkToUseStriderSiegeAssault(player, false))
+		if (checkIfOkToUseStriderSiegeAssault(player, false))
 		{
 			SkillHandler.getInstance().useSkill(L2SkillType.PDAM, activeChar, skill, targets);
 		}
+	}
+	
+	// FIXME: 1.4.0
+	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
+	{
+		return SiegeManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly)
+				|| FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly)
+				|| CCHManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -37,11 +37,40 @@ import com.l2jfree.gameserver.util.Util;
  * @authors BiTi, Sami
  * 
  */
-public class SummonFriend implements ISkillHandler
+public class SummonFriend extends ISkillConditionChecker
 {
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SUMMON_FRIEND };
 
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	{
+		if (!(activeChar instanceof L2PcInstance))
+			return false;
+		
+		final L2PcInstance player = (L2PcInstance)activeChar;
+		
+		if (!checkSummonerStatus(player))
+			return false;
+		
+		return super.checkConditions(activeChar, skill);
+	}
+	
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		if (!(activeChar instanceof L2PcInstance) || !(target instanceof L2PcInstance))
+			return false;
+		
+		final L2PcInstance player = (L2PcInstance)activeChar;
+		final L2PcInstance targetPlayer = (L2PcInstance)target;
+		
+		if (!checkSummonTargetStatus(targetPlayer, player))
+			return false;
+		
+		return super.checkConditions(activeChar, skill, target);
+	}
+	
 	public static boolean checkSummonerStatus(L2PcInstance summonerChar)
 	{
 		if (summonerChar == null)
@@ -77,7 +106,7 @@ public class SummonFriend implements ISkillHandler
 		return true;
 	}
 
-	public static boolean checkTargetStatus(L2PcInstance targetChar, L2PcInstance summonerChar)
+	public static boolean checkSummonTargetStatus(L2PcInstance targetChar, L2PcInstance summonerChar)
 	{
 		if (targetChar == null)
 			return false;
@@ -181,7 +210,7 @@ public class SummonFriend implements ISkillHandler
 
 		if (!checkSummonerStatus(summonerChar))
 			return;
-		if (!checkTargetStatus(targetChar, summonerChar))
+		if (!checkSummonTargetStatus(targetChar, summonerChar))
 			return;
 
 		int itemConsumeId = summonSkill.getTargetConsumeId();
@@ -226,7 +255,7 @@ public class SummonFriend implements ISkillHandler
 
 			final L2PcInstance target = (L2PcInstance) element;
 
-			if (!checkTargetStatus(target, activePlayer))
+			if (!checkSummonTargetStatus(target, activePlayer))
 				continue;
 
 			if (!Util.checkIfInRange(0, activeChar, target, false))
