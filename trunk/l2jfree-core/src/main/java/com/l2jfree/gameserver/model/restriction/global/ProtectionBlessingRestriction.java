@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author savormix
- *
  */
 public class ProtectionBlessingRestriction extends AbstractRestriction
 {
@@ -32,9 +31,8 @@ public class ProtectionBlessingRestriction extends AbstractRestriction
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return false;
 		
-		// Keeps you safe from an attack by a chaotic character who is more than 10 levels apart from you.
-		if (target_.getProtectionBlessing() && attacker_.getKarma() > 0 &&
-				target_.getLevel() + 10 < attacker_.getLevel())
+		// Keeps you safe from an attack by a chaotic character who is more than 10 levels apart from you, and vica versa.
+		if (isProtectedByProtectionBlessing(attacker_, target_) || isProtectedByProtectionBlessing(target_, attacker_))
 		{
 			if (sendMessage)
 				attacker_.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
@@ -42,5 +40,11 @@ public class ProtectionBlessingRestriction extends AbstractRestriction
 		}
 		
 		return false;
+	}
+	
+	private static boolean isProtectedByProtectionBlessing(L2PcInstance attacker_, L2PcInstance target_)
+	{
+		return target_.getProtectionBlessing() && attacker_.getKarma() > 0
+				&& target_.getLevel() + 10 < attacker_.getLevel();
 	}
 }

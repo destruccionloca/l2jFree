@@ -56,13 +56,7 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return false;
 		
-		if (target_.isCursedWeaponEquipped() && attacker_.getLevel() < 21)
-		{
-			if (sendMessage)
-				attacker_.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-			return true;
-		}
-		else if (attacker_.isCursedWeaponEquipped() && target_.getLevel() < 21)
+		if (isProtectedAgainstCursedWeapon(attacker_, target_) || isProtectedAgainstCursedWeapon(target_, attacker_))
 		{
 			if (sendMessage)
 				attacker_.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
@@ -70,6 +64,11 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 		}
 		
 		return false;
+	}
+	
+	private static boolean isProtectedAgainstCursedWeapon(L2PcInstance attacker_, L2PcInstance target_)
+	{
+		return attacker_.isCursedWeaponEquipped() && target_.getLevel() < 21;
 	}
 	
 	@Override

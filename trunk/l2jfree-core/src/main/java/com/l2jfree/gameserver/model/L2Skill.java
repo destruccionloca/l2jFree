@@ -3651,6 +3651,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * @param corpse Whether to invert death check
 	 * @return include in target list or not
 	 */
+	// FIXME: 1.4.0
 	public static final boolean checkAoEOffensiveSkillTarget(L2Character caster, L2Character target,
 			L2Skill skill, boolean corpse)
 	{
