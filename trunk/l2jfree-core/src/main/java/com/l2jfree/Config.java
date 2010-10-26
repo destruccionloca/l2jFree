@@ -1171,7 +1171,6 @@ public class Config extends L2Config
 	public static boolean			ALLOW_WAREHOUSE;
 	public static boolean			ENABLE_WAREHOUSESORTING_CLAN;								// Warehouse Sorting Clan
 	public static boolean			ENABLE_WAREHOUSESORTING_PRIVATE;							// Warehouse Sorting Privat
-	public static boolean			ENABLE_WAREHOUSESORTING_FREIGHT;							// Warehouse Sorting freight
 	public static boolean			WAREHOUSE_CACHE;											// Allow warehouse cache?
 	public static int				WAREHOUSE_CACHE_TIME;										// How long store WH datas
 	public static boolean			ALLOW_WEAR;
@@ -1349,10 +1348,9 @@ public class Config extends L2Config
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
 			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
 			ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingPrivate", "False"));
-			ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingFreight", "False"));
 			WAREHOUSE_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("WarehouseCache", "False"));
 			WAREHOUSE_CACHE_TIME = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
-			ALLOW_REFUND = Boolean.parseBoolean(optionsSettings.getProperty("AllowFreight", "True"));
+			ALLOW_REFUND = Boolean.parseBoolean(optionsSettings.getProperty("AllowRefund", "True"));
 			ALLOW_WEAR = Boolean.parseBoolean(optionsSettings.getProperty("AllowWear", "False"));
 			WEAR_DELAY = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
 			WEAR_PRICE = Integer.parseInt(optionsSettings.getProperty("WearPrice", "10"));
@@ -1585,10 +1583,6 @@ public class Config extends L2Config
 	public static int					ALT_DAGGER_RATE_FRONT;														// Alternative increasement to success rate for
 	// dagger/critical skills if activeChar is in Front of
 	// target
-	public static boolean				ALT_GAME_FREIGHTS;															// Alternative freight modes - Freights can be withdrawed
-	// from any village
-	public static int					ALT_GAME_FREIGHT_PRICE;													// Alternative freight modes - Sets the price value for each
-	// freightened item
 	public static boolean				ALT_GAME_DELEVEL;															// Alternative gameing - loss of XP on death
 	public static boolean				ALT_GAME_MAGICFAILURES;													// Alternative gameing - magic dmg failures
 	public static boolean				ALT_GAME_FREE_TELEPORT;													// Alternative gaming - allow free teleporting around the world.
@@ -1825,8 +1819,6 @@ public class Config extends L2Config
 			ALT_CLASS_MASTER_ENTIRE_TREE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterEntireTree", "False"));
 			ALT_CLASS_MASTER_TUTORIAL = Boolean.parseBoolean(altSettings.getProperty("AltClassMaster", "False"));
 
-			ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
-			ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 			ALT_REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
 			ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE = Boolean.parseBoolean(altSettings.getProperty("AltOnlyClanleaderCanSitOnThrone", "false"));
 			ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
@@ -3975,7 +3967,7 @@ public class Config extends L2Config
 		else if (pName.equalsIgnoreCase("ChampionSpecialItemAmount"))
 			CHAMPION_SPCL_QTY = Integer.parseInt(pValue);
 
-		else if (pName.equalsIgnoreCase("AllowFreight"))
+		else if (pName.equalsIgnoreCase("AllowRefund"))
 			ALLOW_REFUND = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowWarehouse"))
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(pValue);
@@ -4250,10 +4242,6 @@ public class Config extends L2Config
 		else if (pName.equalsIgnoreCase("AltGameExponentSp"))
 			ALT_GAME_EXPONENT_SP = Float.parseFloat(pValue);
 
-		else if (pName.equalsIgnoreCase("AltGameFreights"))
-			ALT_GAME_FREIGHTS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AltGameFreightPrice"))
-			ALT_GAME_FREIGHT_PRICE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltPartyRange"))
 			ALT_PARTY_RANGE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltPartyRange2"))

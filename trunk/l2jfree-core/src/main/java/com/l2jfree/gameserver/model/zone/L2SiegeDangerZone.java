@@ -15,12 +15,14 @@
 package com.l2jfree.gameserver.model.zone;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -32,14 +34,16 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class L2SiegeDangerZone extends L2DamageZone
 {
-	private static final int SPEED_SKILL = 4625;
+	private static final int DECREASE_SPEED_SKILL = 4625;
+	
 	private Siege _siege;
-
+	private boolean _active;
+	
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
 		super.checkForDamage(character);
-
+		
 		if (getHPDamagePerSecond() > 0 && character instanceof L2Playable)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_FROM_S2_THROUGH_FIRE_OF_MAGIC);
@@ -48,17 +52,24 @@ public class L2SiegeDangerZone extends L2DamageZone
 			character.getActingPlayer().sendPacket(sm);
 		}
 	}
-
+	
 	@Override
 	protected boolean checkDynamicConditions(L2Character character)
 	{
-		if (_siege == null || !_siege.getIsInProgress() || !(character instanceof L2Playable)
-				|| !isActive())
+		if (_siege == null || !_siege.getIsInProgress())
 			return false;
-
+		
+		if (!isActive())
+			return false;
+		
+		// non-playables and during siege defenders not affected
+		final L2PcInstance player = character.getActingPlayer();
+		if (player == null || player.isInSiege() && player.getSiegeState() == L2PcInstance.SIEGE_STATE_DEFENDER)
+			return false;
+		
 		return super.checkDynamicConditions(character);
 	}
-
+	
 	@Override
 	protected void register() throws Exception
 	{
@@ -66,35 +77,44 @@ public class L2SiegeDangerZone extends L2DamageZone
 		_siege = c.getSiege();
 		c.loadDangerZone(this);
 	}
-
-	/** Activates this zone. */
-	public void activate()
+	
+	@Override
+	protected void parseSkills(Node n) throws Exception
 	{
-		L2Skill s = SkillTable.getInstance().getInfo(SPEED_SKILL, 12);
+		super.parseSkills(n);
+		
+		final L2Skill s = SkillTable.getInstance().getInfo(DECREASE_SPEED_SKILL, 12);
 		if (s != null)
 		{
 			if (_applyEnter == null)
 				_applyEnter = new L2Skill[] { s };
 			else
-				_applyEnter = (L2Skill[]) ArrayUtils.add(_applyEnter, s);
-			_removeExit = ArrayUtils.add(_removeExit, SPEED_SKILL);
+				_applyEnter = (L2Skill[])ArrayUtils.add(_applyEnter, s);
+			
+			_removeExit = ArrayUtils.add(_removeExit, DECREASE_SPEED_SKILL);
 		}
 		else
-			_log.warn("Missing siege danger zone skill! " + SPEED_SKILL + " Lv 12");
+			_log.warn("Missing siege danger zone skill! " + DECREASE_SPEED_SKILL + " Lv 12");
 	}
-
+	
+	/** Activates this zone. */
+	public void activate()
+	{
+		_active = true;
+		
+		revalidateAllInZone();
+	}
+	
 	/** Deactivates this zone. */
 	public void deactivate()
 	{
-		_applyEnter = null;
-		for (L2Character c : getCharactersInside())
-			removeFromZone(c);
-		_removeExit = null;
+		_active = false;
+		
+		revalidateAllInZone();
 	}
-
+	
 	public boolean isActive()
 	{
-		try { return _applyEnter[0].getLevel() > 0; }
-		catch (NullPointerException npe) { return false; }
+		return _active;
 	}
 }

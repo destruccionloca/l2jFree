@@ -202,7 +202,6 @@ public enum Stats
 	//ExSkill :)
 	INV_LIM("inventoryLimit"),
 	WH_LIM("whLimit"),
-	//FREIGHT_LIM("FreightLimit"),
 	P_SELL_LIM("PrivateSellLimit"),
 	P_BUY_LIM("PrivateBuyLimit"),
 	REC_D_LIM("DwarfRecipeLimit"),

@@ -1193,7 +1193,7 @@ public class L2Zone implements FuncOwner
 		}
 	}
 	
-	private void parseSkills(Node n) throws Exception
+	protected void parseSkills(Node n) throws Exception
 	{
 		Node aen = n.getAttributes().getNamedItem("applyEnter");
 		Node aex = n.getAttributes().getNamedItem("applyExit");

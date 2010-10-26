@@ -24,7 +24,6 @@ public class WareHouseDepositList extends L2GameServerPacket
 	public static final int					PRIVATE						= 1;
 	public static final int					CLAN						= 4;
 	public static final int					CASTLE						= 3;								// not sure
-	public static final int					FREIGHT						= 1;
 	
 	private static final String				_S__41_WAREHOUSEDEPOSITLIST	= "[S] 41 WareHouseDepositList";
 	

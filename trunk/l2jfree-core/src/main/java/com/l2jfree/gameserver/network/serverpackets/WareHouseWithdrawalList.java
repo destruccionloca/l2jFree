@@ -22,7 +22,6 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 	public static final int			PRIVATE							= 1;
 	public static final int			CLAN							= 4;
 	public static final int			CASTLE							= 3;								// not sure
-	public static final int			FREIGHT							= 1;
 	
 	private static final String		_S__54_WAREHOUSEWITHDRAWALLIST	= "[S] 42 WareHouseWithdrawalList";
 	
