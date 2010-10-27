@@ -258,6 +258,7 @@ public class FortSiege extends AbstractSiege
 			
 			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
 			unSpawnFlags();
+			
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town);
 			_isInProgress = false; // Flag so that siege instance can be started
 			getZone().updateSiegeStatus();
@@ -482,6 +483,7 @@ public class FortSiege extends AbstractSiege
 			// if siege is in progress, end siege
 			if (getIsInProgress())
 				endSiege();
+
 			// if siege isnt in progress (1hr waiting time till siege starts), cancel waiting time and spawn Suspicious Merchant
 			if (_siegeStartTask != null)
 			{
@@ -595,6 +597,7 @@ public class FortSiege extends AbstractSiege
 					{
 						if (!door.isCommanderDoor())
 							continue;
+						
 						door.openMe();
 					}
 					getFort().getSiege().announceToPlayer(SystemMessageId.ALL_BARRACKS_OCCUPIED.getSystemMessage(), 0, false);
@@ -676,6 +679,7 @@ public class FortSiege extends AbstractSiege
 			{
 				if (getIsInProgress())
 					endSiege();
+				
 				if (_siegeStartTask != null)
 				{
 					_siegeStartTask.cancel(true);
@@ -702,6 +706,7 @@ public class FortSiege extends AbstractSiege
 	{
 		if (clan == null || clan.getHasFort() == getFort().getFortId() || !FortSiegeManager.getInstance().checkIsRegistered(clan, getFort().getFortId()))
 			return;
+		
 		removeSiegeClan(clan.getClanId());
 	}
 
@@ -738,13 +743,11 @@ public class FortSiege extends AbstractSiege
 	{
 		if (setTime)
 			setSiegeDateTime();
+		
 		if (getFort().getOwnerClan() != null)
-		{
 			for (L2PcInstance member : getFort().getOwnerClan().getOnlineMembers(0))
-			{
 				member.sendPacket(SystemMessageId.A_FORTRESS_IS_UNDER_ATTACK.getSystemMessage());
-			}
-		}
+		
 		//System.out.println("Siege of " + getFort().getName() + ": " + getFort().getSiegeDate().getTime());
 		loadSiegeClan();
 		// Execute siege auto start
@@ -759,20 +762,22 @@ public class FortSiege extends AbstractSiege
 		List<L2PcInstance> players;
 		switch (teleportWho)
 		{
-		case Owner:
-			players = getOwnersInZone();
-			break;
-		case Attacker:
-			players = getAttackersInZone();
-			break;
-		default:
-			players = getPlayersInZone();
+			case Owner:
+				players = getOwnersInZone();
+				break;
+			case Attacker:
+				players = getAttackersInZone();
+				break;
+			default:
+				players = getPlayersInZone();
+				break;
 		}
-
+		
 		for (L2PcInstance player : players)
 		{
 			if (player.isGM() || player.isInJail())
 				continue;
+			
 			player.teleToLocation(teleportWhere);
 		}
 	}
@@ -851,6 +856,7 @@ public class FortSiege extends AbstractSiege
 		{
 			if (siege == this)
 				continue;
+			
 			if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == getSiegeDate().get(Calendar.DAY_OF_WEEK))
 			{
 				if (siege.checkIsAttacker(clan))
@@ -859,6 +865,7 @@ public class FortSiege extends AbstractSiege
 					return true;
 			}
 		}
+		
 		return false;
 	}
 
@@ -1047,9 +1054,7 @@ public class FortSiege extends AbstractSiege
 			return;
 
 		for (CombatFlag cf : list)
-		{
 			cf.spawnMe();
-		}
 	}
 
 	private void unSpawnFlags()
@@ -1059,9 +1064,7 @@ public class FortSiege extends AbstractSiege
 			return;
 
 		for (CombatFlag cf : list)
-		{
 			cf.unSpawnMe();
-		}
 	}
 
 	/**
@@ -1129,6 +1132,7 @@ public class FortSiege extends AbstractSiege
 			if (sc != null)
 				return sc.getFlag();
 		}
+		
 		return null;
 	}
 	
@@ -1148,9 +1152,8 @@ public class FortSiege extends AbstractSiege
 	public final FortSiegeGuardManager getSiegeGuardManager()
 	{
 		if (_siegeGuardManager == null)
-		{
 			_siegeGuardManager = new FortSiegeGuardManager(getFort());
-		}
+		
 		return _siegeGuardManager;
 	}
 

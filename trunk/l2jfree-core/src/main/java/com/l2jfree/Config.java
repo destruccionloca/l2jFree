@@ -74,6 +74,7 @@ public class Config extends L2Config
 		registerConfig(new GeoConfig());
 		registerConfig(new IRCConfig());
 		registerConfig(new LotteryConfig());
+		registerConfig(new OlympiadConfig());
 		registerConfig(new OptionsConfig());
 		registerConfig(new OtherConfig());
 		registerConfig(new PvPConfig());
@@ -1667,33 +1668,7 @@ public class Config extends L2Config
 	public static boolean				ALT_IS_CRAFTING_ENABLED;													// Crafting Enabled?
 	//public static boolean				ALT_FAIL_FAKEDEATH;														// Config for Fake Death Fail Feature
 	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
-	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
-	public static int					ALT_OLY_MIN;																// Olympiad Minutes
-	public static int					ALT_OLY_CPERIOD;															// Olympaid Competition Period
-	public static int					ALT_OLY_BATTLE;															// Olympiad Battle Period
-	public static int					ALT_OLY_WPERIOD;															// Olympiad Weekly Period
-	public static int					ALT_OLY_VPERIOD;															// Olympiad Validation Period
-	public static boolean				ALT_OLY_SAME_IP;															// Olympiad allow Matches from same Ip
-	public static int					ALT_OLY_CLASSED;
-	public static int					ALT_OLY_BATTLE_REWARD_ITEM;
-	public static int					ALT_OLY_CLASSED_RITEM_C;
-	public static int					ALT_OLY_NONCLASSED_RITEM_C;
-	public static int					ALT_OLY_REG_DISPLAY;
-	public static int					ALT_OLY_GP_PER_POINT;
-	public static int					ALT_OLY_HERO_POINTS;
-	public static int					ALT_OLY_RANK1_POINTS;
-	public static int					ALT_OLY_RANK2_POINTS;
-	public static int					ALT_OLY_RANK3_POINTS;
-	public static int					ALT_OLY_RANK4_POINTS;
-	public static int					ALT_OLY_RANK5_POINTS;
-	public static int					ALT_OLY_MAX_POINTS;
-	public static boolean				ALT_OLY_LOG_FIGHTS;
-	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
-	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
-	public static int					ALT_OLY_ENCHANT_LIMIT;
-	public static final Set<Integer>	ALT_LIST_OLY_RESTRICTED_ITEMS = new L2FastSet<Integer>();
-	public static int					ALT_OLY_NONCLASSED;
-	public static boolean				ALT_OLY_REMOVE_CUBICS;
+
 	public static float					ALT_GAME_SUMMON_PENALTY_RATE;												// Alternative game summon penalty
 	public static int					ALT_MANOR_REFRESH_TIME;													// Manor Refresh Starting time
 	public static int					ALT_MANOR_REFRESH_MIN;														// Manor Refresh Min
@@ -1757,6 +1732,8 @@ public class Config extends L2Config
 	public static boolean				ANTIFEED_DUALBOX;
 	public static boolean				ANTIFEED_DISCONNECTED_AS_DUALBOX;
 	public static int					ANTIFEED_INTERVAL;
+	
+	public static boolean				DISPLAY_SERVER_TIME;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1897,38 +1874,6 @@ public class Config extends L2Config
 			ALT_POLEARM_DAMAGE_MULTI = Double.parseDouble(altSettings.getProperty("AltPolearmDamageMulti", "1.0"));
 			ALT_POLEARM_VAMPIRIC_MULTI = Double.parseDouble(altSettings.getProperty("AltPolearmVampiricMulti", "0.5"));
 
-			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
-			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
-			ALT_OLY_CPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyCPeriod", "21600000"));
-			ALT_OLY_BATTLE = Integer.parseInt(altSettings.getProperty("AltOlyBattle", "360000"));
-			ALT_OLY_WPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyWperiod", "604800000"));
-			ALT_OLY_VPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyVperiod", "86400000"));
-			ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "true"));
-			ALT_OLY_CLASSED = Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants", "5"));
-			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
-			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(altSettings.getProperty("AltOlyRemoveCubics", "false"));
-			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "13722"));
-			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
-			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
-			ALT_OLY_REG_DISPLAY = Integer.parseInt(altSettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
-			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
-			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints","180"));
-			ALT_OLY_RANK1_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank1Points","120"));
-			ALT_OLY_RANK2_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank2Points","80"));
-			ALT_OLY_RANK3_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank3Points","55"));
-			ALT_OLY_RANK4_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank4Points","35"));
-			ALT_OLY_RANK5_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank5Points","20"));
-			ALT_OLY_MAX_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyMaxPoints","10"));
-			ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(altSettings.getProperty("AlyOlyLogFights","false"));
-			ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(altSettings.getProperty("AltOlyShowMonthlyWinners","true"));
-			ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(altSettings.getProperty("AltOlyAnnounceGames","true"));
-			ALT_LIST_OLY_RESTRICTED_ITEMS.clear();
-			for (String id : altSettings.getProperty("AltOlyRestrictedItems","0").split(","))
-			{
-				ALT_LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
-			}
-			ALT_OLY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("AltOlyEnchantLimit","-1"));
-
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
 			ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));
 			ALT_MANOR_APPROVE_TIME = Integer.parseInt(altSettings.getProperty("AltManorApproveTime", "6"));
@@ -2010,6 +1955,86 @@ public class Config extends L2Config
 			ANTIFEED_DUALBOX = Boolean.parseBoolean(altSettings.getProperty("AntiFeedDualbox", "true"));
 			ANTIFEED_DISCONNECTED_AS_DUALBOX = Boolean.parseBoolean(altSettings.getProperty("AntiFeedDisconnectedAsDualbox", "true"));
 			ANTIFEED_INTERVAL = 1000 * Integer.parseInt(altSettings.getProperty("AntiFeedInterval", "120"));
+			
+			DISPLAY_SERVER_TIME = Boolean.parseBoolean(altSettings.getProperty("DisplayServerTime", "false"));
+		}
+	}
+	
+	// *******************************************************************************************
+	public static final String			OLYMPIAD_SETTINGS_FILE					= "./config/olympiad.properties";
+	// *******************************************************************************************
+	
+	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
+	public static int					ALT_OLY_MIN;																// Olympiad Minutes
+	public static int					ALT_OLY_CPERIOD;															// Olympaid Competition Period
+	public static int					ALT_OLY_BATTLE;															// Olympiad Battle Period
+	public static int					ALT_OLY_WPERIOD;															// Olympiad Weekly Period
+	public static int					ALT_OLY_VPERIOD;															// Olympiad Validation Period
+	public static boolean				ALT_OLY_SAME_IP;															// Olympiad allow Matches from same Ip
+	public static int					ALT_OLY_CLASSED;
+	public static int					ALT_OLY_BATTLE_REWARD_ITEM;
+	public static int					ALT_OLY_CLASSED_RITEM_C;
+	public static int					ALT_OLY_NONCLASSED_RITEM_C;
+	public static int					ALT_OLY_REG_DISPLAY;
+	public static int					ALT_OLY_GP_PER_POINT;
+	public static int					ALT_OLY_HERO_POINTS;
+	public static int					ALT_OLY_RANK1_POINTS;
+	public static int					ALT_OLY_RANK2_POINTS;
+	public static int					ALT_OLY_RANK3_POINTS;
+	public static int					ALT_OLY_RANK4_POINTS;
+	public static int					ALT_OLY_RANK5_POINTS;
+	public static int					ALT_OLY_MAX_POINTS;
+	public static boolean				ALT_OLY_LOG_FIGHTS;
+	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
+	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
+	public static int					ALT_OLY_ENCHANT_LIMIT;
+	public static final Set<Integer>	ALT_LIST_OLY_RESTRICTED_ITEMS = new L2FastSet<Integer>();
+	public static int					ALT_OLY_NONCLASSED;
+	public static boolean				ALT_OLY_REMOVE_CUBICS;
+	
+	// *******************************************************************************************
+	private static final class OlympiadConfig extends ConfigPropertiesLoader
+	{
+		@Override
+		protected String getName()
+		{
+			return "olympiad";
+		}
+		
+		@Override
+		protected void loadImpl(L2Properties olySettings)
+		{
+			ALT_OLY_START_TIME = Integer.parseInt(olySettings.getProperty("AltOlyStartTime", "18"));
+			ALT_OLY_MIN = Integer.parseInt(olySettings.getProperty("AltOlyMin", "00"));
+			ALT_OLY_CPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyCPeriod", "21600000"));
+			ALT_OLY_BATTLE = Integer.parseInt(olySettings.getProperty("AltOlyBattle", "360000"));
+			ALT_OLY_WPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyWperiod", "604800000"));
+			ALT_OLY_VPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyVperiod", "86400000"));
+			ALT_OLY_SAME_IP = Boolean.parseBoolean(olySettings.getProperty("AltOlySameIp", "true"));
+			ALT_OLY_CLASSED = Integer.parseInt(olySettings.getProperty("AltOlyClassedParticipants", "5"));
+			ALT_OLY_NONCLASSED = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedParticipants", "9"));
+			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(olySettings.getProperty("AltOlyRemoveCubics", "false"));
+			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(olySettings.getProperty("AltOlyBattleRewItem", "13722"));
+			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyClassedRewItemCount", "50"));
+			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
+			ALT_OLY_REG_DISPLAY = Integer.parseInt(olySettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
+			ALT_OLY_GP_PER_POINT = Integer.parseInt(olySettings.getProperty("AltOlyGPPerPoint", "1000"));
+			ALT_OLY_HERO_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyHeroPoints","180"));
+			ALT_OLY_RANK1_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank1Points","120"));
+			ALT_OLY_RANK2_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank2Points","80"));
+			ALT_OLY_RANK3_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank3Points","55"));
+			ALT_OLY_RANK4_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank4Points","35"));
+			ALT_OLY_RANK5_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank5Points","20"));
+			ALT_OLY_MAX_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyMaxPoints","10"));
+			ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(olySettings.getProperty("AlyOlyLogFights","false"));
+			ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(olySettings.getProperty("AltOlyShowMonthlyWinners","true"));
+			ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(olySettings.getProperty("AltOlyAnnounceGames","true"));
+			ALT_LIST_OLY_RESTRICTED_ITEMS.clear();
+			for (String id : olySettings.getProperty("AltOlyRestrictedItems","0").split(","))
+			{
+				ALT_LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
+			}
+			ALT_OLY_ENCHANT_LIMIT = Integer.parseInt(olySettings.getProperty("AltOlyEnchantLimit","-1"));
 		}
 	}
 
@@ -2184,7 +2209,7 @@ public class Config extends L2Config
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GMItemRestriction", "True"));
 			GM_SKILL_RESTRICTION = Boolean.parseBoolean(gmSettings.getProperty("GMSkillRestriction", "True"));
 			GM_TRADE_RESTRICTED_ITEMS = Boolean.parseBoolean(gmSettings.getProperty("GMTradeRestrictedItems", "False"));
-			GM_RESTART_FIGHTING = Boolean.parseBoolean(gmSettings.getProperty("GMRestartFighting", "False"));
+			GM_RESTART_FIGHTING = Boolean.parseBoolean(gmSettings.getProperty("GMRestartFighting", "True"));
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 
 		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));
@@ -3150,6 +3175,26 @@ public class Config extends L2Config
 	public static int			LIT_MIN_PLAYER_CNT;
 	public static int			LIT_MAX_PLAYER_CNT;
 	public static int			LIT_TIME_LIMIT;
+	
+	// FIXME: 1.4.0
+	// GrandBoss Settings
+	public static int Antharas_Wait_Time;
+	public static int Valakas_Wait_Time;
+	public static int Interval_Of_Antharas_Spawn;
+	public static int Random_Of_Antharas_Spawn;
+	public static int Interval_Of_Valakas_Spawn;
+	public static int Random_Of_Valakas_Spawn;
+	public static int Interval_Of_Baium_Spawn;
+	public static int Random_Of_Baium_Spawn;
+	public static int Interval_Of_Core_Spawn;
+	public static int Random_Of_Core_Spawn;
+	public static int Interval_Of_Orfen_Spawn;
+	public static int Random_Of_Orfen_Spawn;
+	public static int Interval_Of_QueenAnt_Spawn;
+	public static int Random_Of_QueenAnt_Spawn;
+	public static int Interval_Of_Zaken_Spawn;
+	public static int Random_Of_Zaken_Spawn;
+	// FIXME: 1.4.0
 
 	// *******************************************************************************************
 	private static final class BossConfig extends ConfigPropertiesLoader
@@ -3393,6 +3438,89 @@ public class Config extends L2Config
 			LIT_MIN_PLAYER_CNT = Integer.parseInt(bossSettings.getProperty("MinPlayerCount", "7"));
 			LIT_MAX_PLAYER_CNT = Integer.parseInt(bossSettings.getProperty("MaxPlayerCount", "45"));
 			LIT_TIME_LIMIT = Integer.parseInt(bossSettings.getProperty("TimeLimit", "35"));
+			
+			
+			// FIXME: 1.4.0
+			Antharas_Wait_Time = Integer.parseInt(bossSettings.getProperty("AntharasWaitTime", "30"));
+			if (Antharas_Wait_Time < 3 || Antharas_Wait_Time > 60)
+				Antharas_Wait_Time = 30;
+			Antharas_Wait_Time = Antharas_Wait_Time * 60000;
+			
+			Valakas_Wait_Time = Integer.parseInt(bossSettings.getProperty("ValakasWaitTime", "30"));
+			if (Valakas_Wait_Time < 3 || Valakas_Wait_Time > 60)
+				Valakas_Wait_Time = 30;
+			Valakas_Wait_Time = Valakas_Wait_Time * 60000;
+			
+			Interval_Of_Antharas_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfAntharasSpawn", "192"));
+			if (Interval_Of_Antharas_Spawn < 1 || Interval_Of_Antharas_Spawn > 480)
+				Interval_Of_Antharas_Spawn = 192;
+			Interval_Of_Antharas_Spawn = Interval_Of_Antharas_Spawn * 3600000;
+			
+			Random_Of_Antharas_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfAntharasSpawn", "145"));
+			if (Random_Of_Antharas_Spawn < 1 || Random_Of_Antharas_Spawn > 192)
+				Random_Of_Antharas_Spawn = 145;
+			Random_Of_Antharas_Spawn = Random_Of_Antharas_Spawn * 3600000;
+			
+			Interval_Of_Valakas_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfValakasSpawn", "192"));
+			if (Interval_Of_Valakas_Spawn < 1 || Interval_Of_Valakas_Spawn > 480)
+				Interval_Of_Valakas_Spawn = 192;
+			Interval_Of_Valakas_Spawn = Interval_Of_Valakas_Spawn * 3600000;
+			
+			Random_Of_Valakas_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfValakasSpawn", "145"));
+			if (Random_Of_Valakas_Spawn < 1 || Random_Of_Valakas_Spawn > 192)
+				Random_Of_Valakas_Spawn = 145;
+			Random_Of_Valakas_Spawn = Random_Of_Valakas_Spawn * 3600000;
+			
+			Interval_Of_Baium_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfBaiumSpawn", "121"));
+			if (Interval_Of_Baium_Spawn < 1 || Interval_Of_Baium_Spawn > 480)
+				Interval_Of_Baium_Spawn = 121;
+			Interval_Of_Baium_Spawn = Interval_Of_Baium_Spawn * 3600000;
+			
+			Random_Of_Baium_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfBaiumSpawn", "8"));
+			if (Random_Of_Baium_Spawn < 1 || Random_Of_Baium_Spawn > 192)
+				Random_Of_Baium_Spawn = 8;
+			Random_Of_Baium_Spawn = Random_Of_Baium_Spawn * 3600000;
+			
+			Interval_Of_Core_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfCoreSpawn", "27"));
+			if (Interval_Of_Core_Spawn < 1 || Interval_Of_Core_Spawn > 480)
+				Interval_Of_Core_Spawn = 27;
+			Interval_Of_Core_Spawn = Interval_Of_Core_Spawn * 3600000;
+			
+			Random_Of_Core_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfCoreSpawn", "47"));
+			if (Random_Of_Core_Spawn < 1 || Random_Of_Core_Spawn > 192)
+				Random_Of_Core_Spawn = 47;
+			Random_Of_Core_Spawn = Random_Of_Core_Spawn * 3600000;
+			
+			Interval_Of_Orfen_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfOrfenSpawn", "28"));
+			if (Interval_Of_Orfen_Spawn < 1 || Interval_Of_Orfen_Spawn > 480)
+				Interval_Of_Orfen_Spawn = 28;
+			Interval_Of_Orfen_Spawn = Interval_Of_Orfen_Spawn * 3600000;
+			
+			Random_Of_Orfen_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfOrfenSpawn", "41"));
+			if (Random_Of_Orfen_Spawn < 1 || Random_Of_Orfen_Spawn > 192)
+				Random_Of_Orfen_Spawn = 41;
+			Random_Of_Orfen_Spawn = Random_Of_Orfen_Spawn * 3600000;
+			
+			Interval_Of_QueenAnt_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfQueenAntSpawn", "19"));
+			if (Interval_Of_QueenAnt_Spawn < 1 || Interval_Of_QueenAnt_Spawn > 480)
+				Interval_Of_QueenAnt_Spawn = 19;
+			Interval_Of_QueenAnt_Spawn = Interval_Of_QueenAnt_Spawn * 3600000;
+			
+			Random_Of_QueenAnt_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfQueenAntSpawn", "35"));
+			if (Random_Of_QueenAnt_Spawn < 1 || Random_Of_QueenAnt_Spawn > 192)
+				Random_Of_QueenAnt_Spawn = 35;
+			Random_Of_QueenAnt_Spawn = Random_Of_QueenAnt_Spawn * 3600000;
+			
+			Interval_Of_Zaken_Spawn = Integer.parseInt(bossSettings.getProperty("IntervalOfZakenSpawn", "19"));
+			if (Interval_Of_Zaken_Spawn < 1 || Interval_Of_Zaken_Spawn > 480)
+				Interval_Of_Zaken_Spawn = 19;
+			Interval_Of_Zaken_Spawn = Interval_Of_Zaken_Spawn * 3600000;
+			
+			Random_Of_Zaken_Spawn = Integer.parseInt(bossSettings.getProperty("RandomOfZakenSpawn", "35"));
+			if (Random_Of_Zaken_Spawn < 1 || Random_Of_Zaken_Spawn > 192)
+				Random_Of_Zaken_Spawn = 35;
+			Random_Of_Zaken_Spawn = Random_Of_Zaken_Spawn * 3600000;
+			// FIXME: 1.4.0
 		}
 	}
 
@@ -3866,6 +3994,7 @@ public class Config extends L2Config
 	public static boolean setParameterValue(String pName, String pValue)
 	{
 		// Server settings
+		// rates.properties
 		if (pName.equalsIgnoreCase("RateXp"))
 			RATE_XP = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RateSp"))
@@ -3892,10 +4021,38 @@ public class Config extends L2Config
 			RATE_DROP_MANOR = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("RateDropQuest"))
 			RATE_DROP_QUEST = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityLevel1"))
+			RATE_VITALITY_LEVEL_1 = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityLevel2"))
+			RATE_VITALITY_LEVEL_2 = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityLevel3"))
+			RATE_VITALITY_LEVEL_3 = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityLevel4"))
+			RATE_VITALITY_LEVEL_4 = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateRecoveryPeaceZone"))
+			RATE_RECOVERY_VITALITY_PEACE_ZONE = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityLost"))
+			RATE_VITALITY_LOST = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityGain"))
+			RATE_VITALITY_GAIN = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateRecoveryOnReconnect"))
+			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RateKarmaExpLost"))
 			RATE_KARMA_EXP_LOST = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RateSiegeGuardsPrice"))
 			RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateCommonHerbs"))
+			RATE_DROP_COMMON_HERBS = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateHpMpHerbs"))
+			RATE_DROP_MP_HP_HERBS = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateGreaterHerbs"))
+			RATE_DROP_GREATER_HERBS = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateSuperiorHerbs"))
+			RATE_DROP_SUPERIOR_HERBS = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateSpecialHerbs"))
+			RATE_DROP_SPECIAL_HERBS = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateVitalityHerbs"))
+			RATE_DROP_VITALITY_HERBS = Float.parseFloat(pValue);
 
 		else if (pName.equalsIgnoreCase("PlayerDropLimit"))
 			PLAYER_DROP_LIMIT = Integer.parseInt(pValue);
@@ -3907,7 +4064,12 @@ public class Config extends L2Config
 			PLAYER_RATE_DROP_EQUIP = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("PlayerRateDropEquipWeapon"))
 			PLAYER_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(pValue);
-
+		else if (pName.equalsIgnoreCase("PetXpRate"))
+			PET_XP_RATE = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("PetFoodRate"))
+			PET_FOOD_RATE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("SinEaterXpRate"))
+			SINEATER_XP_RATE = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("KarmaDropLimit"))
 			KARMA_DROP_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("KarmaRateDrop"))
@@ -3919,6 +4081,7 @@ public class Config extends L2Config
 		else if (pName.equalsIgnoreCase("KarmaRateDropEquipWeapon"))
 			KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(pValue);
 
+		// options.properties
 		else if (pName.equalsIgnoreCase("AutoDestroyDroppedItemAfter"))
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SaveDroppedItem"))
@@ -4009,6 +4172,8 @@ public class Config extends L2Config
 
 		else if (pName.equalsIgnoreCase("ShowNpcLevel"))
 			SHOW_NPC_LVL = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("ShowCrestWithoutQuest"))
+			ALT_SHOW_CREST_WITHOUT_QUEST = Boolean.parseBoolean(pValue);
 
 		else if (pName.equalsIgnoreCase("ForceInventoryUpdate"))
 			FORCE_INVENTORY_UPDATE = Boolean.parseBoolean(pValue);
@@ -4026,6 +4191,8 @@ public class Config extends L2Config
 			SHOW_GM_LOGIN = Boolean.parseBoolean(pValue);
 
 		// Other settings
+		else if (pName.equalsIgnoreCase("MaxDriftRange"))
+			MAX_DRIFT_RANGE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("UseDeepBlueDropRules"))
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("UseDeepBlueDropRulesRaid"))
@@ -4126,6 +4293,12 @@ public class Config extends L2Config
 			RAID_MDEFENCE_MULTIPLIER = Double.parseDouble(pValue) / 100;
 		else if (pName.equalsIgnoreCase("RaidMinionRespawnTime"))
 			RAID_MINION_RESPAWN_TIMER = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("RaidChaosTime"))
+			RAID_CHAOS_TIME = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("GrandChaosTime"))
+			GRAND_CHAOS_TIME = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MinionChaosTime"))
+			MINION_CHAOS_TIME = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("StartingAdena"))
 			STARTING_ADENA = Long.parseLong(pValue);
@@ -4321,6 +4494,19 @@ public class Config extends L2Config
 			ANTIFEED_DISCONNECTED_AS_DUALBOX = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AntiFeedInterval"))
 			ANTIFEED_INTERVAL = 1000 * Integer.parseInt(pValue);
+		
+		else if (pName.equalsIgnoreCase("WeddingFormalWear"))
+			WEDDING_FORMALWEAR = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("WeddingDivorceCosts"))
+			WEDDING_DIVORCE_COSTS = Integer.parseInt(pValue);
+		
+		else if (pName.equalsIgnoreCase("EnableWarehouseSortingClan"))
+			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("EnableWarehouseSortingPrivate"))
+			ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.parseBoolean(pValue);
+		
+		else if (pName.equalsIgnoreCase("DisplayServerTime"))
+			DISPLAY_SERVER_TIME = Boolean.parseBoolean(pValue);
 
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))
