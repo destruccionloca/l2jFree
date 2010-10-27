@@ -2008,8 +2008,8 @@ public class Config extends L2Config
 			ALT_OLY_MIN = Integer.parseInt(olySettings.getProperty("AltOlyMin", "00"));
 			ALT_OLY_CPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyCPeriod", "21600000"));
 			ALT_OLY_BATTLE = Integer.parseInt(olySettings.getProperty("AltOlyBattle", "360000"));
-			ALT_OLY_WPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyWperiod", "604800000"));
-			ALT_OLY_VPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyVperiod", "86400000"));
+			ALT_OLY_WPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyWPeriod", "604800000"));
+			ALT_OLY_VPERIOD = Integer.parseInt(olySettings.getProperty("AltOlyVPeriod", "86400000"));
 			ALT_OLY_SAME_IP = Boolean.parseBoolean(olySettings.getProperty("AltOlySameIp", "true"));
 			ALT_OLY_CLASSED = Integer.parseInt(olySettings.getProperty("AltOlyClassedParticipants", "5"));
 			ALT_OLY_NONCLASSED = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedParticipants", "9"));
@@ -2018,6 +2018,8 @@ public class Config extends L2Config
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
 			ALT_OLY_REG_DISPLAY = Integer.parseInt(olySettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
+			// FIXME: 1.4.0
+			//ALT_OLY_COMP_RITEM = Integer.parseInt(olySettings.getProperty("AltOlyCompRewItem","13722"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(olySettings.getProperty("AltOlyGPPerPoint", "1000"));
 			ALT_OLY_HERO_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyHeroPoints","180"));
 			ALT_OLY_RANK1_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyRank1Points","120"));

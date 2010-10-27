@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `deletetime` BIGINT DEFAULT NULL,
   `cancraft` TINYINT UNSIGNED DEFAULT NULL,
   `title` VARCHAR(16) DEFAULT NULL,
-  `title_color` MEDIUMINT UNSIGNED NOT NULL DEFAULT '16777079', 
+/*  `title_color` MEDIUMINT UNSIGNED NOT NULL DEFAULT '16777079',  FIXME: 1.4.0 */
   `accesslevel` MEDIUMINT DEFAULT 0,
   `online` TINYINT UNSIGNED DEFAULT NULL,
   `onlinetime` INT DEFAULT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `death_penalty_level` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   `bookmarkslot` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   `vitality_points` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-  `createTime` DECIMAL(20,0) NOT NULL default 0, 
+/*  `createTime` DECIMAL(20,0) NOT NULL default 0, FIXME: 1.4.0 */
   PRIMARY KEY (`charId`),
   KEY `clanid` (`clanid`)
 ) DEFAULT CHARSET=utf8;

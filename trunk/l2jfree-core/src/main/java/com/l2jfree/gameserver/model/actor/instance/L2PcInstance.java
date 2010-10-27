@@ -6472,6 +6472,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			statement.setInt(23, getClassId().getId());
 			statement.setLong(24, getDeleteTimer());
 			statement.setInt(25, hasDwarvenCraft() ? 1 : 0);
+			// FIXME 1.4.0
+			//statement.setInt(, getAppearance().getTitleColor());
 			statement.setString(26, getTitle());
 			statement.setInt(27, getAccessLevel());
 			statement.setInt(28, isOnline());
@@ -6482,6 +6484,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			statement.setInt(33, getNewbie());
 			statement.setInt(34, isNoble() ? 1 : 0);
 			statement.setLong(35, 0);
+			// FIXME 1.4.0
+			//statement.setLong(, getCreateTime());
 
 			statement.executeUpdate();
 			statement.close();
@@ -7070,6 +7074,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			statement.setInt(24, getRace().ordinal());
 			statement.setInt(25, getClassId().getId());
 			statement.setLong(26, getDeleteTimer());
+			// FIXME 1.4.0
+			//statement.setInt(, getAppearance().getTitleColor());
 			statement.setString(27, getTitle());
 			statement.setInt(28, getAccessLevel());
 			statement.setInt(29, isOnline());
