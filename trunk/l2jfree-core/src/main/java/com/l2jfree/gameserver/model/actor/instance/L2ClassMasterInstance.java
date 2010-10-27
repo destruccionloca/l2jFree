@@ -58,14 +58,14 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
 
 		if (Config.ALT_L2J_CLASS_MASTER)
 		{
-			super.onAction(player);
+			super.onAction(player, interact);
 			return;
 		}
 
@@ -75,7 +75,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			if (!canInteract(player))
 			{

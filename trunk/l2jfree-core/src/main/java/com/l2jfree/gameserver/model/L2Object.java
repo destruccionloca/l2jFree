@@ -79,7 +79,7 @@ public abstract class L2Object implements L2Entity<Integer>
 	 * 
 	 * @param player
 	 */
-	public void onAction(L2PcInstance player)
+	public final void onAction(L2PcInstance player)
 	{
 		onAction(player, true);
 	}

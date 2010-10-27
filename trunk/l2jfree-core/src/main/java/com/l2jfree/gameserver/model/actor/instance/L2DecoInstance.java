@@ -54,7 +54,7 @@ public final class L2DecoInstance extends L2Npc
      *
      */
     @Override
-    public void onAction(L2PcInstance player)
+    public void onAction(L2PcInstance player, boolean interact)
     {
         if (getObjectId() != player.getTargetId())
         {

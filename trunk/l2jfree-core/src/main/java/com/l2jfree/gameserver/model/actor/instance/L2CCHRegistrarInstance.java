@@ -52,7 +52,7 @@ public final class L2CCHRegistrarInstance extends L2NpcInstance
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
@@ -63,7 +63,7 @@ public final class L2CCHRegistrarInstance extends L2NpcInstance
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!canInteract(player))
