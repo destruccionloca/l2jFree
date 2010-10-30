@@ -988,4 +988,65 @@
       <point x="32768" y="-163840"/>
     </shape>
   </zone>
+  <zone id="86" name="24_22_water" type="Water">
+    <shape type="Rect" zMin="-4810" zMax="-3810">
+      <point x="131072" y="131072"/>
+      <point x="163840" y="163840"/>
+    </shape>
+  </zone>
+  <zone id="87" name="24_23_water" type="Water">
+    <shape type="Rect" zMin="-5030" zMax="-3810">
+      <point x="131072" y="163840"/>
+      <point x="163840" y="196608"/>
+    </shape>
+  </zone>
+  <zone id="88" name="20_17_water" type="Water">
+    <shape type="Rect" zMin="-5030" zMax="-3810">
+      <point x="0" y="-32768"/>
+      <point x="32678" y="0"/>
+    </shape>
+  </zone>
+  <zone id="89" name="Hellbound Lake" type="Water">
+    <shape type="Poly" zMin="-3430" zMax="-3360">
+      <point x="-22387" y="248748"/>
+      <point x="-22494" y="249598"/>
+      <point x="-21752" y="250328"/>
+      <point x="-20424" y="250188"/>
+      <point x="-19713" y="249439"/>
+      <point x="-20556" y="247955"/>
+    </shape>
+    <shape type="Poly" zMin="-2280" zMax="-2130">
+    <point x="9467" y="251396"/>
+    <point x="7166" y="247564"/>
+    <point x="4355" y="250111"/>
+    <point x="5931" y="253699"/>
+    <point x="8215" y="254069"/>
+    </shape>
+  </zone>
+  <zone id="90" name="Rune Castle" type="Water">
+    <shape type="Poly" zMin="-1310" zMax="-1120">
+      <point x="17407" y="-48513"/>
+      <point x="17409" y="-47488"/>
+      <point x="16640" y="-46718"/>
+      <point x="15743" y="-46718"/>
+      <point x="15615" y="-46850"/>
+      <point x="15615" y="-47105"/>
+      <point x="15998" y="-48384"/>
+      <point x="16126" y="-48640"/>
+      <point x="16255" y="-48770"/>
+      <point x="17154" y="-48771"/>
+    </shape>
+    <shape type="Poly" zMin="-1310" zMax="-1120">
+      <point x="17408" y="-49663"/>
+      <point x="17280" y="-49535"/>
+      <point x="16254" y="-49533"/>
+      <point x="16126" y="-49663"/>
+      <point x="15998" y="-49920"/>
+      <point x="15616" y="-51068"/>
+      <point x="15614" y="-51327"/>
+      <point x="15743" y="-51457"/>
+      <point x="16640" y="-51458"/>
+      <point x="17409" y="-50687"/>
+    </shape>
+  </zone>
 </list>

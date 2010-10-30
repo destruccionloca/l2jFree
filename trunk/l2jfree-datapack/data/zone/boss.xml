@@ -3,56 +3,56 @@
 <list>
   <zone id="1" name="Four Sepulcher" type="Boss">
     <settings boss="FourSepulchers"/>
-    <shape type="Rect" zMin="-7225" zMax="-6621">
-      <point x="181241" y="-86443"/>
-      <point x="192134" y="-84575"/>
+    <shape type="Rect" zMin="-7263" zMax="-7063">
+      <point x="181198" y="-86516"/>
+      <point x="192391" y="-84626"/>
     </shape>
-    <shape type="Rect" zMin="-7225" zMax="-6621">
-      <point x="179551" y="-89844"/>
-      <point x="190342" y="-88042"/>
+    <shape type="Rect" zMin="-7263" zMax="-7063">
+      <point x="179511" y="-89903"/>
+      <point x="190704" y="-88013"/>
     </shape>
-    <shape type="Rect" zMin="-7225" zMax="-6621">
-      <point x="172354" y="-86630"/>
-      <point x="174073" y="-75565"/>
+    <shape type="Rect" zMin="-7263" zMax="-7063">
+      <point x="174498" y="-82751"/>
+      <point x="176616" y="-71304"/>
     </shape>
-    <shape type="Rect" zMin="-7225" zMax="-6621">
-      <point x="174697" y="-82707"/>
-      <point x="176500" y="-71885"/>
+    <shape type="Rect" zMin="-7263" zMax="-7063">
+      <point x="172183" y="-86660"/>
+      <point x="174301" y="-75214"/>
     </shape>
   </zone>
   <zone id="2" name="Lair of Zaken" type="Boss">
     <settings boss="Zaken"/>
-    <shape type="Rect" zMin="-3775" zMax="-2690">
-      <point x="53182" y="216945"/>
-      <point x="57311" y="221151"/>
+    <shape type="Rect" zMin="-4815" zMax="-315">
+      <point x="50797" y="213515"/>
+      <point x="57669" y="221683"/>
     </shape>
   </zone>
   <zone id="3" name="Lair of Anakim" type="Boss">
     <settings boss="Anakim"/>
-    <shape type="Rect" zMin="-5500" zMax="-3895">
-      <point x="184008" y="-10681"/>
-      <point x="186107" y="-8589"/>
+    <shape type="Rect" zMin="-5504" zMax="-5104">
+      <point x="183938" y="-13697"/>
+      <point x="186176" y="-8513"/>
     </shape>
   </zone>
   <zone id="4" name="Lair of Lilith" type="Boss">
     <settings boss="Lilith"/>
-    <shape type="Rect" zMin="-5500" zMax="-3895">
-      <point x="183986" y="-13716"/>
-      <point x="186097" y="-11532"/>
+    <shape type="Rect" zMin="-5504" zMax="-5104">
+      <point x="183938" y="-13697"/>
+      <point x="186176" y="-8513"/>
     </shape>
   </zone>
   <zone id="5" name="Lair of Antharas" type="Boss">
     <settings boss="Antharas"/>
-    <shape type="Rect" zMin="-8220" zMax="-4870">
-      <point x="173439" y="110176"/>
-      <point x="187346" y="119469"/>
+    <shape type="Rect" zMin="-8380" zMax="-4880">
+      <point x="173439" y="110431"/>
+      <point x="188132" y="119249"/>
     </shape>
   </zone>
   <zone id="6" name="Lair of Baium" type="Boss">
     <settings boss="Baium" noWyvern="true"/>
-    <shape type="Rect" zMin="10070" zMax="12480">
-      <point x="109448" y="10233"/>
-      <point x="118547" y="21446"/>
+    <shape type="Rect" zMin="10061" zMax="11061">
+      <point x="111022" y="16177"/>
+      <point x="118142" y="15790"/>
     </shape>
   </zone>
   <zone id="7" name="Lair of Sailren" type="Boss">
@@ -71,9 +71,9 @@
   </zone>
   <zone id="9" name="Lair of Valakas" type="Boss">
     <settings boss="Valakas"/>
-    <shape type="Rect" zMin="-1640" zMax="9880">
-      <point x="199755" y="-124724"/>
-      <point x="224677" y="-103211"/>
+    <shape type="Rect" zMin="-2572" zMax="5428">
+      <point x="196866" y="-130845"/>
+      <point x="229176" y="-98508"/>
     </shape>
   </zone>
   <zone id="10" name="Altar of Sacrifice" type="Boss">
@@ -117,7 +117,7 @@
   </zone>
   <zone id="15" name="spore_boss_swamp_poison_zone" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
-    <skill applyEnter="4148,12;4625,12" removeExit="4148;4625"/> <!-- Poison, Swamp -->
+    <skill applyEnter="4148,12;4625,12;4070,1" removeExit="4148;4625;4070"/> <!-- Poison, Swamp, Decrease Atk. Spd -->
     <shape type="Poly" zMin="-4468" zMax="-4118">
       <point x="43084" y="15944"/>
       <point x="45140" y="15816"/>

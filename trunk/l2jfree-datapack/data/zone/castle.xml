@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/zones.dtd">
-<!-- TODO: Rune, Schuttgart -->
 <list>
   <zone id="1" name="Gludio" type="Castle">
     <entity castleId="1"/>
@@ -37,19 +36,21 @@
   </zone>
   <zone id="2" name="Gludio HQ" type="HeadQuarters">
     <entity castleId="1"/>
-    <shape type="Poly" zMin="-4484" zMax="3611">
-      <point x="-22052" y="114025"/>
-      <point x="-14221" y="114007"/>
-      <point x="-14197" y="116558"/>
-      <point x="-22032" y="116566"/>
-      <point x="-22030" y="104809"/>
-      <point x="-20270" y="104817"/>
-      <point x="-20266" y="113735"/>
-      <point x="-22031" y="113732"/>
-      <point x="-15554" y="104834"/>
-      <point x="-13917" y="104839"/>
-      <point x="-13914" y="113757"/>
-      <point x="-15554" y="113757"/>
+    <shape type="Poly" zMin="-4484" zMax="30000">
+      <point x="-19576" y="106760"/>
+      <point x="-17288" y="106760"/>
+      <point x="-16520" y="107528"/>
+      <point x="-16520" y="108664"/>
+      <point x="-15752" y="108664"/>
+      <point x="-15752" y="110072"/>
+      <point x="-16264" y="110072"/>
+      <point x="-16264" y="112376"/>
+      <point x="-17800" y="113912"/>
+      <point x="-18824" y="113912"/>
+      <point x="-20232" y="112504"/>
+      <point x="-20232" y="108936"/>
+      <point x="-19576" y="108280"/>
+      <point x="-19576" y="106760"/>
     </shape>
   </zone>
   <zone id="3" name="Gludio Teleport Zone" type="CastleTeleport">
@@ -111,27 +112,30 @@
   </zone>
   <zone id="7" name="Dion HQ" type="HeadQuarters">
     <entity castleId="2"/>
-    <shape type="Poly" zMin="-4678" zMax="4000">
-      <point x="26012" y="155725"/>
-      <point x="18181" y="155743"/>
-      <point x="18157" y="153192"/>
-      <point x="25992" y="153184"/>
-      <point x="25990" y="164941"/>
-      <point x="24230" y="164933"/>
-      <point x="24226" y="156015"/>
-      <point x="25991" y="156018"/>
-      <point x="19514" y="164916"/>
-      <point x="17877" y="164911"/>
-      <point x="17874" y="155993"/>
-      <point x="19514" y="155993"/>
+    <shape type="Poly" zMin="-4642" zMax="30000">
+      <point x="21240" y="162936"/>
+      <point x="23544" y="162936"/>
+      <point x="23544" y="161416"/>
+      <point x="24184" y="160776"/>
+      <point x="24184" y="157304"/>
+      <point x="22664" y="155784"/>
+      <point x="21752" y="155784"/>
+      <point x="20232" y="157304"/>
+      <point x="20232" y="159608"/>
+      <point x="19592" y="160248"/>
+      <point x="19592" y="160648"/>
+      <point x="20104" y="161160"/>
+      <point x="20472" y="161160"/>
+      <point x="20472" y="162168"/>
+      <point x="21240" y="162936"/>
     </shape>
   </zone>
   <zone id="8" name="Dion Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="2"/>
     <shape type="Rect" zMin="-2021" zMax="-1877">
-      <point x="20249" y="160547"/>
-      <point x="21132" y="160228"/>
+      <point x="20249" y="160228"/>
+      <point x="21132" y="160547"/>
     </shape>
   </zone>
   <zone id="9" name="Dion Defender Spawn" type="DefenderSpawn">
@@ -176,27 +180,29 @@
   </zone>
   <zone id="12" name="Giran HQ" type="HeadQuarters">
     <entity castleId="3"/>
-    <shape type="Poly" zMin="-4551" zMax="19995">
-      <point x="111897" y="141157"/>
-      <point x="111915" y="148988"/>
-      <point x="109364" y="149012"/>
-      <point x="109356" y="141177"/>
-      <point x="121113" y="141179"/>
-      <point x="121105" y="142939"/>
-      <point x="112187" y="142943"/>
-      <point x="112190" y="141178"/>
-      <point x="121088" y="147655"/>
-      <point x="121083" y="149292"/>
-      <point x="112165" y="149295"/>
-      <point x="112165" y="147655"/>
+    <shape type="Poly" zMin="-4515" zMax="30000">
+      <point x="113544" y="142984"/>
+      <point x="116856" y="142984"/>
+      <point x="117496" y="143624"/>
+      <point x="119160" y="143624"/>
+      <point x="119160" y="145784"/>
+      <point x="118392" y="146552"/>
+      <point x="117240" y="146552"/>
+      <point x="117240" y="147448"/>
+      <point x="115976" y="147448"/>
+      <point x="115976" y="146824"/>
+      <point x="113672" y="146824"/>
+      <point x="112008" y="145672"/>
+      <point x="112008" y="144520"/>
+      <point x="113544" y="142984"/>
     </shape>
   </zone>
   <zone id="13" name="Giran Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="3"/>
     <shape type="Rect" zMin="-1891" zMax="-1750">
-      <point x="116400" y="146924"/>
-      <point x="116718" y="146030"/>
+      <point x="116400" y="146030"/>
+      <point x="116718" y="146924"/>
     </shape>
   </zone>
   <zone id="14" name="Giran Defender Spawn" type="DefenderSpawn">
@@ -241,27 +247,29 @@
   </zone>
   <zone id="17" name="Oren HQ" type="HeadQuarters">
     <entity castleId="4"/>
-    <shape type="Poly" zMin="-4278" zMax="19995">
-      <point x="77973" y="33252"/>
-      <point x="77991" y="41083"/>
-      <point x="75440" y="41107"/>
-      <point x="75432" y="33272"/>
-      <point x="87189" y="33274"/>
-      <point x="87181" y="35034"/>
-      <point x="78263" y="35038"/>
-      <point x="78266" y="33273"/>
-      <point x="87164" y="39750"/>
-      <point x="87159" y="41387"/>
-      <point x="78241" y="41390"/>
-      <point x="78241" y="39750"/>
+    <shape type="Poly" zMin="-4278" zMax="30000">
+      <point x="79608" y="35080"/>
+      <point x="83080" y="35080"/>
+      <point x="83592" y="35592"/>
+      <point x="85240" y="35592"/>
+      <point x="85240" y="37896"/>
+      <point x="84360" y="38776"/>
+      <point x="83336" y="38776"/>
+      <point x="83336" y="39544"/>
+      <point x="81928" y="39544"/>
+      <point x="81928" y="39048"/>
+      <point x="79496" y="39048"/>
+      <point x="77960" y="37512"/>
+      <point x="77960" y="36728"/>
+      <point x="79608" y="35080"/>
     </shape>
   </zone>
   <zone id="18" name="Oren Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="4"/>
     <shape type="Rect" zMin="-1621" zMax="-1477">
-      <point x="82478" y="39020"/>
-      <point x="82794" y="38125"/>
+      <point x="82478" y="38125"/>
+      <point x="82794" y="39020"/>
     </shape>
   </zone>
   <zone id="19" name="Oren Defender Spawn" type="DefenderSpawn">
@@ -307,7 +315,7 @@
   </zone>
   <zone id="22" name="Aden HQ" type="HeadQuarters">
     <entity castleId="5"/>
-    <shape type="Poly" zMin="-1158" zMax="42">
+    <shape type="Poly" zMin="-3184" zMax="30000">
       <point x="144365" y="9902"/>
       <point x="150572" y="9919"/>
       <point x="150816" y="4925"/>
@@ -330,8 +338,8 @@
     <!-- mass GK -->
     <entity castleId="5"/>
     <shape type="Rect" zMin="-2811" zMax="-2641">
-      <point x="146944" y="5112"/>
-      <point x="147967" y="4097"/>
+      <point x="146944" y="4097"/>
+      <point x="147967" y="5112"/>
     </shape>
   </zone>
   <zone id="24" name="Aden Defender Spawn" type="DefenderSpawn">
@@ -376,27 +384,29 @@
   </zone>
   <zone id="27" name="Innadril HQ" type="HeadQuarters">
     <entity castleId="6"/>
-    <shape type="Poly" zMin="-2774" zMax="4000">
-      <point x="119963" y="244504"/>
-      <point x="112132" y="244522"/>
-      <point x="112108" y="241971"/>
-      <point x="119943" y="241963"/>
-      <point x="119941" y="253720"/>
-      <point x="118181" y="253712"/>
-      <point x="118177" y="244794"/>
-      <point x="119942" y="244797"/>
-      <point x="113465" y="253695"/>
-      <point x="111828" y="253690"/>
-      <point x="111825" y="244772"/>
-      <point x="113465" y="244772"/>
+    <shape type="Poly" zMin="-2738" zMax="30000">
+      <point x="115832" y="244488"/>
+      <point x="116488" y="244488"/>
+      <point x="118136" y="246136"/>
+      <point x="118136" y="249480"/>
+      <point x="117496" y="250120"/>
+      <point x="117496" y="251768"/>
+      <point x="115192" y="251768"/>
+      <point x="114424" y="251000"/>
+      <point x="114424" y="249848"/>
+      <point x="113544" y="249848"/>
+      <point x="113544" y="248440"/>
+      <point x="114184" y="248440"/>
+      <point x="114184" y="246136"/>
+      <point x="115832" y="244488"/>
     </shape>
   </zone>
   <zone id="28" name="Innadril Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="6"/>
     <shape type="Rect" zMin="-117" zMax="26">
-      <point x="114195" y="249326"/>
-      <point x="115081" y="249007"/>
+      <point x="114195" y="249007"/>
+      <point x="115081" y="249326"/>
     </shape>
   </zone>
   <zone id="29" name="Innadril Defender Spawn" type="DefenderSpawn">
@@ -454,24 +464,24 @@
   </zone>
   <zone id="32" name="Goddard HQ" type="HeadQuarters">
     <entity castleId="7"/>
-    <shape type="Poly" zMin="-2625" zMax="1875">
-      <point x="144715" y="-43884"/>
-      <point x="150045" y="-43884"/>
-      <point x="150037" y="-43064"/>
-      <point x="148924" y="-42723"/>
-      <point x="148512" y="-41841"/>
-      <point x="148496" y="-40907"/>
-      <point x="147063" y="-40920"/>
-      <point x="145883" y="-42805"/>
-      <point x="144692" y="-42822"/>
+    <shape type="Poly" zMin="-3397" zMax="30000">
+      <point x="151864" y="-48404"/>
+      <point x="150145" y="-45508"/>
+      <point x="147512" y="-44268"/>
+      <point x="144518" y="-45533"/>
+      <point x="143918" y="-49774"/>
+      <point x="144405" y="-52084"/>
+      <point x="147751" y="-52301"/>
+      <point x="150746" y="-52809"/>
+      <point x="151864" y="-48404"/>
     </shape>
   </zone>
   <zone id="33" name="Goddard Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="7"/>
     <shape type="Rect" zMin="-989" zMax="-573">
-      <point x="147293" y="-47188"/>
-      <point x="147644" y="-46267"/>
+      <point x="147293" y="-46267"/>
+      <point x="147644" y="-47188"/>
     </shape>
   </zone>
   <zone id="34" name="Goddard Defender Spawn" type="DefenderSpawn">
@@ -516,12 +526,14 @@
   </zone>
   <zone id="37" name="Rune HQ" type="HeadQuarters">
     <entity castleId="8"/>
-    <shape type="Poly" zMin="-2500" zMax="2000">
-      <point x="27144" y="-47640"/>
-      <point x="27656" y="-47112"/>
-      <point x="29816" y="-47112"/>
-      <point x="29864" y="-53432"/>
-      <point x="26632" y="-53080"/>
+    <shape type="Poly" zMin="-3000" zMax="30000">
+      <point x="18808" y="-49656"/>
+      <point x="18808" y="-48648"/>
+      <point x="16904" y="-45832"/>
+      <point x="4488" y="-45832"/>
+      <point x="4488" y="-52742"/>
+      <point x="17016" y="-52742"/>
+      <point x="18808" y="-49656"/>
     </shape>
   </zone>
   <zone id="38" name="Rune Teleport Zone" type="CastleTeleport">
@@ -552,27 +564,63 @@
   </zone>
   <zone id="41" name="Schuttgart" type="Castle">
     <entity castleId="9"/>
+    <restart_chaotic x="42640" y="-54496" z="-2310"/>
+    <restart_chaotic x="38304" y="-55440" z="-1136"/>
+    <restart_chaotic x="40192" y="-57600" z="-2343"/>
+    <restart_chaotic x="38400" y="-56832" z="-992"/>
+    <restart_chaotic x="35632" y="-54800" z="-1744"/>
+    <restart_chaotic x="36407" y="-54245" z="-1224"/>
     <restart_chaotic x="142656" y="-55008" z="-3024"/>
+    <restart_chaotic x="142832" y="-55680" z="-3462"/>
+    <restart_chaotic x="143152" y="-56368" z="-3456"/>
+    <restart_chaotic x="145344" y="-59472" z="-3344"/>
+    <restart_chaotic x="145872" y="-59744" z="-3328"/>
+    <restart_chaotic x="150304" y="-59800" z="-3504"/>
+    <restart_owner x="77641" y="-150494" z="776"/>
+    <restart_owner x="77460" y="-150505" z="776"/>
+    <restart_owner x="77467" y="-150854" z="776"/>
+    <restart_owner x="77640" y="-150869" z="776"/>
     <restart_owner x="77536" y="-153295" z="-389"/>
-    <!--<restart_owner x="77524" y="-152709" z="-545"/>-->
-    <shape type="Rect" zMin="-700" zMax="1750">
-      <point x="73694" y="-156000"/>
-      <point x="81286" y="-149400"/>
+    <shape type="Poly" zMin="-1934" zMax="3566">
+      <point x="74108" y="-155352"/>
+      <point x="80978" y="-155352"/>
+      <point x="80828" y="-152085"/>
+      <point x="80160" y="-150621"/>
+      <point x="79466" y="-149986"/>
+      <point x="79852" y="-149375"/>
+      <point x="79713" y="-149308"/>
+      <point x="79289" y="-149899"/>
+      <point x="77890" y="-149160"/>
+      <point x="77193" y="-149160"/>
+      <point x="75799" y="-149899"/>
+      <point x="75373" y="-149308"/>
+      <point x="75228" y="-149375"/>
+      <point x="75642" y="-149986"/>
+      <point x="74806" y="-150621"/>
+      <point x="74297" y="-152085"/>
     </shape>
   </zone>
   <zone id="42" name="Schuttgart HQ" type="HeadQuarters">
     <entity castleId="9"/>
-    <shape type="Rect" zMin="-700" zMax="1750">
-      <point x="73694" y="-156000"/>
-      <point x="81286" y="-149400"/>
+    <shape type="Poly" zMin="-3800" zMax="30000">
+      <point x="80995" y="-153334"/>
+      <point x="80808" y="-150137"/>
+      <point x="79228" y="-148694"/>
+      <point x="76451" y="-148399"/>
+      <point x="74703" y="-149543"/>
+      <point x="73718" y="-153342"/>
+      <point x="75632" y="-156376"/>
+      <point x="77635" y="-155680"/>
+      <point x="79985" y="-155849"/>
+      <point x="80995" y="-153334"/>
     </shape>
   </zone>
   <zone id="43" name="Schuttgart Teleport Zone" type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="9"/>
     <shape type="Rect" zMin="746" zMax="1136">
-      <point x="147293" y="-47188"/>
-      <point x="147644" y="-46267"/>
+      <point x="77381" y="-150335"/>
+      <point x="77735" y="-151256"/>
     </shape>
   </zone>
   <zone id="44" name="Schuttgart Defender Spawn" type="DefenderSpawn">
@@ -585,13 +633,52 @@
   </zone>
   <zone id="45" name="Schuttgart Siege" type="Siege">
     <entity castleId="9"/>
-    <shape type="Rect" zMin="-700" zMax="1750">
-      <point x="73000" y="-156600"/>
-      <point x="82560" y="-145920"/>
+    <shape type="Poly" zMin="-700" zMax="1750">
+      <point x="72910" y="-156527"/>
+      <point x="83515" y="-155592"/>
+      <point x="82619" y="-151121"/>
+      <point x="82538" y="-149908"/>
+      <point x="79963" y="-147085"/>
+      <point x="78438" y="-145164"/>
+      <point x="73876" y="-146537"/>
+      <point x="73436" y="-148564"/>
+      <point x="72514" y="-152031"/>
     </shape>
   </zone>
-  <!--
-    <zone id="46" name="Devastated Castle HQ" type="HeadQuarters"> <shape type="Poly" zMin="-2405" zMax="595"> <point x="176740" y="-13838"/> <point x="180040" y="-13838"/> <point x="180040" y="-13188"/> <point x="176740" y="-13188"/> </shape> </zone> <zone id="47" name="Partisan Hideout"> <shape type="Poly" zMin="-2344" zMax="-1544"> <point x="42768" y="109156"/> <point x="44460" y="107584"/> <point x="47219" y="108081"/> <point x="48281" y="109544"/> <point x="47600" y="112400"/> <point x="44092" y="113504"/> <point x="43180" y="112736"/> </shape> </zone> <zone id="48" name="Devastated Castle Siege"> <shape type="Poly" zMin="-2634" zMax="366"> <point x="176367" y="-19559"/> <point x="180367" y="-19559"/> <point x="180367" y="-13059"/> <point x="176367" y="-13059"/> </shape> </zone> <zone id="49" name="Bandits Stronghold Siege"> <shape type="Poly" zMin="-2920" zMax="80"> <point x="79028" y="-17588"/> <point x="84640" y="-19528"/> <point x="86952" y="-16888"/> <point x="83636"
-    y="-13448"/> <point x="79196" y="-13584"/> </shape> </zone>
-  -->
+  <!-- zone id="46" name="Devastated Castle HQ" type="HeadQuarters">
+    <shape type="Poly" zMin="-2405" zMax="595">
+      <point x="176740" y="-13838"/>
+      <point x="180040" y="-13838"/>
+      <point x="180040" y="-13188"/>
+      <point x="176740" y="-13188"/>
+    </shape>
+  </zone>
+  <zone id="47" name="Partisan Hideout">
+    <shape type="Poly" zMin="-2344" zMax="-1544">
+      <point x="42768" y="109156"/>
+      <point x="44460" y="107584"/>
+      <point x="47219" y="108081"/>
+      <point x="48281" y="109544"/>
+      <point x="47600" y="112400"/>
+      <point x="44092" y="113504"/>
+      <point x="43180" y="112736"/>
+    </shape>
+  </zone>
+  <zone id="48" name="Devastated Castle Siege">
+    <shape type="Poly" zMin="-2634" zMax="366">
+      <point x="176367" y="-19559"/>
+      <point x="180367" y="-19559"/>
+      <point x="180367" y="-13059"/>
+      <point x="176367" y="-13059"/>
+    </shape>
+  </zone>
+  <zone id="49" name="Bandits Stronghold Siege">
+    <shape type="Poly" zMin="-2920" zMax="80">
+      <point x="79028" y="-17588"/>
+      <point x="84640" y="-19528"/>
+      <point x="86952" y="-16888"/>
+      <point x="83636" y="-13448"/>
+      <point x="79196" y="-13584"/>
+    </shape>
+  </zone -->
 </list>

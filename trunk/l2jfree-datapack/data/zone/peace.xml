@@ -859,9 +859,13 @@
       <point x="4180" y="-23239"/>
       <point x="5706" y="-26952"/>
     </shape>
+    <shape type="Rect" zMin="-4300" zMax="2700">
+      <point x="0" y="-32768"/>
+      <point x="32678" y="0"/>
+    </shape>
   </zone>
   <zone id="31" name="ssq_peace_1720_01">
-    <settings pvp="Peace"/>
+    <settings pvp="Peace" noPrivateStore="true"/>
     <shape type="Poly" zMin="-5208" zMax="-5008">
       <point x="-78118" y="86296"/>
       <point x="-75860" y="86294"/>
@@ -879,7 +883,7 @@
     </shape>
   </zone>
   <zone id="33" name="ssq_peace_1720_03">
-    <settings pvp="Peace"/>
+    <settings pvp="Peace" noPrivateStore="true"/>
     <shape type="Poly" zMin="-5200" zMax="-5000">
       <point x="-81549" y="86361"/>
       <point x="-80995" y="86367"/>
@@ -888,7 +892,7 @@
     </shape>
   </zone>
   <zone id="34" name="ssq_peace_1721_01">
-    <settings pvp="Peace"/>
+    <settings pvp="Peace" noPrivateStore="true"/>
     <shape type="Poly" zMin="-4952" zMax="-4752">
       <point x="-77077" y="111140"/>
       <point x="-74838" y="111140"/>
@@ -897,7 +901,7 @@
     </shape>
   </zone>
   <zone id="35" name="ssq_peace_1721_02">
-    <settings pvp="Peace"/>
+    <settings pvp="Peace" noPrivateStore="true"/>
     <shape type="Poly" zMin="-4956" zMax="-4756">
       <point x="-80075" y="110530"/>
       <point x="-77066" y="110552"/>
@@ -906,7 +910,7 @@
     </shape>
   </zone>
   <zone id="36" name="ssq_peace_1721_03">
-    <settings pvp="Peace"/>
+    <settings pvp="Peace" noPrivateStore="true"/>
     <shape type="Poly" zMin="-4944" zMax="-4744">
       <point x="-80536" y="111192"/>
       <point x="-79984" y="111196"/>
@@ -954,7 +958,7 @@
   </zone>
   <zone id="38" name="Fantasy Isle" type="Town">
     <!--<settings pvp="Peace"/> Overridden -->
-    <entity townId="21" castleId="5"/>
+    <entity townId="22" castleId="5"/> <!-- Need verify -->
     <shape type="Rect" zMin="-4324" zMax="3097">
       <point x="-88871" y="-43491"/>
       <point x="-43060" y="-77664"/>
@@ -966,6 +970,145 @@
     <shape type="Rect" zMin="1080" zMax="3210">
       <point x="-187342" y="238059"/>
       <point x="-181849" y="247548"/>
+    </shape>
+  </zone>
+ <zone id="40" name="Cave of Souls">
+    <settings pvp="Peace"/>
+    <shape type="Rect" zMin="1000" zMax="1500">
+      <point x="-126000" y="37168"/>
+      <point x="-122944" y="39024"/>
+    </shape>
+  </zone>
+  <zone id="41" name="Gludio Airship Field">
+    <settings pvp="Peace"/>
+    <shape type="Poly" zMin="-300" zMax="300">
+      <point x="-150094" y="256954"/>
+      <point x="-151509" y="255455"/>
+      <point x="-151509" y="255170"/>
+      <point x="-149454" y="252862"/>
+      <point x="-149262" y="252862"/>
+      <point x="-147210" y="255170"/>
+      <point x="-147210" y="255455"/>
+      <point x="-148624" y="256954"/>
+    </shape>
+  </zone>
+  <zone id="42" name="Hellbound" type="Town">
+    <!--<settings pvp="Peace"/> Overridden -->
+    <entity townId="21"/>
+    <restart_owner x="-16341" y="209285" z="-3665"/>
+    <shape type="Rect" zMin="-30000" zMax="30000">
+      <point x="-32768" y="229376"/>
+      <point x="32768" y="262143"/>
+    </shape>
+  </zone>
+  <zone id="43" name="ssq_peace_1720_01" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-5200" zMax="-5000">
+      <point x="-79956" y="84556"/>
+      <point x="-79832" y="84620"/>
+      <point x="-79824" y="84772"/>
+      <point x="-79956" y="84844"/>
+      <point x="-80080" y="84772"/>
+      <point x="-80076" y="84620"/>
+    </shape>
+  </zone>
+  <zone id="44" name="ssq_peace_1720_04" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-5200" zMax="-5000">
+      <point x="-76936" y="85164"/>
+      <point x="-76820" y="85232"/>
+      <point x="-76816" y="85380"/>
+      <point x="-76948" y="85444"/>
+      <point x="-77068" y="85376"/>
+      <point x="-77068" y="85236"/>
+    </shape>
+  </zone>
+  <zone id="45" name="ssq_peace_1720_05" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-5200" zMax="-5000">
+      <point x="-74924" y="87012"/>
+      <point x="-74784" y="87008"/>
+      <point x="-74712" y="87132"/>
+      <point x="-74780" y="87256"/>
+      <point x="-74924" y="87260"/>
+      <point x="-75000" y="87140"/>
+    </shape>
+  </zone>
+  <zone id="46" name="ssq_peace_1720_03" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-5200" zMax="-5000">
+      <point x="-77200" y="88820"/>
+      <point x="-77076" y="88896"/>
+      <point x="-77076" y="89040"/>
+      <point x="-77204" y="89108"/>
+      <point x="-77328" y="89044"/>
+      <point x="-77328" y="88892"/>
+    </shape>
+  </zone>
+  <zone id="47" name="ssq_peace_1720_02" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-5200" zMax="-5000">
+      <point x="-80204" y="88220"/>
+      <point x="-80080" y="88288"/>
+      <point x="-80080" y="88428"/>
+      <point x="-80208" y="88504"/>
+      <point x="-80336" y="88428"/>
+      <point x="-80328" y="88292"/>
+    </shape>
+  </zone>
+  <zone id="48" name="ssq_peace_1721_01" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-4916" zMax="-4716">
+      <point x="-78796" y="109452"/>
+      <point x="-78804" y="109608"/>
+      <point x="-78924" y="109672"/>
+      <point x="-79056" y="109600"/>
+      <point x="-79056" y="109456"/>
+      <point x="-78932" y="109380"/>
+    </shape>
+  </zone>
+  <zone id="49" name="ssq_peace_1721_02" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-4916" zMax="-4716">
+      <point x="-75920" y="109992"/>
+      <point x="-75792" y="110068"/>
+      <point x="-75792" y="110220"/>
+      <point x="-75912" y="110288"/>
+      <point x="-76048" y="110212"/>
+      <point x="-76044" y="110068"/>
+    </shape>
+  </zone>
+  <zone id="50" name="ssq_peace_1721_05" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-4916" zMax="-4716">
+      <point x="-73900" y="111844"/>
+      <point x="-73752" y="111840"/>
+      <point x="-73688" y="111976"/>
+      <point x="-73760" y="112092"/>
+      <point x="-73904" y="112092"/>
+      <point x="-73976" y="111968"/>
+    </shape>
+  </zone>
+  <zone id="51" name="ssq_peace_1721_03" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-4916" zMax="-4716">
+      <point x="-76172" y="113656"/>
+      <point x="-76052" y="113728"/>
+      <point x="-76048" y="113872"/>
+      <point x="-76172" y="113944"/>
+      <point x="-76308" y="113876"/>
+      <point x="-76304" y="113728"/>
+    </shape>
+  </zone>
+  <zone id="52" name="ssq_peace_1721_04" type="Mothertree">
+    <msg onEnter="1054" onExit="1055"/>
+    <shape type="Poly" zMin="-4916" zMax="-4716">
+      <point x="-79184" y="113040"/>
+      <point x="-79060" y="113116"/>
+      <point x="-79052" y="113268"/>
+      <point x="-79184" y="113336"/>
+      <point x="-79304" y="113260"/>
+      <point x="-79304" y="113116"/>
     </shape>
   </zone>
 </list>

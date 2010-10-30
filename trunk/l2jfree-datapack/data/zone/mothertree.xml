@@ -2,6 +2,7 @@
 <!DOCTYPE list SYSTEM "../templates/zones.dtd">
 <list>
   <zone id="1" name="Shadow of the Mother Tree" type="Mothertree">
+    <msg onEnter="114" onExit="115"/>
     <shape type="Poly" zMin="-3550" zMax="-3350">
       <point x="45889" y="41890"/>
       <point x="45277" y="41672"/>
@@ -23,6 +24,7 @@
     </shape>
   </zone>
   <zone id="2" name="Elven Village" type="Mothertree">
+    <msg onEnter="114" onExit="115"/>
     <shape type="Poly" zMin="-3121" zMax="-2921">
       <point x="45234" y="49892"/>
       <point x="45117" y="49826"/>
@@ -45,6 +47,7 @@
     </shape>
   </zone>
   <zone id="3" name="East Elven Village" type="Mothertree">
+    <msg onEnter="114" onExit="115"/>
     <shape type="Poly" zMin="-3745" zMax="-3545">
       <point x="21101" y="50538"/>
       <point x="21511" y="50683"/>
@@ -57,6 +60,7 @@
     </shape>
   </zone>
   <zone id="4" name="Elven Fortress" type="Mothertree">
+    <msg onEnter="114" onExit="115"/>
     <shape type="Poly" zMin="-3268" zMax="-3068">
       <point x="25084" y="81616"/>
       <point x="25073" y="81892"/>
@@ -69,6 +73,7 @@
     </shape>
   </zone>
   <zone id="5" name="Iris Lake" type="Mothertree">
+    <msg onEnter="114" onExit="115"/>
     <shape type="Poly" zMin="-3775" zMax="-3575">
       <point x="57755" y="85802"/>
       <point x="57974" y="86079"/>

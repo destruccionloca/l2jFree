@@ -13,4 +13,149 @@
     <point x="-116354" y="-248217"/>
     </shape>
     </zone>-->
+  <!-- Giran zones coords contributed by Nekys -->
+  <!-- Giran - northern coridor - west -->
+    <zone id="1" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3400" zMax="3550">
+      <point x="81446" y="143530"/>
+      <point x="81635" y="147720"/>
+    </shape>
+  </zone>
+  <!-- Giran - northern coridor - east -->
+    <zone id="2" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3350" zMax="3450">
+      <point x="83790" y="143495"/>
+      <point x="84000" y="147230"/>
+    </shape>
+  </zone>
+  <!-- Giran - western coridor (up to the Dusk Priestess) -->
+    <zone id="3" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3650" zMax="3400">
+      <point x="77080" y="148525"/>
+      <point x="81780" y="148720"/>
+    </shape>
+  </zone>
+  <!-- Giran - southern coridor -->
+    <zone id="4" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3550" zMax="3400">
+      <point x="81435" y="149530"/>
+      <point x="81640" y="152920"/>
+    </shape>
+  </zone>
+  <!-- Giran - northern path -->
+    <zone id="5" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="340">
+      <point x="80930" y="147680"/>
+      <point x="82940" y="147875"/>
+    </shape>
+  </zone>
+  <!-- Giran - western path -->
+    <zone id="6" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3400">
+      <point x="80930" y="147680"/>
+      <point x="81115" y="149540"/>
+    </shape>
+  </zone>
+  <!-- Giran - southern path -->
+    <zone id="7" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3400">
+      <point x="80925" y="149340"/>
+      <point x="82940" y="149535"/>
+    </shape>
+  </zone>
+  <!-- Giran - large temple area (gatekeeper and Priest of Dawn area) -->
+    <zone id="8" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3350">
+      <point x="82735" y="147000"/>
+      <point x="84320" y="149780"/>
+    </shape>
+  </zone>
+  <!-- Giran - olympiad manager -->
+    <zone id="9" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3400">
+      <point x="81985" y="147450"/>
+      <point x="82205" y="147710"/>
+    </shape>
+  </zone>
+  <!-- Giran - manor manager -->
+    <zone id="10" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3400">
+      <point x="81865" y="149530"/>
+      <point x="82030" y="149680"/>
+    </shape>
+  </zone>
+  <!-- Giran - auctioneer and gabrielle -->
+    <zone id="11" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3500" zMax="3400">
+      <point x="81205" y="149520"/>
+      <point x="81510" y="149830"/>
+    </shape>
+  </zone>
+  <!-- Giran - path to taurin -->
+    <zone id="12" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3550" zMax="3450">
+      <point x="81055" y="146820"/>
+      <point x="81455" y="147000"/>
+    </shape>
+  </zone>
+  <!-- Giran - path to warehouse -->
+    <zone id="13" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3550" zMax="3450">
+      <point x="81620" y="146465"/>
+      <point x="82035" y="146680"/>
+    </shape>
+  </zone>
+  <!-- Giran - Taurin -->
+    <zone id="14" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3450" zMax="3450">
+      <point x="80655" y="146350"/>
+      <point x="80855" y="146460"/>
+    </shape>
+  </zone>
+  <!-- Giran - Collob -->
+    <zone id="15" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-3550" zMax="3450">
+      <point x="79200" y="149455"/>
+      <point x="79300" y="149645"/>
+    </shape>
+  </zone>
+  <!-- Aden - olympiad manager square -->
+    <zone id="16" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-2250" zMax="-2150">
+      <point x="146841" y="26541"/>
+      <point x="148071" y="27425"/>
+    </shape>
+  </zone>
+  <!-- Aden - central stairs -->
+    <zone id="17" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-2250" zMax="-1950">
+      <point x="147273" y="25941"/>
+      <point x="147645" y="26538"/>
+    </shape>
+  </zone>
+  <!-- Aden - temple square -->
+    <zone id="18" name="No Store">
+    <settings noPrivateStore="true"/>
+    <shape type="Rect" zMin="-2050" zMax="-1950">
+      <point x="146233" y="25938"/>
+      <point x="148729" y="25553"/>
+    </shape>
+  </zone>
 </list>
