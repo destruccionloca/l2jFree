@@ -264,6 +264,12 @@ public class Siege extends AbstractSiege
 		_siegeGuardManager = new SiegeGuardManager(getCastle());
 		startAutoTask();
 	}
+	
+	@Override
+	public Siegeable<?> getSiegeable()
+	{
+		return getCastle();
+	}
 
 	// =========================================================
 	// Siege phases

@@ -30,7 +30,6 @@ import com.l2jfree.Config;
 import com.l2jfree.L2Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.config.L2Properties;
-import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
@@ -38,14 +37,14 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
-public class SiegeManager
+public class SiegeManager extends AbstractSiegeManager
 {
 	protected static Log		_log	= LogFactory.getLog(SiegeManager.class);
 
@@ -83,127 +82,43 @@ public class SiegeManager
 		return (getSiege(x, y, z) != null);
 	}
 
-	/**
-	 * Return true if character can place a flag<BR><BR>
-	 * 
-	 * @param player
-	 *            The L2PcInstance of the character placing the flag
-	 * @param isCheckOnly
-	 *            if false, it will send a notification to the player telling
-	 *            him why it failed
-	 */
-	public static boolean checkIfOkToPlaceFlag(L2PcInstance player, boolean isCheckOnly)
+	public boolean checkIfOkToCastSealOfRule(L2PcInstance player, L2Character target, boolean isCheckOnly)
 	{
 		// Get siege battleground
-		L2Clan clan = player.getClan();
-		Siege siege = SiegeManager.getInstance().getSiege(player);
-		Castle castle = (siege == null) ? null : siege.getCastle();
-
-		SystemMessageId sm = null;
-
-		if (siege == null || !siege.getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (clan == null || clan.getLeaderId() != player.getObjectId() ||
-				siege.getAttackerClan(clan) == null)
-			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
-		else if (castle == null || !castle.checkIfInZoneHeadQuarters(player))
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (castle.getSiege().getAttackerClan(clan).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
-			sm = SystemMessageId.NOT_ANOTHER_HEADQUARTERS;
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
-	}
-
-	/**
-	 * Return true if character can summon<BR><BR>
-	 * 
-	 * @param player
-	 *            The L2PcInstance of the character can summon
-	 */
-	public final boolean checkIfOkToSummon(L2PcInstance player, boolean isCheckOnly)
-	{
-		// Get siege battleground
-		Siege siege = SiegeManager.getInstance().getSiege(player);
-
-		SystemMessageId sm = null;
-
-		if (siege == null)
-			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
-		else if (!siege.getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (player.getClanId() != 0 && siege.getAttackerClan(player.getClanId()) == null)
-			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
-		else if (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DAWN
-				&& siege.getCastle().getOwnerId() > 0)
-			sm = SystemMessageId.SEAL_OF_STRIFE_FORBIDS_SUMMONING;
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
-	}
-
-	/**
-	 * Return true if character can use Strider Siege Assault skill <BR><BR>
-	 * 
-	 * @param player
-	 *            The L2Character of the character placing the flag
-	 * @param isCheckOnly
-	 *            if false, it will send a notification to the player telling
-	 *            him why it failed
-	 */
-	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
-	{
-		// Get siege battleground
-		Siege siege = SiegeManager.getInstance().getSiege(player);
-
-		SystemMessageId sm = null;
-
-		if (siege == null)
-			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
-		else if (!siege.getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (!(player.getTarget() instanceof L2DoorInstance))
-			sm = SystemMessageId.TARGET_IS_INCORRECT;
-		else if (!player.isRidingStrider() && !player.isRidingRedStrider())
-			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
-	}
-
-	public boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
-			return false;
+		final Siege siege = getSiege(player);
 		
-		SystemMessageId sm = null;
-		L2PcInstance player = (L2PcInstance)activeChar;
+		final SystemMessage sm;
 		
-		if (castle == null || castle.getCastleId() <= 0 || castle.getSiege().getAttackerClan(player.getClan()) == null)
-			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
-		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
-			sm = SystemMessageId.TARGET_IS_INCORRECT;
-		else if (!castle.getSiege().getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
-			sm = SystemMessageId.TARGET_TOO_FAR;
+		if (siege == null)
+		{
+			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE.getSystemMessage();
+		}
+		else if (!siege.getIsInProgress())
+		{
+			sm = SystemMessageId.ONLY_DURING_SIEGE.getSystemMessage();
+		}
+		else if (siege.getAttackerClan(player.getClan()) == null)
+		{
+			sm = SystemMessage.sendString("You must be registered as attacker in order to do this.");
+		}
+		else if (!(target instanceof L2ArtefactInstance))
+		{
+			sm = SystemMessageId.TARGET_IS_INCORRECT.getSystemMessage();
+		}
+		else if (!Util.checkIfInRange(200, player, target, true))
+		{
+			sm = SystemMessageId.TARGET_TOO_FAR.getSystemMessage();
+		}
 		else
 		{
 			// DO NOT OVERSYNC THE LINE BELOW!
-			castle.getSiege().announceToOpponent(SystemMessageId.OPPONENT_STARTED_ENGRAVING.getSystemMessage(), false);
+			if (!isCheckOnly)
+				siege.announceToOpponent(SystemMessageId.OPPONENT_STARTED_ENGRAVING.getSystemMessage(), false);
 			return true;
 		}
 		
-		player.sendPacket(sm);
+		if (!isCheckOnly)
+			player.sendPacket(sm);
 		return false;
 	}
 
@@ -408,6 +323,7 @@ public class SiegeManager
 			return _flameTowerSpawnListW.get(castleId);
 	}
 
+	@Override
 	public final Siege getSiege(L2Object activeObject)
 	{
 		return getSiege(activeObject.getX(), activeObject.getY(), activeObject.getZ());

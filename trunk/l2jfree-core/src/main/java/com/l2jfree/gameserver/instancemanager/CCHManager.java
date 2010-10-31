@@ -23,21 +23,17 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Siegeable clan hall manager.
  * @author Savormix
  */
-public final class CCHManager
+public final class CCHManager extends AbstractSiegeManager
 {
 	private static final Log _log = LogFactory.getLog(CCHManager.class);
 	
@@ -61,54 +57,6 @@ public final class CCHManager
 	public final boolean checkIfInZone(int x, int y, int z)
 	{
 		return (getSiege(x, y, z) != null);
-	}
-
-	public static boolean checkIfOkToPlaceFlag(L2PcInstance player, boolean isCheckOnly)
-	{
-		// Get siege battleground
-		L2Clan clan = player.getClan();
-		CCHSiege siege = getInstance().getSiege(player);
-		ClanHall hideout = (siege == null) ? null : siege.getHideout();
-
-		SystemMessageId sm = null;
-
-		if (siege == null || !siege.getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (clan == null || clan.getLeaderId() != player.getObjectId() || siege.getAttackerClan(clan) == null)
-			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
-		else if (hideout == null || !hideout.checkIfInZoneHeadQuarters(player))
-			sm = SystemMessageId.NOT_SET_UP_BASE_HERE; // message?
-		else if (hideout.getSiege().getAttackerClan(clan).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
-			sm = SystemMessageId.NOT_ANOTHER_HEADQUARTERS;
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
-	}
-
-	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
-	{
-		// Get siege battleground
-		CCHSiege siege = getInstance().getSiege(player);
-
-		SystemMessageId sm = null;
-
-		if (siege == null)
-			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
-		else if (!siege.getIsInProgress())
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (!(player.getTarget() instanceof L2DoorInstance))
-			sm = SystemMessageId.TARGET_IS_INCORRECT;
-		else if (!player.isRidingStrider() && !player.isRidingRedStrider())
-			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
 	}
 
 	public final boolean checkIsRegistered(L2Clan clan)
@@ -147,6 +95,7 @@ public final class CCHManager
 		return register;
 	}
 
+	@Override
 	public final CCHSiege getSiege(L2Object activeObject)
 	{
 		return getSiege(activeObject.getX(), activeObject.getY(), activeObject.getZ());

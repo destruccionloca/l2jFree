@@ -32,17 +32,17 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.STRSIEGEASSAULT };
 	
 	@Override
-	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return false;
 		
-		final L2PcInstance player = (L2PcInstance) activeChar;
+		final L2PcInstance player = (L2PcInstance)activeChar;
 		
-		if (!checkIfOkToUseStriderSiegeAssault(player, false))
+		if (!checkIfOkToUseStriderSiegeAssault(player, target, false))
 			return false;
 		
-		return super.checkConditions(activeChar, skill);
+		return super.checkConditions(activeChar, skill, target);
 	}
 	
 	@Override
@@ -51,22 +51,24 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 		
-		L2PcInstance player = (L2PcInstance)activeChar;
+		final L2PcInstance player = (L2PcInstance)activeChar;
 		
-		if (checkIfOkToUseStriderSiegeAssault(player, false))
+		for (L2Character target : targets)
 		{
-			SkillHandler.getInstance().useSkill(L2SkillType.PDAM, activeChar, skill, targets);
+			if (checkIfOkToUseStriderSiegeAssault(player, target, true))
+			{
+				SkillHandler.getInstance().useSkill(L2SkillType.PDAM, activeChar, skill, target);
+			}
 		}
 	}
 	
-	// FIXME: 1.4.0
-	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
+	private boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, L2Character target, boolean isCheckOnly)
 	{
-		return SiegeManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly)
-				|| FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly)
-				|| CCHManager.checkIfOkToUseStriderSiegeAssault(player, isCheckOnly);
+		return SiegeManager.getInstance().checkIfOkToUseStriderSiegeAssault(player, target, isCheckOnly)
+				|| FortSiegeManager.getInstance().checkIfOkToUseStriderSiegeAssault(player, target, isCheckOnly)
+				|| CCHManager.getInstance().checkIfOkToUseStriderSiegeAssault(player, target, isCheckOnly);
 	}
-
+	
 	@Override
 	public L2SkillType[] getSkillIds()
 	{

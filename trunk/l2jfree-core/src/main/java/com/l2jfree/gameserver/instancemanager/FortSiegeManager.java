@@ -36,15 +36,14 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.Util;
 
-public class FortSiegeManager
+public class FortSiegeManager extends AbstractSiegeManager
 {
 	protected static final Log _log = LogFactory.getLog(FortSiegeManager.class);
 	
@@ -85,35 +84,6 @@ public class FortSiegeManager
 	{
 		character.addSkill(SkillTable.getInstance().getInfo(246, 1), false);
 		character.addSkill(SkillTable.getInstance().getInfo(247, 1), false);
-	}
-
-	/**
-	 * Return true if character summon<BR><BR>
-	 * @param activeChar The L2Character of the character can summon
-	 */
-	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
-	{
-		if (!(activeChar instanceof L2PcInstance))
-			return false;
-
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-		L2PcInstance player = (L2PcInstance) activeChar;
-		Fort fort = FortManager.getInstance().getFort(player);
-
-		if (fort == null || fort.getFortId() <= 0)
-			sm.addString("You must be on fort ground to summon this");
-		else if (!fort.getSiege().getIsInProgress())
-			sm.addString("You can only summon this during a siege.");
-		else if (player.getClanId() != 0 && fort.getSiege().getAttackerClan(player.getClanId()) == null)
-			sm.addString("You can only summon this as a registered attacker.");
-		else
-			return true;
-
-		if (!isCheckOnly)
-		{
-			player.sendPacket(sm);
-		}
-		return false;
 	}
 
 	/**
@@ -272,6 +242,7 @@ public class FortSiegeManager
 		return null;
 	}
 
+	@Override
 	public final FortSiege getSiege(L2Object activeObject)
 	{
 		return getSiege(activeObject.getX(), activeObject.getY(), activeObject.getZ());
@@ -371,64 +342,6 @@ public class FortSiegeManager
 		return true;
 	}
 
-	public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, boolean isCheckOnly)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
-			return false;
-
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		// Get siege battleground
-		FortSiege siege = FortSiegeManager.getInstance().getSiege(player);
-
-		if (siege == null)
-			sm.addString("You must be on fort ground to use strider siege assault");
-		else if (!siege.getIsInProgress())
-			sm.addString("You can only use strider siege assault during a siege.");
-		else if (!(player.getTarget() instanceof L2DoorInstance))
-			sm.addString("You can only use strider siege assault on doors and walls.");
-		else if (!player.isRidingStrider() && !player.isRidingRedStrider())
-			sm.addString("You can only use strider siege assault when on strider.");
-		else
-			return true;
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-		return false;
-	}
-
-	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
-			return false;
-
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		// Get siege battleground
-		FortSiege siege = FortSiegeManager.getInstance().getSiege(player);
-
-		if (siege == null)
-			sm.addString("You must be on fort ground to place a flag");
-		else if (!siege.getIsInProgress())
-			sm.addString("You can only place a flag during a siege.");
-		else if (siege.getAttackerClan(player.getClan()) == null)
-			sm.addString("You must be an attacker to place a flag");
-		else if (player.getClan() == null || !player.isClanLeader())
-			sm.addString("You must be a clan leader to place a flag");
-		else if (siege.getAttackerClan(player.getClan()).getNumFlags() >= Config.FORTSIEGE_FLAG_MAX_COUNT)
-			sm.addString("You have already placed the maximum number of flags possible");
-		else
-			return true;
-
-		if (!isCheckOnly)
-		{
-			player.sendPacket(sm);
-		}
-		return false;
-	}
-
 	public void dropCombatFlag(L2PcInstance player)
 	{
 		Fort fort = FortManager.getInstance().getFort(player);
@@ -485,5 +398,41 @@ public class FortSiegeManager
 		{
 			return _location;
 		}
+	}
+	
+	public boolean checkIfOkToCastFlagDisplay(L2PcInstance player, boolean isCheckOnly)
+	{
+		// Get siege battleground
+		final FortSiege siege = getSiege(player);
+		
+		final SystemMessage sm;
+		
+		if (siege == null)
+		{
+			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE.getSystemMessage();
+		}
+		else if (!siege.getIsInProgress())
+		{
+			sm = SystemMessageId.ONLY_DURING_SIEGE.getSystemMessage();
+		}
+		else if (siege.getAttackerClan(player.getClan()) == null)
+		{
+			sm = SystemMessage.sendString("You must be registered as attacker in order to do this.");
+		}
+		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
+		{
+			sm = SystemMessageId.TARGET_TOO_FAR.getSystemMessage();
+		}
+		else
+		{
+			if (!isCheckOnly)
+				siege.announceToPlayer(new SystemMessage(SystemMessageId.S1_TRYING_RAISE_FLAG), player.getClan()
+						.getName());
+			return true;
+		}
+		
+		if (!isCheckOnly)
+			player.sendPacket(sm);
+		return false;
 	}
 }

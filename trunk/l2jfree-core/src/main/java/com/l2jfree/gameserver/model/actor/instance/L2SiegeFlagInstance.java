@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2SiegeFlagInstance extends L2Npc
@@ -43,11 +44,11 @@ public final class L2SiegeFlagInstance extends L2Npc
 	private final boolean _isAdvanced;
 	private long _talkProtectionTime;
 
-	public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, boolean advanced)
+	public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, L2SkillSiegeFlag skill)
 	{
 		super(objectId, template);
 
-		_isAdvanced = advanced;
+		_isAdvanced = skill.isAdvanced();
 		_player = player;
 		_clan = player == null ? null : player.getClan();
 		_talkProtectionTime = 0;

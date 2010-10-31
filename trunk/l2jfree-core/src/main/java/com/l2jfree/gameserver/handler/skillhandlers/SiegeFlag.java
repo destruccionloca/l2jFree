@@ -24,48 +24,35 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import com.l2jfree.gameserver.model.entity.CCHSiege;
-import com.l2jfree.gameserver.model.entity.FortSiege;
-import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * @author _drunk_
- * 
  */
 public class SiegeFlag extends ISkillConditionChecker
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.SIEGEFLAG };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.SIEGEFLAG };
+	
 	@Override
 	public boolean checkConditions(L2Character activeChar, L2Skill skill)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return false;
 		
-		final L2PcInstance player = (L2PcInstance) activeChar;
+		final L2PcInstance player = (L2PcInstance)activeChar;
 		
 		if (player.isInsideZone(L2Zone.FLAG_NOHQ))
 		{
 			player.sendPacket(SystemMessageId.NOT_SET_UP_BASE_HERE);
 			return false;
 		}
-		// awful idea
-		else if (!SiegeManager.checkIfOkToPlaceFlag(player, true) &&
-				!FortSiegeManager.checkIfOkToPlaceFlag(player, true) &&
-				!CCHManager.checkIfOkToPlaceFlag(player, true))
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addSkillName(skill);
-			player.sendPacket(sm);
+		
+		if (!checkIfOkToPlaceFlag(player, false))
 			return false;
-		}
 		
 		return super.checkConditions(activeChar, skill);
 	}
@@ -77,53 +64,32 @@ public class SiegeFlag extends ISkillConditionChecker
 		
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		Siege siege = SiegeManager.getInstance().getSiege(player);
-		FortSiege fsiege = FortSiegeManager.getInstance().getSiege(player);
-		CCHSiege csiege = CCHManager.getInstance().getSiege(player);
-		// In a siege zone
-		if (siege != null && SiegeManager.checkIfOkToPlaceFlag(player, false))
-		{
-			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
-			if (skill != null && template != null)
-			{
-				// spawn a new flag
-				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill.isAdvanced());
-				flag.setTitle(player.getClan().getName());
-				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-				flag.setHeading(player.getHeading());
-				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-			}
-		}
-		else if (fsiege != null && FortSiegeManager.checkIfOkToPlaceFlag(player, false))
-		{
-			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
-			if (skill != null && template != null)
-			{
-				// spawn a new flag
-				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill.isAdvanced());
-				flag.setTitle(player.getClan().getName());
-				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-				flag.setHeading(player.getHeading());
-				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-			}
-		}
-		else if (csiege != null && CCHManager.checkIfOkToPlaceFlag(player, false))
-		{
-			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
-			if (skill != null && template != null)
-			{
-				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill.isAdvanced());
-				flag.setTitle(player.getClan().getName());
-				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-				flag.setHeading(player.getHeading());
-				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-			}
-		}
+		
+		final L2PcInstance player = (L2PcInstance)activeChar;
+		
+		if (!checkIfOkToPlaceFlag(player, true))
+			return;
+		
+		final L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
+		
+		if (template == null)
+			return;
+		
+		// spawn a new flag
+		L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill);
+		flag.setTitle(player.getClan().getName());
+		flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+		flag.setHeading(player.getHeading());
+		flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
 	}
-
+	
+	private boolean checkIfOkToPlaceFlag(L2PcInstance player, boolean isCheckOnly)
+	{
+		return SiegeManager.getInstance().checkIfOkToPlaceFlag(player, isCheckOnly)
+				|| FortSiegeManager.getInstance().checkIfOkToPlaceFlag(player, isCheckOnly)
+				|| CCHManager.getInstance().checkIfOkToPlaceFlag(player, isCheckOnly);
+	}
+	
 	@Override
 	public L2SkillType[] getSkillIds()
 	{

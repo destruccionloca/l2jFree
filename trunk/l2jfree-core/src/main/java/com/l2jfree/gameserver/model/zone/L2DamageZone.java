@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.actor.L2Character;
 
+// TODO: 1.4.0 check L2DamageZone, L2PoisonZone, L2SwampZone
 public class L2DamageZone extends L2DangerZone
 {
 	@Override

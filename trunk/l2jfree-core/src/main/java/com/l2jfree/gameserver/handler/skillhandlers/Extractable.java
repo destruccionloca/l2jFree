@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ExtractableSkillsData;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -34,8 +31,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Extractable implements ISkillHandler
 {
-	protected static Log	_log						= LogFactory.getLog(Extractable.class);
-
 	private static final L2SkillType[] SKILL_IDS =
 	{
 		L2SkillType.EXTRACTABLE

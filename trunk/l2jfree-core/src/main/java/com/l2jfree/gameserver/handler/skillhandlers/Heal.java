@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -29,10 +29,19 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-public class Heal implements ISkillHandler
+public class Heal extends ISkillConditionChecker
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.HEAL, L2SkillType.HEAL_PERCENT,
 			L2SkillType.HEAL_STATIC, L2SkillType.HEAL_MOB, L2SkillType.RECOVER };
+	
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		if (activeChar.isInsideZone(L2Zone.FLAG_NOHEAL) || target.isInsideZone(L2Zone.FLAG_NOHEAL))
+			return false;
+		
+		return super.checkConditions(activeChar, skill, target);
+	}
 	
 	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)

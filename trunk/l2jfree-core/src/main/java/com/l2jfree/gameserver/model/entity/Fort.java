@@ -877,9 +877,8 @@ public class Fort extends Siegeable<FortSiege>
 	public final FortSiege getSiege()
 	{
 		if (_siege == null)
-		{
-			_siege = new FortSiege(new Fort[] { this });
-		}
+			_siege = new FortSiege(this);
+		
 		return _siege;
 	}
 

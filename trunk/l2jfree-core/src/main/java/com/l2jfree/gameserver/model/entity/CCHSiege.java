@@ -76,6 +76,12 @@ public final class CCHSiege extends AbstractSiege
 		_oldOwner = hideout.getOwnerId();
 		startAutoTask();
 	}
+	
+	@Override
+	public Siegeable<?> getSiegeable()
+	{
+		return getHideout();
+	}
 
 	public final ContestableHideoutGuardManager getGuardManager()
 	{

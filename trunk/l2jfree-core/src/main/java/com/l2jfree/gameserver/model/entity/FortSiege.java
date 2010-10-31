@@ -41,8 +41,8 @@ import com.l2jfree.gameserver.model.CombatFlag;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
-import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -227,7 +227,7 @@ public class FortSiege extends AbstractSiege
 	// Fort setting
 	protected FastMap<Integer, FastList<L2Spawn>> _commanders = new FastMap<Integer, FastList<L2Spawn>>();
 	protected FastList<L2Spawn>			_commandersSpawns;
-	private final Fort[]						_fort;
+	private final Fort						_fort;
 	private boolean						_isInProgress			= false;
 	private FortSiegeGuardManager		_siegeGuardManager;
 	private ScheduledFuture<?>			_siegeEnd = null;
@@ -236,12 +236,18 @@ public class FortSiege extends AbstractSiege
 
 	// =========================================================
 	// Constructor
-	public FortSiege(Fort[] fort)
+	public FortSiege(Fort fort)
 	{
 		_fort = fort;
 		//_siegeGuardManager = new SiegeGuardManager(getFort());
 
 		checkAutoTask();
+	}
+	
+	@Override
+	public Siegeable<?> getSiegeable()
+	{
+		return getFort();
 	}
 
 	// =========================================================
@@ -1108,9 +1114,7 @@ public class FortSiege extends AbstractSiege
 
 	public final Fort getFort()
 	{
-		if (_fort == null || _fort.length <= 0)
-			return null;
-		return _fort[0];
+		return _fort;
 	}
 
 	@Override

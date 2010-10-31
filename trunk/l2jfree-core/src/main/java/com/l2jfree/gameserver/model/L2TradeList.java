@@ -18,6 +18,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+// FIXME: 1.4.0 implement L2TradeItem
 public class L2TradeList
 {
 	private final FastList<L2ItemInstance> _items;

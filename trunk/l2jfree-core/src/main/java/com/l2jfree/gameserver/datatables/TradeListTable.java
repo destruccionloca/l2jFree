@@ -89,7 +89,8 @@ public class TradeListTable
 				statement.setInt(1, rset1.getInt("shop_id"));
 				ResultSet rset = statement.executeQuery();
 
-				L2TradeList buylist = new L2TradeList(rset1.getInt("shop_id"));
+				int shopId = rset1.getInt("shop_id");
+				L2TradeList buylist = new L2TradeList(shopId);
 
 				buylist.setNpcId(rset1.getString("npc_id"));
 				buylist.setCustom(custom);
@@ -111,9 +112,15 @@ public class TradeListTable
 						int currentCount = rset.getInt("currentCount");
 						int restoreTime = rset.getInt("time");
 
+						// FIXME: 1.4.0 replace with L2TradeItem
+						//L2TradeItem item = new L2TradeItem(shopId, _itemId);
 						L2ItemInstance buyItem = ItemTable.getInstance().createDummyItem(_itemId);
 						if (buyItem == null)
+						{
+							_log.warn("Skipping itemId: " + _itemId + " on buylistId: " + buylist.getListId()
+									+ ", missing data for that item.");
 							continue;
+						}
 						_itemCount++;
 						if (count > -1)
 							buyItem.setCountDecrease(true);

@@ -79,10 +79,7 @@ import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
-import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
-import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
-import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.instancemanager.AntiFeedManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -285,7 +282,6 @@ import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
@@ -7856,30 +7852,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		return false;
 	}
 
-	@Override
-	public void doCast(L2Skill skill)
-	{
-		if (!canUseMagic(skill))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
-		super.doCast(skill);
-	}
-
-	@Override
-	public void doSimultaneousCast(L2Skill skill)
-	{
-		if (!canUseMagic(skill))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
-		super.doSimultaneousCast(skill);
-	}
-
 	public void sendReuseMessage(L2Skill skill)
 	{
 		SystemMessage sm = null;
@@ -7921,17 +7893,17 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	@Override
 	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse)
 	{
+		if (!canUseMagic(skill))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		
 		L2SkillType sklType = skill.getSkillType();
 
 		//************************************* Check Player State *******************************************
 
 		// Abnormal effects(ex : Stun, Sleep...) are checked in L2Character useMagic()
-
-		if (!SkillHandler.getInstance().checkConditions(this, skill))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
 
 		if (isOutOfControl())
 		{
@@ -7998,20 +7970,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
-		}
-
-		// Check if it's ok to summon
-		// Siege Golem (13), Wild Hog Cannon (299), Swoop Cannon (448)
-		switch (skill.getId())
-		{
-		case 13:
-		case 299:
-		case 448:
-			if ((!SiegeManager.getInstance().checkIfOkToSummon(this, false) && !FortSiegeManager.getInstance().checkIfOkToSummon(this, false))
-					|| SevenSigns.getInstance().checkSummonConditions(this))
-			{
-				return false;
-			}
 		}
 
 		//************************************* Check Target *******************************************
@@ -8211,12 +8169,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			}
 		}
 
-		if (!SkillHandler.getInstance().checkConditions(this, skill, L2Object.getActingCharacter(target)))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
 		// Check if this is a Pvp skill and target isn't a non-flagged/non-karma player
 		switch (sklTargetType)
 		{
@@ -8241,14 +8193,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
-		}
-
-		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this)))
-				|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget())))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			abortCast();
-			return false;
 		}
 
 		// GeoData Los Check here
@@ -8280,40 +8224,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	{
 		if (!super.checkDoCastConditions(skill))
 			return false;
-		
-		switch (skill.getSkillType())
-		{
-			case SUMMON_TRAP:
-			{
-				final L2SkillTrap skillTrap = (L2SkillTrap)skill;
-				if (isInsideZone(L2Zone.FLAG_PEACE))
-				{
-					sendPacket(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE);
-					return false;
-				}
-				if (getTrap() != null && getTrap().getSkill().getId() == skillTrap.getTriggerSkillId())
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-					sm.addSkillName(skill);
-					sendPacket(sm);
-					return false;
-				}
-				break;
-			}
-			case SUMMON:
-			{
-				final L2SkillSummon skillSummon = (L2SkillSummon)skill;
-				if (!skillSummon.isCubic() && (getPet() != null || isMounted()))
-				{
-					if (_log.isDebugEnabled())
-						_log.info("player has a pet already. ignore summon skill");
-					
-					sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
-					return false;
-				}
-				break;
-			}
-		}
 		
 		// Can't use Hero and resurrect skills during Olympiad
 		if (isInOlympiadMode() && (HeroSkillTable.isHeroSkill(skill.getId()) || skill.getSkillType() == L2SkillType.RESURRECT))

@@ -126,7 +126,6 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.gameserver.util.Util.Direction;
 import com.l2jfree.lang.L2System;
-import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.SingletonSet;
@@ -1587,6 +1586,20 @@ public abstract class L2Character extends L2Object
 			
 			return;
 		}
+		
+		if (!SkillHandler.getInstance().checkConditions(this, skill, target))
+		{
+			if (this instanceof L2PcInstance)
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				getAI().setIntention(AI_INTENTION_ACTIVE);
+				
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				sm.addSkillName(skill);
+				getActingPlayer().sendPacket(sm);
+			}
+			return;
+		}
 
 		//setAttackingChar(this);
 		// setLastSkillCast(skill);
@@ -1823,6 +1836,20 @@ public abstract class L2Character extends L2Object
 			return false;
 		}
 
+		if (!SkillHandler.getInstance().checkConditions(this, skill))
+		{
+			if (this instanceof L2PcInstance)
+			{
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+				
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				sm.addSkillName(skill);
+				getActingPlayer().sendPacket(sm);
+			}
+			return false;
+		}
+
 		// Check if the caster has enough MP
 		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
 		{
@@ -1849,20 +1876,6 @@ public abstract class L2Character extends L2Object
 				sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			return false;
-		}
-
-		switch (skill.getSkillType())
-		{
-			case HEAL:
-			{
-				if (isInsideZone(L2Zone.FLAG_NOHEAL))
-				{
-					if (this instanceof L2PcInstance)
-						getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
-					return false;
-				}
-				break;
-			}
 		}
 
 		if (!skill.isPotion())
@@ -1892,30 +1905,6 @@ public abstract class L2Character extends L2Object
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
-			}
-		}
-
-		// prevent casting signets to peace zone
-		if (skill.getSkillType() == L2SkillType.SIGNET || skill.getSkillType() == L2SkillType.SIGNET_CASTTIME)
-		{
-			L2WorldRegion region = getWorldRegion();
-			if (region == null)
-				return false;
-			boolean canCast = true;
-			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && this instanceof L2PcInstance)
-			{
-				Point3D wp = ((L2PcInstance) this).getCurrentSkillWorldPosition();
-				if (!region.checkEffectRangeInsidePeaceZone(skill, wp.getX(), wp.getY(), wp.getZ()))
-					canCast = false;
-			}
-			else if (!region.checkEffectRangeInsidePeaceZone(skill, getX(), getY(), getZ()))
-				canCast = false;
-			if (!canCast)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(skill);
-				sendPacket(sm);
-				return false;
 			}
 		}
 
