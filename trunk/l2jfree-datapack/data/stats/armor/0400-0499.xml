@@ -104,7 +104,7 @@
   </item>
   <item id="417" name="Manticore Skin Gaiters">
     <for>
-      <add order="0x10" stat="pDef" val="51"/>
+      <add order="0x10" stat="pDef" val="48"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>

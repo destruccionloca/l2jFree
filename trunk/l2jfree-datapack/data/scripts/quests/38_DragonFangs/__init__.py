@@ -72,6 +72,7 @@ class Quest (JQuest) :
        ITEM_REWARD,ADENA_REWARD=REWARDS[st.getRandom(len(REWARDS))]
        st.giveItems(ITEM_REWARD,1)
        st.rewardItems(ADENA,ADENA_REWARD)
+       st.addExpAndSp(435117,23977)
        st.exitQuest(False)
     return htmltext
 

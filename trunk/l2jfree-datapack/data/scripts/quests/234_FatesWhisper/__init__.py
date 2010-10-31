@@ -119,7 +119,7 @@ class Quest (JQuest) :
         htmltext = st.showHtmlFile("31002-14.htm").replace("%weaponname%",Weapons[st.getInt("weaponId")])
     elif event.startswith("selectAGrade_"):
       if st.getInt("bypass"):
-        if st.getQuestItemsCount(st.getInt("weaponId")) > 0 :  
+        if st.getQuestItemsCount(st.getInt("weaponId")) > 0 :
           aGradeItemId = int(event.replace("selectAGrade_", ""))
           htmltext = "31002-12.htm"
           st.takeItems(st.getInt("weaponId"),1)
@@ -223,7 +223,7 @@ class Quest (JQuest) :
       elif npcId == NPC[1] and (cond>=3 or st.getQuestItemsCount(INFERNIUM_VARNISH)) :
         htmltext = "30182-02.htm"
       ## FERRIS
-      # go to take the mold      
+      # go to take the mold
       elif npcId == NPC[2] and cond==4 and not st.getQuestItemsCount(REORINS_HAMMER) :
         htmltext = "30847-01.htm"  # go to trader Zenkin
         st.giveItems(REORINS_HAMMER,1)
@@ -234,7 +234,7 @@ class Quest (JQuest) :
       # go to take mold
       elif npcId == NPC[3] and cond==5 :
         htmltext = "30178-01.htm"  # go to Magister Kaspar
-      # I already told you I don't have it!  
+      # I already told you I don't have it!
       elif npcId == NPC[3] and cond>5 :
         htmltext = "30178-02.htm"  # go to Magister Kaspar
       ## KASPAR
@@ -289,8 +289,8 @@ class Quest (JQuest) :
 
   def onAttack (self, npc, player, damage, isPet, skill):
     st = player.getQuestState(qn)
-    if not st : return 
-    if st.getState() != State.STARTED : return 
+    if not st : return
+    if st.getState() != State.STARTED : return
     if isPet : return
 
     if st.getInt("cond") == 7 and npc.getNpcId() == 29020 :

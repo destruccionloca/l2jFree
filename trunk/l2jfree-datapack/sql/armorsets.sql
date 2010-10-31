@@ -168,7 +168,7 @@ INSERT INTO `armorsets` VALUES
   (97,  13437, 13454,13142,13455,13456,'3006-1;8288-1;',               0,    0,    3625,     0,       0,       0,         0,       0),     -- Vesper Noble Tunic
 
 -- A GRADE PVP Armor Sets
--- id   chest  legs  head  glov  feet  skill		               shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+-- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
   (98,  10793, 0,    2418, 5771, 5783, '3006-1;8193-1;3659-1;3662-1;', 2498, 3551, 3620,     0,       11481,   11472,     11477,   11480), -- Armor of Nightmare - PvP
   (99,  10794, 0,    2419, 5774, 5786, '3006-1;8194-1;3659-1;3662-1;', 0,    0,    3620,     0,       11456,   11448,     11453,   0),     -- Majestic Plate Armor - PvP
   (100, 10795, 0,    2418, 5772, 5784, '3006-1;8195-1;3663-1;',        0,    0,    3621,     0,       12992,   11473,     11478,   0),     -- Leather Armor of Nightmare - PvP
@@ -295,18 +295,18 @@ INSERT INTO `armorsets` VALUES
 
 -- MasterWorks S GRADE
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (176, 11510, 6374, 6378, 6375, 6376,   '3006-1;3553-1;',     6377,  3554,     3623,       11505,   11509,    11506,    11507,   11508),--		Masterwork Imperial crusader set
-  (177, 11485, 0,    6382, 6380, 6381,   '3006-1;3555-1;',     0,       0,      3624,           0,   11486,    11483,    11484,       0),--		Masterwork Draconic leather set
-  (178, 11488, 0,    6386, 6384, 6385,   '3006-1;3556-1;',     0,       0,      3625,           0,   11490,    11487,    11489,       0),--		Masterwork Major arcana robe set
+  (176, 11510, 6374, 6378, 6375, 6376,   '3006-1;3553-1;',     6377,  3554,     3623,       11505,   11509,    11506,    11507,   11508),--			Masterwork Imperial crusader set
+  (177, 11485, 0,    6382, 6380, 6381,   '3006-1;3555-1;',     0,       0,      3624,           0,   11486,    11483,    11484,       0),--			Masterwork Draconic leather set
+  (178, 11488, 0,    6386, 6384, 6385,   '3006-1;3556-1;',     0,       0,      3625,           0,   11490,    11487,    11489,       0),--			Masterwork Major arcana robe set
 
-  (179, 10819, 9421, 9422, 9423, 9424,   '0-0;',    9441,    3417,    3623,            0,       0,       0,         0,        0),--		Dynasty Platinum Breastplate - PvP
-  (180, 10824, 9428, 9429, 9430, 9431,   '0-0;',      0,      0,      3624,             0,       0,       0,         0,        0),--		Dynasty Jewel Leather Armor - PvP
-  (181, 10827, 9437, 9438, 9439, 9440,   '0-0;',      0,      0,      3625,             0,       0,       0,         0,        0),--		Dynasty Silver Satin Tunic - PvP
+  (179, 10819, 9421, 9422, 9423, 9424,   '0-0;',    9441,    3417,    3623,             0,       0,       0,         0,        0),--				Dynasty Platinum Breastplate - PvP
+  (180, 10824, 9428, 9429, 9430, 9431,   '0-0;',      0,      0,      3624,             0,       0,       0,         0,        0),--				Dynasty Jewel Leather Armor - PvP
+  (181, 10827, 9437, 9438, 9439, 9440,   '0-0;',      0,      0,      3625,             0,       0,       0,         0,        0),--				Dynasty Silver Satin Tunic - PvP
 
 -- Some other Dynasty Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (183,  10232, 9428, 9429, 9430, 9431,   '0-0;',      0,      0,      3624,            0,       0,       0,         0,        0),--		Dynasty Jewel Leather Mail
-  (184,  10235, 9437, 9438, 9439, 9440,   '0-0;',      0,      0,      3625,            0,       0,       0,         0,        0),--		Dynasty Silver Satin Tunic
+  (183,  10232, 9428, 9429, 9430, 9431,   '0-0;',      0,      0,      3624,            0,       0,       0,         0,        0),--				Dynasty Jewel Leather Mail
+  (184,  10235, 9437, 9438, 9439, 9440,   '0-0;',      0,      0,      3625,            0,       0,       0,         0,        0),--				Dynasty Silver Satin Tunic
 
 -- Native Clothes
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
@@ -314,6 +314,52 @@ INSERT INTO `armorsets` VALUES
 
 -- Clan Armor Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (186, 14583, 0,    14582, 14584, 14585, '3006-1;3608-2;',              0,    0,    3620,     0,       0,       0,         0,       0),--		Apella Combat Armor set (heavy)
-  (187, 14586, 0,    14582, 14587, 14588, '3006-1;3609-2;',              0,    0,    3621,     0,       0,       0,         0,       0),--		Apella Combat Clothes set (light)
-  (188, 14589, 0,    14582, 14590, 14591, '3006-1;3610-2;',              0,    0,    3622,     0,       0,       0,         0,       0);--		Apella Combat Overcoat set (robe)
+  (186, 14583, 0,    14582, 14584, 14585, '3006-1;3608-2;',              0,    0,    3620,     0,       0,       0,         0,       0),--			Apella Combat Armor set (heavy)
+  (187, 14586, 0,    14582, 14587, 14588, '3006-1;3609-2;',              0,    0,    3621,     0,       0,       0,         0,       0),--			Apella Combat Clothes set (light)
+  (188, 14589, 0,    14582, 14590, 14591, '3006-1;3610-2;',              0,    0,    3622,     0,       0,       0,         0,       0),--			Apella Combat Overcoat set (robe)
+
+-- Friendship Sets 30 day limited period
+-- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+  (189, 14978, 0,    14979, 14980, 14981, '3006-1;3535-1;',              0,    0,     3622,     0,       0,       0,         0,       0),--			Dark Crystal robe set
+  (190, 14983, 0,    14984, 14985, 14986, '3006-1;3523-1;',              0,    0,     3619,     0,       0,       0,         0,       0),--			Avadon robe set
+  (191, 14988, 14989,0,     14990, 0,     '3006-1;3510-1;',              0,    0,     3616,     0,       0,       0,         0,       0),--			Karmian robe set
+  (192, 14992, 14993,0,     14994, 0,     '3006-1;3507-1;',              0,    0,     3613,     0,       0,       0,         0,       0),--			Mithril Tunic
+  (193, 14996, 14997,14979, 14998, 14999, '3006-1;3532-1;',              0,    0,     3621,     0,       0,       0,         0,       0),--			Dark Crystal leather set
+  (194, 15000, 0,    15001, 15003, 15005, '3006-1;3527-1;',              0,    0,     3618,     0,       0,       0,         0,       0),--			Doom leather set
+  (195, 15006, 0,    15001, 15002, 15004, '3006-1;3525-1;',              15007,3549,  3617,     0,       0,       0,         0,       0),--			Doom plate heavy set
+  (196, 15008, 15009,0,     0,     15010, '3006-1;3511-1;',              0,    0,     3615,     0,       0,       0,         0,       0),--			Plated leather set
+  (197, 15013, 0,    15012, 0,     0,     '3006-1;3516-1;',              15016,3547,  3614,     0,       0,       0,         0,       0),--			Full Plate Armor set
+  (198, 15017, 15018,0,     0,     15019, '3006-1;3505-1;',              0,    0,     3612,     0,       0,       0,         0,       0),--			Manticore skin set
+  (199, 15021, 15022,15023, 0,     0,     '3006-1;3506-1;',              15026,3544,  3611,     0,       0,       0,         0,       0),--			Brigandine Armor set
+  (200, 15027, 0,    15028, 15029, 15030, '3006-1;3536-1;',              15031,3551,  3620,     0,       0,       0,         0,       0),--			Nightmare heavy set
+
+-- Friendship Sets 10 day limited period
+-- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+  (201, 15092, 0,    15093, 15094, 15095, '3006-1;3535-1;',              0,    0,     3622,     0,       0,       0,         0,       0),--			Dark Crystal robe set
+  (202, 15097, 0,    15098, 15099, 15100, '3006-1;3523-1;',              0,    0,     3619,     0,       0,       0,         0,       0),--			Avadon robe set
+  (203, 15102, 15103,0,     15104, 0,     '3006-1;3510-1;',              0,    0,     3616,     0,       0,       0,         0,       0),--			Karmian robe set
+  (204, 15106, 15107,0,     15108, 0,     '3006-1;3507-1;',              0,    0,     3613,     0,       0,       0,         0,       0),--			Mithril Tunic
+  (205, 15110, 15111,15093, 15112, 15113, '3006-1;3532-1;',              0,    0,     3621,     0,       0,       0,         0,       0),--			Dark Crystal leather set
+  (206, 15114, 0,    15115, 15117, 15119, '3006-1;3527-1;',              0,    0,     3618,     0,       0,       0,         0,       0),--			Doom leather set
+  (207, 15120, 0,    15115, 15116, 15118, '3006-1;3525-1;',              15121,3549,  3617,     0,       0,       0,         0,       0),--			Doom plate heavy set
+  (208, 15122, 15123,0,     0,     15124, '3006-1;3511-1;',              0,    0,     3615,     0,       0,       0,         0,       0),--			Plated leather set
+  (209, 15127, 0,    15126, 0,     0,     '3006-1;3516-1;',              15130,3547,  3614,     0,       0,       0,         0,       0),--			Full Plate Armor set
+  (210, 15131, 15132,0,     0,     15133, '3006-1;3505-1;',              0,    0,     3612,     0,       0,       0,         0,       0),--			Manticore skin set
+  (211, 15135, 15136,15137, 0,     0,     '3006-1;3506-1;',              15140,3544,  3611,     0,       0,       0,         0,       0),--			Brigandine Armor set
+  (212, 15141, 0,    15142, 15143, 15144, '3006-1;3536-1;',              15145,3551,  3620,     0,       0,       0,         0,       0),--			Nightmare heavy set
+
+-- Friendship Sets 90 day limited period
+-- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+  (213, 16866, 0,    16867, 16868, 16860, '3006-1;3535-1;',              0,    0,     3622,     0,       0,       0,         0,       0),--			Dark Crystal robe set
+  (214, 16871, 0,    16872, 16873, 16874, '3006-1;3523-1;',              0,    0,     3619,     0,       0,       0,         0,       0),--			Avadon robe set
+  (215, 16876, 16877,0,     16878, 0,     '3006-1;3510-1;',              0,    0,     3616,     0,       0,       0,         0,       0),--			Karmian robe set
+  (216, 16880, 16881,0,     16882, 0,     '3006-1;3507-1;',              0,    0,     3613,     0,       0,       0,         0,       0),--			Mithril Tunic
+  (217, 16884, 16885,16867, 16886, 16887, '3006-1;3532-1;',              0,    0,     3621,     0,       0,       0,         0,       0),--			Dark Crystal leather set
+  (218, 16888, 0,    16889, 16891, 16893, '3006-1;3527-1;',              0,    0,     3618,     0,       0,       0,         0,       0),--			Doom leather set
+  (219, 16894, 0,    16889, 16890, 16892, '3006-1;3525-1;',              16895,3549,  3617,     0,       0,       0,         0,       0),--			Doom plate heavy set
+  (220, 16896, 16897,0,     0,     16898, '3006-1;3511-1;',              0,    0,     3615,     0,       0,       0,         0,       0),--			Plated leather set
+  (221, 16901, 0,    16900, 0,     0,     '3006-1;3516-1;',              16904,3547,  3614,     0,       0,       0,         0,       0),--			Full Plate Armor set
+  (222, 16905, 16906,0,     0,     16907, '3006-1;3505-1;',              0,    0,     3612,     0,       0,       0,         0,       0),--			Manticore skin set
+  (223, 16909, 16910,16911, 0,     0,     '3006-1;3506-1;',              16914,3544,  3611,     0,       0,       0,         0,       0),--			Brigandine Armor set
+  (224, 16915, 0,    16916, 16917, 16918, '3006-1;3536-1;',              16919,3551,  3620,     0,       0,       0,         0,       0);--			Nightmare heavy set
+

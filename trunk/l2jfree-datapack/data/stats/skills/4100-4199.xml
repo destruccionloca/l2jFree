@@ -795,6 +795,8 @@
     <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <table name="#dmg"> 12 18 24 31 38 44 48 48 49 49 48 48 </table>
+    <table name="#power"> 70 70 70 30 70 70 70 70 70 70 70 70 </table>
+    <set name="power" val="#power"/> <!-- Base Land Rate -->
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -808,6 +810,7 @@
     <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <table name="#dot"> 21 39 51 66 81 93 102 102 105 105 102 102 </table>
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -821,6 +824,8 @@
     <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <table name="#dmg"> 14 21 30 40 51 61 68 68 72 72 74 74 </table>
+    <table name="#power"> 50 50 50 50 100 50 50 50 50 50 50 50 </table>
+    <set name="power" val="#power"/> <!-- Base Land Rate -->
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_SELF"/>

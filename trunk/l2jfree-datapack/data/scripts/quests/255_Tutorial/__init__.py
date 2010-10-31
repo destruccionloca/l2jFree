@@ -136,7 +136,6 @@ class Quest (JQuest) :
         string = event[0:2]
         htmltext = ""
         # USER CONNECTED #
-
         if string == "UC" :
             playerLevel = player.getLevel()
             if playerLevel < 6 and st.getInt("onlyone") == 0 :
@@ -163,7 +162,27 @@ class Quest (JQuest) :
                     st.onTutorialClientEvent(0)
                 else :
                     return
-
+            elif playerLevel == 18 and not player.getQuestState("10276_MutatedKaneusGludio") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 28 and not player.getQuestState("10277_MutatedKaneusDion") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 28 and not player.getQuestState("10278_MutatedKaneusHeine") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 28 and not player.getQuestState("10279_MutatedKaneusOren") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 28 and not player.getQuestState("10280_MutatedKaneusSchuttgart") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 28 and not player.getQuestState("10281_MutatedKaneusRune") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
+            elif playerLevel == 79 and not player.getQuestState("192_SevenSignSeriesOfDoubt") :
+                st.showQuestionMark(33)
+                st.playSound("ItemSound.quest_tutorial")
         # QUEST TIMER #
 
         elif string == "QT" :
@@ -234,6 +253,7 @@ class Quest (JQuest) :
                 htmltext = "tutorial_29.htm"
             elif event_id == 28 :
                 htmltext = "tutorial_28.htm"
+
         # CLIENT EVENT ENABLE [N] #
 
         elif string == "CE" :
@@ -262,7 +282,7 @@ class Quest (JQuest) :
                        st.set("ucMemo","1")
                        st.set("Ex","-5")
             elif event_id == 30 :
-                if playerLevel < 6 and st.getInt("Die") == 0:
+                if playerLevel < 10 and st.getInt("Die") == 0:
                     st.playTutorialVoice("tutorial_voice_016")
                     st.playSound("ItemSound.quest_tutorial")
                     st.set("Die","1")
@@ -305,6 +325,11 @@ class Quest (JQuest) :
                       st.playSound("ItemSound.quest_tutorial")
                       st.set("lvl","15")
                       st.showQuestionMark(17)
+                elif playerLevel == 18 :
+                   if st.getInt("lvl") < 18:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","18")
+                      st.showQuestionMark(33)
                 elif playerLevel == 19 :
                    if st.getInt("lvl") < 19:
                       race = st.getPlayer().getRace().ordinal()
@@ -314,6 +339,11 @@ class Quest (JQuest) :
                            st.playSound("ItemSound.quest_tutorial")
                            st.set("lvl","19")
                            st.showQuestionMark(35)
+                elif playerLevel == 28 :
+                   if st.getInt("lvl") < 28:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","28")
+                      st.showQuestionMark(33)
                 elif playerLevel == 35 :
                    if st.getInt("lvl") < 35:
                       race = st.getPlayer().getRace().ordinal()
@@ -323,8 +353,33 @@ class Quest (JQuest) :
                            st.playSound("ItemSound.quest_tutorial")
                            st.set("lvl","35")
                            st.showQuestionMark(34)
+                elif playerLevel == 38 :
+                   if st.getInt("lvl") < 38:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","38")
+                      st.showQuestionMark(33)
+                elif playerLevel == 48 :
+                   if st.getInt("lvl") < 48:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","48")
+                      st.showQuestionMark(33)
+                elif playerLevel == 58 :
+                   if st.getInt("lvl") < 58:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","58")
+                      st.showQuestionMark(33)
+                elif playerLevel == 68 :
+                   if st.getInt("lvl") < 68:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","68")
+                      st.showQuestionMark(33)
+                elif playerLevel == 79 :
+                   if st.getInt("lvl") < 79:
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","79")
+                      st.showQuestionMark(33)
             elif event_id == 45 :
-                if playerLevel < 6 :
+                if playerLevel < 10 :
                    if st.getInt("HP") == 0:
                     st.playTutorialVoice("tutorial_voice_017")
                     st.playSound("ItemSound.quest_tutorial")
@@ -396,6 +451,22 @@ class Quest (JQuest) :
                     htmltext = "tutorial_newbie004a.htm"
             elif MarkId == 27:
                 htmltext = "tutorial_20.htm"
+            elif MarkId == 33 :
+                lvl = player.getLevel()
+                if lvl == 18 :
+                    htmltext = "tutorial_kama_18.htm"
+                elif lvl == 28 :
+                    htmltext = "tutorial_kama_28.htm"
+                elif lvl == 38 :
+                    htmltext = "tutorial_kama_38.htm"
+                elif lvl == 48 :
+                    htmltext = "tutorial_kama_48.htm"
+                elif lvl == 58 :
+                    htmltext = "tutorial_kama_58.htm"
+                elif lvl == 68 :
+                    htmltext = "tutorial_kama_68.htm"
+                elif lvl == 79 :
+                    htmltext = "tutorial_epic_quest.htm"
             elif MarkId == 34 :
                 htmltext = "tutorial_28.htm"
             elif MarkId == 35 :

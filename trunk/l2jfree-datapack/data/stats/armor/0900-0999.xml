@@ -127,7 +127,7 @@
   </item>
   <item id="921" name="Necklace of Mana">
     <for>
-      <add order="0x10" stat="mDef" val="68"/>
+      <add order="0x10" stat="mDef" val="72"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
   </item>
