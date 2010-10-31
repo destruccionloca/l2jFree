@@ -59,8 +59,6 @@ public class L2MothertreeZone extends L2Zone
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, true);
-			// TODO 1.4.0 add msgId at DP
-			//character.sendPacket(SystemMessageId.ENTER_SHADOW_MOTHER_TREE);
 		}
 		
 		super.onEnter(character);
@@ -72,8 +70,6 @@ public class L2MothertreeZone extends L2Zone
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, false);
-			// TODO 1.4.0 add msgId at DP
-			//character.sendPacket(SystemMessageId.EXIT_SHADOW_MOTHER_TREE);
 		}
 		
 		super.onExit(character);
