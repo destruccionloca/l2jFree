@@ -159,13 +159,13 @@ INSERT INTO `armorsets` VALUES
 
 -- S84 Vesper Armor Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (92,  13432, 13438,13137,13439,13440,'3006-1;8283-1;',               13471,3417, 3623,     16312,   16306,   16315,     16318,   16321), -- Vesper Breastplate
-  (93,  13433, 13441,13138,13442,13443,'3006-1;8285-1;',               0,    0,    3624,     16313,   16307,   16316,     16319,   0),     -- Vesper Leather Breastplate
-  (94,  13434, 13444,13139,13445,13446,'3006-1;8287-1;',               0,    0,    3625,     16314,   16308,   16317,     16320,   0),     -- Vesper Tunic
+  (92,  13432, 13438,13137,13439,13440,'3006-1;8283-1;',               13471,3417, 3623,     0,       0,       0,         0,       0),     -- Vesper Breastplate
+  (93,  13433, 13441,13138,13442,13443,'3006-1;8285-1;',               0,    0,    3624,     0,       0,       0,         0,       0),     -- Vesper Leather Breastplate
+  (94,  13434, 13444,13139,13445,13446,'3006-1;8287-1;',               0,    0,    3625,     0,       0,       0,         0,       0),     -- Vesper Tunic
 
-  (95,  13435, 13448,13140,13449,13450,'3006-1;8284-1;',               13471,3417, 3623,     16843,   16837,   16846,     16849,   16321), -- Vesper Noble Breastplate
-  (96,  13436, 13451,13141,13452,13453,'3006-1;8286-1;',               0,    0,    3624,     16844,   16838,   16847,     16850,   0),     -- Vesper Noble Leather Breastplate
-  (97,  13437, 13454,13142,13455,13456,'3006-1;8288-1;',               0,    0,    3625,     16845,   16839,   16848,     16851,   0),     -- Vesper Noble Tunic
+  (95,  13435, 13448,13140,13449,13450,'3006-1;8284-1;',               13471,3417, 3623,     0,       0,       0,         0,       0),     -- Vesper Noble Breastplate
+  (96,  13436, 13451,13141,13452,13453,'3006-1;8286-1;',               0,    0,    3624,     0,       0,       0,         0,       0),     -- Vesper Noble Leather Breastplate
+  (97,  13437, 13454,13142,13455,13456,'3006-1;8288-1;',               0,    0,    3625,     0,       0,       0,         0,       0),     -- Vesper Noble Tunic
 
 -- A GRADE PVP Armor Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
@@ -225,13 +225,13 @@ INSERT INTO `armorsets` VALUES
 
 -- S84 Vesper PVP Armor Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (138, 14520, 13438,13137,13439,13440,'3006-1;8301-1;3659-1;3662-1;', 13471,3417, 3623,     16312,   16306,   16315,     16318,   16321), -- Vesper Breastplate {PvP}
-  (139, 14521, 13441,13138,13442,13443,'3006-1;8303-1;3663-1;',        0,    0,    3624,     16313,   16307,   16316,     16319,   0),     -- Vesper Leather Breastplate {PvP}
-  (140, 14522, 13444,13139,13445,13446,'3006-1;8305-1;3660-1;',        0,    0,    3625,     16314,   16308,   16317,     16320,   0),     -- Vesper Tunic {PvP}
+  (138, 14520, 13438,13137,13439,13440,'3006-1;8301-1;3659-1;3662-1;', 13471,3417, 3623,     0,       0,       0,         0,       0),     -- Vesper Breastplate {PvP}
+  (139, 14521, 13441,13138,13442,13443,'3006-1;8303-1;3663-1;',        0,    0,    3624,     0,       0,       0,         0,       0),     -- Vesper Leather Breastplate {PvP}
+  (140, 14522, 13444,13139,13445,13446,'3006-1;8305-1;3660-1;',        0,    0,    3625,     0,       0,       0,         0,       0),     -- Vesper Tunic {PvP}
 
-  (141, 14523, 13448,13140,13449,13450,'3006-1;8302-1;3659-1;3662-1;', 13471,3417, 3623,     16843,   16837,   16846,     16849,   16321), -- Vesper Noble Breastplate {PvP}
-  (142, 14524, 13451,13141,13452,13453,'3006-1;8304-1;3663-1;',        0,    0,    3624,     16844,   16838,   16847,     16850,   0),     -- Vesper Noble Leather Breastplate {PvP}
-  (143, 14525, 13454,13142,13455,13456,'3006-1;8306-1;3660-1;',        0,    0,    3625,     16845,   16839,   16848,     16851,   0),     -- Vesper Noble Tunic {PvP}
+  (141, 14523, 13448,13140,13449,13450,'3006-1;8302-1;3659-1;3662-1;', 13471,3417, 3623,     0,       0,       0,         0,       0),     -- Vesper Noble Breastplate {PvP}
+  (142, 14524, 13451,13141,13452,13453,'3006-1;8304-1;3663-1;',        0,    0,    3624,     0,       0,       0,         0,       0),     -- Vesper Noble Leather Breastplate {PvP}
+  (143, 14525, 13454,13142,13455,13456,'3006-1;8306-1;3660-1;',        0,    0,    3625,     0,       0,       0,         0,       0),     -- Vesper Noble Tunic {PvP}
 
 -- Special Sets
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
@@ -241,19 +241,6 @@ INSERT INTO `armorsets` VALUES
 --  Newly added or custom sets should be added here, at the end of the file adjusting IDs to avoid conflics
 
 -- L2JFree Customs
-
--- SHADOW D GRADE
--- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (226,  9040,  9041,     0,     0,     0, '3006-1;3502-1;',              9044,  3543, 3611,     0,       0,       0,         0,       0),--	Shadow Item: Mithril Breastplate set (heavy)
-  (227,  9045,  9046,     0,     0,  9048, '3006-1;3503-1;',              0,     0,    3612,     0,       0,       0,         0,       0),--	Shadow Item: Reinforced leather set
-  (228,  9049,  9050,     0,  9051,     0, '3006-1;3504-1;',              0,     0,    3613,     0,       0,       0,         0,       0),--	Shadow Item: Tunic of Knowledge set
-
--- SHADOW C GRADE
--- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-  (229,  9054,     0,  9057,     0,     0, '3006-1;3512-1;',              9056,  3546, 3614,     0,       0,       0,         0,       0),--	Shadow Item: Composite Armor set
-  (230,  9058,  9059,     0,     0,  9060, '3006-1;3514-1;',              0,     0,    3615,     0,       0,       0,         0,       0),--	Shadow Item: Theca leather set
-  (231,  9062,  9063,     0,  9065,     0, '3006-1;3513-1;',              0,     0,    3616,     0,       0,       0,         0,       0),--	Shadow Item: Demon robe set
-
 -- SHADOW B GRADE
 -- id   chest  legs  head  glov  feet  skill                           shld  shsk  enchant6  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
   (144,  9067,  9068,  9069,  9071,  9072, '3006-1;3518-1;',              0,     0,    3617,     0,       0,       0,         0,       0),--	Shadow Item: Zubei's Breastplate set
