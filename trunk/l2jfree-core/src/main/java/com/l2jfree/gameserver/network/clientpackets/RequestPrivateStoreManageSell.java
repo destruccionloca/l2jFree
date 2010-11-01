@@ -28,7 +28,7 @@ public class RequestPrivateStoreManageSell extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		// TODO: implement me properly
+		// TODO implement me properly
 		//readD();
 		//readQ();
 	}

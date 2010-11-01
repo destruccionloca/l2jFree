@@ -50,7 +50,7 @@ public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		// show all isn't used. TODO: test & compare
+		// show all isn't used. TODO test & compare
 		sendPacket(new ExListPartyMatchingWaitingRoom(_minLevel, _maxLevel, _page));
 
 		sendAF();

@@ -776,7 +776,7 @@ public final class QuestState
         return (neededCount > 0 && currentCount + itemCount >= neededCount);
     }
 
-//TODO: More radar functions need to be added when the radar class is complete.
+// TODO More radar functions need to be added when the radar class is complete.
 // BEGIN STUFF THAT WILL PROBABLY BE CHANGED
 	public void addRadar(int x, int y, int z)
     {

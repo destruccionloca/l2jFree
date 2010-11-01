@@ -77,7 +77,7 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 				((L2PcInstance)cha).sendSkillCoolTimeImpl();
 			}
 		},
-		// TODO: more packets
+		// TODO more packets
 		;
 		
 		private final byte _mask;

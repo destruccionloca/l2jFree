@@ -84,8 +84,8 @@ public class ExShowFortressSiegeInfo extends L2GameServerPacket
         					break;
         			}
         			break;
-        		case 4: // TODO: change 4 to 5 once control room supported
-        			switch (_fort.getSiege().getCommanders().get(_fortId).size()) // TODO: once control room supported, update writeD(0x0x) to support 5th room
+        		case 4: // TODO change 4 to 5 once control room supported
+        			switch (_fort.getSiege().getCommanders().get(_fortId).size()) // TODO once control room supported, update writeD(0x0x) to support 5th room
         			{
         				case 0:
         					writeD(0x05);

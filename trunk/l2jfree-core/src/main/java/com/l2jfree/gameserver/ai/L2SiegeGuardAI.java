@@ -331,7 +331,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <li>Call all L2Object of its Faction inside the Faction Range</li>
 	 * <li>Chose a target and order to attack it with magic skill or physical attack</li><BR><BR>
 	 *
-	 * TODO: Manage casting rules to healer mobs (like Ant Nurses)
+	 * TODO Manage casting rules to healer mobs (like Ant Nurses)
 	 *
 	 */
 	private void thinkAttack()
@@ -434,7 +434,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			if (!faction_id.equals(npc.getFactionId()))
 				continue;
 			
-			if (npc.getAI() != null) // TODO: possibly check not needed
+			if (npc.getAI() != null) // TODO possibly check not needed
 			{
 				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600
 				//&& _actor.getAttackByList().contains(getAttackTarget())

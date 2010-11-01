@@ -222,7 +222,7 @@ public class Duel
 			if (count == 4)
 			{
 				// players need to be teleportet first
-				//TODO: stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
+				// TODO stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
 				_duel.teleportPlayers(149485, 46718, -3413);
 				// FIXME 1.4.0
 				//_duel.teleportPlayers(-83760, -238825, -3331);

@@ -32,7 +32,7 @@ public final class Statistics extends StatusCommand
 		println("\t...ids: "
 			+ StringUtils.join(GameServerManager.getInstance().getRegisteredGameServers().keySet().iterator(), ", "));
 		
-		// TODO: add more details
+		// TODO add more details
 	}
 	
 	private static final String[] COMMANDS = { "status", "stats" };

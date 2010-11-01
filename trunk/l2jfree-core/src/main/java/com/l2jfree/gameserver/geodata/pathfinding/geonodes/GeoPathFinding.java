@@ -85,12 +85,12 @@ public final class GeoPathFinding extends PathFinding
 		if (start.equals(end))
 			return null;
 		
-    	// TODO: Find closest path node we CAN access. Now only checks if we can not reach the closest
+    	// TODO Find closest path node we CAN access. Now only checks if we can not reach the closest
 		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getX(), start.getY(), start.getZ(), instanceId);
 		if ((temp.getX() != start.getX()) || (temp.getY() != start.getY()))
 			return null; //   cannot reach closest...
 		
-		// TODO: Find closest path node around target, now only checks if final location can be reached
+		// TODO Find closest path node around target, now only checks if final location can be reached
 		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getX(), end.getY(), end.getZ(), instanceId);
 		if ((temp.getX() != end.getX()) || (temp.getY() != end.getY()))
 			return null; //   cannot reach closest...

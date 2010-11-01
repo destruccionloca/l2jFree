@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * Ice Fairy Sirra AI<br>
- * TODO: review because of the differences between the two zone system
+ * TODO review because of the differences between the two zone system
  * 
  * @author Kerberos
  */

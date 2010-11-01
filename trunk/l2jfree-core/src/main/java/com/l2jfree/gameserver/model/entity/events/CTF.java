@@ -1914,7 +1914,7 @@ public class CTF
 	{
 		if (GlobalRestrictions.isRestricted(eventPlayer, CTFRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return false;
 		}
 		

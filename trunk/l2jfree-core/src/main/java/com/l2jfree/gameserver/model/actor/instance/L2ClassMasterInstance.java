@@ -310,7 +310,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			int[] striderCollar =
 			{ 4422, 4423, 4424 };
 
-			//TODO: Maybe show a complete list of all hatchlings instead of using first one
+			// TODO Maybe show a complete list of all hatchlings instead of using first one
 			for (int i = 0; i < 3; i++)
 			{
 				L2ItemInstance collar = player.getInventory().getItemByItemId(hatchCollar[i]);

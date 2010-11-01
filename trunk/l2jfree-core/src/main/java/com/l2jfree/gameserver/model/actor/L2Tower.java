@@ -80,7 +80,7 @@ public abstract class L2Tower extends L2Npc
 		if (!super.doDie(killer))
 			return false;
 		
-		// TODO: now spawn another NPC which represents dead tower
+		// TODO now spawn another NPC which represents dead tower
 		return true;
 	}
 }

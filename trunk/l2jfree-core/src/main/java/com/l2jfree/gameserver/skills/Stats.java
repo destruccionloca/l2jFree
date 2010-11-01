@@ -178,7 +178,7 @@ public enum Stats
 	MAX_LOAD("maxLoad"),
 	WEIGHT_LIMIT("weightLimit"),
 	
-	// FIXME: should be pAtk with ConditionTargetRaceId
+	// FIXME should be pAtk with ConditionTargetRaceId
 	PATK_PLANTS("pAtk-plants"),
 	PATK_INSECTS("pAtk-insects"),
 	PATK_ANIMALS("pAtk-animals"),
@@ -244,7 +244,7 @@ public enum Stats
 		throw new NoSuchElementException("Unknown name '" + name + "' for enum BaseStats");
 	}
 	
-	//TODO: add more stats
+	// TODO add more stats
 	public boolean isAdditiveResist()
 	{
 		switch (this)
@@ -271,7 +271,7 @@ public enum Stats
 		}
 	}
 	
-	//TODO: add more stats
+	// TODO add more stats
 	public boolean isMultiplicativeResist()
 	{
 		switch (this)

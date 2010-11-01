@@ -203,13 +203,13 @@ public abstract class PlayableStat extends CharStat
 	{
 		int val = super.getRunSpeed();
 
-		// TODO: check if sharks/fish should be affected ;)
+		// TODO check if sharks/fish should be affected ;)
 		if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
 			val *= L2Zone.WATER_MOVE_SPEED_BONUS;
 
 		// FIXME 1.4.0
 		/*
-		// TODO: get value from zone ;)
+		// TODO get value from zone ;)
 		if (_activeChar.isInsideZone(L2Zone.FLAG_SWAMP))
 		{
 			L2SwampZone zone = ZoneManager.getInstance().getZone(getActiveChar(), L2SwampZone.class);

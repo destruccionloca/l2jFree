@@ -138,7 +138,7 @@ public class QuestManager extends ScriptManager<Quest>
 		}
 		Quest old = _quests.get(newQuest.getName());
 
-		// FIXME: unloading the old quest at this point is a tad too late.
+		// FIXME unloading the old quest at this point is a tad too late.
 		// the new quest has already initialized itself and read the data, starting
 		// an unpredictable number of tasks with that data.  The old quest will now
 		// save data which will never be read.

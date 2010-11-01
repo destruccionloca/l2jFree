@@ -233,12 +233,12 @@ public final class CCHSiege extends AbstractSiege
 			{
 				if (clear)
 					member.setSiegeState(L2PcInstance.SIEGE_STATE_NOT_INVOLVED);
-				// TODO: not so sure about this part
+				// TODO not so sure about this part
 				else if (_hideout.getOwnerId() == siegeclan.getClanId())
 					member.setSiegeState(L2PcInstance.SIEGE_STATE_DEFENDER);
 				else
 					member.setSiegeState(L2PcInstance.SIEGE_STATE_ATTACKER);
-				// FIXME: 1.4.0 setSiegeSide()
+				// FIXME 1.4.0 setSiegeSide()
 				member.revalidateZone(true);
 				member.broadcastUserInfo();
 			}

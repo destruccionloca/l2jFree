@@ -101,7 +101,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 	private final FloodManager _errors;
 	
 	{
-		// TODO: fine tune
+		// TODO fine tune
 		_accepts = new FloodManager(1000, // 1000 msec per tick
 				new FloodManager.FloodFilter(10, 20, 10), // short period
 				new FloodManager.FloodFilter(30, 60, 60)); // long period
@@ -128,13 +128,13 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		{
 			case REJECTED:
 			{
-				// TODO: punish, warn, log, etc
+				// TODO punish, warn, log, etc
 				_log.warn("Rejected connection from " + host);
 				return false;
 			}
 			case WARNED:
 			{
-				// TODO: punish, warn, log, etc
+				// TODO punish, warn, log, etc
 				_log.warn("Connection over warn limit from " + host);
 				return true;
 			}
@@ -174,7 +174,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		
 		//if (isFlooding != Result.ACCEPTED)
 		//{
-		//	// TODO: punish, warn, log, etc
+		//	// TODO punish, warn, log, etc
 		//}
 	}
 	
@@ -186,13 +186,13 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		{
 			case REJECTED:
 			{
-				// TODO: punish, warn, log, etc
+				// TODO punish, warn, log, etc
 				_log.warn("Rejected packet (0x" + Integer.toHexString(opcode) + ") from " + client);
 				return false;
 			}
 			case WARNED:
 			{
-				// TODO: punish, warn, log, etc
+				// TODO punish, warn, log, etc
 				_log.warn("Packet over warn limit (0x" + Integer.toHexString(opcode) + ") from " + client);
 				return true;
 			}

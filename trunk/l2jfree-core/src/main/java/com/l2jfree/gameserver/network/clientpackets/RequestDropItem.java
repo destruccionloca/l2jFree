@@ -91,7 +91,7 @@ public class RequestDropItem extends L2GameClientPacket
 			Util.handleIllegalPlayerAction(activeChar, "[RequestDropItem] count > 1 but item is not stackable! ban! oid: " + _objectId + " owner: " + activeChar.getName(), IllegalPlayerAction.PUNISH_KICK);
 			return;
 		}
-		else if (!canDrop(item)) // TODO: merge to restriction
+		else if (!canDrop(item)) // TODO merge to restriction
 			return;
 		else if (!GlobalRestrictions.canDestroyItem(activeChar, item.getItemId(), item))
 		{

@@ -135,7 +135,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 		else if (_command.equals("menu_select?ask=-16&reply=2"))
 		{
-			// activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
+			// activeChar.validateBypass(_command); // FIXME shouldn't we validate here too?
 			
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)
@@ -144,7 +144,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		// Navigate throught Manor windows
 		else if (_command.startsWith("manor_menu_select?"))
 		{
-			// activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
+			// activeChar.validateBypass(_command); // FIXME shouldn't we validate here too?
 			
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)

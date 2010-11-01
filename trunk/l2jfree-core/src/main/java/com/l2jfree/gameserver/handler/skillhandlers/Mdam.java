@@ -53,7 +53,7 @@ public final class Mdam implements ICubicSkillHandler
 			if (target == null)
 				continue;
 			
-			// TODO: should be moved to skill target list generation
+			// TODO should be moved to skill target list generation
 			if (GlobalRestrictions.isProtected(activeChar, target, skill, true))
 				continue;
 			

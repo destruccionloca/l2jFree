@@ -278,7 +278,7 @@ public abstract class PathFinding
 		int end_x = end.getX();
 		int end_y = end.getY();
 		//List of Visited Nodes
-		L2FastSet<Node> visited = L2Collections.newL2FastSet();//TODO! Add limit to cfg
+		L2FastSet<Node> visited = L2Collections.newL2FastSet(); // TODO Add limit to cfg
 		
 		// List of Nodes to Visit
 		BinaryNodeHeap to_visit = BinaryNodeHeap.newInstance();
@@ -286,7 +286,7 @@ public abstract class PathFinding
 		try
 		{
 			int i = 0;
-			while (i < 800)//TODO! Add limit to cfg
+			while (i < 800) // TODO Add limit to cfg
 			{
 				if (to_visit.isEmpty())
 				{

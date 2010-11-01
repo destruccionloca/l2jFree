@@ -59,7 +59,7 @@ import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.util.L2FastSet;
 
-// TODO: 1.4.0 compare l2jserver's and l2jfree's flame tower implementations
+// TODO 1.4.0 compare l2jserver's and l2jfree's flame tower implementations
 public class Siege extends AbstractSiege
 {
 	private final static Log _log = LogFactory.getLog(Siege.class);

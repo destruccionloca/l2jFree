@@ -236,13 +236,13 @@ public final class GlobalRestrictions
 		// Cannot mess with raids or sieges
 		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 		{
-			// TODO: msg
+			// TODO msg
 			return true;
 		}
 		
 		if (activeChar.getMountType() == 2 && activeChar.isInsideZone(L2Zone.FLAG_NOLANDING))
 		{
-			// TODO: msg
+			// TODO msg
 			return true;
 		}
 		

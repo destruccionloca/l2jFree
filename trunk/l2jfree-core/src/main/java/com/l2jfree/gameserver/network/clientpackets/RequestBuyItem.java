@@ -111,7 +111,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		
 		int npcId = -1;
 		
-		// FIXME: 1.4.0 -> fix taxing, because it's a mess
+		// FIXME 1.4.0 -> fix taxing, because it's a mess
 		double castleTaxRate = 0;
 		double baseTaxRate = 0;
 		
@@ -119,7 +119,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		{
 			npcId = merchant.getActingMerchant().getTemplate().getNpcId();
 			
-			// FIXME: 1.4.0 -> fix taxing, because it's a mess
+			// FIXME 1.4.0 -> fix taxing, because it's a mess
 			if (merchant instanceof L2MerchantInstance)
 			{
 				castleTaxRate = ((L2MerchantInstance)merchant).getMpc().getCastleTaxRate();

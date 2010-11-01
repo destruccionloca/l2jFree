@@ -88,7 +88,7 @@ public final class EffectWarp extends L2Effect
 			z = destiny.getZ();
 		}
 		
-		//TODO: check if this AI intention is retail-like. This stops player's previous movement
+		// TODO check if this AI intention is retail-like. This stops player's previous movement
 		_actor.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		
 		_actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));

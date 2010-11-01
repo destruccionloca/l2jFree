@@ -72,14 +72,14 @@ public class ExShowFortressMapInfo extends L2GameServerPacket
 					}
 					break;
 				}
-				case 4: // TODO: change 4 to 5 once control room supported
+				case 4: // TODO change 4 to 5 once control room supported
 				{
 					int count = 0;
 					for (SiegeSpawn spawn : commanders)
 					{
 						count++;
 						if (count == 4)
-							writeD(1); // TODO: control room emulated
+							writeD(1); // TODO control room emulated
 						if (isSpawned(spawn.getNpcId()))
 							writeD(0);
 						else

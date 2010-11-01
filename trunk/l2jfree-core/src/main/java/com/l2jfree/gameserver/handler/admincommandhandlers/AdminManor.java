@@ -79,7 +79,7 @@ public class AdminManor implements IAdminCommandHandler
 		else if (command.equals("admin_manor_reset"))
 		{
 			activeChar.sendMessage("Not available.");
-			/* TODO: 1.4.0
+			/* TODO 1.4.0
 			int castleId = 0;
 			try
 			{

@@ -473,7 +473,7 @@ public final class LoginServerThread extends NetworkThread
 							
 							if (client != null)
 							{
-								// FIXME: won't be sent because closeNow() clears the packet queue
+								// FIXME won't be sent because closeNow() clears the packet queue
 								client.sendPacket(new SystemMessage(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT));
 								client.closeNow();
 							}
@@ -482,7 +482,7 @@ public final class LoginServerThread extends NetworkThread
 							
 							if (wc != null)
 							{
-								// FIXME: won't be sent because closeNow() clears the packet queue
+								// FIXME won't be sent because closeNow() clears the packet queue
 								wc.gameClient.sendPacket(new SystemMessage(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT));
 								wc.gameClient.closeNow();
 							}

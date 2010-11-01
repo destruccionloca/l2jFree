@@ -48,7 +48,7 @@ public class AttackableKnownList extends NpcKnownList
 			getActiveChar().getAggroList().remove(object);
 		
 		// Set the L2Attackable Intention to AI_INTENTION_IDLE
-		//FIXME: This is a temporary solution
+		// FIXME This is a temporary solution
 		if (getActiveChar().hasAI() && object instanceof L2PcInstance && getKnownPlayers().isEmpty())
 		{
 			getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

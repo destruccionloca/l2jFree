@@ -40,7 +40,7 @@ public class MoveWithDelta extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO: implement (no message since this packet is sent while moving?)
+        // TODO implement (no message since this packet is sent while moving?)
         //requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     	sendPacket(ActionFailed.STATIC_PACKET);
     }

@@ -31,7 +31,7 @@ public abstract class L2Equip extends L2Item
 	private L2Skill[]				_itemSkills			= null;
 	private L2Skill[]				_enchant4Skills		= null; // skill that activates when item is enchanted +4 (for duals)
 
-	// TODO: Replace by chance skills
+	// TODO Replace by chance skills
 	public static class WeaponSkill
 	{
 		public L2Skill	skill;

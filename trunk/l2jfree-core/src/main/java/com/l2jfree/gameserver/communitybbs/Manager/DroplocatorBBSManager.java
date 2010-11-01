@@ -36,7 +36,7 @@ public class DroplocatorBBSManager extends BaseBBSManager
 			content.append("</tr></table>");
 			content.append("<table border=0 cellspacing=0 cellpadding=2 width=770>");
 			
-			// FIXME: i guess something is missing from here :D
+			// FIXME i guess something is missing from here :D
 			content.moveToString();
 		}
 	}

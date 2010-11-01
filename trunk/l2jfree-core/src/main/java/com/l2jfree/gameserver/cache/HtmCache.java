@@ -242,7 +242,7 @@ public final class HtmCache
 	
 	static
 	{
-		// TODO: is there any other tag that should be replaced?
+		// TODO is there any other tag that should be replaced?
 		final String[] tagsToCompact = { "html", "title", "body", "br", "br1", "p", "table", "tr", "td" };
 		
 		final List<String> list = new ArrayList<String>();

@@ -65,7 +65,7 @@ public class EffectThrowUp extends L2Effect
 		double sin;
 		
 		// approximation for moving futher when z coordinates are different
-		// TODO: handle Z axis movement better
+		// TODO handle Z axis movement better
 		offset += Math.abs(dz);
 		if (offset < 5)
 			offset = 5;

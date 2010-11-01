@@ -49,7 +49,7 @@ public class TvTIMain
 {
 	static
 	{
-		//TvTiRestriction.getInstance().activate(); // TODO: must be checked to be able to activate it
+		//TvTiRestriction.getInstance().activate(); // TODO must be checked to be able to activate it
 	}
 	
 	private final static Log			_log			= LogFactory.getLog(TvTIMain.class);
@@ -520,7 +520,7 @@ public class TvTIMain
 	{
 		if (GlobalRestrictions.isRestricted(player, TvTiRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return;
 		}
 		

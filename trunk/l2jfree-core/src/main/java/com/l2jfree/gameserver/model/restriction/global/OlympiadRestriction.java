@@ -32,7 +32,7 @@ public final class OlympiadRestriction extends AbstractRestriction
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
-		// TODO: merge different checking methods to one
+		// TODO merge different checking methods to one
 		if (activeChar.isInOlympiadMode() || Olympiad.getInstance().isRegistered(activeChar)
 				|| activeChar.getOlympiadGameId() != -1)
 		{

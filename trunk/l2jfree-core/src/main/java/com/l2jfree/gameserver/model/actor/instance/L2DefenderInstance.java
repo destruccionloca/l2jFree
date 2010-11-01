@@ -160,7 +160,7 @@ public class L2DefenderInstance extends L2Guard
 	@Override
 	public void onAction(L2PcInstance player, boolean interact)
 	{
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		if (Config.SIEGE_ONLY_REGISTERED)
 		{
 			boolean opp = false;
@@ -210,7 +210,7 @@ public class L2DefenderInstance extends L2Guard
 			if (!opp)
 				return;
 		}
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		
 		if (!canTarget(player))
 		{

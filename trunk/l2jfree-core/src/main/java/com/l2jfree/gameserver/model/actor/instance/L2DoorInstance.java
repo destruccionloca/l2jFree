@@ -683,7 +683,7 @@ public class L2DoorInstance extends L2Character
 		return _D;
 	}
 
-	// FIXME: BADLY IMPLEMENTED METHODS
+	// FIXME BADLY IMPLEMENTED METHODS
 	// Most doors (Castle, CH, Fort, automatic) show hp and are targetable
 	// Some automatic doors (e.g. krateis cube) are NOT targetable (and don't show hp)
 

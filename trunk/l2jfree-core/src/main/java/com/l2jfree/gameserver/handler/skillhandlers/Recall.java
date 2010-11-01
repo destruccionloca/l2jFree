@@ -92,7 +92,7 @@ public class Recall extends ISkillConditionChecker
 				if (loc != null)
 				{
 					// target is not player OR player is not flying or flymounted
-					// TODO: add check for gracia continent coords
+					// TODO add check for gracia continent coords
 					if (target instanceof L2PcInstance
 							&& (target.isFlying() || ((L2PcInstance)target).isFlyingMounted()))
 						loc = null;

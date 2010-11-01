@@ -285,7 +285,7 @@ public class CharEffects
 			if (index == 0)
 				_queue.get(0).setInUse(true);
 			
-			// TODO: Config.EFFECT_CANCELING
+			// TODO Config.EFFECT_CANCELING
 		}
 		
 		private synchronized void remove(final L2Effect effect)

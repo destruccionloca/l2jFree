@@ -70,11 +70,11 @@ public class RequestChangeNicknameColor extends L2GameClientPacket
 		if (item == null)
 			return;
 		
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		//if (item.getEtcItem() == null || !item.getEtcItem().getHandlerName().equalsIgnoreCase("NicknameColor"))
 		//	return;
 		
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		if (item.getItemId() != COLOR_NAME_1 && item.getItemId() != COLOR_NAME_2)
 			return;
 		

@@ -279,7 +279,7 @@ public final class MapRegionManager
 		return getRegion(x, y, -1);
 	}
 	
-	//TODO: Needs to be clean rewritten
+	// TODO Needs to be clean rewritten
 	public Location getTeleToLocation(L2PcInstance player, TeleportWhereType teleportWhere)
 	{
 		L2Clan clan = player.getClan();
@@ -512,7 +512,7 @@ public final class MapRegionManager
 			return 14;
 		case 1538: // Goddard
 			return 15;
-		default: // TODO: Epilogue locations
+		default: // TODO Epilogue locations
 			return 0; // no name
 		}
 	}

@@ -538,7 +538,7 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			if (env.player instanceof L2Summon)
-				env.value = 8; // TODO: needs retail value
+				env.value = 8; // TODO needs retail value
 			else if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
 				env.value *= WITbonus[env.player.getStat().getWIT()];
 		}
@@ -2125,7 +2125,7 @@ public final class Formulas
 
 	public static boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
 	{
-		// TODO: CHECK/FIX THIS FORMULA UP!!
+		// TODO CHECK/FIX THIS FORMULA UP!!
 		L2SkillType type = skill.getSkillType();
 		double defence = 0;
 		if (skill.isActive() && skill.isOffensive())

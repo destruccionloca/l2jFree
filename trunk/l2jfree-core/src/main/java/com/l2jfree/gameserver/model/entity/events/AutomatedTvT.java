@@ -49,7 +49,7 @@ public final class AutomatedTvT
 {
 	static
 	{
-		AutomatedTvTRestriction.getInstance().activate(); // TODO: must be checked
+		AutomatedTvTRestriction.getInstance().activate(); // TODO must be checked
 	}
 
 	private static final Log	_log						= LogFactory.getLog(AutomatedTvT.class);

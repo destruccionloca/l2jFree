@@ -367,7 +367,7 @@ public class CharStat
 	 */
 	public final float getMoveSpeed()
 	{
-		// TODO: Merge this
+		// TODO Merge this
 		if (_activeChar instanceof L2BoatInstance)
 			return ((L2BoatInstance) _activeChar).boatSpeed;
 		if (_activeChar instanceof L2AirShipInstance)

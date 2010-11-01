@@ -33,7 +33,7 @@ public class RequestExFishRanking extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-    	//TODO: implement? deprecated?
+    	// TODO implement? deprecated?
         _log.debug("C5: RequestExFishRanking");
         requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }

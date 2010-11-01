@@ -295,9 +295,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_isSuicideAttack;
 	private final boolean			_canBeReflected;
 	private final boolean			_canBeDispeled;
-	// TODO: 1.4.0
+	// TODO 1.4.0
 	private final boolean			_isClanSkill;
-	// TODO: 1.4.0
+	// TODO 1.4.0
 	private final boolean			_removedOnAnyActionExceptMove;
 	private final boolean			_dispelOnAction;
 	private final boolean			_dispelOnAttack;
@@ -482,9 +482,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_canBeDispeled = set.getBool("canBeDispeled", true);
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		_isClanSkill = set.getBool("isClanSkill", false);
-		// TODO: 1.4.0
+		// TODO 1.4.0
 		_removedOnAnyActionExceptMove = set.getBool("removedOnAnyActionExceptMove", false);
 		_dispelOnAction = set.getBool("dispelOnAction", false);
 		_dispelOnAttack = set.getBool("dispelOnAttack", false);
@@ -983,7 +983,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean allowOnTransform()
 	{
-		// FIXME: do something about item skills!!!
+		// FIXME do something about item skills!!!
 		return (isPassive() || (getId() > 1999 && getId() < 3000));
 	}
 
@@ -1356,7 +1356,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		switch (getSkillType().getRoot())
 		{
-			// TODO: other skillTypes
+			// TODO other skillTypes
 			case MDAM:
 			case HEAL:
 			case SUMMON_FRIEND:
@@ -2458,7 +2458,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					{
 						// Perform default target checks
 						if (!(initial instanceof L2Attackable)
-								// TODO: But TARGET_CORPSE_MOB doesn't take this type?
+								// TODO But TARGET_CORPSE_MOB doesn't take this type?
 								//|| !(initial instanceof L2SummonInstance)
 								|| !checkAoEOffensiveSkillTarget(activeChar, initial, this, true))
 						{
@@ -2479,7 +2479,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					for (L2Character known : activeChar.getKnownList().getKnownCharacters())
 					{
 						if (known instanceof L2Attackable
-								// TODO: But TARGET_CORPSE_MOB doesn't take this type?
+								// TODO But TARGET_CORPSE_MOB doesn't take this type?
 								//|| known instanceof L2SummonInstance
 								)
 						{
@@ -3469,7 +3469,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		if (is7Signs()) // 7s buffs
 			return false;
 
-		// TODO: this is a so ugly hax
+		// TODO this is a so ugly hax
 		switch (getSkillType().getRoot())
 		{
 			case BUFF:
@@ -3530,7 +3530,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _canBeDispeled;
 	}
 	
-	// TODO: 1.4.0
+	// TODO 1.4.0
 	public final boolean isClanSkill()
 	{
 		return _isClanSkill;
@@ -3558,7 +3558,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	/**
 	 * Return true if skill effects should be removed on any action except movement
 	 */
-	// TODO: 1.4.0
+	// TODO 1.4.0
 	public final boolean isRemovedOnAnyActionExceptMove()
 	{
 		return _removedOnAnyActionExceptMove;

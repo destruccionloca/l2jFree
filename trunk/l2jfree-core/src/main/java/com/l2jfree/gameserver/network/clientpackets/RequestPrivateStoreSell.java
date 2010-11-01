@@ -58,8 +58,8 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			int objectId = readD();
 			int itemId = readD();
-			readH(); //TODO: analyse this
-			readH(); //TODO: analyse this
+			readH(); // TODO analyse this
+			readH(); // TODO analyse this
 			long cnt = readQ();
 			long price = readQ();
 

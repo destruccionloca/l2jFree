@@ -66,7 +66,7 @@ public final class EffectConfusion extends L2Effect
 		// Getting the possible targets
 		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
 		{
-			if (obj instanceof L2Character && obj != getEffected()) // TODO: more check
+			if (obj instanceof L2Character && obj != getEffected()) // TODO more check
 				targetList.add((L2Character)obj);
 		}
 		

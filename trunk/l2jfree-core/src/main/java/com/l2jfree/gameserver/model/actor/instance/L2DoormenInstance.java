@@ -83,7 +83,7 @@ public class L2DoormenInstance extends L2NpcInstance
 		
 		if (!isOwnerClan(player))
 			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-no.htm");
-		// TODO: maybe this should be removed
+		// TODO maybe this should be removed
 		else if (isUnderSiege())
 			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-busy.htm");
 		else

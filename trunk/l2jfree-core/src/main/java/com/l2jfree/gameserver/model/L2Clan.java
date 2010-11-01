@@ -1659,7 +1659,7 @@ public class L2Clan
 			return null;
 		}
 
-		//TODO: clan lvl9 or more can reinforce knights cheaper if first knight unit already created, use Config.KNIGHT_REINFORCE_COST
+		// TODO clan lvl9 or more can reinforce knights cheaper if first knight unit already created, use Config.KNIGHT_REINFORCE_COST
 
 		int neededRepu = 0;
 		if (subPledgeType != -1)

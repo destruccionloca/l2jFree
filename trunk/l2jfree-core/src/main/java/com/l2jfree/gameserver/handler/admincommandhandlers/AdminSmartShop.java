@@ -1481,7 +1481,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		if (second == null)
 			second = "";
 
-		//FIXME: WTF?!?!?!? Oo
+		// FIXME WTF?!?!?!? Oo
 		/*
 		if (opCommand.contains("_armor") || opCommand.contains("_weapn") || opCommand.contains("_items"))
 		{

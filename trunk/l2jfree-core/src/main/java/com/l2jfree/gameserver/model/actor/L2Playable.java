@@ -448,7 +448,7 @@ public abstract class L2Playable extends L2Character
 			}
 		}
 		
-		//TODO
+		// TODO
 	}
 	
 	public void setLockedTarget(boolean value)

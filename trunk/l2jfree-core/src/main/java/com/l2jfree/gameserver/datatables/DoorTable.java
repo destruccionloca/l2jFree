@@ -85,7 +85,7 @@ public final class DoorTable
 				else if (door.getDoorName().startsWith("aden_tower"))
 					door.setAutoActionDelay(300000);
 
-				/* TODO: check which are automatic
+				/* TODO check which are automatic
 				// devils (every 5 minutes)
 				else if (door.getDoorName().startsWith("pirate_isle"))
 					door.setAutoActionDelay(300000);

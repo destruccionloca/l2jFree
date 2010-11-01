@@ -98,7 +98,7 @@ public abstract class SiegeableEntityZone extends L2Zone
 		if (_entity.getSiege() != null)
 			return _entity.getSiege().getIsInProgress();
 		else
-			// TODO: Not siegeable, but rather contested differently
+			// TODO Not siegeable, but rather contested differently
 			return false;
 	}
 	

@@ -171,7 +171,7 @@ public class L2SkillSummon extends L2Skill
 						}
 						player.getCubics().clear();
 					}
-					//TODO: Should remove first cubic summoned and replace with new cubic
+					// TODO Should remove first cubic summoned and replace with new cubic
 					if (player.getCubics().containsKey(_npcId))
 					{
 						L2CubicInstance cubic = player.getCubic(_npcId);

@@ -118,7 +118,7 @@ public abstract class AbstractAI implements Ctrl
 	{
 		double distance = Util.calculateDistance(_actor, _followTarget, false);
 		
-		// TODO: fix Z axis follow support, moveToLocation needs improvements
+		// TODO fix Z axis follow support, moveToLocation needs improvements
 		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
 		// if the target is too far (maybe also teleported)
 		

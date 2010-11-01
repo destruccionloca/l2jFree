@@ -127,7 +127,7 @@ public final class SummonShots extends CharShots
 		}
 		*/
 		
-		int shotConsumption = 1; // TODO: this should be readed from npc.sql(summons)/pets_stats.sql tables
+		int shotConsumption = 1; // TODO this should be readed from npc.sql(summons)/pets_stats.sql tables
 		
 		if (activePet.getActiveWeaponItem() != null)
 		{

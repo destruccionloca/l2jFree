@@ -1014,7 +1014,7 @@ public class VIP
 	{
 		if (GlobalRestrictions.isRestricted(activeChar, VIPRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return;
 		}
 		
@@ -1036,7 +1036,7 @@ public class VIP
 	{
 		if (GlobalRestrictions.isRestricted(activeChar, VIPRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return;
 		}
 		

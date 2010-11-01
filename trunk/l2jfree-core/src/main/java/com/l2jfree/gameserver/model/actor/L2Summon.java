@@ -75,7 +75,7 @@ public abstract class L2Summon extends L2Playable
 	private boolean			_follow					= true;
 	private boolean			_previousFollowStatus	= true;
 
-	// TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
+	// TODO currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
 	//private int				_soulShotsPerHit		= 1;
 	//private int				_spiritShotsPerHit		= 1;
 
@@ -388,7 +388,7 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public final void broadcastStatusUpdateImpl()
 	{
-		// TODO: review
+		// TODO review
 		super.broadcastStatusUpdateImpl();
 		
 		getOwner().sendPacket(new PetStatusUpdate(this));

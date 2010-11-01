@@ -43,7 +43,7 @@ public class ChatSystem implements IChatHandler
 	@Override
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		//TODO: Find out what this channel is original intended for
+		// TODO Find out what this channel is original intended for
 		//      For me it is my emotechannel, because normal all-chan is affected
 		//      by a language skill system. This one is readable by everyone.
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName() + "'s Emote", text);

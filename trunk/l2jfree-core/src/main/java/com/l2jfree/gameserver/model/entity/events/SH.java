@@ -47,7 +47,7 @@ public class SH
 {
 	static
 	{
-		SHRestriction.getInstance().activate(); // TODO: must be checked
+		SHRestriction.getInstance().activate(); // TODO must be checked
 	}
 	
 	private final static Log		_log			= LogFactory.getLog(SH.class);

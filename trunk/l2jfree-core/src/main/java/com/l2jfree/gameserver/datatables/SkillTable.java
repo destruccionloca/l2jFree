@@ -339,17 +339,17 @@ public final class SkillTable
 	{
 		// there is no skill with non-positive level
 		if (level < 1)
-			return null; // TODO: warn
+			return null; // TODO warn
 			
 		// there is no skill at all with that id
 		if (skillId < 1 || _skillTable.length <= skillId)
-			return null; // TODO: warn
+			return null; // TODO warn
 			
 		final L2Skill[] array = _skillTable[skillId];
 		
 		// there is no skill at all with that id
 		if (array == null)
-			return null; // TODO: warn
+			return null; // TODO warn
 			
 		// skill maybe exists with the given level
 		if (level < array.length)
@@ -362,7 +362,7 @@ public final class SkillTable
 		}
 		
 		// if not, then skill with max level
-		return array[_maxLevels[skillId]]; // TODO: warn
+		return array[_maxLevels[skillId]]; // TODO warn
 	}
 	
 	public SkillInfo getSkillInfo(int skillId, int level)

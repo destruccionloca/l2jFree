@@ -36,7 +36,7 @@ public class ControllableMobStatus extends AttackableStatus
 	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
-		// TODO: review this, because this was a mess, seems like an old copy of charstatus
+		// TODO review this, because this was a mess, seems like an old copy of charstatus
 		/*
 		if (awake)
 		{

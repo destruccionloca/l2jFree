@@ -897,7 +897,7 @@ public class L2Npc extends L2Character
 
 	public boolean canInteract(L2PcInstance player)
 	{
-		// TODO: NPC busy check etc...
+		// TODO NPC busy check etc...
 
 		if (player.isCastingNow() || player.isCastingSimultaneouslyNow())
 			return false;
@@ -1876,11 +1876,11 @@ public class L2Npc extends L2Character
 		setTarget(receiver);
 
 		int _priceTotal = 0;
-		//TODO: add faction points support (evil33t, im waiting for you ^^ )
-		//TODO: add more options for player condition, like: pk, ssq winner/looser...etc
-		//TODO: add ancient adena price
-		//TODO: add autobuff tasks for npc (with options range,ignorePrice,showCast)
-		//TODO: add buff template striction to specified npc ids, merchants like
+		// TODO add faction points support (evil33t, im waiting for you ^^ )
+		// TODO add more options for player condition, like: pk, ssq winner/looser...etc
+		// TODO add ancient adena price
+		// TODO add autobuff tasks for npc (with options range,ignorePrice,showCast)
+		// TODO add buff template striction to specified npc ids, merchants like
 		for (L2BuffTemplate _buff : _templateBuffs)
 		{
 			if (_buff.checkPlayer(player) && _buff.checkPrice(player))

@@ -334,7 +334,7 @@ public class Seed implements IItemHandler
 
 		if (areaValid(MapRegionManager.getInstance().getAreaCastle(activeChar), seedId))
 		{
-			//FIXME: get right skill level
+			// FIXME get right skill level
 			target.setSeeded(seedId, activeChar);
 			
 			for (SkillInfo skillInfo : item.getEtcItem().getSkillInfos())

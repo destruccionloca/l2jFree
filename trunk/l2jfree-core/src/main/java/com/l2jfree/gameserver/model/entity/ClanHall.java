@@ -647,7 +647,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 					else
 					{
 						updateDb();
-						// TODO: fix this...
+						// TODO fix this...
 						Clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.MAKE_CLAN_HALL_PAYMENT_BY_S1_TOMORROW).addNumber(12));
 						if (System.currentTimeMillis() + (1000 * 60 * 60 * 24) <= _paidUntil + _chRate)
 							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), 1000 * 60 * 60 * 24);

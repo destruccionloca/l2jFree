@@ -631,7 +631,7 @@ public class DM
 	{
 		if (GlobalRestrictions.isRestricted(eventPlayer, DMRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return false;
 		}
 		

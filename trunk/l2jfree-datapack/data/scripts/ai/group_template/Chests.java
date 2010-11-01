@@ -152,7 +152,7 @@ public class Chests extends L2AttackableAIScript
 				else
 				{
 					// if this weren't a box, upon interaction start the mimic behaviors...
-					// todo: perhaps a self-buff (skill id 4245) with random chance goes here?
+					// TODO perhaps a self-buff (skill id 4245) with random chance goes here?
 					L2Character originalAttacker = isPet ? attacker.getPet(): attacker;
 					chest.setRunning();
 					chest.addDamageHate(originalAttacker, 0, (damage * 100) / (chest.getLevel() + 7));

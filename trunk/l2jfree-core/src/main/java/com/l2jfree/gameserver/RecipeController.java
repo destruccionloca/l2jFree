@@ -142,7 +142,7 @@ public class RecipeController
 
 	public synchronized void requestMakeItemAbort(L2PcInstance player)
 	{
-		_activeMakers.remove(player); // TODO:  anything else here?
+		_activeMakers.remove(player); // TODO  anything else here?
 	}
 
 	public synchronized void requestManufactureItem(L2PcInstance manufacturer, int recipeListId, L2PcInstance player)
@@ -569,7 +569,7 @@ public class RecipeController
 					_delay = (int) (Config.ALT_GAME_CREATION_SPEED * _player.getStat().getMReuseRate(_skill) * GameTimeController.TICKS_PER_SECOND / Config.RATE_CONSUMABLE_COST)
 							* GameTimeController.MILLIS_IN_TICK;
 
-					// FIXME: please fix this packet to show crafting animation (somebody)
+					// FIXME please fix this packet to show crafting animation (somebody)
 					MagicSkillUse msk = new MagicSkillUse(_player, _skillId, _skillLevel, _delay, 0);
 					_player.broadcastPacket(msk);
 
@@ -836,7 +836,7 @@ public class RecipeController
 		}
 
 		/**
-		 * FIXME: This class should be in some other file, but I don't know
+		 * FIXME This class should be in some other file, but I don't know
 		 * where Class explanation: For item counting or checking purposes. When
 		 * you don't want to modify inventory class contains itemId, quantity,
 		 * ownerId, referencePrice, but not objectId

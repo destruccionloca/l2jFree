@@ -43,7 +43,7 @@ public class ExGetOnAirShip extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-    	//TODO: implement
+    	// TODO implement
         System.out.println("[T1:ExGetOnAirShip] x: "+_x);
         System.out.println("[T1:ExGetOnAirShip] y: "+_y);
         System.out.println("[T1:ExGetOnAirShip] z: "+_z);

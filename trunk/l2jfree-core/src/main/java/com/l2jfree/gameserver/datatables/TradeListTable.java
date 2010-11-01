@@ -112,7 +112,7 @@ public class TradeListTable
 						int currentCount = rset.getInt("currentCount");
 						int restoreTime = rset.getInt("time");
 
-						// FIXME: 1.4.0 replace with L2TradeItem
+						// FIXME 1.4.0 replace with L2TradeItem
 						//L2TradeItem item = new L2TradeItem(shopId, _itemId);
 						L2ItemInstance buyItem = ItemTable.getInstance().createDummyItem(_itemId);
 						if (buyItem == null)

@@ -322,7 +322,7 @@ public class ClanBBSManager extends BaseBBSManager
 		html.append("<tr><td width=610><img src=\"sek.cbui141\" width=\"610\" height=\"1\"></td></tr>");
 		html.append("</table>");
 		html.append("<table border=0><tr><td><combobox width=65 var=keyword list=\"Name;Ruler\"></td><td><edit var = \"Search\" width=130 height=11 length=\"16\"></td>");
-		//TODO: search (Write in BBS)
+		// TODO search (Write in BBS)
 		html.append("<td><button value=\"&$420;\" action=\"Write 5 -1 0 Search keyword keyword\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\"> </td> </tr></table>");
 		html.append("<br>");
 		html.append("<br>");
@@ -425,7 +425,7 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("</tr>");
 				html.append("<tr><td height=10></td></tr>");
 				html.append("</table>");
-				//TODO: the BB for clan :)
+				// TODO the BB for clan :)
 				//html.append("<table border=0 cellspacing=0 cellpadding=0 width=610  bgcolor=333333>");
 				html.append("<img src=\"L2UI.squareblank\" width=\"1\" height=\"5\">");
 				html.append("<img src=\"L2UI.squaregray\" width=\"610\" height=\"1\">");

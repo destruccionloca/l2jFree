@@ -56,7 +56,7 @@ public class L2TownZone extends L2Zone
 			}
 		}
 		
-		// TODO: PvP zone with debuffs etc. allowed or just general zone?
+		// TODO PvP zone with debuffs etc. allowed or just general zone?
 		
 		_map.put(character.getObjectId(), flag);
 		

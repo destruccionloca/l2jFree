@@ -186,9 +186,7 @@ public abstract class IdFactory
 	 */
 	protected void cleanUpDB()
 	{
-		// TODO:
-		// Check for more cleanup query
-		// Check order
+		// TODO Check for more cleanup query, Check order
 		
 		Connection con = null;
 		try

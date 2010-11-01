@@ -32,7 +32,7 @@ public final class EffectGrow extends EffectBuff
 		if (getEffected() instanceof L2Npc)
 		{
 			//L2Npc npc = (L2Npc) getEffected();
-			//TODO: Uncomment lines when fix for mobs falling underground is found
+			// TODO Uncomment lines when fix for mobs falling underground is found
 			//npc.setCollisionHeight((int) (npc.getTemplate().getCollisionHeight() * 1.24));
 			//npc.setCollisionRadius((int) (npc.getTemplate().getCollisionRadius() * 1.19));
 			return true;
@@ -44,7 +44,7 @@ public final class EffectGrow extends EffectBuff
 	protected void onExit()
 	{
 		//L2Npc npc = (L2Npc) getEffected();
-		//TODO: Uncomment lines when fix for mobs falling underground is found
+		// TODO Uncomment lines when fix for mobs falling underground is found
 		//npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
 		//npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
 	}

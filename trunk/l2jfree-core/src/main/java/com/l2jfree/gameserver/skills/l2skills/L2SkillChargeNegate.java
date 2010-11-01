@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * Used for Break Duress skill mainly uses number of charges to negate, negate number depends on charge consume<br>
- * FIXME: this skill is hardcoded like hell
+ * FIXME this skill is hardcoded like hell
  * 
  * @author Darki699
  */

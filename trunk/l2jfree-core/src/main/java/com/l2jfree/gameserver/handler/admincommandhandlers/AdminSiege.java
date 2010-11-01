@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * This class handles all siege commands:
- * Todo: change the class name, and neaten it up
+ * TODO change the class name, and neaten it up
  * 
  *
  */

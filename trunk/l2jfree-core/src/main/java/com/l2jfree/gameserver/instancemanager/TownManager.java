@@ -212,7 +212,7 @@ public class TownManager
 		case 16:
 			redirectTownId = 14;
 			break; // Schuttgart => Rune
-		case 17: // TODO: review this, since Ivory Tower isn't a town right now --> town with id 17 is Dimensional Gap
+		case 17: // TODO review this, since Ivory Tower isn't a town right now --> town with id 17 is Dimensional Gap
 			redirectTownId = 9;
 			break; // Ivory Tower => Oren
 		case 18:
@@ -275,7 +275,7 @@ public class TownManager
 			return getTown(20);
 		case 20: // Fantasy Isle
 			return getTown(21);
-		// TODO: find proper
+		// TODO find proper
 		case 101: // Keucereus
 			return getTown(32);
 		default:

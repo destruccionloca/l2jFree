@@ -61,7 +61,7 @@ public class L2CubicInstance
 	public static final int		SMART_CUBIC_SPECTRALMASTER	= 14;
 
 	// Max range of cubic skills
-	// TODO: Check/fix the max range
+	// TODO Check/fix the max range
 	public static final int		MAX_MAGIC_RANGE				= 900;
 
 	// Cubic skills
@@ -290,7 +290,7 @@ public class L2CubicInstance
 
 	public final int getMCriticalHit(L2Character target, L2Skill skill)
 	{
-		// TODO: Temporary now mcrit for cubics is the baseMCritRate of its owner
+		// TODO Temporary now mcrit for cubics is the baseMCritRate of its owner
 		return _owner.getTemplate().getBaseMCritRate();
 	}
 

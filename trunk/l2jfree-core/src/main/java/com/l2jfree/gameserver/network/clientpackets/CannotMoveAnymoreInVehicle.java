@@ -57,7 +57,7 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 			player.getPosition().setHeading(_heading);
 			StopMoveInVehicle stop = new StopMoveInVehicle(player, _boatId);
 			Broadcast.toSelfAndKnownPlayers(player, stop);
-			//XXX: is PartyMemberPosition necessary here or it's auto when on boat?
+			// XXX is PartyMemberPosition necessary here or it's auto when on boat?
 		}
 
 		sendAF();

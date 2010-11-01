@@ -94,7 +94,7 @@ public final class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
 		
-		writeD(_view.getRunSpd()); // TODO: the order of the speeds should be confirmed
+		writeD(_view.getRunSpd()); // TODO the order of the speeds should be confirmed
 		writeD(_view.getWalkSpd());
 		writeD(_view.getSwimRunSpd());
 		writeD(_view.getSwimWalkSpd());

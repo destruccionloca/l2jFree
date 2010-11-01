@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 /**
  * Format: (ch) S
  * @author  -Wooden-
- * TODO: GodKratos: This packet is wrong in Gracia Final!!
+ * TODO GodKratos: This packet is wrong in Gracia Final!!
  */
 public class RequestPCCafeCouponUse extends L2GameClientPacket
 {
@@ -42,7 +42,7 @@ public class RequestPCCafeCouponUse extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        //TODO: implementation missing
+        // TODO implementation missing
         _log.debug("C5: RequestPCCafeCouponUse: S: "+_str);
     }
 

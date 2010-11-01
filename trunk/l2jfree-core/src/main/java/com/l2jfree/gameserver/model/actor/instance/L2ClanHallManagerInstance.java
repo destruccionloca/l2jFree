@@ -59,7 +59,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 		super(objectId, template);
 		switch (getNpcId())
 		{
-		// TODO: if auto-assign doesn't work
+		// TODO if auto-assign doesn't work
 		}
 	}
 

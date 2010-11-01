@@ -128,7 +128,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 			if (s.getId() == 391 && s.checkCondition(creator, creator))
 				return true;
 
-		// TODO: revise! 8871 Strategy Guide. Should be destroyed after successful invite?
+		// TODO revise! 8871 Strategy Guide. Should be destroyed after successful invite?
 		return creator.destroyItemByItemId("MPCC Creation", 8871, 1, creator, true);
 	}
 

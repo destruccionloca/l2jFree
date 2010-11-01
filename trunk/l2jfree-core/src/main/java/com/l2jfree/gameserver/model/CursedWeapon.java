@@ -382,7 +382,7 @@ public class CursedWeapon
 	{
 		if (GlobalRestrictions.isRestricted(player, CursedWeaponRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return false;
 		}
 
@@ -392,7 +392,7 @@ public class CursedWeapon
 		{
 			if (!player.dismount())
 			{
-				// TODO: correct this custom message.
+				// TODO correct this custom message.
 				player.sendMessage("You may not pick up this item while riding in this territory");
 				return false;
 			}

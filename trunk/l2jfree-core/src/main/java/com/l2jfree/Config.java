@@ -2018,7 +2018,7 @@ public class Config extends L2Config
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
 			ALT_OLY_REG_DISPLAY = Integer.parseInt(olySettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
-			// FIXME: 1.4.0
+			// FIXME 1.4.0
 			//ALT_OLY_COMP_RITEM = Integer.parseInt(olySettings.getProperty("AltOlyCompRewItem","13722"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(olySettings.getProperty("AltOlyGPPerPoint", "1000"));
 			ALT_OLY_HERO_POINTS = Integer.parseInt(olySettings.getProperty("AltOlyHeroPoints","180"));
@@ -3178,7 +3178,7 @@ public class Config extends L2Config
 	public static int			LIT_MAX_PLAYER_CNT;
 	public static int			LIT_TIME_LIMIT;
 	
-	// FIXME: 1.4.0
+	// FIXME 1.4.0
 	// GrandBoss Settings
 	public static int Antharas_Wait_Time;
 	public static int Valakas_Wait_Time;
@@ -3196,7 +3196,7 @@ public class Config extends L2Config
 	public static int Random_Of_QueenAnt_Spawn;
 	public static int Interval_Of_Zaken_Spawn;
 	public static int Random_Of_Zaken_Spawn;
-	// FIXME: 1.4.0
+	// FIXME 1.4.0
 
 	// *******************************************************************************************
 	private static final class BossConfig extends ConfigPropertiesLoader
@@ -3442,7 +3442,7 @@ public class Config extends L2Config
 			LIT_TIME_LIMIT = Integer.parseInt(bossSettings.getProperty("TimeLimit", "35"));
 			
 			
-			// FIXME: 1.4.0
+			// FIXME 1.4.0
 			Antharas_Wait_Time = Integer.parseInt(bossSettings.getProperty("AntharasWaitTime", "30"));
 			if (Antharas_Wait_Time < 3 || Antharas_Wait_Time > 60)
 				Antharas_Wait_Time = 30;
@@ -3522,7 +3522,7 @@ public class Config extends L2Config
 			if (Random_Of_Zaken_Spawn < 1 || Random_Of_Zaken_Spawn > 192)
 				Random_Of_Zaken_Spawn = 35;
 			Random_Of_Zaken_Spawn = Random_Of_Zaken_Spawn * 3600000;
-			// FIXME: 1.4.0
+			// FIXME 1.4.0
 		}
 	}
 

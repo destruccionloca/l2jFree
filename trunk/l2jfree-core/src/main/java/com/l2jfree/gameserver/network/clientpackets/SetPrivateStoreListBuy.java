@@ -52,8 +52,8 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			/*_unk1=*/readH();//TODO: analyse this
-			/*_unk2=*/readH();//TODO: analyse this
+			/*_unk1=*/readH();// TODO analyse this
+			/*_unk2=*/readH();// TODO analyse this
 			long cnt = readQ();
 			long price = readQ();
 

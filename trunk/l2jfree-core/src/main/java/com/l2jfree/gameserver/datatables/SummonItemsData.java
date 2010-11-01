@@ -70,7 +70,7 @@ public class SummonItemsData
 						{
 							int itemID = 0, npcID = 0;
 							byte summonType = 0;
-							// TODO: 1.4.0
+							// TODO 1.4.0
 							int despawn = -1;
 							
 							a = d.getAttributes().getNamedItem("id");
@@ -91,7 +91,7 @@ public class SummonItemsData
 									if (a == null) throw new Exception("Not defined summon type for summon item id=" + itemID + "!");
 									summonType = Byte.parseByte(a.getNodeValue());
 								}
-								// TODO: 1.4.0
+								// TODO 1.4.0
 								else if ("despawn".equalsIgnoreCase(e.getNodeName()))
 								{
 									// if (summonType == 0)

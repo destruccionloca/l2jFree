@@ -233,7 +233,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 						return;
 					}
 					
-					// TODO: review
+					// TODO review
 					if (ItemTable.getInstance().getTemplate(e.getItemId()).isStackable())
 						_enchantment = 0;
 					

@@ -695,7 +695,7 @@ public class Castle extends Siegeable<Siege>
 	// This method loads castle door upgrade data from database
 	private void loadDoorUpgrade()
 	{
-		/* TODO: outdated method, doors would lose the additional HP on first hit
+		/* TODO outdated method, doors would lose the additional HP on first hit
 		Connection con = null;
 		try
 		{

@@ -217,7 +217,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (player.isGM() && player.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
 				return false;
 
-			// TODO: Ideally, autoattack condition should be called from the AI script.  In that case,
+			// TODO Ideally, autoattack condition should be called from the AI script.  In that case,
 			// it should only implement the basic behaviors while the script will add more specific
 			// behaviors (like varka/ketra alliance, etc).  Once implemented, remove specialized stuff
 			// from this location.  (Fulminus)
@@ -497,7 +497,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 				}
 				
-				// TODO: The AI Script ought to handle aggro behaviors in onSee.  Once implemented, aggro behaviors ought
+				// TODO The AI Script ought to handle aggro behaviors in onSee.  Once implemented, aggro behaviors ought
 				// to be removed from here.  (Fulminus)
 				// For each L2Character check if the target is autoattackable
 				if (autoAttackCondition(target)) // check aggression
@@ -741,7 +741,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					String npcfaction = npc.getFactionId();
 					boolean sevenSignFaction = false;
 
-					// TODO: Unhardcode this by AI scripts (DrHouse)
+					// TODO Unhardcode this by AI scripts (DrHouse)
 					//Catacomb mobs should assist lilim and nephilim other than dungeon
 					if ( (faction_id == "c_dungeon_clan") &&
 						((npcfaction == "c_dungeon_lilim") || npcfaction == "c_dungeon_nephi"))

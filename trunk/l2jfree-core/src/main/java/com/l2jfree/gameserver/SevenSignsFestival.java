@@ -63,7 +63,7 @@ import com.l2jfree.util.L2Timer;
  * @fixed and modified by Wolverine
  */
 
-// FIXME: Archer mobs should target healer characters over other party members.
+// FIXME Archer mobs should target healer characters over other party members.
 public class SevenSignsFestival implements SpawnListener
 {
 	protected static Log							_log							= LogFactory.getLog(SevenSignsFestival.class);

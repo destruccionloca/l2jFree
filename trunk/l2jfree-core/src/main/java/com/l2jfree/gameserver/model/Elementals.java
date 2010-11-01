@@ -46,7 +46,7 @@ public final class Elementals implements FuncOwner
 		475, // Level 11
 		525, // Level 12
 		600, // Level 13
-		Integer.MAX_VALUE // TODO: Higher stones
+		Integer.MAX_VALUE // TODO Higher stones
 	};
 	
 	public final static int[] ARMOR_VALUES = { 0, // Level 1
@@ -62,7 +62,7 @@ public final class Elementals implements FuncOwner
 		192, // Level 11
 		210, // Level 12
 		240, // Level 13
-		Integer.MAX_VALUE // TODO: Higher stones
+		Integer.MAX_VALUE // TODO Higher stones
 	};
 	
 	public final static int[] STONES = { 9546, 9547, 9549, 9548, 9551, 9550 };

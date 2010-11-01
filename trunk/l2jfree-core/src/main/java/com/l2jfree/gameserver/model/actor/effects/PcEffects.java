@@ -78,7 +78,7 @@ public final class PcEffects extends CharEffects
 		
 		final ArrayList<StoredEffect> list = getEffectList();
 		
-		// TODO: delay effect storage
+		// TODO delay effect storage
 		Connection con = null;
 		try
 		{

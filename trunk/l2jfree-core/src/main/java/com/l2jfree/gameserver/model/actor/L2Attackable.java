@@ -397,7 +397,7 @@ public class L2Attackable extends L2Npc
 							_commandChannelLastAttack = System.currentTimeMillis();
 							ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 10000); // check for last attack
 							_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0,
-									SystemChatChannelId.Chat_Party_Room, "", "You have looting rights!")); // TODO: retail msg
+									SystemChatChannelId.Chat_Party_Room, "", "You have looting rights!")); // TODO retail msg
 						}
 					}
 				}
@@ -1731,7 +1731,7 @@ public class L2Attackable extends L2Npc
 			int newX = getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
 			int newY = getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
 
-			//FIXME: temp hack, do something nicer when we have geodatas
+			// FIXME temp hack, do something nicer when we have geodatas
 			int newZ = Math.max(getZ(), lastAttacker.getZ()) + 20;
 
 			if (ItemTable.getInstance().getTemplate(item.getItemId()) != null)
@@ -2184,7 +2184,7 @@ public class L2Attackable extends L2Npc
 					continue;
 				}
 
-				/* TODO: Confirm boss chance for crystal level up and for crystal breaking.
+				/* TODO Confirm boss chance for crystal level up and for crystal breaking.
 				 * It is known that bosses with FULL_PARTY crystal level ups have 100% success rate, but this is not
 				 * the case for the other bosses (one-random or last-hit).
 				 * While not confirmed, it is most reasonable that crystals leveled up at bosses will never break.

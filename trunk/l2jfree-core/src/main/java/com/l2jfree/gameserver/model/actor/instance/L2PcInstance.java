@@ -496,7 +496,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private int								_curWeightPenalty		= 0;
 
 	private long							_deleteTimer;
-	// FIXME: 1.4.0
+	// FIXME 1.4.0
 	//private long							_creationTime;
 	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
@@ -896,7 +896,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Set the name of the L2PcInstance
 		player.setName(name);
 		
-		// FIXME: 1.4.0
+		// FIXME 1.4.0
 		// Set Character's create time
 		//player.setCreateTime(System.currentTimeMillis());
 
@@ -1594,7 +1594,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	}
 
 	/**
-	 * FIXME: move this from L2PcInstance, there is no reason to have this here
+	 * FIXME move this from L2PcInstance, there is no reason to have this here
 	 * @param questId
 	 * @param stateId
 	 */
@@ -3030,7 +3030,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				if (fort != null)
 					fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.C1_ACQUIRED_THE_FLAG), getName());
 			}
-			//else // FIXME: i'm not sure about this
+			//else // FIXME i'm not sure about this
 			//	dropItem("CombatFlagDrop", newitem, null, true);
 		}
 
@@ -5227,7 +5227,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				&& ((isInsideZone(L2Zone.FLAG_PVP) && !isInSiege()) || isInSiege()))
 			return;
 
-		// FIXME: Need Correct Penalty
+		// FIXME Need Correct Penalty
 
 		// Get the level of the L2PcInstance
 		final int lvl = getLevel();
@@ -5954,7 +5954,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	public boolean mount(L2Summon pet)
 	{
-		// TODO: all checks from usercommandhandler mount and requestactionuse should be handled in ONE place, and this is not l2pcinstance
+		// TODO all checks from usercommandhandler mount and requestactionuse should be handled in ONE place, and this is not l2pcinstance
 		// so this is temporary
 		if (!isInsideRadius(pet, 80, true, false))
 		{
@@ -6110,7 +6110,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			else if (getInventory().getItemByItemId(9819) != null)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
-				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG); // TODO: confirm this message
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG); // TODO confirm this message
 				return false;
 			}
 			else if (isCastingNow())
@@ -6512,7 +6512,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		if (!onlinePlayer.isInOfflineMode())
 			_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
 		
-		// FIXME: won't be sent because client.close() clears the packet queue
+		// FIXME won't be sent because client.close() clears the packet queue
 		onlinePlayer.sendPacket(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT);
 		
 		new Disconnection(onlinePlayer).defaultSequence(true);
@@ -6604,7 +6604,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				player.setNoble(rset.getInt("nobless") == 1);
 
 				player.setTitle(rset.getString("title"));
-				// FIXME: 1.4.0
+				// FIXME 1.4.0
 				//player.getAppearance().setTitleColor(rset.getInt("title_color"));
 				player.setAccessLevel(rset.getInt("accesslevel"));
 				player.setFistsWeaponItem(player.findFistsWeaponItem(activeClassId));
@@ -8467,7 +8467,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			for (L2CubicInstance cubic : getCubics().values())
 			{
 				if (!allowedList.contains(cubic.getId()))
-				//FIXME 1.4.0
+				// FIXME 1.4.0
 				//if (cubic.givenByOther())
 				{
 					cubic.stopAction();
@@ -9281,7 +9281,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			if (isTransformationDisabledSkill(s))
 				return 9;
 			
-			// TODO: add other ordering conditions, if there is any other useful :)
+			// TODO add other ordering conditions, if there is any other useful :)
 			
 			return 0;
 		}
@@ -10068,7 +10068,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			untransform();
 		}
-		// TODO: update to only send speed status when that packet is known
+		// TODO update to only send speed status when that packet is known
 		else
 			broadcastUserInfo();
 
@@ -13036,9 +13036,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	// =========================================================================================
 	// Condition listeners
-	// TODO: wrapper conditions - ConditionLogicAnd, ConditionLogicOr, etc
-	// TODO: make it more similar to conventional java listeners
-	// TODO: add every listener which makes sense - currently listens for hp percent and game time only
+	// TODO wrapper conditions - ConditionLogicAnd, ConditionLogicOr, etc
+	// TODO make it more similar to conventional java listeners
+	// TODO add every listener which makes sense - currently listens for hp percent and game time only
 
 	public enum ConditionListenerDependency
 	{
@@ -13242,7 +13242,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		if (getMountType() == 4)
 		{
-			// TODO: Remove when horse mounts fixed
+			// TODO Remove when horse mounts fixed
 			activeChar.sendPacket(new Ride(this, false, 0));
 			activeChar.sendPacket(new Ride(this, true, getMountNpcId()));
 		}
@@ -13608,7 +13608,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			sendPacket(SystemMessageId.UNNAMED_2356);
 			return false;
 		}
-		/* TODO: Instant Zone still not implement
+		/* TODO Instant Zone still not implement
 		else if (this.isInsideZone(ZONE_INSTANT))
 		{
 			sendPacket(SystemMessageId.UNNAMED_2357);
@@ -14064,7 +14064,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 * @return number of days to char birthday.<BR>
 	 *         <BR>
 	 */
-	// FIXME: 1.4.0
+	// FIXME 1.4.0
 	/*
 	public int checkBirthDay()
 	{

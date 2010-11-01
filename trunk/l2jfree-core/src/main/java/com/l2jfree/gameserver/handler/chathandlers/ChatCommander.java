@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
  *
  * @author Noctarius
  */
-//TODO: Add here retaillike Commander Channel Code (I'm not sure how it is working on retail - so it's just from my server with =text) **Noctarius**
+// TODO Add here retaillike Commander Channel Code (I'm not sure how it is working on retail - so it's just from my server with =text) **Noctarius**
 public class ChatCommander implements IChatHandler
 {
 	private final SystemChatChannelId[]	_chatTypes	=

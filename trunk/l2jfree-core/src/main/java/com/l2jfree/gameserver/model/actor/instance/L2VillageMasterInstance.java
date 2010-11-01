@@ -244,7 +244,7 @@ public class L2VillageMasterInstance extends L2NpcInstance
 				}
 				else
 				{
-					// TODO: Retail message
+					// TODO Retail message
 					player.sendMessage("There are no sub classes available at this time.");
 					return;
 				}
@@ -456,7 +456,7 @@ public class L2VillageMasterInstance extends L2NpcInstance
 				// another validity check
 				if (subsAvailable == null || subsAvailable.isEmpty())
 				{
-					// TODO: Retail message
+					// TODO Retail message
 					player.sendMessage("There are no sub classes available at this time.");
 					return;
 				}

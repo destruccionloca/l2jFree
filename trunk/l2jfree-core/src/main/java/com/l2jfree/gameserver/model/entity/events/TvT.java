@@ -1344,7 +1344,7 @@ public class TvT
 	{
 		if (GlobalRestrictions.isRestricted(eventPlayer, TvTRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return false;
 		}
 		

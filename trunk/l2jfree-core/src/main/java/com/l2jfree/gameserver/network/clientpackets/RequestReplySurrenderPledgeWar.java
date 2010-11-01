@@ -44,7 +44,7 @@ public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
 			return;
 		}
 		
-		//TODO: is this incomplete?
+		// TODO is this incomplete?
 		if (_answer == 1)
 		{
 			requestor.deathPenalty(false, false, false);

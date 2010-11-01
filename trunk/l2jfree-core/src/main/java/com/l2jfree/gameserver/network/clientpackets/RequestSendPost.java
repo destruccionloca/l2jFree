@@ -201,7 +201,7 @@ public final class RequestSendPost extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANT_SEND_MAIL_TO_YOURSELF));
 			return;
 		}
-		// FIXME: 1.4.0
+		// FIXME 1.4.0
 		// L2AccessLevel accessLevel;
 		// final int level = CharNameTable.getInstance().getAccessLevelById(receiverId);
 		// if (level == AccessLevels._masterAccessLevelNum)

@@ -21,5 +21,5 @@ import java.util.List;
  */
 public abstract class L2FastList<E> extends L2FastCollection<E> implements List<E>
 {
-	// TODO: implement
+	// TODO implement
 }

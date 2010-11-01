@@ -450,7 +450,7 @@ public final class Olympiad
 	{
 		if (GlobalRestrictions.isRestricted(noble, OlympiadRestriction.class))
 		{
-			// TODO: msg
+			// TODO msg
 			return false;
 		}
 		

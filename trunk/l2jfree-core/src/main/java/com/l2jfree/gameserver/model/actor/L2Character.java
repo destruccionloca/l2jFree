@@ -917,7 +917,7 @@ public abstract class L2Character extends L2Object
 		// Get the active weapon instance (always equipped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
 
-		// TODO: unhardcode this to support boolean if with that weapon u can attack or not (for ex transform weapons)
+		// TODO unhardcode this to support boolean if with that weapon u can attack or not (for ex transform weapons)
 		if (weaponInst != null && weaponInst.getItemId() == 9819)
 		{
 			sendPacket(SystemMessageId.THAT_WEAPON_CANT_ATTACK);
@@ -1917,7 +1917,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Check if the spell consumes an Item
-		// TODO: combine check and consume
+		// TODO combine check and consume
 		if (skill.getItemConsume() > 0 && getInventory() != null)
 		{
 			// Get the L2ItemInstance consumed by the spell
@@ -3394,7 +3394,7 @@ public abstract class L2Character extends L2Object
 		}
 		ChangeWaitType revive = new ChangeWaitType(this, ChangeWaitType.WT_STOP_FAKEDEATH);
 		broadcastPacket(revive);
-		//TODO: Temp hack: players see FD on ppl that are moving: Teleport to someone who uses FD - if he gets up he will fall down again for that client -
+		// TODO Temp hack: players see FD on ppl that are moving: Teleport to someone who uses FD - if he gets up he will fall down again for that client -
 		// even tho he is actually standing... Probably bad info in CharInfo packet?
 		broadcastPacket(new Revive(this));
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
@@ -4503,7 +4503,7 @@ public abstract class L2Character extends L2Object
 		final int curZ = super.getZ();
 
 		// Calculate distance (dx,dy) between current position and destination
-        // TODO: improve Z axis move/follow support when dx,dy are small compared to dz
+        // TODO improve Z axis move/follow support when dx,dy are small compared to dz
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
@@ -4542,7 +4542,7 @@ public abstract class L2Character extends L2Object
 		if (offset != 0 || distance < 1)
 		{
 			// approximation for moving closer when z coordinates are different
-			// TODO: handle Z axis movement better
+			// TODO handle Z axis movement better
 			offset -= Math.abs(dz);
 			//if (offset < 5) offset = 5;
 
