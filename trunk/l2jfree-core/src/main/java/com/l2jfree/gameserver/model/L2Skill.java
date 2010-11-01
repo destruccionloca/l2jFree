@@ -2488,7 +2488,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								continue;
 							
 							// Perform default target checks
-							if (!checkAoEOffensiveSkillTarget(activeChar, known, this, true))
+							if (!checkAoEOffensiveSkillTarget(activeChar, known, this/*, true (this should take living targets */))
 								continue;
 							
 							// earlier this check was not made (purpose?)
@@ -3648,20 +3648,17 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * @param caster The casting character
 	 * @param target One of the targets (a character)
 	 * @param skill The skill being used
-	 * @param corpse Whether to invert death check
+	 * @param targetShouldBeDead Whether to invert death check
 	 * @return include in target list or not
 	 */
-	// FIXME: 1.4.0
 	public static final boolean checkAoEOffensiveSkillTarget(L2Character caster, L2Character target,
-			L2Skill skill, boolean corpse)
+			L2Skill skill, boolean targetShouldBeDead)
 	{
 		// Base check: no target, target is caster, target is dead
 		if (target == null || target == caster)
 			return false;
 		
-		if (corpse && !target.isDead())
-			return false;
-		else if (target.isDead())
+		if (targetShouldBeDead != target.isDead())
 			return false;
 		
 		L2PcInstance player = caster.getActingPlayer();
