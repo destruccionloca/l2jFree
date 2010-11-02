@@ -47,6 +47,11 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 			activeChar.buildBypassCache(_replaceable);
 	}
 	
+	public final String getHtml()
+	{
+		return String.valueOf(_replaceable);
+	}
+	
 	public void setHtml(CharSequence text)
 	{
 		_replaceable = Replaceable.valueOf(text);
@@ -58,18 +63,19 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 		return _replaceable != null;
 	}
 	
+	private String _path;
+	
 	public void setFile(String path)
 	{
-		String content = HtmCache.getInstance().getHtm(path);
-		
-		if (content == null)
-		{
-			content = "<html><body>Sorry, my HTML is missing!<br>" + path + "</body></html>";
-			
-			_log.warn("Missing html page: " + path);
-		}
-		
-		setHtml(content);
+		_path = path;
+		setHtml(HtmCache.getInstance().getHtmForce(path));
+	}
+	
+	@Override
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
+	{
+		if (_path != null && activeChar != null && activeChar.isGM())
+			activeChar.sendMessage("HTML shown: " + _path);
 	}
 	
 	public void replace(String pattern, String value)

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -222,15 +221,8 @@ public class L2StaticObjectInstance extends L2Character
 			{
 				if (_type == 2)
 				{
-					String filename = "data/html/signboard.htm";
-					String content = HtmCache.getInstance().getHtm(filename);
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					
-					if (content == null)
-						html.setHtml("<html><body>Signboard is missing:<br>" + filename + "</body></html>");
-					else
-						html.setHtml(content);
-					
+					html.setFile("data/html/signboard.htm");
 					player.sendPacket(html);
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}

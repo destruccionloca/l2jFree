@@ -26,8 +26,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javolution.util.FastMap;
 
@@ -371,7 +371,7 @@ public final class HtmCache
 		
 		if (content == null)
 		{
-			content = "<html><body>My text is missing:<br>" + path + "</body></html>";
+			content = "<html><body>Sorry, my text is missing!<br>" + path + "</body></html>";
 			
 			_log.warn("Cache[HTML]: Missing HTML page: " + path);
 		}

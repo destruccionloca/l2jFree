@@ -1601,15 +1601,14 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private void showQuestWindow(String questId, String stateId)
 	{
 		String path = "data/scripts/quests/" + questId + "/" + stateId + ".htm";
-		String content = HtmCache.getInstance().getHtm(path);
 
-		if (content != null)
+		if (HtmCache.getInstance().pathExists(path))
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("Showing quest window for quest " + questId + " state " + stateId + " html path: " + path);
 
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
-			npcReply.setHtml(content);
+			npcReply.setFile(path);
 			sendPacket(npcReply);
 		}
 
@@ -11858,9 +11857,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 			// Open a Html message to inform the player
 			NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-			String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
-			if (jailInfos != null)
-				htmlMsg.setHtml(jailInfos);
+			if (HtmCache.getInstance().pathExists("data/html/jail_in.htm"))
+				htmlMsg.setFile("data/html/jail_in.htm");
 			else
 				htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
 			sendPacket(htmlMsg);
@@ -11876,9 +11874,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			// Open a Html message to inform the player
 			NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-			String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
-			if (jailInfos != null)
-				htmlMsg.setHtml(jailInfos);
+			if (HtmCache.getInstance().pathExists("data/html/jail_out.htm"))
+				htmlMsg.setFile("data/html/jail_out.htm");
 			else
 				htmlMsg.setHtml("<html><body>You are free for now, respect server rules!</body></html>");
 			sendPacket(htmlMsg);

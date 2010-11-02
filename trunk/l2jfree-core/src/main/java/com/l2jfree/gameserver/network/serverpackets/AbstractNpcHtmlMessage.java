@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  * <b>The HTML parser in the client knowns these standard and non-standard tags and attributes:</b>
@@ -138,20 +140,26 @@ public abstract class AbstractNpcHtmlMessage extends L2GameServerPacket
 	{
 	}
 	
+	public final String getHtml()
+	{
+		return String.valueOf(getContent());
+	}
+	
 	public abstract void setHtml(CharSequence text);
+	
+	private String _path;
 	
 	public final void setFile(String path)
 	{
-		String content = HtmCache.getInstance().getHtm(path);
-		
-		if (content == null)
-		{
-			content = "<html><body>Sorry, my HTML is missing!<br>" + path + "</body></html>";
-			
-			_log.warn("Missing html page: " + path);
-		}
-		
-		setHtml(content);
+		_path = path;
+		setHtml(HtmCache.getInstance().getHtmForce(path));
+	}
+	
+	@Override
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
+	{
+		if (_path != null && activeChar != null && activeChar.isGM())
+			activeChar.sendMessage("HTML shown: " + _path);
 	}
 	
 	protected abstract CharSequence getContent();

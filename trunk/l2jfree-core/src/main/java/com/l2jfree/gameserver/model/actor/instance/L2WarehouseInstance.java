@@ -15,15 +15,14 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList;
-import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
+import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
@@ -151,19 +150,10 @@ public final class L2WarehouseInstance extends L2NpcInstance
 		{
 			if (Config.ENABLE_WAREHOUSESORTING_PRIVATE)
 			{
-				String htmFile = "data/html/custom/WhSortedP.htm";
-				String htmContent = HtmCache.getInstance().getHtm(htmFile);
-				if (htmContent != null)
-				{
-					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-					npcHtmlMessage.setHtml(htmContent);
-					npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(npcHtmlMessage);
-				}
-				else
-				{
-					_log.warn("Missing htm: " + htmFile + " !");
-				}
+				NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
+				npcHtmlMessage.setFile("data/html/custom/WhSortedP.htm");
+				npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(npcHtmlMessage);
 			}
 			else
 				showRetrieveWindow(player, null, (byte) 0);
@@ -185,19 +175,10 @@ public final class L2WarehouseInstance extends L2NpcInstance
 		{
 			if (Config.ENABLE_WAREHOUSESORTING_CLAN)
 			{
-				String htmFile = "data/html/custom/WhSortedC.htm";
-				String htmContent = HtmCache.getInstance().getHtm(htmFile);
-				if (htmContent != null)
-				{
-					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-					npcHtmlMessage.setHtml(htmContent);
-					npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(npcHtmlMessage);
-				}
-				else
-				{
-					_log.warn("Missing htm: " + htmFile + " !");
-				}
+				NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
+				npcHtmlMessage.setFile("data/html/custom/WhSortedC.htm");
+				npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(npcHtmlMessage);
 			}
 			else
 				showWithdrawWindowClan(player, null, (byte) 0);

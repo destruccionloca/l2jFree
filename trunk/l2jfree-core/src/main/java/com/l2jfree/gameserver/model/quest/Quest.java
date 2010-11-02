@@ -1555,35 +1555,40 @@ public class Quest extends ManagedScript
 
 		//Create handler to file linked to the quest
 		String directory = getDescr().toLowerCase();
-		String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questName + "/" + fileName);
+		String path = "data/scripts/" + directory + "/" + questName + "/" + fileName;
 
-		if (content == null)
-			content = HtmCache.getInstance().getHtmForce("data/scripts/quests/" + questName + "/" + fileName);
-
-		if (player != null && player.getTarget() != null)
-			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
+		if (!HtmCache.getInstance().pathExists(path))
+			path = "data/scripts/quests/" + questName + "/" + fileName;
 
 		//Send message to client if message not empty
-		if (content != null && player != null)
+		if (player != null)
 		{
+			String content;
 			if (questId > 0 && questId < 20000)
 			{
 				NpcQuestHtmlMessage npcReply = new NpcQuestHtmlMessage(5, questId);
-				npcReply.setHtml(content);
+				npcReply.setFile(path);
 				npcReply.replace("%playername%", player.getName());
+				if (player.getTarget() != null)
+					npcReply.replace("%objectId%", player.getTarget().getObjectId());
 				player.sendPacket(npcReply);
+				content = npcReply.getHtml();
 			}
 			else
 			{
 				NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
-				npcReply.setHtml(content);
+				npcReply.setFile(path);
 				npcReply.replace("%playername%", player.getName());
+				if (player.getTarget() != null)
+					npcReply.replace("%objectId%", player.getTarget().getObjectId());
 				player.sendPacket(npcReply);
+				content = npcReply.getHtml();
 			}
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return content;
 		}
-
-		return content;
+		else
+			return HtmCache.getInstance().getHtmForce(path);
 	}
 
 	// =========================================================

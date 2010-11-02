@@ -1242,11 +1242,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 	private void Show_Npc_Property(L2PcInstance activeChar, L2NpcTemplate npc, int pageId)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		String content = HtmCache.getInstance().getHtm("data/html/admin/editnpc-" + pageId + ".htm");
-
-		if (content != null)
 		{
-			adminReply.setHtml(content);
+			adminReply.setFile("data/html/admin/editnpc-" + pageId + ".htm");
 			adminReply.replace("%npcId%", String.valueOf(npc.getNpcId()));
 			adminReply.replace("%templateId%", String.valueOf(npc.getIdTemplate()));
 			adminReply.replace("%name%", npc.getName());
@@ -1289,8 +1286,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%absorbLevel%", String.valueOf(npc.getAbsorbLevel()));
 			adminReply.replace("%absorbType%", String.valueOf(npc.getAbsorbType()));
 		}
-		else
-			adminReply.setHtml("<html><body>File not found: data/html/admin/editnpc-" + pageId + ".htm</body></html>");
 
 		activeChar.sendPacket(adminReply);
 	}

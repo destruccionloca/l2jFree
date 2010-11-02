@@ -18,7 +18,6 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
@@ -525,22 +524,16 @@ public class L2SignsPriestInstance extends L2Npc
 				else
 					path = SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_6_dusk_contribute.htm";
 				
-				String contentContr = HtmCache.getInstance().getHtm(path);
-				
-				if (contentContr != null)
 				{
-					contentContr = contentContr.replaceAll("%contribStoneColor%", contribStoneColor);
-					contentContr = contentContr.replaceAll("%stoneColor%", stoneColorContr);
-					contentContr = contentContr.replaceAll("%stoneCount%", String.valueOf(stoneCountContr));
-					contentContr = contentContr.replaceAll("%stoneItemId%", String.valueOf(stoneIdContr));
-					contentContr = contentContr.replaceAll("%objectId%", String.valueOf(getObjectId()));
-					
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setHtml(contentContr);
+					html.setFile(path);
+					html.replace("%contribStoneColor%", contribStoneColor);
+					html.replace("%stoneColor%", stoneColorContr);
+					html.replace("%stoneCount%", String.valueOf(stoneCountContr));
+					html.replace("%stoneItemId%", String.valueOf(stoneIdContr));
+					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
 				}
-				else
-					_log.warn("Problem with HTML text " + path);
 				break;
 			case 7: // Exchange Ancient Adena for Adena - SevenSigns 7 xxxxxxx
 				long ancientAdenaConvert = 0;
@@ -739,24 +732,15 @@ public class L2SignsPriestInstance extends L2Npc
 				else
 					path = SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_17_dusk.htm";
 				
-				String content = HtmCache.getInstance().getHtm(path);
-
-				if (content != null)
 				{
-					content = content.replaceAll("%stoneColor%", stoneColor);
-					content = content.replaceAll("%stoneValue%", String.valueOf(stoneValue));
-					content = content.replaceAll("%stoneCount%", String.valueOf(stoneCount));
-					content = content.replaceAll("%stoneItemId%", String.valueOf(stoneId));
-					content = content.replaceAll("%objectId%", String.valueOf(getObjectId()));
-
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setHtml(content);
+					html.setFile(path);
+					html.replace("%stoneColor%", stoneColor);
+					html.replace("%stoneValue%", String.valueOf(stoneValue));
+					html.replace("%stoneCount%", String.valueOf(stoneCount));
+					html.replace("%stoneItemId%", String.valueOf(stoneId));
+					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
-				}
-				else
-				{
-					_log.warn("Problem with HTML text " + SevenSigns.SEVEN_SIGNS_HTML_PATH
-							+ "signs_17.htm: " + path);
 				}
 				break;
 			case 18: // Exchange Seal Stones for Ancient Adena - SevenSigns 18 xxxx xxxxxx

@@ -1993,9 +1993,9 @@ public class L2Npc extends L2Character
 	public void insertObjectIdAndShowChatWindow(L2PcInstance player, String content)
 	{
 		// Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2Npc
-		content = content.replaceAll("%objectId%", String.valueOf(getObjectId()));
 		NpcHtmlMessage npcReply = new NpcHtmlMessage(getObjectId());
 		npcReply.setHtml(content);
+		npcReply.replace("%objectId%", getObjectId());
 		player.sendPacket(npcReply);
 	}
 
@@ -2595,12 +2595,12 @@ public class L2Npc extends L2Character
 	 */
 	private boolean showPkDenyChatWindow(L2PcInstance player, String type)
 	{
-		String html = HtmCache.getInstance().getHtm("data/html/" + type + "/" + getNpcId() + "-pk.htm");
+		String path = "data/html/" + type + "/" + getNpcId() + "-pk.htm";
 
-		if (html != null)
+		if (HtmCache.getInstance().pathExists(path))
 		{
 			NpcHtmlMessage pkDenyMsg = new NpcHtmlMessage(getObjectId());
-			pkDenyMsg.setHtml(html);
+			pkDenyMsg.setFile(path);
 			player.sendPacket(pkDenyMsg);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return true;
@@ -3143,28 +3143,17 @@ public class L2Npc extends L2Character
 	public void showNoTeachHtml(L2PcInstance player)
 	{
 		int npcId = getNpcId();
-		String html = null;
+		String path = null;
 		
 		if (this instanceof L2WarehouseInstance)
-			html = HtmCache.getInstance().getHtm("data/html/warehouse/" + npcId + "-noteach.htm");
+			path = "data/html/warehouse/" + npcId + "-noteach.htm";
 		else if (this instanceof L2TrainerInstance)
-			html = HtmCache.getInstance().getHtm("data/html/trainer/" + npcId + "-noteach.htm");
+			path = "data/html/trainer/" + npcId + "-noteach.htm";
 		
-		if (html == null)
-		{
-			_log.warn("Npc " + npcId + " missing noTeach html!");
-			NpcHtmlMessage msg = new NpcHtmlMessage(getObjectId());
-			msg.setHtml("<html><body>I cannot teach you any skills.<br>You must find your current class teachers.</body></html>");
-			player.sendPacket(msg);
-			return;
-		}
-		else
-		{
-			NpcHtmlMessage noTeachMsg = new NpcHtmlMessage(getObjectId());
-			noTeachMsg.setHtml(html);
-			noTeachMsg.replace("%objectId%", String.valueOf(getObjectId()));
-			player.sendPacket(noTeachMsg);
-		}
+		NpcHtmlMessage noTeachMsg = new NpcHtmlMessage(getObjectId());
+		noTeachMsg.setFile(path);
+		noTeachMsg.replace("%objectId%", String.valueOf(getObjectId()));
+		player.sendPacket(noTeachMsg);
 	}
 	
 	public void scheduleDespawn(long delay)

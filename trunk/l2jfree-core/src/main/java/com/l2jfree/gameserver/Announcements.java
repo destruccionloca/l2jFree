@@ -29,7 +29,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -116,9 +115,8 @@ public class Announcements
 
 	public void listAnnouncements(L2PcInstance activeChar)
 	{
-		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setHtml(content);
+		adminReply.setFile("data/html/admin/announce.htm");
 		L2TextBuilder replyMSG = L2TextBuilder.newInstance();
 		replyMSG.append("<br>");
 		for (int i = 0; i < _announcements.size(); i++)

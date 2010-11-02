@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -59,9 +58,8 @@ public class AdminHelpPage implements IAdminCommandHandler
 	//PUBLIC & STATIC so other classes from package can include it directly
 	public static void showHelpPage(L2PcInstance targetChar, String filename)
 	{
-		String content = HtmCache.getInstance().getHtmForce("data/html/admin/" + filename);
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setHtml(content);
+		adminReply.setFile("data/html/admin/" + filename);
 		targetChar.sendPacket(adminReply);
 	}
 }
