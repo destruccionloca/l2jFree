@@ -483,7 +483,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_canBeDispeled = set.getBool("canBeDispeled", true);
 		// TODO 1.4.0
-		_isClanSkill = set.getBool("isClanSkill", false);
+		_isClanSkill = set.getBool("isClanSkill", SkillTreeTable.getInstance().isClanSkill(_id));
 		// TODO 1.4.0
 		_removedOnAnyActionExceptMove = set.getBool("removedOnAnyActionExceptMove", false);
 		_dispelOnAction = set.getBool("dispelOnAction", false);

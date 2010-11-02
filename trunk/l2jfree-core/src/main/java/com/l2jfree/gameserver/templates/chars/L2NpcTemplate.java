@@ -93,11 +93,6 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private int									_factionRange;
 	private int									_absorbLevel;
 	private AbsorbCrystalType					_absorbType;
-	// FIXME 1.4.0
-	private short								_ss;
-	private short								_bss;
-	private short								_ssRate;
-	// FIXME 1.4.
 	private int									_npcFaction;
 	private String								_npcFactionName;
 	private String								_jClass;
@@ -293,9 +288,6 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_factionRange = set.getInteger("factionRange");
 		_absorbLevel = set.getInteger("absorb_level");
 		_absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
-		_ss = set.getShort("ss");
-		_bss = set.getShort("bss");
-		_ssRate = set.getShort("ssRate");
 		_npcFaction = set.getInteger("NPCFaction", 0);
 		_npcFactionName = set.getString("NPCFactionName", "Devine Clan").intern();
 		_jClass = set.getString("jClass").intern();
@@ -1350,39 +1342,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_jClass = class1;
 	}
 
-	public short getSS()
-	{
-		return _ss;
-	}
-
-	public short getBSS()
-	{
-		return _bss;
-	}
-
-	public short getSSRate()
-	{
-		return _ssRate;
-	}
-
 	public AIType getAI()
 	{
 		return _ai;
-	}
-
-	public void setSS(short ss)
-	{
-		_ss = ss;
-	}
-
-	public void setBSS(short bss)
-	{
-		_bss = bss;
-	}
-
-	public void setSSRate(short ssrate)
-	{
-		_ssRate = ssrate;
 	}
 
 	public void setAI(AIType type)

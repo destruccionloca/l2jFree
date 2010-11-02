@@ -23,7 +23,9 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExChangePostState;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * @author Migi, DS
@@ -50,9 +52,8 @@ public final class RequestRejectPostAttachment extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		// FIXME 1.4.0
-		//if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("rejectattach"))
-		//	return;
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.TRANSACTION))
+			return;
 		
 		if (!activeChar.isInsideZone(L2Zone.FLAG_PEACE))
 		{

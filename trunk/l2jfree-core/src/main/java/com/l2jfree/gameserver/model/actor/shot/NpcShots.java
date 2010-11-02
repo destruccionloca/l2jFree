@@ -49,7 +49,10 @@ public final class NpcShots extends CharShots
 	@Override
 	protected ShotState getShotState()
 	{
-		if (getActiveChar().getTemplate().getSSRate() == 0 || getActiveChar().getActiveWeaponItem() == null)
+		if (getActiveChar().getActiveWeaponItem() == null)
+			return ShotState.getEmptyInstance();
+		
+		if (getActiveChar().getSoulShotChance() == 0 && getActiveChar().getSpiritShotChance() == 0)
 			return ShotState.getEmptyInstance();
 		
 		if (_shotState == null)

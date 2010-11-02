@@ -20,6 +20,8 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public class TradeDone extends L2GameClientPacket
 {
@@ -47,12 +49,11 @@ public class TradeDone extends L2GameClientPacket
 			return;
 		}
 		
-		// FIXME 1.4.0
-		//if (!player.getFloodProtectors().getTransaction().tryPerformAction("trade"))
-		//{
-		//	player.sendMessage("You trading too fast.");
-		//	return;
-		//}
+		if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
+		{
+			player.sendMessage("You trading too fast.");
+			return;
+		}
 		
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)

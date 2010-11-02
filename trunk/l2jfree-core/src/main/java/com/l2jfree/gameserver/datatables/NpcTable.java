@@ -424,8 +424,7 @@ public final class NpcTable
 			npcDat.set("rhand", NpcData.getInt("rhand"));
 			npcDat.set("lhand", NpcData.getInt("lhand"));
 			npcDat.set("armor", NpcData.getInt("armor"));
-			// FIXME 1.4.0 sql side is missing
-			//npcDat.set("enchant", NpcData.getInt("enchant"));
+			npcDat.set("enchant", NpcData.getInt("enchant"));
 			npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
 			npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
 
@@ -453,10 +452,6 @@ public final class NpcTable
 			
 			npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 			npcDat.set("absorb_type", NpcData.getString("absorb_type"));
-			
-			npcDat.set("ss", NpcData.getInt("ss"));
-			npcDat.set("bss", NpcData.getInt("bss"));
-			npcDat.set("ssRate", NpcData.getInt("ss_rate"));
 			
 			npcDat.set("AI", NpcData.getString("AI"));
 			npcDat.set("drop_herbs", Boolean.valueOf(NpcData.getString("drop_herbs")));

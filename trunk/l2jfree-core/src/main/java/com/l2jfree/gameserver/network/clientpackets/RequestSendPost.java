@@ -201,29 +201,16 @@ public final class RequestSendPost extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANT_SEND_MAIL_TO_YOURSELF));
 			return;
 		}
-		// FIXME 1.4.0
-		// L2AccessLevel accessLevel;
-		// final int level = CharNameTable.getInstance().getAccessLevelById(receiverId);
-		// if (level == AccessLevels._masterAccessLevelNum)
-		// accessLevel = AccessLevels._masterAccessLevel;
-		// else if (level == AccessLevels._userAccessLevelNum)
-		// {
-		// accessLevel = AccessLevels._userAccessLevel;
-		// }
-		// else
-		// {
-		// accessLevel = AccessLevels.getInstance().getAccessLevel(level);
-		// if (accessLevel == null)
-		// accessLevel = AccessLevels._userAccessLevel;
-		// }
-		//
-		// if (accessLevel.isGm() && !activeChar.getAccessLevel().isGm())
-		// {
-		// SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_MAIL_GM_C1);
-		// sm.addString(_receiver);
-		// activeChar.sendPacket(sm);
-		// return;
-		// }
+		
+		final int receiverAccessLevel = CharNameTable.getInstance().getAccessLevelByObjectId(receiverId);
+		
+		if (receiverAccessLevel >= Config.GM_MIN && !activeChar.isGM())
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_MAIL_GM_C1);
+			sm.addString(_receiver);
+			activeChar.sendPacket(sm);
+			return;
+		}
 		
 		if (MailManager.getInstance().getOutboxSize(activeChar.getObjectId()) >= OUTBOX_SIZE)
 		{

@@ -29,7 +29,9 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * @author Migi, DS
@@ -53,9 +55,8 @@ public final class RequestCancelPost extends L2GameClientPacket
 		if (activeChar == null || !Config.ALLOW_MAIL || !Config.ALLOW_ATTACHMENTS)
 			return;
 		
-		// FIXME 1.4.0
-		// if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("cancelpost"))
-		// return;
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.TRANSACTION))
+			return;
 		
 		Message msg = MailManager.getInstance().getMessage(_msgId);
 		if (msg == null)

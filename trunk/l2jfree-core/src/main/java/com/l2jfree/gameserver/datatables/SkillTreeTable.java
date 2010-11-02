@@ -172,8 +172,6 @@ public class SkillTreeTable
 					map.putAll(parentMap);
 				}
 
-				int prevSkillId = -1;
-
 				while (skilltree.next())
 				{
 					int id = skilltree.getInt("skill_id");
@@ -181,9 +179,6 @@ public class SkillTreeTable
 					String name = skilltree.getString("name");
 					int minLvl = skilltree.getInt("min_level");
 					int cost = skilltree.getInt("sp");
-
-					if (prevSkillId != id)
-						prevSkillId = id;
 
 					skillLearn = new L2SkillLearn(id, lvl, minLvl, name, cost, 0, 0);
 					map.put(SkillTable.getSkillUID(id, lvl), skillLearn);
@@ -221,8 +216,6 @@ public class SkillTreeTable
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, sp, min_level, costid, cost, isfordwarf FROM fishing_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree2 = statement.executeQuery();
 
-			int prevSkillId = -1;
-
 			while (skilltree2.next())
 			{
 				int id = skilltree2.getInt("skill_id");
@@ -233,9 +226,6 @@ public class SkillTreeTable
 				int costId = skilltree2.getInt("costid");
 				int costCount = skilltree2.getInt("cost");
 				int isDwarven = skilltree2.getInt("isfordwarf");
-
-				if (prevSkillId != id)
-					prevSkillId = id;
 
 				L2SkillLearn skill = new L2SkillLearn(id, lvl, minLvl, name, cost, costId, costCount);
 
@@ -300,8 +290,6 @@ public class SkillTreeTable
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, clan_lvl, repCost, itemId, itemCount FROM pledge_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree4 = statement.executeQuery();
 
-			int prevSkillId = -1;
-
 			while (skilltree4.next())
 			{
 				int id = skilltree4.getInt("skill_id");
@@ -311,9 +299,6 @@ public class SkillTreeTable
 				int sp = skilltree4.getInt("repCost");
 				int itemId = skilltree4.getInt("itemId");
 				long itemCount = skilltree4.getLong("itemCount");
-
-				if (prevSkillId != id)
-					prevSkillId = id;
 
 				L2PledgeSkillLearn skill = new L2PledgeSkillLearn(id, lvl, baseLvl, name, sp, itemId, itemCount);
 
@@ -339,8 +324,6 @@ public class SkillTreeTable
 			PreparedStatement statement = con.prepareStatement("SELECT race_id, skill_id, item_id, level, name, sp, min_level FROM transform_skill_trees ORDER BY race_id, skill_id, level");
 			ResultSet skilltree5 = statement.executeQuery();
 
-			int prevSkillId = -1;
-
 			while (skilltree5.next())
 			{
 				int race_id = skilltree5.getInt("race_id");
@@ -350,9 +333,6 @@ public class SkillTreeTable
 				String name = skilltree5.getString("name");
 				int sp = skilltree5.getInt("sp");
 				int min_level = skilltree5.getInt("min_level");
-
-				if (prevSkillId != skill_id)
-					prevSkillId = skill_id;
 
 				L2TransformSkillLearn skill = new L2TransformSkillLearn(race_id, skill_id, item_id, level, name, sp, min_level);
 
@@ -378,8 +358,6 @@ public class SkillTreeTable
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, costid, cost FROM special_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree6 = statement.executeQuery();
 
-			int prevSkillId = -1;
-
 			while (skilltree6.next())
 			{
 				int id = skilltree6.getInt("skill_id");
@@ -387,9 +365,6 @@ public class SkillTreeTable
 				String name = skilltree6.getString("name");
 				int costId = skilltree6.getInt("costid");
 				int costCount = skilltree6.getInt("cost");
-
-				if (prevSkillId != id)
-					prevSkillId = id;
 
 				L2SkillLearn skill = new L2SkillLearn(id, lvl, 0, name, 0, costId, costCount);
 
@@ -415,17 +390,12 @@ public class SkillTreeTable
 					.prepareStatement("SELECT skill_id, item_id, level, name FROM certification_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree6 = statement.executeQuery();
 
-			int prevSkillId = -1;
-
 			while (skilltree6.next())
 			{
 				int skill_id = skilltree6.getInt("skill_id");
 				int item_id = skilltree6.getInt("item_id");
 				int level = skilltree6.getInt("level");
 				String name = skilltree6.getString("name");
-
-				if (prevSkillId != skill_id)
-					prevSkillId = skill_id;
 
 				L2CertificationSkillsLearn skill = new L2CertificationSkillsLearn(skill_id, item_id, level, name);
 
@@ -711,6 +681,15 @@ public class SkillTreeTable
 			}
 		}
 		return result.moveToArray(new L2PledgeSkillLearn[result.size()]);
+	}
+	
+	public boolean isClanSkill(int skillId)
+	{
+		for (L2PledgeSkillLearn temp : _pledgeSkillTrees)
+			if (temp.getId() == skillId)
+				return true;
+		
+		return false;
 	}
 
 	public L2TransformSkillLearn[] getAvailableTransformSkills(L2PcInstance cha)
