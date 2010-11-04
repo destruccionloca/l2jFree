@@ -74,7 +74,7 @@ middle  = "<br><br>Your selection thus far: <br><br><table border=1 width=120 hi
 footer  = "</table></body></html>"
 loser   = "Wow! How unlucky can you get? Your choices are highlighted in red below. As you can see, your choices didn't make a single line! Losing this badly is actually quite rare!<br><br>You look so sad, I feel bad for you... Wait here...<br><br>.<br><br>.<br><br>.<br><br>Take this... I hope it will bring you better luck in the future.<br><br>"
 winner  = "Excellent! As you can see, you've formed three lines! Congratulations! As promised, I'll give you some unclaimed merchandise from the warehouse. Wait here...<br><br>.<br><br>.<br><br>.<br><br>Whew, it's dusty! OK, here you go. Do you like it?<br><br>"
-average = "Hum. Well, your choices are highlighted in red below. As you can see your choices didn't formed three lines... but you were near, so don't be sad. You can always get another few infernium ores and try again. Better luck in the future!<br><br>"
+average = "Oh, too bad. Your choices didn't form three lines. You should try again... Your choices are highlighted in red.<br><br>"
 
 def partial(st) :
     html = " number:<br><br>"
