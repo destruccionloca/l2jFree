@@ -40,9 +40,9 @@ import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2TradeList.L2TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -599,13 +599,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 			int itemID = Integer.parseInt(args[2]);
 			long price = Long.parseLong(args[3]);
 
-			L2ItemInstance newItem = ItemTable.getInstance().createDummyItem(itemID);
-			newItem.setPriceToSell(price);
-			newItem.setCount(-1);
+			L2TradeItem newItem = tradeList.new L2TradeItem(itemID, price, -1);
 			tradeList.addItem(newItem);
 			storeTradeList(itemID, price, tradeListID, order);
 
-			activeChar.sendMessage("Added " + newItem.getItem().getName() + " to Trade List " + tradeList.getListId());
+			activeChar.sendMessage("Added " + newItem.getItem().getName() + " to " + tradeList);
 			showShopList(activeChar, tradeListID, 1);
 			return;
 		}
@@ -744,13 +742,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 			int itemID = Integer.parseInt(args[2]);
 			int price = Integer.parseInt(args[3]);
 
-			L2ItemInstance newItem = ItemTable.getInstance().createDummyItem(itemID);
-			newItem.setPriceToSell(price);
-			newItem.setCount(-1);
+			L2TradeItem newItem = tradeList.new L2TradeItem(itemID, price, -1);
 			tradeList.addItem(newItem);
 			storeCustomTradeList(itemID, price, tradeListID, order);
 
-			activeChar.sendMessage("Added " + newItem.getItem().getName() + " to Trade List " + tradeList.getListId());
+			activeChar.sendMessage("Added " + newItem.getItem().getName() + " to " + tradeList);
 			showCustomShopList(activeChar, tradeListID, 1);
 			return;
 		}
@@ -816,11 +812,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
 		int start = ((page - 1) * PAGE_LIMIT);
 		int end = Math.min(((page - 1) * PAGE_LIMIT) + (PAGE_LIMIT - 1), tradeList.getItems().size() - 1);
-		for (L2ItemInstance item : tradeList.getItems(start, end + 1))
+		for (L2TradeItem item : tradeList.getItems(start, end + 1))
 		{
 			replyMSG.append("<tr><td><a action=\"bypass -h admin_editShopItem " + tradeList.getListId() + " " + item.getItemId() + "\">"
 					+ item.getItem().getName() + "</a></td>");
-			replyMSG.append("<td>" + item.getPriceToSell() + "</td>");
+			replyMSG.append("<td>" + item.getPrice() + "</td>");
 			replyMSG.append("<td><button value=\"Del\" action=\"bypass -h admin_delShopItem " + tradeList.getListId() + " " + item.getItemId()
 					+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			replyMSG.append("</tr>");
@@ -861,11 +857,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
 		int start = ((page - 1) * PAGE_LIMIT);
 		int end = Math.min(((page - 1) * PAGE_LIMIT) + (PAGE_LIMIT - 1), tradeList.getItems().size() - 1);
-		for (L2ItemInstance item : tradeList.getItems(start, end + 1))
+		for (L2TradeItem item : tradeList.getItems(start, end + 1))
 		{
 			replyMSG.append("<tr><td><a action=\"bypass -h admin_editCustomShopItem " + tradeList.getListId() + " " + item.getItemId() + "\">"
 					+ item.getItem().getName() + "</a></td>");
-			replyMSG.append("<td>" + item.getPriceToSell() + "</td>");
+			replyMSG.append("<td>" + item.getPrice() + "</td>");
 			replyMSG.append("<td><button value=\"Del\" action=\"bypass -h admin_delCustomShopItem " + tradeList.getListId() + " " + item.getItemId()
 					+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			replyMSG.append("</tr>");

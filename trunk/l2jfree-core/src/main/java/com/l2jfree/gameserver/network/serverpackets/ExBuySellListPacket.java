@@ -18,9 +18,9 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2TradeList.L2TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
@@ -32,7 +32,7 @@ public class ExBuySellListPacket extends L2GameServerPacket
 	private static final String _S__B7_ExBuySellListPacket = "[S] B7 ExBuySellListPacket";
 	
 	private final int _buyListId;
-	private final List<L2ItemInstance> _buyList = new FastList<L2ItemInstance>();
+	private final List<L2TradeItem> _buyList = new FastList<L2TradeItem>();
 	private final long _money;
 	private double _taxRate = 0;
 	private List<L2ItemInstance> _sellList = null;
@@ -43,7 +43,7 @@ public class ExBuySellListPacket extends L2GameServerPacket
 	{
 		_money = player.getAdena();
 		_buyListId = list.getListId();
-		for (L2ItemInstance item : list.getItems())
+		for (L2TradeItem item : list.getItems())
 		{
 			if (item.getCount() > 0 || item.getCount() == -1)
 				_buyList.add(item);
@@ -61,7 +61,7 @@ public class ExBuySellListPacket extends L2GameServerPacket
 		_money = player.getAdena();
 		_taxRate = taxRate;
 		_buyListId = list.getListId();
-		for (L2ItemInstance item : list.getItems())
+		for (L2TradeItem item : list.getItems())
 		{
 			if (item.getCount() > 0 || item.getCount() == -1)
 				_buyList.add(item);
@@ -83,11 +83,11 @@ public class ExBuySellListPacket extends L2GameServerPacket
 		
 		writeD(_buyListId);
 		writeH(_buyList.size());
-		for (L2ItemInstance item : _buyList)
+		for (L2TradeItem item : _buyList)
 		{
 			writeH(item.getItem().getType1());
 			writeD(0x00); // objectId
-			writeD(item.getItemId());
+			writeD(item.getItemDisplayId());
 			writeQ(item.getCount() >= 0 ? item.getCount() : 0);
 			writeH(item.getItem().getType2());
 			writeH(0x00); // ?
@@ -106,15 +106,10 @@ public class ExBuySellListPacket extends L2GameServerPacket
 				writeH(0x00);
 			}
 			
-			if (item.getItemId() >= 3960 && item.getItemId() <= 4026)// Config.RATE_SIEGE_GUARDS_PRICE-//'
-				writeQ((long)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _taxRate)));
-			else
-				writeQ((long)(item.getPriceToSell() * (1 + _taxRate)));
+			writeQ((long)(item.getPrice() * (1 + _taxRate)));
 			
 			// T1
-			for (byte i = 0; i < 8; i++)
-				writeH(0x00);
-			
+			writeElementalInfo(item);
 			writeEnchantEffectInfo();
 		}
 		

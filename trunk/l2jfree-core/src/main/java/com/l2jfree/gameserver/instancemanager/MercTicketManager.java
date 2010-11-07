@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -1243,6 +1244,11 @@ public class MercTicketManager
 	public final int[] getItemIds()
 	{
 		return _handlerIds;
+	}
+	
+	public final boolean isMercenary(int itemId)
+	{
+		return _mercenaries.containsKey(itemId);
 	}
 
 	/**

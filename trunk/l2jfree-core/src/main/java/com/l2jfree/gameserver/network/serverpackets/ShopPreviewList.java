@@ -14,11 +14,12 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2TradeList.L2TradeItem;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 
@@ -26,23 +27,22 @@ public class ShopPreviewList extends L2GameServerPacket
 {
 	private static final String S_F5_SHOPPREVIEWLIST = "[S] F5 ShopPreviewList";
 	private final int _listId;
-	private final L2ItemInstance[] _list;
+	private final Collection<L2TradeItem> _list;
 	private final long _money;
 	private int _expertise;
 
 	public ShopPreviewList(L2TradeList list, long currentMoney, int expertiseIndex)
 	{
 		_listId = list.getListId();
-		List<L2ItemInstance> lst = list.getItems();
-		_list = lst.toArray(new L2ItemInstance[lst.size()]);
+		_list = list.getItems();
 		_money = currentMoney;
 		_expertise = expertiseIndex;
 	}
 	
-	public ShopPreviewList(List<L2ItemInstance> lst, int listId, long currentMoney)
+	public ShopPreviewList(List<L2TradeItem> lst, int listId, long currentMoney)
 	{
 		_listId = listId;
-		_list = lst.toArray(new L2ItemInstance[lst.size()]);
+		_list = lst;
 		_money = currentMoney;
 	}
 	
@@ -58,14 +58,14 @@ public class ShopPreviewList extends L2GameServerPacket
 		writeD(_listId);
 		 
 		int newlength = 0;
-		for (L2ItemInstance item : _list)
+		for (L2TradeItem item : _list)
 		{
 			if (item.getItem().getCrystalType() <= _expertise && item.isEquipable())
 				newlength++;
 		}
 		writeH(newlength);
 		
-		for (L2ItemInstance item : _list)
+		for (L2TradeItem item : _list)
 		{
 			if (item.getItem().getCrystalType() <= _expertise && item.isEquipable())
 			{

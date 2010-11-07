@@ -14,41 +14,39 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.Collection;
 import java.util.List;
 
-import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2TradeList.L2TradeItem;
 
 public final class BuyList extends L2GameServerPacket
 {
 	private static final String		_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
 	private final int				_listId;
-	private final L2ItemInstance[]	_list;
+	private final Collection<L2TradeItem>		_list;
 	private final long				_money;
 	private double					_taxRate		= 1.;
 	
 	public BuyList(L2TradeList list, long currentMoney)
 	{
 		_listId = list.getListId();
-		List<L2ItemInstance> lst = list.getItems();
-		_list = lst.toArray(new L2ItemInstance[lst.size()]);
+		_list = list.getItems();
 		_money = currentMoney;
 	}
 	
 	public BuyList(L2TradeList list, long currentMoney, double taxRate)
 	{
 		_listId = list.getListId();
-		List<L2ItemInstance> lst = list.getItems();
-		_list = lst.toArray(new L2ItemInstance[lst.size()]);
+		_list = list.getItems();
 		_money = currentMoney;
 		_taxRate = taxRate;
 	}
 	
-	public BuyList(List<L2ItemInstance> lst, int listId, long currentMoney)
+	public BuyList(List<L2TradeItem> lst, int listId, long currentMoney)
 	{
 		_listId = listId;
-		_list = lst.toArray(new L2ItemInstance[lst.size()]);
+		_list = lst;
 		_money = currentMoney;
 	}
 	
@@ -62,26 +60,24 @@ public final class BuyList extends L2GameServerPacket
 		// current money
 		writeQ(_money);
 		writeD(_listId);
-		writeH(_list.length);
+		writeH(_list.size());
 		
-		for (L2ItemInstance item : _list)
+		for (L2TradeItem item : _list)
 		{
 			if (item.getCount() > 0 || item.getCount() == -1)
 			{
 				writeH(item.getItem().getType1()); // item type1
-				writeD(item.getObjectId());
+				writeD(0x00); // objectId
 				writeD(item.getItemDisplayId());
 				writeQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
 				writeH(item.getItem().getType2()); // item type2
-				writeH(item.getCustomType1()); // custom type1
+				writeH(0x00); // custom type1
 				writeD(item.getItem().getBodyPart());
-				writeH(item.getEnchantLevel()); // enchant level
-				writeH(item.getCustomType2()); // custom type2
+				writeH(0x00); // enchant level
+				writeH(0x00); // custom type2
 				writeH(0x00);
-				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)// Config.RATE_SIEGE_GUARDS_PRICE-//'
-					writeQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
-				else
-					writeQ((long) (item.getPriceToSell() * _taxRate));
+				
+				writeQ((long) (item.getPrice() * _taxRate));
 				writeElementalInfo(item);
 				writeEnchantEffectInfo();
 			}

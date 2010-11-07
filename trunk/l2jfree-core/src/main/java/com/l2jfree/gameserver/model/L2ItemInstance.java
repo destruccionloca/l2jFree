@@ -90,17 +90,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	/** Quantity of the item */
 	private long				_count;
 	
-	/** Initial Quantity of the item */
-	private long				_initCount;
-	
 	/** Remaining time (in miliseconds) */
 	private long				_time;
-	
-	/** Quantity of the item can decrease */
-	private boolean				_decrease					= false;
-	
-	/** For NPC buylists */
-	private int					_restoreTime				= -1;
 	
 	/** Object L2Item associated to the item */
 	private final L2Item		_item;
@@ -113,12 +104,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	
 	/** Level of enchantment of the item */
 	private int					_enchantLevel;
-	
-	/** Price of the item for selling */
-	private long				_priceSell;
-	
-	/** Price of the item for buying */
-	private long				_priceBuy;
 	
 	/** Wear Item */
 	private boolean				_wear;
@@ -353,7 +338,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 */
 	public boolean isEquipable()
 	{
-		return !(_item.getBodyPart() == 0 || _item instanceof L2EtcItem);
+		return _item.isEquipable();
 	}
 	
 	/**
@@ -562,50 +547,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public String getItemName()
 	{
 		return _item.getName();
-	}
-	
-	/**
-	 * Returns the price of the item for selling
-	 * 
-	 * @return long
-	 */
-	public long getPriceToSell()
-	{
-		return (isConsumable() ? (long) (_priceSell * Config.RATE_CONSUMABLE_COST) : _priceSell);
-	}
-	
-	/**
-	 * Sets the price of the item for selling <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
-	 * @param price :
-	 *            long designating the price
-	 */
-	public void setPriceToSell(long price)
-	{
-		_priceSell = price;
-		_storedInDb = false;
-	}
-	
-	/**
-	 * Returns the price of the item for buying
-	 * 
-	 * @return int
-	 */
-	public long getPriceToBuy()
-	{
-		return (isConsumable() ? (long) (_priceBuy * Config.RATE_CONSUMABLE_COST) : _priceBuy);
-	}
-	
-	/**
-	 * Sets the price of the item for buying <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
-	 * @param price :
-	 *            long
-	 */
-	public void setPriceToBuy(long price)
-	{
-		_priceBuy = price;
-		_storedInDb = false;
 	}
 	
 	/**
@@ -1603,42 +1544,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public boolean isNightLure()
 	{
 		return (getItemId() >= 8505 && getItemId() <= 8513) || getItemId() == 8485;
-	}
-	
-	public void setCountDecrease(boolean decrease)
-	{
-		_decrease = decrease;
-	}
-	
-	public boolean getCountDecrease()
-	{
-		return _decrease;
-	}
-	
-	public void setInitCount(long InitCount)
-	{
-		_initCount = InitCount;
-	}
-	
-	public long getInitCount()
-	{
-		return _initCount;
-	}
-	
-	public void restoreInitCount()
-	{
-		if (_decrease)
-			setCount(_initCount);
-	}
-	
-	public int getRestoreTime()
-	{
-		return _restoreTime;
-	}
-	
-	public void setRestoreTime(int time)
-	{
-		_restoreTime = time;
 	}
 	
 	public boolean isTimeLimitedItem()

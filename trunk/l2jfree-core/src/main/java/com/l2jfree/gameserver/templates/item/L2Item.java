@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.templates.item;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -470,7 +471,20 @@ public abstract class L2Item implements FuncOwner
 	 */
 	public final int getReferencePrice()
 	{
-		return (isConsumable() ? (int) (_referencePrice * Config.RATE_CONSUMABLE_COST) : _referencePrice);
+		return (int)(getPriceMulti() * _referencePrice);
+	}
+	
+	public final double getPriceMulti()
+	{
+		double multi = 1;
+		
+		if (MercTicketManager.getInstance().isMercenary(getItemId()))
+			multi *= Config.RATE_SIEGE_GUARDS_PRICE;
+		
+		if (isConsumable())
+			multi *= Config.RATE_CONSUMABLE_COST;
+		
+		return multi;
 	}
 
 	/**

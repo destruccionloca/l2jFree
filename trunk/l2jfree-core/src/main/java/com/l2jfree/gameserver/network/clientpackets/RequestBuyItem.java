@@ -18,9 +18,9 @@ import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2TradeList.L2TradeItem;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -178,15 +178,6 @@ public class RequestBuyItem extends L2GameClientPacket
 			
 			price = list.getPriceForItemId(i.getItemId());
 			
-			for (int item : MercTicketManager.getInstance().getItemIds())
-			{
-				if (i.getItemId() == item)
-				{
-					price *= Config.RATE_SIEGE_GUARDS_PRICE;
-					break;
-				}
-			}
-			
 			if (price < 0)
 			{
 				_log.warn("Error, no price found .. wrong buylist?");
@@ -263,7 +254,8 @@ public class RequestBuyItem extends L2GameClientPacket
 		// Proceed the purchase
 		for (Item i : _items)
 		{
-			if (!list.containsItemId(i.getItemId()))
+			final L2TradeItem tradeItem = list.getItemById(i.getItemId());
+			if (tradeItem == null)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
@@ -271,9 +263,9 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 			
-			if (list.countDecrease(i.getItemId()))
+			if (tradeItem.hasLimitedStock())
 			{
-				if (!list.decreaseCount(i.getItemId(), i.getCount()))
+				if (!tradeItem.decreaseCount(i.getCount()))
 				{
 					requestFailed(SystemMessageId.ITEM_OUT_OF_STOCK);
 					return;
