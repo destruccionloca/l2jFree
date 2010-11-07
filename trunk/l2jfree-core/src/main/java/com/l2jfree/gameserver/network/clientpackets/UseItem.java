@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
