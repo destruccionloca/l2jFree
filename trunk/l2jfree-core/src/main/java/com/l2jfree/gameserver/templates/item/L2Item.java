@@ -645,4 +645,14 @@ public abstract class L2Item implements FuncOwner
 	{
 		return null;
 	}
+	
+	public final boolean isNightLure()
+	{
+		return (8505 <= getItemId() && getItemId() <= 8513) || getItemId() == 8485;
+	}
+	
+	public final boolean isOlyRestrictedItem()
+	{
+		return Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(getItemId());
+	}
 }

@@ -1543,7 +1543,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	
 	public boolean isNightLure()
 	{
-		return (getItemId() >= 8505 && getItemId() <= 8513) || getItemId() == 8485;
+		return _item.isNightLure();
 	}
 	
 	public boolean isTimeLimitedItem()
@@ -1628,7 +1628,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 
 	public boolean isOlyRestrictedItem()
 	{
-		return (Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(getItemId()));
+		return _item.isOlyRestrictedItem();
 	}
 
 	@Override
