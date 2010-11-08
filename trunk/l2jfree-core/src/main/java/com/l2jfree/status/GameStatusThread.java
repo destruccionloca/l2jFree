@@ -145,7 +145,7 @@ public final class GameStatusThread extends Thread
 				}
 			}
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			if (Config.DEVELOPER)
 				telnetOutput(4, "");
