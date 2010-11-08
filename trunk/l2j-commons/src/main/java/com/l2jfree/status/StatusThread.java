@@ -31,6 +31,8 @@ import com.l2jfree.status.commands.GC;
 import com.l2jfree.status.commands.MemoryStatistics;
 import com.l2jfree.status.commands.Threads;
 import com.l2jfree.util.HandlerRegistry;
+import com.l2jfree.util.logging.ListeningLog;
+import com.l2jfree.util.logging.ListeningLog.LogListener;
 
 /**
  * @author NB4L1
@@ -38,6 +40,22 @@ import com.l2jfree.util.HandlerRegistry;
 public abstract class StatusThread extends Thread
 {
 	protected static final Log _log = LogFactory.getLog(StatusThread.class);
+	
+	static
+	{
+		ListeningLog.addListener(new LogListener() {
+			@Override
+			public void write(String s)
+			{
+				if (Thread.currentThread() instanceof StatusThread)
+				{
+					final StatusThread st = (StatusThread)Thread.currentThread();
+					
+					st.println(s);
+				}
+			}
+		});
+	}
 	
 	private final StatusServer _server;
 	private final Socket _socket;

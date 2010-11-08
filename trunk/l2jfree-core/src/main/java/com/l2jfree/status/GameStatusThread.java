@@ -18,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +32,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.L2Config;
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.LoginServerThread;
@@ -132,24 +130,18 @@ public final class GameStatusThread extends Thread
 
 		try
 		{
-			L2Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
-
-			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
-
 			if (Config.DEVELOPER)
 				telnetOutput(3, "Comparing ip to list...");
 
 			// compare
-			String ipToCompare = null;
-			for (String ip : HostList.split(","))
+			for (String hostAddress : L2Config.getAllowedTelnetHostAddresses())
 			{
 				if (!result)
 				{
-					ipToCompare = InetAddress.getByName(ip).getHostAddress();
-					if (clientStringIP.equals(ipToCompare))
+					if (clientStringIP.equals(hostAddress))
 						result = true;
 					if (Config.DEVELOPER)
-						telnetOutput(3, clientStringIP + " = " + ipToCompare + "(" + ip + ") = " + result);
+						telnetOutput(3, clientStringIP + " = " + hostAddress + " = " + result);
 				}
 			}
 		}

@@ -15,7 +15,6 @@
 package com.l2jfree.status;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
@@ -61,16 +60,9 @@ public abstract class StatusServer extends Thread
 		@Override
 		public boolean accept(String host)
 		{
-			try
-			{
-				for (String tmp : new L2Properties(L2Config.TELNET_FILE).getProperty("ListOfHosts").split(","))
-					if (host.equals(InetAddress.getByName(tmp.trim()).getHostAddress()))
-						return true;
-			}
-			catch (IOException e)
-			{
-				_log.warn("", e);
-			}
+			for (String hostAddress : L2Config.getAllowedTelnetHostAddresses())
+				if (host.equals(hostAddress))
+					return true;
 			
 			return false;
 		}

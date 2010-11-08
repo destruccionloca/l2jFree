@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -247,6 +248,41 @@ public abstract class L2Config
 
 	protected L2Config()
 	{
+	}
+	
+	public static Set<String> getAllowedTelnetHostAddresses()
+	{
+		final Set<String> set = new HashSet<String>();
+		
+		try
+		{
+			set.add(InetAddress.getLocalHost().getHostAddress());
+		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
+		}
+		
+		try
+		{
+			for (String host : new L2Properties(L2Config.TELNET_FILE).getProperty("ListOfHosts").split(","))
+			{
+				try
+				{
+					set.add(InetAddress.getByName(host.trim()).getHostAddress());
+				}
+				catch (Exception e)
+				{
+					_log.warn("", e);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
+		}
+		
+		return set;
 	}
 
 	private static final HandlerRegistry<String, ConfigLoader> _loaders = new HandlerRegistry<String, ConfigLoader>(true) {
