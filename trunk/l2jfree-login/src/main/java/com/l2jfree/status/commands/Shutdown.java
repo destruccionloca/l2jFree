@@ -14,12 +14,12 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.status.StatusCommand;
+import com.l2jfree.status.LoginStatusCommand;
 
 /**
  * @author NB4L1
  */
-public final class Shutdown extends StatusCommand
+public final class Shutdown extends LoginStatusCommand
 {
 	public Shutdown()
 	{

@@ -22,7 +22,7 @@ import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.thread.GameServerListener;
-import com.l2jfree.status.Status;
+import com.l2jfree.status.LoginStatusServer;
 
 public final class L2LoginServer extends Config
 {
@@ -61,7 +61,7 @@ public final class L2LoginServer extends Config
 		// o Start status telnet server
 		// --------------------------
 		if (Config.IS_TELNET_ENABLED)
-			Status.initInstance();
+			LoginStatusServer.initInstance();
 		else
 			_log.info("Telnet server is currently disabled.");
 		

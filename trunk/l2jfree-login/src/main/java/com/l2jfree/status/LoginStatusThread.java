@@ -31,7 +31,7 @@ import com.l2jfree.tools.codec.Base64;
 
 public final class LoginStatusThread extends StatusThread
 {
-	public LoginStatusThread(Status server, Socket socket) throws IOException
+	public LoginStatusThread(LoginStatusServer server, Socket socket) throws IOException
 	{
 		super(server, socket);
 		

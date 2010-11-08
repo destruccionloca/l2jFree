@@ -50,7 +50,7 @@ import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
 import com.l2jfree.loginserver.thread.GameServerThread;
 import com.l2jfree.network.ServerStatus;
-import com.l2jfree.status.Status;
+import com.l2jfree.status.LoginStatusServer;
 import com.l2jfree.tools.codec.Base64;
 import com.l2jfree.tools.math.ScrambledKeyPair;
 import com.l2jfree.tools.random.Rnd;
@@ -656,7 +656,7 @@ public class LoginManager
 
 				_logLogin.info("Account created: " + user);
 				_log.info("An account was newly created: " + user);
-				Status.tryBroadcast("Account created for player " + user);
+				LoginStatusServer.tryBroadcast("Account created for player " + user);
 
 				return true;
 

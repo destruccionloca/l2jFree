@@ -14,39 +14,37 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.loginserver.manager.BanManager;
-import com.l2jfree.status.LoginStatusCommand;
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.IrcManager;
+import com.l2jfree.status.GameStatusCommand;
 
-/**
- * @author NB4L1
- */
-public final class UnblockIP extends LoginStatusCommand
+public final class IrcC extends GameStatusCommand
 {
-	public UnblockIP()
+	public IrcC()
 	{
-		super("removes ip from ban list till restart", "unblock");
-	}
-	
-	@Override
-	protected void useCommand(String command, String params)
-	{
-		if (BanManager.getInstance().removeBanForAddress(params))
-		{
-			final String message = "The IP " + params + " has been removed from ban list till restart";
-			
-			println(message + "!");
-			
-			_log.warn(message + " via telnet by host: " + getHostAddress());
-		}
-		else
-		{
-			println("IP not found in ban list...");
-		}
+		super("sends a command to irc", "ircc");
 	}
 	
 	@Override
 	protected String getParameterUsage()
 	{
-		return "ip";
+		return "command";
+	}
+	
+	@Override
+	protected void useCommand(String command, String params)
+	{
+		if (Config.IRC_ENABLED)
+		{
+			try
+			{
+				IrcManager.getInstance().getConnection().send(params);
+			}
+			catch (Exception e)
+			{
+				if (_log.isDebugEnabled())
+					_log.debug(e.getMessage(), e);
+			}
+		}
 	}
 }

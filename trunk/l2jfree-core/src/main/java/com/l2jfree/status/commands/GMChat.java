@@ -14,39 +14,37 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.loginserver.manager.BanManager;
-import com.l2jfree.status.LoginStatusCommand;
+import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.status.GameStatusCommand;
 
-/**
- * @author NB4L1
- */
-public final class UnblockIP extends LoginStatusCommand
+public final class GMChat extends GameStatusCommand
 {
-	public UnblockIP()
+	public GMChat()
 	{
-		super("removes ip from ban list till restart", "unblock");
-	}
-	
-	@Override
-	protected void useCommand(String command, String params)
-	{
-		if (BanManager.getInstance().removeBanForAddress(params))
-		{
-			final String message = "The IP " + params + " has been removed from ban list till restart";
-			
-			println(message + "!");
-			
-			_log.warn(message + " via telnet by host: " + getHostAddress());
-		}
-		else
-		{
-			println("IP not found in ban list...");
-		}
+		super("sends a message to all GMs with <text>", "gmchat");
 	}
 	
 	@Override
 	protected String getParameterUsage()
 	{
-		return "ip";
+		return "text";
+	}
+	
+	@Override
+	protected void useCommand(String command, String params)
+	{
+		try
+		{
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from "
+					+ getHostAddress(), params);
+			GmListTable.broadcastToGMs(cs);
+			println("Your Message Has Been Sent To " + GmListTable.getAllGms(true).size() + " GM(s).");
+		}
+		catch (StringIndexOutOfBoundsException e)
+		{
+			println("Please Enter Some Text To Announce!");
+		}
 	}
 }

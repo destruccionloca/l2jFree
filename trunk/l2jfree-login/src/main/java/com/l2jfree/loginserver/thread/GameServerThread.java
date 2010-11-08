@@ -50,7 +50,7 @@ import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.network.LoginServerFailReason;
 import com.l2jfree.network.NetworkThread;
-import com.l2jfree.status.Status;
+import com.l2jfree.status.LoginStatusServer;
 import com.l2jfree.tools.network.SubNetHost;
 import com.l2jfree.tools.security.NewCrypt;
 
@@ -149,7 +149,7 @@ public class GameServerThread extends NetworkThread
 	
 	private void broadcastToTelnet(String msg)
 	{
-		Status.tryBroadcast(msg);
+		LoginStatusServer.tryBroadcast(msg);
 	}
 	
 	private void onReceiveBlowfishKey(byte[] data)

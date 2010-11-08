@@ -12,25 +12,18 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.status.commands;
+package com.l2jfree.status;
 
-import com.l2jfree.status.LoginStatusCommand;
-
-/**
- * @author NB4L1
- */
-public final class Restart extends LoginStatusCommand
+public abstract class GameStatusCommand extends StatusCommand
 {
-	public Restart()
+	protected GameStatusCommand(String description, String... commands)
 	{
-		super("restarts the server", "restart");
+		super(description, commands);
 	}
 	
 	@Override
-	protected void useCommand(String command, String params)
+	protected GameStatusThread getStatusThread()
 	{
-		Runtime.getRuntime().exit(2);
-		
-		getStatusThread().close();
+		return (GameStatusThread)Thread.currentThread();
 	}
 }

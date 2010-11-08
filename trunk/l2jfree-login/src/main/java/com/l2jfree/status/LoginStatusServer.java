@@ -12,25 +12,34 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.status.commands;
+package com.l2jfree.status;
 
-import com.l2jfree.status.LoginStatusCommand;
+import java.io.IOException;
+import java.net.Socket;
 
-/**
- * @author NB4L1
- */
-public final class Restart extends LoginStatusCommand
+public final class LoginStatusServer extends StatusServer
 {
-	public Restart()
+	private static LoginStatusServer _instance;
+	
+	public static void initInstance() throws IOException
 	{
-		super("restarts the server", "restart");
+		if (_instance == null)
+			_instance = new LoginStatusServer();
+	}
+	
+	public static void tryBroadcast(String message)
+	{
+		if (_instance != null)
+			_instance.broadcast(message);
+	}
+	
+	private LoginStatusServer() throws IOException
+	{
 	}
 	
 	@Override
-	protected void useCommand(String command, String params)
+	protected StatusThread newStatusThread(Socket socket) throws IOException
 	{
-		Runtime.getRuntime().exit(2);
-		
-		getStatusThread().close();
+		return new LoginStatusThread(this, socket);
 	}
 }

@@ -12,34 +12,31 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.status;
+package com.l2jfree.status.commands;
 
-import java.io.IOException;
-import java.net.Socket;
+import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.status.GameStatusCommand;
 
-public final class Status extends StatusServer
+public final class GMList extends GameStatusCommand
 {
-	private static Status _instance;
-	
-	public static void initInstance() throws IOException
+	public GMList()
 	{
-		if (_instance == null)
-			_instance = new Status();
-	}
-	
-	public static void tryBroadcast(String message)
-	{
-		if (_instance != null)
-			_instance.broadcast(message);
-	}
-	
-	private Status() throws IOException
-	{
+		super("lists all gms online", "gmlist");
 	}
 	
 	@Override
-	protected StatusThread newStatusThread(Socket socket) throws IOException
+	protected void useCommand(String command, String params)
 	{
-		return new LoginStatusThread(this, socket);
+		int igm = 0;
+		String gmList = "";
+		
+		for (String player : GmListTable.getAllGmNames(false))
+		{
+			gmList = gmList + ", " + player;
+			igm++;
+		}
+		println("There are currently " + igm + " GM(s) online...");
+		if (!gmList.isEmpty())
+			println(gmList);
 	}
 }

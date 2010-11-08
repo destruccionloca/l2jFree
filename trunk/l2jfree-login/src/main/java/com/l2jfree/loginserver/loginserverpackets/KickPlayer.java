@@ -14,7 +14,7 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-import com.l2jfree.status.Status;
+import com.l2jfree.status.LoginStatusServer;
 
 public final class KickPlayer extends LoginToGamePacket
 {
@@ -22,6 +22,6 @@ public final class KickPlayer extends LoginToGamePacket
 	{
 		super(0x04);
 		writeS(account);
-		Status.tryBroadcast("Player " + account + " was kicked.");
+		LoginStatusServer.tryBroadcast("Player " + account + " was kicked.");
 	}
 }

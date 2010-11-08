@@ -14,23 +14,44 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.status.LoginStatusCommand;
+import java.util.StringTokenizer;
 
-/**
- * @author NB4L1
- */
-public final class Restart extends LoginStatusCommand
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.IrcManager;
+import com.l2jfree.status.GameStatusCommand;
+
+public final class IrcM extends GameStatusCommand
 {
-	public Restart()
+	public IrcM()
 	{
-		super("restarts the server", "restart");
+		super("sends a message to irc", "ircm");
+	}
+	
+	@Override
+	protected String getParameterUsage()
+	{
+		return "target msg";
 	}
 	
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		Runtime.getRuntime().exit(2);
-		
-		getStatusThread().close();
+		if (Config.IRC_ENABLED)
+		{
+			String val = params;
+			try
+			{
+				StringTokenizer st = new StringTokenizer(val);
+				String name = st.nextToken();
+				String message = val.substring(name.length() + 1);
+				IrcManager.getInstance().getConnection().send(name, message);
+				
+			}
+			catch (Exception e)
+			{
+				if (_log.isDebugEnabled())
+					_log.debug(e.getMessage(), e);
+			}
+		}
 	}
 }

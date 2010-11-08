@@ -14,39 +14,19 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.loginserver.manager.BanManager;
-import com.l2jfree.status.LoginStatusCommand;
+import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.status.GameStatusCommand;
 
-/**
- * @author NB4L1
- */
-public final class UnblockIP extends LoginStatusCommand
+public final class Decay extends GameStatusCommand
 {
-	public UnblockIP()
+	public Decay()
 	{
-		super("removes ip from ban list till restart", "unblock");
+		super("TODO", "decay");
 	}
 	
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		if (BanManager.getInstance().removeBanForAddress(params))
-		{
-			final String message = "The IP " + params + " has been removed from ban list till restart";
-			
-			println(message + "!");
-			
-			_log.warn(message + " via telnet by host: " + getHostAddress());
-		}
-		else
-		{
-			println("IP not found in ban list...");
-		}
-	}
-	
-	@Override
-	protected String getParameterUsage()
-	{
-		return "ip";
+		print(DecayTaskManager.getInstance().getStats());
 	}
 }

@@ -17,12 +17,12 @@ package com.l2jfree.status.commands;
 import org.apache.commons.lang.StringUtils;
 
 import com.l2jfree.loginserver.manager.GameServerManager;
-import com.l2jfree.status.StatusCommand;
+import com.l2jfree.status.LoginStatusCommand;
 
 /**
  * @author NB4L1
  */
-public final class Statistics extends StatusCommand
+public final class Statistics extends LoginStatusCommand
 {
 	public Statistics()
 	{

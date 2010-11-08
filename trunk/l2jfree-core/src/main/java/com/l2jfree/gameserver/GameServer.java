@@ -152,7 +152,7 @@ import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.OfflineTradeManager;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.status.Status;
+import com.l2jfree.status.GameStatusServer;
 import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
@@ -174,7 +174,7 @@ public class GameServer extends Config
 		Util.printSection("World");
 		L2World.getInstance();
 		if (Config.IS_TELNET_ENABLED)
-			new Status().start();
+			GameStatusServer.initInstance();
 		else
 			_log.info("Telnet Server is currently disabled.");
 		IrcCommandHandler.getInstance();

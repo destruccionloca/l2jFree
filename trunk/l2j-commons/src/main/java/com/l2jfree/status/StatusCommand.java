@@ -60,7 +60,7 @@ public abstract class StatusCommand
 		return null;
 	}
 	
-	protected final StatusThread getStatusThread()
+	protected StatusThread getStatusThread()
 	{
 		return (StatusThread)Thread.currentThread();
 	}

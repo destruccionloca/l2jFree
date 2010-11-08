@@ -14,39 +14,48 @@
  */
 package com.l2jfree.status.commands;
 
-import com.l2jfree.loginserver.manager.BanManager;
-import com.l2jfree.status.LoginStatusCommand;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.status.GameStatusCommand;
 
-/**
- * @author NB4L1
- */
-public final class UnblockIP extends LoginStatusCommand
+public final class IP extends GameStatusCommand
 {
-	public UnblockIP()
+	public IP()
 	{
-		super("removes ip from ban list till restart", "unblock");
-	}
-	
-	@Override
-	protected void useCommand(String command, String params)
-	{
-		if (BanManager.getInstance().removeBanForAddress(params))
-		{
-			final String message = "The IP " + params + " has been removed from ban list till restart";
-			
-			println(message + "!");
-			
-			_log.warn(message + " via telnet by host: " + getHostAddress());
-		}
-		else
-		{
-			println("IP not found in ban list...");
-		}
+		super("gets IP of player <name>", "ip");
 	}
 	
 	@Override
 	protected String getParameterUsage()
 	{
-		return "ip";
+		return "name";
+	}
+	
+	@Override
+	protected void useCommand(String command, String params)
+	{
+		try
+		{
+			L2PcInstance player = L2World.getInstance().getPlayer(params);
+			if (player != null)
+			{
+				try
+				{
+					println("IP of " + player + ": " + player.getClient().getHostAddress());
+				}
+				catch (RuntimeException e)
+				{
+					println(e.toString());
+				}
+			}
+			else
+			{
+				println("No player online with that name!");
+			}
+		}
+		catch (StringIndexOutOfBoundsException e)
+		{
+			println("Please enter player name to get IP");
+		}
 	}
 }
