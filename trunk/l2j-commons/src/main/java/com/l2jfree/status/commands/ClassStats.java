@@ -25,6 +25,11 @@ import com.l2jfree.util.concurrent.RunnableStatsManager.SortBy;
  */
 public final class ClassStats extends StatusCommand
 {
+	public ClassStats()
+	{
+		super("dump runnable stats", "class");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
@@ -40,20 +45,6 @@ public final class ClassStats extends StatusCommand
 		RunnableStatsManager.dumpClassStats(sortBy);
 		
 		println("Runnable stats dumped...");
-	}
-	
-	private static final String[] COMMANDS = { "class" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "dump runnable stats";
 	}
 	
 	@Override

@@ -22,6 +22,11 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class UnblockIP extends StatusCommand
 {
+	public UnblockIP()
+	{
+		super("removes ip from ban list till restart", "unblock");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
@@ -39,24 +44,9 @@ public final class UnblockIP extends StatusCommand
 		}
 	}
 	
-	private static final String[] COMMANDS = { "unblock" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "removes ip from ban list till restart";
-	}
-	
 	@Override
 	protected String getParameterUsage()
 	{
 		return "ip";
 	}
-	
 }

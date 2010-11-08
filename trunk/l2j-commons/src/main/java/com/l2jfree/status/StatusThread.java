@@ -227,29 +227,25 @@ public abstract class StatusThread extends Thread
 	
 	private final class Quit extends StatusCommand
 	{
+		public Quit()
+		{
+			super("closes telnet session", "quit", "exit");
+		}
+		
 		@Override
 		protected void useCommand(String command, String params)
 		{
 			close();
 		}
-		
-		private final String[] COMMANDS = { "quit", "exit" };
-		
-		@Override
-		protected String[] getCommands()
-		{
-			return COMMANDS;
-		}
-		
-		@Override
-		protected String getDescription()
-		{
-			return "closes telnet session";
-		}
 	}
 	
 	private final class Help extends StatusCommand
 	{
+		public Help()
+		{
+			super("shows this help", "help");
+		}
+		
 		@Override
 		protected void useCommand(String command, String params)
 		{
@@ -277,20 +273,6 @@ public abstract class StatusThread extends Thread
 					print(String.format(format, "")).print("   \t").print(entry.getKey()).print(" <").print(parameterUsage).println(">");
 			}
 			println();
-		}
-		
-		private final String[] COMMANDS = { "help" };
-		
-		@Override
-		protected String[] getCommands()
-		{
-			return COMMANDS;
-		}
-		
-		@Override
-		protected String getDescription()
-		{
-			return "shows this help";
 		}
 	}
 }

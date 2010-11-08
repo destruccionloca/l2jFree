@@ -24,6 +24,11 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class Statistics extends StatusCommand
 {
+	public Statistics()
+	{
+		super("displays basic server statistics", "status", "stats");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
@@ -33,19 +38,5 @@ public final class Statistics extends StatusCommand
 			+ StringUtils.join(GameServerManager.getInstance().getRegisteredGameServers().keySet().iterator(), ", "));
 		
 		// TODO add more details
-	}
-	
-	private static final String[] COMMANDS = { "status", "stats" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "displays basic server statistics";
 	}
 }

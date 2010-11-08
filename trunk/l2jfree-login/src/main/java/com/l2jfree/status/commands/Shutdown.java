@@ -21,25 +21,16 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class Shutdown extends StatusCommand
 {
+	public Shutdown()
+	{
+		super("shuts down the server", "shutdown");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
 		Runtime.getRuntime().exit(0);
 		
 		getStatusThread().close();
-	}
-	
-	private static final String[] COMMANDS = { "shutdown" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "shuts down the server";
 	}
 }

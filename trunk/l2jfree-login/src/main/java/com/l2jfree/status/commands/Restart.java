@@ -21,25 +21,16 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class Restart extends StatusCommand
 {
+	public Restart()
+	{
+		super("restarts the server", "restart");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
 		Runtime.getRuntime().exit(2);
 		
 		getStatusThread().close();
-	}
-	
-	private static final String[] COMMANDS = { "restart" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "restarts the server";
 	}
 }

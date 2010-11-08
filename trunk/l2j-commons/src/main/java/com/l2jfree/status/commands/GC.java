@@ -21,6 +21,11 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class GC extends StatusCommand
 {
+	public GC()
+	{
+		super("garbage collection and finalization", "gc");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
@@ -49,19 +54,5 @@ public final class GC extends StatusCommand
 		println();
 		
 		printMemoryStatistics();
-	}
-	
-	private static final String[] COMMANDS = { "gc" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "garbage collection and finalization";
 	}
 }

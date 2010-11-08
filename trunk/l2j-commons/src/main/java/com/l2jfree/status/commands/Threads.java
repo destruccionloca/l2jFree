@@ -22,25 +22,16 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class Threads extends StatusCommand
 {
+	public Threads()
+	{
+		super("dump thread stats", "threads");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
 		L2Thread.dumpThreads();
 		
 		println("Threads dumped...");
-	}
-	
-	private static final String[] COMMANDS = { "threads" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "dump thread stats";
 	}
 }

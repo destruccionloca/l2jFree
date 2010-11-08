@@ -21,23 +21,14 @@ import com.l2jfree.status.StatusCommand;
  */
 public final class MemoryStatistics extends StatusCommand
 {
+	public MemoryStatistics()
+	{
+		super("show memory stats", "printmemusage");
+	}
+	
 	@Override
 	protected void useCommand(String command, String params)
 	{
 		printMemoryStatistics();
-	}
-	
-	private static final String[] COMMANDS = { "printmemusage" };
-	
-	@Override
-	protected String[] getCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	protected String getDescription()
-	{
-		return "show memory stats";
 	}
 }

@@ -29,16 +29,31 @@ public abstract class StatusCommand
 {
 	protected static final Log _log = LogFactory.getLog(StatusCommand.class);
 	
+	private final String _description;
+	private final String[] _commands;
+	
+	protected StatusCommand(String description, String... commands)
+	{
+		_description = description;
+		_commands = commands;
+	}
+	
 	protected abstract void useCommand(String command, String params);
 	
-	protected abstract String[] getCommands();
+	protected final String[] getCommands()
+	{
+		return _commands;
+	}
 	
 	protected final String listCommands()
 	{
 		return StringUtils.join(getCommands(), "|");
 	}
 	
-	protected abstract String getDescription();
+	protected final String getDescription()
+	{
+		return _description;
+	}
 	
 	protected String getParameterUsage()
 	{
