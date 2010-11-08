@@ -68,7 +68,6 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	private SessionKey _sessionKey;
 	private final int _sessionId = Rnd.nextInt(Integer.MAX_VALUE);
 	private boolean _joinedGS;
-	private final String _ip;
 	
 	private boolean _card;
 	
@@ -76,8 +75,6 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 			SocketChannel socketChannel) throws ClosedChannelException
 	{
 		super(selectorThread, socketChannel);
-		
-		_ip = getInetAddress().getHostAddress();
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
@@ -96,7 +93,7 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	
 	public String getIp()
 	{
-		return _ip;
+		return getHostAddress();
 	}
 	
 	@Override

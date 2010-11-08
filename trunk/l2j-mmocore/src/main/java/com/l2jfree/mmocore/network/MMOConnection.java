@@ -16,6 +16,7 @@ package com.l2jfree.mmocore.network;
 
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
 import java.nio.channels.ClosedChannelException;
@@ -34,6 +35,8 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	private final SelectorThread<T, RP, SP> _selectorThread;
 	private final ReadWriteThread<T, RP, SP> _readWriteThread;
 	private final Socket _socket;
+	private InetAddress _inetAddress;
+	private String _hostAddress;
 	
 	private FastList<SP> _sendQueue;
 	private final SelectionKey _selectionKey;
@@ -51,6 +54,8 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		_selectorThread = selectorThread;
 		_readWriteThread = getSelectorThread().getReadWriteThread();
 		_socket = socketChannel.socket();
+		_inetAddress = _socket.getInetAddress();
+		_hostAddress = _inetAddress.getHostAddress();
 		_selectionKey = socketChannel.register(getReadWriteThread().getSelector(), SelectionKey.OP_READ);
 		_selectionKey.attach(this);
 	}
@@ -117,7 +122,25 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	
 	public final InetAddress getInetAddress()
 	{
-		return _socket.getInetAddress();
+		return _inetAddress;
+	}
+	
+	public final String getHostAddress()
+	{
+		return _hostAddress;
+	}
+	
+	public final void setHostAddress(String hostAddress)
+	{
+		try
+		{
+			_inetAddress = InetAddress.getByName(hostAddress);
+			_hostAddress = _inetAddress.getHostAddress();
+		}
+		catch (UnknownHostException e)
+		{
+			SelectorThread._log.warn("", e);
+		}
 	}
 	
 	final WritableByteChannel getWritableChannel()
@@ -280,6 +303,6 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	{
 		final String UID = getUID();
 		
-		return UID == null || UID.isEmpty() ? _socket.getInetAddress().getHostAddress() : UID;
+		return UID == null || UID.isEmpty() ? getHostAddress() : UID;
 	}
 }
