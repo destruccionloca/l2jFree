@@ -7,7 +7,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "317_CatchTheWind"
 
 WIND_SHARD = 1078
-ADENA = 57
+ADENA      = 57
 
 class Quest (JQuest) :
 

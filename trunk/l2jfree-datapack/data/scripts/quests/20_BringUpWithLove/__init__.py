@@ -11,7 +11,7 @@ qn = "20_BringUpWithLove"
 TUNATUN = 31537
 
 #ITEMS 
-GEM = 7185
+GEM      = 7185
 ADENA_ID = 57
 
 #NOTE: This quest requires the giving of item GEM upon successful growth and taming of a wild beast, so the rewarding of
