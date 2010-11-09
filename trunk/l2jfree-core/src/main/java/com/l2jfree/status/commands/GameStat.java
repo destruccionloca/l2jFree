@@ -24,58 +24,57 @@ public final class GameStat extends GameStatusCommand
 {
 	public GameStat()
 	{
-		super("TODO", "gamestat");
+		super("shows various ingame stats", "gamestat");
+	}
+	
+	@Override
+	protected String getParameterUsage()
+	{
+		return "privatestore";
 	}
 	
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		String type = params;
+		
+		// name;type;x;y;itemId:enchant:price...
+		if (type.equals("privatestore"))
 		{
-			String type = params;
-			
-			// name;type;x;y;itemId:enchant:price...
-			if (type.equals("privatestore"))
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+				if (player.getPrivateStoreType() == 0)
+					continue;
+				
+				TradeList list = null;
+				String content = "";
+				
+				if (player.getPrivateStoreType() == 1) // sell
 				{
-					if (player.getPrivateStoreType() == 0)
-						continue;
-					
-					TradeList list = null;
-					String content = "";
-					
-					if (player.getPrivateStoreType() == 1) // sell
+					list = player.getSellList();
+					for (TradeItem item : list.getItems())
 					{
-						list = player.getSellList();
-						for (TradeItem item : list.getItems())
-						{
-							content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice()
-									+ ":";
-						}
-						content = player.getName() + ";" + "sell;" + player.getX() + ";" + player.getY() + ";"
-								+ content;
-						println(content);
-						continue;
+						content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice() + ":";
 					}
-					else if (player.getPrivateStoreType() == 3) // buy
-					{
-						list = player.getBuyList();
-						for (TradeItem item : list.getItems())
-						{
-							content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice()
-									+ ":";
-						}
-						content = player.getName() + ";" + "buy;" + player.getX() + ";" + player.getY() + ";" + content;
-						println(content);
-						continue;
-					}
-					
+					content = player.getName() + ";" + "sell;" + player.getX() + ";" + player.getY() + ";" + content;
+					println(content);
+					continue;
 				}
+				else if (player.getPrivateStoreType() == 3) // buy
+				{
+					list = player.getBuyList();
+					for (TradeItem item : list.getItems())
+					{
+						content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice() + ":";
+					}
+					content = player.getName() + ";" + "buy;" + player.getX() + ";" + player.getY() + ";" + content;
+					println(content);
+					continue;
+				}
+				
 			}
 		}
-		catch (Exception e)
-		{
-		}
+		else
+			throw new IllegalArgumentException();
 	}
 }

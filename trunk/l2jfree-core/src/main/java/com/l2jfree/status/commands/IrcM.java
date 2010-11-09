@@ -39,19 +39,11 @@ public final class IrcM extends GameStatusCommand
 		if (Config.IRC_ENABLED)
 		{
 			String val = params;
-			try
-			{
-				StringTokenizer st = new StringTokenizer(val);
-				String name = st.nextToken();
-				String message = val.substring(name.length() + 1);
-				IrcManager.getInstance().getConnection().send(name, message);
-				
-			}
-			catch (Exception e)
-			{
-				if (_log.isDebugEnabled())
-					_log.debug(e.getMessage(), e);
-			}
+			
+			StringTokenizer st = new StringTokenizer(val);
+			String name = st.nextToken();
+			String message = val.substring(name.length() + 1);
+			IrcManager.getInstance().getConnection().send(name, message);
 		}
 	}
 }

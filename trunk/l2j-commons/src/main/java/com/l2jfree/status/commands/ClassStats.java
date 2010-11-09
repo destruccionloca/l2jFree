@@ -34,13 +34,9 @@ public final class ClassStats extends StatusCommand
 	protected void useCommand(String command, String params)
 	{
 		SortBy sortBy = null;
-		try
-		{
+		
+		if (!params.isEmpty())
 			sortBy = SortBy.valueOf(params.toUpperCase());
-		}
-		catch (Exception e)
-		{
-		}
 		
 		RunnableStatsManager.dumpClassStats(sortBy);
 		
@@ -50,6 +46,6 @@ public final class ClassStats extends StatusCommand
 	@Override
 	protected String getParameterUsage()
 	{
-		return StringUtils.join(SortBy.values(), "|").toLowerCase();
+		return "[" + StringUtils.join(SortBy.values(), "|").toLowerCase() + "]";
 	}
 }

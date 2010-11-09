@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.status.GameStatusCommand;
 
 public final class Enchant extends GameStatusCommand
@@ -43,85 +44,74 @@ public final class Enchant extends GameStatusCommand
 	protected void useCommand(String command, String params)
 	{
 		StringTokenizer st = new StringTokenizer(params, " ");
-		int enchant = 0, itemType = 0;
 		
-		try
+		L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
+		int itemType = Integer.parseInt(st.nextToken());
+		int enchant = Integer.parseInt(st.nextToken());
+		
+		switch (itemType)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
-			itemType = Integer.parseInt(st.nextToken());
-			enchant = Integer.parseInt(st.nextToken());
-			
-			switch (itemType)
-			{
-				case 1:
-					itemType = Inventory.PAPERDOLL_HEAD;
-					break;
-				case 2:
-					itemType = Inventory.PAPERDOLL_CHEST;
-					break;
-				case 3:
-					itemType = Inventory.PAPERDOLL_GLOVES;
-					break;
-				case 4:
-					itemType = Inventory.PAPERDOLL_FEET;
-					break;
-				case 5:
-					itemType = Inventory.PAPERDOLL_LEGS;
-					break;
-				case 6:
-					itemType = Inventory.PAPERDOLL_RHAND;
-					break;
-				case 7:
-					itemType = Inventory.PAPERDOLL_LHAND;
-					break;
-				case 8:
-					itemType = Inventory.PAPERDOLL_LEAR;
-					break;
-				case 9:
-					itemType = Inventory.PAPERDOLL_REAR;
-					break;
-				case 10:
-					itemType = Inventory.PAPERDOLL_LFINGER;
-					break;
-				case 11:
-					itemType = Inventory.PAPERDOLL_RFINGER;
-					break;
-				case 12:
-					itemType = Inventory.PAPERDOLL_NECK;
-					break;
-				case 13:
-					itemType = Inventory.PAPERDOLL_UNDER;
-					break;
-				case 14:
-					itemType = Inventory.PAPERDOLL_BACK;
-					break;
-				case 15:
-					itemType = Inventory.PAPERDOLL_BELT;
-					break;
-				default:
-					itemType = 0;
-			}
-			
-			if (enchant > 65535)
-				enchant = 65535;
-			else if (enchant < 0)
-				enchant = 0;
-			
-			boolean success = false;
-			
-			if (player != null && itemType > 0)
-			{
-				success = setEnchant(player, enchant, itemType);
-				if (success)
-					println("Item enchanted successfully.");
-			}
-			else if (!success)
-				println("Item failed to enchant.");
+			case 1:
+				itemType = Inventory.PAPERDOLL_HEAD;
+				break;
+			case 2:
+				itemType = Inventory.PAPERDOLL_CHEST;
+				break;
+			case 3:
+				itemType = Inventory.PAPERDOLL_GLOVES;
+				break;
+			case 4:
+				itemType = Inventory.PAPERDOLL_FEET;
+				break;
+			case 5:
+				itemType = Inventory.PAPERDOLL_LEGS;
+				break;
+			case 6:
+				itemType = Inventory.PAPERDOLL_RHAND;
+				break;
+			case 7:
+				itemType = Inventory.PAPERDOLL_LHAND;
+				break;
+			case 8:
+				itemType = Inventory.PAPERDOLL_LEAR;
+				break;
+			case 9:
+				itemType = Inventory.PAPERDOLL_REAR;
+				break;
+			case 10:
+				itemType = Inventory.PAPERDOLL_LFINGER;
+				break;
+			case 11:
+				itemType = Inventory.PAPERDOLL_RFINGER;
+				break;
+			case 12:
+				itemType = Inventory.PAPERDOLL_NECK;
+				break;
+			case 13:
+				itemType = Inventory.PAPERDOLL_UNDER;
+				break;
+			case 14:
+				itemType = Inventory.PAPERDOLL_BACK;
+				break;
+			case 15:
+				itemType = Inventory.PAPERDOLL_BELT;
+				break;
+			default:
+				itemType = 0;
+				break;
 		}
-		catch (Exception e)
-		{
-			
-		}
+		
+		enchant = L2Math.limit(0, enchant, 65535);
+		
+		boolean success = false;
+		
+		if (player != null && itemType > 0)
+			success = setEnchant(player, enchant, itemType);
+		
+		if (success)
+			println("Item enchanted successfully.");
+		else
+			println("Item failed to enchant.");
 	}
 	
 	private boolean setEnchant(L2PcInstance activeChar, int ench, int armorType)
@@ -167,8 +157,7 @@ public final class Enchant extends GameStatusCommand
 			
 			String IP = getHostAddress();
 			// log
-			GMAudit.auditGMAction(IP, activeChar.getName(), "telnet-enchant", "telnet-enchant", itemInstance.getItem()
-					.getName()
+			GMAudit.auditGMAction(IP, activeChar.getName(), "telnet-enchant", "telnet-enchant", itemInstance.getName()
 					+ "(" + itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
 			return true;
 		}

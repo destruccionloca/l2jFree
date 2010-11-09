@@ -17,7 +17,6 @@ package com.l2jfree.status.commands;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2World;
@@ -28,7 +27,7 @@ public final class Unjail extends GameStatusCommand
 {
 	public Unjail()
 	{
-		super("", "unjail");
+		super("unjails given player", "unjail");
 	}
 	
 	@Override
@@ -40,29 +39,17 @@ public final class Unjail extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		String name = params;
+		L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
+		
+		if (playerObj != null)
 		{
-			String name = params;
-			L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
-			
-			if (playerObj != null)
-			{
-				playerObj.stopJailTask(false);
-				playerObj.setInJail(false, 0);
-				println("Character " + name + " removed from jail");
-			}
-			else
-				unjailOfflinePlayer(name);
+			playerObj.stopJailTask(false);
+			playerObj.setInJail(false, 0);
+			println("Character " + name + " removed from jail");
 		}
-		catch (NoSuchElementException nsee)
-		{
-			println("Specify a character name.");
-		}
-		catch (Exception e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
+		else
+			unjailOfflinePlayer(name);
 	}
 	
 	private void unjailOfflinePlayer(String name)
@@ -70,7 +57,7 @@ public final class Unjail extends GameStatusCommand
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			
 			PreparedStatement statement = con
 					.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
@@ -81,8 +68,7 @@ public final class Unjail extends GameStatusCommand
 			statement.setLong(5, 0);
 			statement.setString(6, name);
 			
-			statement.execute();
-			int count = statement.getUpdateCount();
+			int count = statement.executeUpdate();
 			statement.close();
 			
 			if (count == 0)
@@ -90,11 +76,9 @@ public final class Unjail extends GameStatusCommand
 			else
 				println("Character " + name + " set free.");
 		}
-		catch (SQLException se)
+		catch (SQLException e)
 		{
-			println("SQLException while jailing player");
-			if (_log.isDebugEnabled())
-				_log.warn("SQLException while jailing player", se);
+			throw new RuntimeException(e);
 		}
 		finally
 		{

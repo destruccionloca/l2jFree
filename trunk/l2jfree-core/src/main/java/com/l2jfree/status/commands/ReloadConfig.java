@@ -21,13 +21,13 @@ public final class ReloadConfig extends GameStatusCommand
 {
 	public ReloadConfig()
 	{
-		super("", "reload_config");
+		super("reloads given config", "reload_config");
 	}
 	
 	@Override
 	protected String getParameterUsage()
 	{
-		return "file";
+		return L2Config.getLoaderNames();
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public final class ReloadConfig extends GameStatusCommand
 		}
 		catch (Exception e)
 		{
-			println("Usage:  reload_config <" + L2Config.getLoaderNames() + ">");
+			throw new RuntimeException(e);
 		}
 	}
 }

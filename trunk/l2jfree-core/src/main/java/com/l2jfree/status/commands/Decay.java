@@ -21,7 +21,7 @@ public final class Decay extends GameStatusCommand
 {
 	public Decay()
 	{
-		super("TODO", "decay");
+		super("shows decay task manager stats", "decay");
 	}
 	
 	@Override

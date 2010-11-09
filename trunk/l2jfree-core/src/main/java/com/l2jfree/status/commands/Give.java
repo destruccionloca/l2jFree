@@ -14,6 +14,7 @@
  */
 package com.l2jfree.status.commands;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
@@ -31,7 +32,7 @@ public final class Give extends GameStatusCommand
 {
 	public Give()
 	{
-		super("", "give");
+		super("gives item to player", "give");
 	}
 	
 	@Override
@@ -46,56 +47,61 @@ public final class Give extends GameStatusCommand
 		StringTokenizer st = new StringTokenizer(params);
 		
 		String playername = st.nextToken();
-		try
+		
+		L2PcInstance player = L2World.getInstance().getPlayer(playername);
+		int itemId = Integer.parseInt(st.nextToken());
+		int amount = Integer.parseInt(st.nextToken());
+		
+		if (player != null)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(playername);
-			int itemId = Integer.parseInt(st.nextToken());
-			int amount = Integer.parseInt(st.nextToken());
-			
-			if (player != null)
+			L2ItemInstance item = player.getInventory().addItem("Status-Give", itemId, amount, null, null);
+			InventoryUpdate iu = new InventoryUpdate();
+			iu.addItem(item);
+			player.sendPacket(iu);
+			player.sendItemPickedUpMessage(item);
+			println("ok - was online");
+		}
+		else
+		{
+			Integer playerId = CharNameTable.getInstance().getObjectIdByName(playername);
+			if (playerId != null)
 			{
-				L2ItemInstance item = player.getInventory().addItem("Status-Give", itemId, amount, null, null);
-				InventoryUpdate iu = new InventoryUpdate();
-				iu.addItem(item);
-				player.sendPacket(iu);
-				player.sendItemPickedUpMessage(item);
-				println("ok - was online");
+				addItemToInventory(playerId, IdFactory.getInstance().getNextId(), itemId, amount, 0);
+				println("ok - was offline");
 			}
 			else
 			{
-				Integer playerId = CharNameTable.getInstance().getObjectIdByName(playername);
-				if (playerId != null)
-				{
-					java.sql.Connection con = null;
-					con = L2DatabaseFactory.getInstance().getConnection(con);
-					addItemToInventory(con, playerId, IdFactory.getInstance().getNextId(), itemId, amount, 0);
-					println("ok - was offline");
-				}
-				else
-				{
-					println("player not found");
-				}
+				println("player not found");
 			}
-		}
-		catch (Exception e)
-		{
-			
 		}
 	}
 	
-	private void addItemToInventory(java.sql.Connection con, int charId, int objectId, int currency, long count,
-			int enchantLevel) throws SQLException
+	private void addItemToInventory(int charId, int objectId, int currency, long count, int enchantLevel)
 	{
-		PreparedStatement statement = con
-				.prepareStatement("INSERT INTO items (owner_id, object_id, item_id, count, enchant_level, loc, loc_data) VALUES (?,?,?,?,?,?,?)");
-		statement.setInt(1, charId);
-		statement.setInt(2, objectId);
-		statement.setInt(3, currency);
-		statement.setLong(4, count);
-		statement.setInt(5, enchantLevel);
-		statement.setString(6, "INVENTORY");
-		statement.setInt(7, 0);
-		statement.execute();
-		statement.close();
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			
+			PreparedStatement statement = con
+					.prepareStatement("INSERT INTO items (owner_id, object_id, item_id, count, enchant_level, loc, loc_data) VALUES (?,?,?,?,?,?,?)");
+			statement.setInt(1, charId);
+			statement.setInt(2, objectId);
+			statement.setInt(3, currency);
+			statement.setLong(4, count);
+			statement.setInt(5, enchantLevel);
+			statement.setString(6, "INVENTORY");
+			statement.setInt(7, 0);
+			statement.execute();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

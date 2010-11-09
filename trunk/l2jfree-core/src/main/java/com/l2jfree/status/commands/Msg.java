@@ -39,32 +39,25 @@ public final class Msg extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		String val = params;
+		StringTokenizer st = new StringTokenizer(val);
+		String name = st.nextToken();
+		String message = val.substring(name.length() + 1);
+		L2PcInstance reciever = L2World.getInstance().getPlayer(name);
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, "Telnet Priv", message);
+		if (Config.ALT_TELNET)
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, getStatusThread().getGM() + "(offline)", message);
+		if (reciever != null)
 		{
-			String val = params;
-			StringTokenizer st = new StringTokenizer(val);
-			String name = st.nextToken();
-			String message = val.substring(name.length() + 1);
-			L2PcInstance reciever = L2World.getInstance().getPlayer(name);
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, "Telnet Priv", message);
+			reciever.sendPacket(cs);
+			println("Telnet Priv->" + name + ": " + message);
 			if (Config.ALT_TELNET)
-				cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, getStatusThread().getGM() + "(offline)", message);
-			if (reciever != null)
-			{
-				reciever.sendPacket(cs);
-				println("Telnet Priv->" + name + ": " + message);
-				if (Config.ALT_TELNET)
-					println(getStatusThread().getGM() + "(offline): " + name + ": " + message);
-				println("Message Sent!");
-			}
-			else
-			{
-				println("Unable To Find Username: " + name);
-			}
+				println(getStatusThread().getGM() + "(offline): " + name + ": " + message);
+			println("Message Sent!");
 		}
-		catch (StringIndexOutOfBoundsException e)
+		else
 		{
-			println("Please Enter Some Text!");
+			println("Unable To Find Username: " + name);
 		}
 	}
 }

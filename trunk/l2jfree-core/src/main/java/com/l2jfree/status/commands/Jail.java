@@ -17,7 +17,6 @@ package com.l2jfree.status.commands;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import com.l2jfree.L2DatabaseFactory;
@@ -30,7 +29,7 @@ public final class Jail extends GameStatusCommand
 {
 	public Jail()
 	{
-		super("", "jail");
+		super("jails given player", "jail");
 	}
 	
 	@Override
@@ -43,41 +42,20 @@ public final class Jail extends GameStatusCommand
 	protected void useCommand(String command, String params)
 	{
 		StringTokenizer st = new StringTokenizer(params);
-		try
+		
+		String name = st.nextToken();
+		L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
+		int delay = 0;
+		if (st.hasMoreTokens())
+			delay = Integer.parseInt(st.nextToken());
+		
+		if (playerObj != null)
 		{
-			String name = st.nextToken();
-			L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
-			int delay = 0;
-			try
-			{
-				delay = Integer.parseInt(st.nextToken());
-			}
-			catch (NumberFormatException nfe)
-			{
-			}
-			catch (NoSuchElementException nsee)
-			{
-			}
-			// L2PcInstance playerObj =
-			// L2World.getInstance().getPlayer(player);
-			
-			if (playerObj != null)
-			{
-				playerObj.setInJail(true, delay);
-				println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
-			}
-			else
-				jailOfflinePlayer(name, delay);
+			playerObj.setInJail(true, delay);
+			println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
 		}
-		catch (NoSuchElementException nsee)
-		{
-			println("Specify a character name.");
-		}
-		catch (Exception e)
-		{
-			if (_log.isDebugEnabled())
-				_log.error(e.getMessage(), e);
-		}
+		else
+			jailOfflinePlayer(name, delay);
 	}
 	
 	private void jailOfflinePlayer(String name, int delay)
@@ -85,7 +63,7 @@ public final class Jail extends GameStatusCommand
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			
 			PreparedStatement statement = con
 					.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
@@ -96,8 +74,7 @@ public final class Jail extends GameStatusCommand
 			statement.setLong(5, delay * 60000L);
 			statement.setString(6, name);
 			
-			statement.execute();
-			int count = statement.getUpdateCount();
+			int count = statement.executeUpdate();
 			statement.close();
 			
 			if (count == 0)
@@ -105,11 +82,9 @@ public final class Jail extends GameStatusCommand
 			else
 				println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
 		}
-		catch (SQLException se)
+		catch (SQLException e)
 		{
-			println("SQLException while jailing player");
-			if (_log.isDebugEnabled())
-				_log.warn("SQLException while jailing player", se);
+			throw new RuntimeException(e);
 		}
 		finally
 		{

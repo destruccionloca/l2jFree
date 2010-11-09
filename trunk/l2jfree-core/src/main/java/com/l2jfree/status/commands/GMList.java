@@ -30,7 +30,7 @@ public final class GMList extends GameStatusCommand
 		int igm = 0;
 		String gmList = "";
 		
-		for (String player : GmListTable.getAllGmNames(false))
+		for (String player : GmListTable.getAllGmNames(true))
 		{
 			gmList = gmList + ", " + player;
 			igm++;

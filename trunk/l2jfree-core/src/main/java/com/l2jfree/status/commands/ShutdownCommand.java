@@ -34,20 +34,9 @@ public final class ShutdownCommand extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
-		{
-			int val = Integer.parseInt(params);
-			Shutdown.start(getHostAddress(), val, ShutdownMode.SHUTDOWN);
-			println("Server Will Shutdown In " + val + " Seconds!");
-			println("Type \"abort\" To Abort Shutdown!");
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
-			println("Please Enter * amount of seconds to shutdown!");
-		}
-		catch (NumberFormatException e)
-		{
-			println("Numbers Only!");
-		}
+		int val = Integer.parseInt(params);
+		Shutdown.start(getHostAddress(), val, ShutdownMode.SHUTDOWN);
+		println("Server Will Shutdown In " + val + " Seconds!");
+		println("Type \"abort\" To Abort Shutdown!");
 	}
 }

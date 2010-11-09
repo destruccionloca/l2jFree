@@ -34,20 +34,9 @@ public final class Restart extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
-		{
-			int val = Integer.parseInt(params);
-			Shutdown.start(getHostAddress(), val, ShutdownMode.RESTART);
-			println("Server Will Restart In " + val + " Seconds!");
-			println("Type \"abort\" To Abort Restart!");
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
-			println("Please Enter * amount of seconds to restart!");
-		}
-		catch (Exception NumberFormatException)
-		{
-			println("Numbers Only!");
-		}
+		int val = Integer.parseInt(params);
+		Shutdown.start(getHostAddress(), val, ShutdownMode.RESTART);
+		println("Server Will Restart In " + val + " Seconds!");
+		println("Type \"abort\" To Abort Restart!");
 	}
 }

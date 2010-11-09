@@ -34,16 +34,12 @@ public final class Announce extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
-		{
-			if (Config.ALT_TELNET && Config.ALT_TELNET_GM_ANNOUNCER_NAME)
-				params += " [" + getStatusThread().getGM() + "(offline)]";
-			Announcements.getInstance().announceToAll(params);
-			println("Announcement Sent!");
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
-			println("Please Enter Some Text To Announce!");
-		}
+		if (params.isEmpty())
+			throw new IllegalArgumentException();
+		
+		if (Config.ALT_TELNET && Config.ALT_TELNET_GM_ANNOUNCER_NAME)
+			params += " [" + getStatusThread().getGM() + "(offline)]";
+		Announcements.getInstance().announceToAll(params);
+		println("Announcement Sent!");
 	}
 }

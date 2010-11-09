@@ -35,16 +35,9 @@ public final class GMChat extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
-		{
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from "
-					+ getHostAddress(), params);
-			GmListTable.broadcastToGMs(cs);
-			println("Your Message Has Been Sent To " + GmListTable.getAllGms(true).size() + " GM(s).");
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
-			println("Please Enter Some Text To Announce!");
-		}
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from "
+				+ getHostAddress(), params);
+		GmListTable.broadcastToGMs(cs);
+		println("Your Message Has Been Sent To " + GmListTable.getAllGms(true).size() + " GM(s).");
 	}
 }

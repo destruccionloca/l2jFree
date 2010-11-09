@@ -34,28 +34,14 @@ public final class IP extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		L2PcInstance player = L2World.getInstance().getPlayer(params);
+		if (player != null)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(params);
-			if (player != null)
-			{
-				try
-				{
-					println("IP of " + player + ": " + player.getClient().getHostAddress());
-				}
-				catch (RuntimeException e)
-				{
-					println(e.toString());
-				}
-			}
-			else
-			{
-				println("No player online with that name!");
-			}
+			println("IP of " + player + ": " + player.getClient().getHostAddress());
 		}
-		catch (StringIndexOutOfBoundsException e)
+		else
 		{
-			println("Please enter player name to get IP");
+			println("No player online with that name!");
 		}
 	}
 }

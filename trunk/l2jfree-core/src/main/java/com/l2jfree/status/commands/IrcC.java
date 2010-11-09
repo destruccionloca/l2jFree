@@ -36,15 +36,7 @@ public final class IrcC extends GameStatusCommand
 	{
 		if (Config.IRC_ENABLED)
 		{
-			try
-			{
-				IrcManager.getInstance().getConnection().send(params);
-			}
-			catch (Exception e)
-			{
-				if (_log.isDebugEnabled())
-					_log.debug(e.getMessage(), e);
-			}
+			IrcManager.getInstance().getConnection().send(params);
 		}
 	}
 }

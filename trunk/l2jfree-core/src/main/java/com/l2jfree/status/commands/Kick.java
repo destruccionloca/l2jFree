@@ -35,19 +35,15 @@ public final class Kick extends GameStatusCommand
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		L2PcInstance player = L2World.getInstance().getPlayer(params);
+		if (player != null)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(params);
-			if (player != null)
-			{
-				new Disconnection(player).defaultSequence(false);
-				println("Player kicked");
-			}
+			new Disconnection(player).defaultSequence(false);
+			println("Player kicked");
 		}
-		catch (StringIndexOutOfBoundsException e)
+		else
 		{
-			println("Please enter player name to kick");
+			println("No player online with that name!");
 		}
 	}
-	
 }

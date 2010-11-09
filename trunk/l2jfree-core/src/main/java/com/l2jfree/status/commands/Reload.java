@@ -30,93 +30,84 @@ public final class Reload extends GameStatusCommand
 {
 	public Reload()
 	{
-		super("", "reload");
+		super("reloads given datatables/managers", "reload");
 	}
 	
 	@Override
 	protected String getParameterUsage()
 	{
-		return "...";
+		return "multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door";
 	}
 	
 	@Override
 	protected void useCommand(String command, String params)
 	{
-		try
+		String type = params;
+		
+		if (type.equals("multisell"))
 		{
-			String type = params;
-			
-			if (type.equals("multisell"))
-			{
-				print("Reloading multisell... ");
-				L2Multisell.getInstance().reload();
-				println("done");
-			}
-			else if (type.equals("teleport"))
-			{
-				print("Reloading teleports... ");
-				TeleportLocationTable.getInstance().reloadAll();
-				println("done");
-			}
-			else if (type.equals("skill"))
-			{
-				print("Reloading skills... ");
-				SkillTable.reload();
-				println("done");
-			}
-			else if (type.equals("npc"))
-			{
-				print("Reloading npc templates... ");
-				NpcTable.getInstance().cleanUp();
-				NpcTable.getInstance().reloadAll();
-				println("done");
-			}
-			else if (type.equals("htm"))
-			{
-				print("Reloading html cache... ");
-				HtmCache.getInstance().reload(true);
-				println("done");
-			}
-			else if (type.equals("item"))
-			{
-				print("Reloading item templates... ");
-				ItemTable.reload();
-				println("done");
-			}
-			else if (type.equals("instancemanager"))
-			{
-				print("Reloading instance managers... ");
-				Manager.reloadAll();
-				println("done");
-			}
-			else if (type.equals("zone"))
-			{
-				print("Reloading zone tables... ");
-				ZoneManager.getInstance().reload();
-				println("done");
-			}
-			else if (type.equals("tradelist"))
-			{
-				print("Reloading trade lists...");
-				TradeListTable.getInstance().reloadAll();
-				println("done");
-			}
-			else if (type.startsWith("door"))
-			{
-				print("Reloading Doors...");
-				DoorTable.getInstance().reloadAll();
-				println("done");
-			}
-			else
-			{
-				
-				println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
-			}
+			print("Reloading multisell... ");
+			L2Multisell.getInstance().reload();
+			println("done");
 		}
-		catch (Exception e)
+		else if (type.equals("teleport"))
 		{
-			
-			println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
+			print("Reloading teleports... ");
+			TeleportLocationTable.getInstance().reloadAll();
+			println("done");
+		}
+		else if (type.equals("skill"))
+		{
+			print("Reloading skills... ");
+			SkillTable.reload();
+			println("done");
+		}
+		else if (type.equals("npc"))
+		{
+			print("Reloading npc templates... ");
+			NpcTable.getInstance().cleanUp();
+			NpcTable.getInstance().reloadAll();
+			println("done");
+		}
+		else if (type.equals("htm"))
+		{
+			print("Reloading html cache... ");
+			HtmCache.getInstance().reload(true);
+			println("done");
+		}
+		else if (type.equals("item"))
+		{
+			print("Reloading item templates... ");
+			ItemTable.reload();
+			println("done");
+		}
+		else if (type.equals("instancemanager"))
+		{
+			print("Reloading instance managers... ");
+			Manager.reloadAll();
+			println("done");
+		}
+		else if (type.equals("zone"))
+		{
+			print("Reloading zone tables... ");
+			ZoneManager.getInstance().reload();
+			println("done");
+		}
+		else if (type.equals("tradelist"))
+		{
+			print("Reloading trade lists...");
+			TradeListTable.getInstance().reloadAll();
+			println("done");
+		}
+		else if (type.startsWith("door"))
+		{
+			print("Reloading Doors...");
+			DoorTable.getInstance().reloadAll();
+			println("done");
+		}
+		else
+		{
+			throw new IllegalArgumentException();
 		}
 	}
 }
