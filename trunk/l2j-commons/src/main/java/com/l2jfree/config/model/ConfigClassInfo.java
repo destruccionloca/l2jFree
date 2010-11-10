@@ -22,6 +22,18 @@ public final class ConfigClassInfo
 {
 	private static final Log _log = LogFactory.getLog(ConfigClassInfo.class);
 	
+	private static final Map<Class<?>, ConfigClassInfo> _ConfigClasses = new HashMap<Class<?>, ConfigClassInfo>();
+	
+	public synchronized static ConfigClassInfo valueOf(Class<?> clazz) throws InstantiationException, IllegalAccessException
+	{
+		ConfigClassInfo info = _ConfigClasses.get(clazz);
+		
+		if (info == null)
+			_ConfigClasses.put(clazz, info = new ConfigClassInfo(clazz));
+		
+		return info;
+	}
+	
 	private final Class<?> _clazz;
 	private final ConfigClass _configClass;
 	private final List<ConfigFieldInfo> _infos = new ArrayList<ConfigFieldInfo>();
@@ -74,17 +86,22 @@ public final class ConfigClassInfo
 			_log.warn("Invalid config grouping!");
 	}
 	
-	public void load() throws IOException
+	public File getConfigFile()
 	{
-		final L2Properties properties = new L2Properties(_configClass.fileName()).setLog(false);
+		return new File(_configClass.fileName());
+	}
+	
+	public synchronized void load() throws IOException
+	{
+		final L2Properties properties = new L2Properties(getConfigFile()).setLog(false);
 		
 		for (ConfigFieldInfo info : _infos)
 			info.setCurrentValue(properties);
 	}
 	
-	public void store() throws IOException
+	public synchronized void store() throws IOException
 	{
-		final File configFile = new File(_configClass.fileName());
+		final File configFile = getConfigFile();
 		
 		if (!configFile.getParentFile().exists())
 			if (!configFile.getParentFile().mkdirs())
@@ -103,7 +120,7 @@ public final class ConfigClassInfo
 		}
 	}
 	
-	public void print(PrintStream out)
+	public synchronized void print(PrintStream out)
 	{
 		for (ConfigFieldInfo info : _infos)
 			info.print(out);

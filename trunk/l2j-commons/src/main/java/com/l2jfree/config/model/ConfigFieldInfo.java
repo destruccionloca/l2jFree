@@ -4,6 +4,8 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.config.annotation.ConfigField;
@@ -13,6 +15,8 @@ import com.l2jfree.config.converters.Converter;
 
 public final class ConfigFieldInfo
 {
+	private static final Log _log = LogFactory.getLog(ConfigFieldInfo.class);
+	
 	private final Field _field;
 	private final ConfigField _configField;
 	private final Converter _converter;
@@ -21,6 +25,8 @@ public final class ConfigFieldInfo
 	
 	private ConfigGroup _beginningGroup;
 	private ConfigGroup _endingGroup;
+	
+	private volatile boolean _fieldValueLoaded = false;
 	
 	public ConfigFieldInfo(Field field) throws InstantiationException, IllegalAccessException
 	{
@@ -56,6 +62,9 @@ public final class ConfigFieldInfo
 	{
 		Object obj = getConverter().convertFromString(getField().getType(), value);
 		
+		if (_fieldValueLoaded && getConfigField().eternal())
+			_log.warn("Eternal config field (" + getField() + ") (" + getConfigField() + ") assigned multiple times!");
+		
 		try
 		{
 			getField().set(null, obj);
@@ -64,6 +73,8 @@ public final class ConfigFieldInfo
 		{
 			throw new RuntimeException(e);
 		}
+		
+		_fieldValueLoaded = true;
 	}
 	
 	public void setCurrentValue(L2Properties properties)

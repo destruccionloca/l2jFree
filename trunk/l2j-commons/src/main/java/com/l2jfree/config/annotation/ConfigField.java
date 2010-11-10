@@ -18,7 +18,6 @@ public @interface ConfigField
 	
 	public String[] comment() default {};
 	
-	// TODO: handle
 	public boolean eternal() default false;
 	
 	public Class<? extends Converter> converter() default DefaultConverter.class;

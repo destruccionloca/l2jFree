@@ -42,11 +42,20 @@ public class ConfigTester
 	@ConfigField(name = "configValue9", value = "default9", comment = { "This", "is", "a", "multi-line", "comment!" })
 	public static String TEST9;
 	
-	@ConfigField(name = "doubleTest", value = "0.12,1.34")
+	@ConfigField(name = "doubleTest", value = "0.12,1.34", eternal = true)
 	public static double[] DOUBLE_ARRAY;
 	
 	public static void main(String[] args) throws Exception
 	{
+		final ConfigClassInfo info = ConfigClassInfo.valueOf(ConfigTester.class);
+		
+		// required only for test launch
+		if (info.getConfigFile().exists())
+		{
+			info.load();
+			info.load();
+		}
+		
 		ConfigTester.TEST1 = "default11";
 		ConfigTester.TEST2 = "default21";
 		ConfigTester.TEST3 = "default31";
@@ -57,10 +66,7 @@ public class ConfigTester
 		ConfigTester.TEST8 = "default81";
 		ConfigTester.TEST9 = "default91";
 		
-		ConfigClassInfo ci = new ConfigClassInfo(ConfigTester.class);
-		
-		ci.load();
-		ci.print(System.out);
-		ci.store();
+		info.print(System.out);
+		info.store();
 	}
 }
