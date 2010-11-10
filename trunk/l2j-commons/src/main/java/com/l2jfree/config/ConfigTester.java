@@ -8,7 +8,7 @@ import com.l2jfree.config.gui.Configurator;
 import com.l2jfree.config.model.ConfigClassInfo;
 import com.l2jfree.config.model.ConfigClassInfo.PrintMode;
 
-@ConfigClass(fileName = "config/test.properties", defaultFileName = "config/test.default.properties")
+@ConfigClass(folderName = "config", fileName = "test")
 public class ConfigTester
 {
 	@ConfigGroupBeginning(name = "OUTER GROUP", comment = "group start comment")

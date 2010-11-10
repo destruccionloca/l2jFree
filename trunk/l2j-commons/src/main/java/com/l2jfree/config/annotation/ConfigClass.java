@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigClass
 {
-	public String fileName();
+	public String folderName();
 	
-	public String defaultFileName();
+	public String fileName();
 }

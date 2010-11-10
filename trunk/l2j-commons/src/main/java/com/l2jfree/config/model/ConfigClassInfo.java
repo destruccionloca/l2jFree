@@ -90,12 +90,17 @@ public final class ConfigClassInfo
 	
 	public File getConfigFile()
 	{
-		return new File(_configClass.fileName());
+		return new File(_configClass.folderName(), _configClass.fileName() + ".properties");
 	}
 	
 	public File getDefaultConfigFile()
 	{
-		return new File(_configClass.defaultFileName());
+		return new File(_configClass.folderName(), "_" + _configClass.fileName() + ".default.properties");
+	}
+	
+	public File getFullConfigFile()
+	{
+		return new File(_configClass.folderName(), "_" + _configClass.fileName() + ".full.properties");
 	}
 	
 	public synchronized void load() throws IOException
@@ -110,6 +115,7 @@ public final class ConfigClassInfo
 	{
 		store(getConfigFile(), PrintMode.MODIFIED);
 		store(getDefaultConfigFile(), PrintMode.DEFAULT);
+		store(getFullConfigFile(), PrintMode.FULL);
 	}
 	
 	private void store(File configFile, PrintMode mode) throws IOException
@@ -122,6 +128,25 @@ public final class ConfigClassInfo
 		try
 		{
 			pw = new PrintWriter(configFile);
+			
+			pw.println("################################################################################");
+			switch (mode)
+			{
+				case MODIFIED:
+					pw.println("# This file should be modified in order to influence config variables.");
+					pw.println("# Contains only config variables differing from their default values.");
+					break;
+				case DEFAULT:
+					pw.println("# This file exists only for informational purposes.");
+					pw.println("# Contains every config variable with their default values.");
+					break;
+				case FULL:
+					pw.println("# This file exists only for informational purposes.");
+					pw.println("# Contains every config variable with their current values.");
+					break;
+			}
+			pw.println("################################################################################");
+			pw.println();
 			
 			print(pw, mode);
 		}
