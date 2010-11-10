@@ -3,6 +3,7 @@ package com.l2jfree.config.model;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public final class ConfigClassInfo
 	private final ConfigClass _configClass;
 	private final List<ConfigFieldInfo> _infos = new ArrayList<ConfigFieldInfo>();
 	
-	public ConfigClassInfo(Class<?> clazz) throws InstantiationException, IllegalAccessException
+	private ConfigClassInfo(Class<?> clazz) throws InstantiationException, IllegalAccessException
 	{
 		_clazz = clazz;
 		_configClass = _clazz.getAnnotation(ConfigClass.class);
@@ -122,7 +123,17 @@ public final class ConfigClassInfo
 	
 	public synchronized void print(PrintStream out)
 	{
+		print(new PrintWriter(out));
+	}
+	
+	public synchronized void print(PrintWriter out)
+	{
 		for (ConfigFieldInfo info : _infos)
-			info.print(out);
+			info.print(out, false);
+	}
+	
+	public List<ConfigFieldInfo> getConfigFieldInfos()
+	{
+		return _infos;
 	}
 }

@@ -1,6 +1,6 @@
 package com.l2jfree.config.model;
 
-import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -135,9 +135,9 @@ public final class ConfigFieldInfo
 		_endingGroup = endingGroup;
 	}
 	
-	public void print(PrintStream out)
+	public void print(PrintWriter out, boolean modifiedOnly)
 	{
-		if (getBeginningGroup() != null && getBeginningGroup().isModified())
+		if (getBeginningGroup() != null && (!modifiedOnly || getBeginningGroup().isModified()))
 		{
 			out.println("########################################");
 			out.println("## " + getConfigGroupBeginning().name());
@@ -149,7 +149,7 @@ public final class ConfigFieldInfo
 			out.println();
 		}
 		
-		if (isModified())
+		if (!modifiedOnly || isModified())
 		{
 			if (!ArrayUtils.isEmpty(getConfigField().comment()))
 				for (String line : getConfigField().comment())
@@ -160,7 +160,7 @@ public final class ConfigFieldInfo
 			out.println();
 		}
 		
-		if (getEndingGroup() != null && getEndingGroup().isModified())
+		if (getEndingGroup() != null && (!modifiedOnly || getEndingGroup().isModified()))
 		{
 			if (!ArrayUtils.isEmpty(getConfigGroupEnding().comment()))
 				for (String line : getConfigGroupEnding().comment())

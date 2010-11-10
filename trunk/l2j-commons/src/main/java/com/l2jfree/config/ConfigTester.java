@@ -4,6 +4,7 @@ import com.l2jfree.config.annotation.ConfigClass;
 import com.l2jfree.config.annotation.ConfigField;
 import com.l2jfree.config.annotation.ConfigGroupBeginning;
 import com.l2jfree.config.annotation.ConfigGroupEnding;
+import com.l2jfree.config.gui.Configurator;
 import com.l2jfree.config.model.ConfigClassInfo;
 
 @ConfigClass(fileName = "config/test.properties")
@@ -68,5 +69,7 @@ public class ConfigTester
 		
 		info.print(System.out);
 		info.store();
+		
+		new Configurator(info);
 	}
 }
