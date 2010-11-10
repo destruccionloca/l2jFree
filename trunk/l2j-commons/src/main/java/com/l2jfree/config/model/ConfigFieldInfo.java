@@ -91,7 +91,13 @@ public final class ConfigFieldInfo
 	
 	public boolean isModified()
 	{
-		return !getConfigField().value().equals(getCurrentValue());
+		final String value = getCurrentValue();
+		
+		// config value wasn't initialized
+		if (value ==  null)
+			return false;
+		
+		return !getConfigField().value().equals(value);
 	}
 	
 	public Converter getConverter()

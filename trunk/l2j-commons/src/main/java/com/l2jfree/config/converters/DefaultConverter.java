@@ -60,7 +60,7 @@ public final class DefaultConverter implements Converter
 			return DefaultArrayConverter.INSTANCE.convertToString(type, obj);
 		
 		if (obj == null)
-			return "";
+			return null;
 		
 		return obj.toString();
 	}
