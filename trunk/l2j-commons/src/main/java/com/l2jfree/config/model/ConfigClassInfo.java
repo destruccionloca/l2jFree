@@ -25,7 +25,8 @@ public final class ConfigClassInfo
 	
 	private static final Map<Class<?>, ConfigClassInfo> _ConfigClasses = new HashMap<Class<?>, ConfigClassInfo>();
 	
-	public synchronized static ConfigClassInfo valueOf(Class<?> clazz) throws InstantiationException, IllegalAccessException
+	public synchronized static ConfigClassInfo valueOf(Class<?> clazz) throws InstantiationException,
+			IllegalAccessException
 	{
 		ConfigClassInfo info = _ConfigClasses.get(clazz);
 		
@@ -92,6 +93,11 @@ public final class ConfigClassInfo
 		return new File(_configClass.fileName());
 	}
 	
+	public File getDefaultConfigFile()
+	{
+		return new File(_configClass.defaultFileName());
+	}
+	
 	public synchronized void load() throws IOException
 	{
 		final L2Properties properties = new L2Properties(getConfigFile()).setLog(false);
@@ -102,38 +108,49 @@ public final class ConfigClassInfo
 	
 	public synchronized void store() throws IOException
 	{
-		final File configFile = getConfigFile();
-		
+		store(getConfigFile(), PrintMode.MODIFIED);
+		store(getDefaultConfigFile(), PrintMode.DEFAULT);
+	}
+	
+	private void store(File configFile, PrintMode mode) throws IOException
+	{
 		if (!configFile.getParentFile().exists())
 			if (!configFile.getParentFile().mkdirs())
 				throw new IOException("Couldn't create required folder structure for " + configFile);
 		
-		PrintStream ps = null;
+		PrintWriter pw = null;
 		try
 		{
-			ps = new PrintStream(configFile);
+			pw = new PrintWriter(configFile);
 			
-			print(ps);
+			print(pw, mode);
 		}
 		finally
 		{
-			IOUtils.closeQuietly(ps);
+			IOUtils.closeQuietly(pw);
 		}
 	}
 	
-	public synchronized void print(PrintStream out)
+	public synchronized void print(PrintStream out, PrintMode mode)
 	{
-		print(new PrintWriter(out));
+		print(new PrintWriter(out, true), mode);
 	}
 	
-	public synchronized void print(PrintWriter out)
+	public synchronized void print(PrintWriter out, PrintMode mode)
 	{
 		for (ConfigFieldInfo info : _infos)
-			info.print(out, false);
+			info.print(out, mode);
 	}
 	
 	public List<ConfigFieldInfo> getConfigFieldInfos()
 	{
 		return _infos;
+	}
+	
+	public enum PrintMode
+	{
+		MODIFIED,
+		FULL,
+		DEFAULT;
 	}
 }

@@ -6,8 +6,9 @@ import com.l2jfree.config.annotation.ConfigGroupBeginning;
 import com.l2jfree.config.annotation.ConfigGroupEnding;
 import com.l2jfree.config.gui.Configurator;
 import com.l2jfree.config.model.ConfigClassInfo;
+import com.l2jfree.config.model.ConfigClassInfo.PrintMode;
 
-@ConfigClass(fileName = "config/test.properties")
+@ConfigClass(fileName = "config/test.properties", defaultFileName = "config/test.default.properties")
 public class ConfigTester
 {
 	@ConfigGroupBeginning(name = "OUTER GROUP", comment = "group start comment")
@@ -67,7 +68,7 @@ public class ConfigTester
 		ConfigTester.TEST8 = "default81";
 		ConfigTester.TEST9 = "default91";
 		
-		info.print(System.out);
+		info.print(System.out, PrintMode.MODIFIED);
 		info.store();
 		
 		new Configurator(info);

@@ -12,6 +12,7 @@ import com.l2jfree.config.annotation.ConfigField;
 import com.l2jfree.config.annotation.ConfigGroupBeginning;
 import com.l2jfree.config.annotation.ConfigGroupEnding;
 import com.l2jfree.config.converters.Converter;
+import com.l2jfree.config.model.ConfigClassInfo.PrintMode;
 
 public final class ConfigFieldInfo
 {
@@ -79,7 +80,7 @@ public final class ConfigFieldInfo
 	
 	public void setCurrentValue(L2Properties properties)
 	{
-		final String newValue = properties.getProperty(getConfigField().name(), getConfigField().value());
+		final String newValue = properties.getProperty(getName(), getDefaultValue());
 		
 		setCurrentValue(newValue);
 	}
@@ -89,15 +90,25 @@ public final class ConfigFieldInfo
 		return _configField;
 	}
 	
+	public String getName()
+	{
+		return getConfigField().name();
+	}
+	
+	public String getDefaultValue()
+	{
+		return getConfigField().value();
+	}
+	
 	public boolean isModified()
 	{
-		final String value = getCurrentValue();
+		final String currentValue = getCurrentValue();
 		
 		// config value wasn't initialized
-		if (value ==  null)
+		if (currentValue == null)
 			return false;
 		
-		return !getConfigField().value().equals(value);
+		return !getDefaultValue().equals(currentValue);
 	}
 	
 	public Converter getConverter()
@@ -135,9 +146,9 @@ public final class ConfigFieldInfo
 		_endingGroup = endingGroup;
 	}
 	
-	public void print(PrintWriter out, boolean modifiedOnly)
+	public void print(PrintWriter out, PrintMode mode)
 	{
-		if (getBeginningGroup() != null && (!modifiedOnly || getBeginningGroup().isModified()))
+		if (getBeginningGroup() != null && (mode != PrintMode.MODIFIED || getBeginningGroup().isModified()))
 		{
 			out.println("########################################");
 			out.println("## " + getConfigGroupBeginning().name());
@@ -149,18 +160,18 @@ public final class ConfigFieldInfo
 			out.println();
 		}
 		
-		if (!modifiedOnly || isModified())
+		if (mode != PrintMode.MODIFIED || isModified())
 		{
 			if (!ArrayUtils.isEmpty(getConfigField().comment()))
 				for (String line : getConfigField().comment())
 					out.println("# " + line);
 			
-			out.println("# Default: " + getConfigField().value());
-			out.println(getConfigField().name() + " = " + getCurrentValue());
+			out.println("# Default: " + getDefaultValue());
+			out.println(getName() + " = " + (mode == PrintMode.DEFAULT ? getDefaultValue() : getCurrentValue()));
 			out.println();
 		}
 		
-		if (getEndingGroup() != null && (!modifiedOnly || getEndingGroup().isModified()))
+		if (getEndingGroup() != null && (mode != PrintMode.MODIFIED || getEndingGroup().isModified()))
 		{
 			if (!ArrayUtils.isEmpty(getConfigGroupEnding().comment()))
 				for (String line : getConfigGroupEnding().comment())

@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface ConfigClass
 {
 	public String fileName();
+	
+	public String defaultFileName();
 }

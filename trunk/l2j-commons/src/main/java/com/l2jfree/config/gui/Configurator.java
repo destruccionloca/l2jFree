@@ -22,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.l2jfree.config.model.ConfigClassInfo;
 import com.l2jfree.config.model.ConfigFieldInfo;
+import com.l2jfree.config.model.ConfigClassInfo.PrintMode;
 
 public final class Configurator extends JFrame
 {
@@ -206,7 +207,7 @@ public final class Configurator extends JFrame
 					sw = new StringWriter();
 					pw = new PrintWriter(sw);
 					
-					_info.print(pw, true);
+					_info.print(pw, PrintMode.FULL);
 					
 					jTextPane.setText(sw.getBuffer().toString());
 				}
