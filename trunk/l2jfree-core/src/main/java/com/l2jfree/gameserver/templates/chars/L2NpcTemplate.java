@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * This cl contains all generic data of a L2Spawn object.<BR><BR>
@@ -412,7 +411,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		if (_skills == null)
 			_skills = new FastMap<Integer, L2Skill>().setShared(true);
 		
-		if (skill.getSkillType() != L2SkillType.PASSIVE)
+		if (!skill.isPassive())
 		{
 			addGeneralSkill(skill);
 			switch (skill.getSkillType())
@@ -435,10 +434,12 @@ public final class L2NpcTemplate extends L2CharTemplate
 				case WEAKNESS:
 					addDebuffSkill(skill);
 					addCOTSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case ROOT:
 					addRootSkill(skill);
 					addImmobiliseSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case SLEEP:
 					addSleepSkill(skill);
@@ -447,10 +448,12 @@ public final class L2NpcTemplate extends L2CharTemplate
 				case STUN:
 					addRootSkill(skill);
 					addImmobiliseSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case PARALYZE:
 					addParalyzeSkill(skill);
 					addImmobiliseSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case PDAM:
 				case MDAM:
@@ -462,20 +465,24 @@ public final class L2NpcTemplate extends L2CharTemplate
 				case MANADAM:
 					addAtkSkill(skill);
 					addUniversalSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case POISON:
 				case DOT:
 				case MDOT:
 				case BLEED:
 					addDOTSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case MUTE:
 				case FEAR:
 					addCOTSkill(skill);
+					addRangeSkill(skill);
 					break;
 				case CANCEL:
 				case NEGATE:
 					addNegativeSkill(skill);
+					addRangeSkill(skill);
 					break;
 				default:
 					addUniversalSkill(skill);
@@ -871,6 +878,24 @@ public final class L2NpcTemplate extends L2CharTemplate
 			_generalskills = new FastList<L2Skill>();
 		_generalskills.add(skill);
 		_hasgeneralskills = true;
+	}
+	
+	public void addRangeSkill(L2Skill skill)
+	{
+		if (skill.getCastRange() <= 150 && skill.getCastRange() > 0)
+		{
+			if (_Srangeskills == null)
+				_Srangeskills = new FastList<L2Skill>();
+			_Srangeskills.add(skill);
+			_hasSrangeskills = true;
+		}
+		else if (skill.getCastRange() > 150)
+		{
+			if (_Lrangeskills == null)
+				_Lrangeskills = new FastList<L2Skill>();
+			_Lrangeskills.add(skill);
+			_hasLrangeskills = true;
+		}
 	}
 	
 	// --------------------------------------------------------------------

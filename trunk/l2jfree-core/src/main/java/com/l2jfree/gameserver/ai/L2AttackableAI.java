@@ -1136,6 +1136,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						L2Skill skills = getSkillRender()._Srangeskills.get(Rnd.nextInt(getSkillRender()._Srangeskills.size()));
 						if (cast(skills))
 							return;
+						for (L2Skill sk : getSkillRender()._Srangeskills)
+							if (cast(sk))
+								return;
 					}
 				}
 				if (me.hasLSkill() && dist2 > 150 && Rnd.get(100) <= me.getLSkillChance())
@@ -1808,7 +1811,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			// -------------------------------------------------------------
 			// Try to stop the target or disable the target as priority
-			int random = Rnd.get(10);
+			int random = Rnd.get(100);
 			if (getSkillRender().hasImmobiliseSkill() && !getAttackTarget().isImmobilized() && random < 2)
 			{
 				for (L2Skill sk : getSkillRender()._immobiliseskills)
