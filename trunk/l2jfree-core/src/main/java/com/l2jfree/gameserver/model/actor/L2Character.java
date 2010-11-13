@@ -1680,7 +1680,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, true))
 				{
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					getActingPlayer().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 
 					if (simultaneously)
 						setIsCastingSimultaneouslyNow(false);
@@ -1740,13 +1740,13 @@ public abstract class L2Character extends L2Object
 			getActingPlayer().sendPacket(sm);
 		}
 		
-		if (this instanceof L2PcInstance)
+		if (this instanceof L2Playable)
 		{
 			if (!effectWhileCasting && skill.getItemConsume() > 0)
 			{
 				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, true))
 				{
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					getActingPlayer().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					abortCast();
 					return;
 				}
@@ -1932,12 +1932,12 @@ public abstract class L2Character extends L2Object
 					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
 					sm.addItemName(skill.getItemConsumeId());
 					sm.addNumber(skill.getItemConsume());
-					sendPacket(sm);
+					getActingPlayer().sendPacket(sm);
 					return false;
 				}
 
 				// Send a System Message to the caster
-				sendPacket(SystemMessageId.THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL);
+				getActingPlayer().sendPacket(SystemMessageId.THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL);
 				return false;
 			}
 		}
