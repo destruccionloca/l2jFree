@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package events.TheValentineEvent;
+package official_events.TheValentineEvent;
 
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.actor.L2Npc;
