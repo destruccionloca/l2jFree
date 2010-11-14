@@ -22,7 +22,6 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -177,7 +176,8 @@ public class RequestDestroyItem extends L2GameClientPacket
 			return;
 		}
 		activeChar.getInventory().updateInventory(removedItem);
-		L2World.getInstance().removeObject(removedItem);
+		// count can be still positive -> don't remove or it can get buggy
+		//L2World.getInstance().removeObject(removedItem);
 		
 		sendAF();
 	}

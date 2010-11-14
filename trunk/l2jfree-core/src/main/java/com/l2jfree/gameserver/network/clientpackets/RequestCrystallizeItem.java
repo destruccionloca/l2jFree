@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -168,7 +167,8 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		sm.addItemNumber(crystalAmount);
 		sendPacket(sm);
 
-		L2World.getInstance().removeObject(removedItem);
+		// count can be still positive -> don't remove or it can get buggy
+		//L2World.getInstance().removeObject(removedItem);
 		activeChar.broadcastUserInfo();
 		activeChar.setInCrystallize(false);
 
