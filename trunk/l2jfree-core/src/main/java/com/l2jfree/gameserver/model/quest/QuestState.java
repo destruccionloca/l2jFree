@@ -519,7 +519,7 @@ public final class QuestState
         long count = 0;
         
         for (L2ItemInstance item: getPlayer().getInventory().getItems())
-            if (item.getItemId() == itemId)
+            if (item != null && item.getItemId() == itemId)
                 count += item.getCount();
 
         return count;
