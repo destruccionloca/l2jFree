@@ -20,6 +20,8 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -39,6 +41,9 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2DefenderInstance extends L2Guard
 {
+	private Castle _castle; // the castle which the instance should defend
+	private Fort _fort; // the fortress which the instance should defend
+	
 	public L2DefenderInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -99,15 +104,12 @@ public class L2DefenderInstance extends L2Guard
 		if (player == null)
 			return -1;
 		
-		final Castle castle = getCastle();
-		final Fort fortress = getFort();
-		
 		// Check if siege is in progress
-		if (fortress != null && fortress.getSiege().getIsInProgress())
-			return fortress.getFortId();
+		if (_fort != null && _fort.getSiege().getIsInProgress())
+			return _fort.getFortId();
 		
-		if (castle != null && castle.getSiege().getIsInProgress())
-			return castle.getCastleId();
+		if (_castle != null && _castle.getSiege().getIsInProgress())
+			return _castle.getCastleId();
 		
 		return -1;
 	}
@@ -152,6 +154,18 @@ public class L2DefenderInstance extends L2Guard
 	protected int getMaxAllowedDistanceFromHome()
 	{
 		return 40;
+	}
+	
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		
+		_fort = FortManager.getInstance().getFort(getX(), getY(), getZ());
+		_castle = CastleManager.getInstance().getCastle(getX(), getY(), getZ());
+		
+		if (_fort == null && _castle == null)
+			_log.warn("L2DefenderInstance spawned outside of Fortress and Castle Zone!");
 	}
 	
 	/**
