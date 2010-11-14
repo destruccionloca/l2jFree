@@ -13533,7 +13533,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			return;
 		if (getInventory().getInventoryItemCount(20025, 0) == 0)
 		{
-			sendPacket(SystemMessageId.CANNOT_TELEPORT_WITHOUT_TELEPORT_ITEM);
+			sendPacket(SystemMessageId.YOU_CANNOT_TELEPORT_BECAUSE_YOU_DO_NOT_HAVE_A_TELEPORT_ITEM);
 			return;
 		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
@@ -13559,50 +13559,63 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	{
 		if (isInCombat())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2348);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_DURING_A_BATTLE);
 			return false;
 		}
 		else if (isInSiege())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2349);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_WHILE_PARTICIPATING);
 			return false;
 		}
 		else if (isInDuel())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2350);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_DURING_A_DUEL);
 			return false;
 		}
 		else if (isFlying())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2351);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_WHILE_FLYING);
 			return false;
 		}
 		else if (isInOlympiadMode())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2352);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_WHILE_PARTICIPATING_IN_AN_OLYMPIAD_MATCH);
 			return false;
 		}
 		else if (isParalyzed())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2353);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_WHILE_YOU_ARE_PARALYZED);
 			return false;
 		}
 		else if (isDead())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2354);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_WHILE_YOU_ARE_DEAD);
+			return false;
+		}
+		else if (isIn7sDungeon() && type == 1)
+		{
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_TO_REACH_THIS_AREA);
 			return false;
 		}
 		else if (isInBoat() || isInAirShip() || isInJail() || isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
-			if(type == 0)
-				sendPacket(SystemMessageId.UNNAMED_2355);
+			if (type == 0)
+				sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_IN_THIS_AREA);
 			else if (type == 1)
-				sendPacket(SystemMessageId.UNNAMED_2410);
+				sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_TO_REACH_THIS_AREA);
 			return false;
 		}
 		else if (isInWater())
 		{
-			sendPacket(SystemMessageId.UNNAMED_2356);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_UNDERWATER);
+			return false;
+		}
+		else if (type == 1
+				&& (isInsideZone(L2Zone.FLAG_SIEGE) || isInsideZone(L2Zone.FLAG_CLANHALL)
+						|| isInsideZone(L2Zone.FLAG_JAIL) || isInsideZone(L2Zone.FLAG_CASTLE)
+						|| isInsideZone(L2Zone.FLAG_NOSUMMON) || isInsideZone(L2Zone.FLAG_FORT)))
+		{
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_TO_REACH_THIS_AREA);
 			return false;
 		}
 		/* TODO Instant Zone still not implement
@@ -13623,7 +13636,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		if (tpbookmark.size() >= _bookmarkslot)
 		{
-			sendPacket(SystemMessageId.UNNAMED_2358);
+			sendPacket(SystemMessageId.YOU_HAVE_NO_SPACE_TO_SAVE_THE_TELEPORT_LOCATION);
 			return;
 		}
 
