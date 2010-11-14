@@ -1276,8 +1276,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%armor%", String.valueOf(npc.getArmor()));
 			adminReply.replace("%walkSpd%", String.valueOf(npc.getBaseWalkSpd()));
 			adminReply.replace("%runSpd%", String.valueOf(npc.getBaseRunSpd()));
-			adminReply.replace("%factionId%", npc.getFactionId() == null ? "" : npc.getFactionId());
-			adminReply.replace("%factionRange%", String.valueOf(npc.getFactionRange()));
+			adminReply.replace("%factionId%", npc.getAIDataStatic().getClan() == null ? "" : npc.getAIDataStatic().getClan());
+			adminReply.replace("%factionRange%", String.valueOf(npc.getAIDataStatic().getClanRange()));
 			adminReply.replace("%isUndead%", npc.isUndead() ? "1" : "0");
 			adminReply.replace("%absorbLevel%", String.valueOf(npc.getAbsorbLevel()));
 			adminReply.replace("%absorbType%", String.valueOf(npc.getAbsorbType()));
