@@ -274,7 +274,7 @@ public class L2DefenderInstance extends L2Guard
 		
 		if (!(attacker instanceof L2DefenderInstance))
 		{
-			if (damage == 0 && aggro == 0)
+			if (damage == 0 && aggro <= 1)
 				if (shouldDefend(attacker.getActingPlayer()))
 					return;
 			
