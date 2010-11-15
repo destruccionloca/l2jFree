@@ -15,16 +15,16 @@ qn = "10275_ContainingTheAttributePower"
 #NPCs
 Holly = 30839
 Weber = 31307
-Yin = 32325
-Yang = 32326
+Yin   = 32325
+Yang  = 32326
 Water = 27380
-Air = 27381
+Air   = 27381
 
 #items
-YinSword = 13845
-YangSword = 13881
+YinSword       = 13845
+YangSword      = 13881
 SoulPieceWater = 13861
-SoulPieceAir = 13862
+SoulPieceAir   = 13862
 
 class Quest (JQuest) :
     def __init__(self,id,name,descr):
@@ -95,7 +95,7 @@ class Quest (JQuest) :
             elif npcId == Weber:
                 htmltext = "31307-0a.htm"
         elif id == State.CREATED :
-            if player.getLevel() >= 76 :
+            if player.getLevel() >= 75 :
                 if npcId == Holly :
                     htmltext = "30839-01.htm"
                 else:

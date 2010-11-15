@@ -50,7 +50,7 @@ class Quest (JQuest) :
    id = st.getState()
    if id == State.COMPLETED :                                  # Check if the quest is already made
      htmltext = "<html><body>This quest has already been completed.</body></html>"
-   elif id == State.CREATED :                                      # Check if is starting the quest
+   elif id == State.CREATED :                                  # Check if is starting the quest
      if player.getRace().ordinal() == 2 :
        if player.getLevel() >= 10 :
          htmltext = "30358-03.htm"
@@ -60,7 +60,7 @@ class Quest (JQuest) :
      else :
        htmltext = "30358-00.htm"
        st.exitQuest(1)
-   else :                                                  # The quest itself
+   else :                                                       # The quest itself
      cond = st.getInt("cond")
      if cond == 1 :
        if npcId == 30358 :
@@ -117,7 +117,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED : return
-   
+
    if st.getInt("cond") == 2 :
      if st.getRandom(100) < 20 :
        if st.getQuestItemsCount(ANCIENT_SCROLL) == 0 :
@@ -134,7 +134,6 @@ QUEST       = Quest(106,qn,"Forgotten Truth")
 QUEST.addStartNpc(30358)
 
 QUEST.addTalkId(30358)
-
 QUEST.addTalkId(30133)
 
 QUEST.addKillId(27070)

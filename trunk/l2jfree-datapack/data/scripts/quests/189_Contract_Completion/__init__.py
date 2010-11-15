@@ -11,9 +11,9 @@ from com.l2jfree.gameserver.model.quest.jython		import QuestJython as JQuest
 qn = "189_Contract_Completion"
 
 #NPCs
-Kusto = 30512
-Lorain = 30673
-Luka = 31437
+Kusto     = 30512
+Lorain    = 30673
+Luka      = 31437
 Shegfield = 30068
 
 #Items

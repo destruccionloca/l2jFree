@@ -14,13 +14,13 @@ qn = "186_Contract_Execution"
 #NPCs
 Nikola = 30621
 Lorain = 30673
-Luka = 31437
+Luka   = 31437
 
 #Items
 Certificate = 10362
 MetalReport = 10366
-Accessory = 10367
-Adena = 57
+Accessory   = 10367
+Adena       = 57
 
 #Monsters
 Mobs = range(20577,20583)

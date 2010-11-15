@@ -718,7 +718,7 @@
     </cond>
     <for>
       <effect name="Buff" time="7210" val="0" abnormal="vitality" stackOrder="300" stackType="energy_up">
-        <sub order="0x40" stat="vitalityConsumeRate" val="0"/>
+        <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
   </skill>
