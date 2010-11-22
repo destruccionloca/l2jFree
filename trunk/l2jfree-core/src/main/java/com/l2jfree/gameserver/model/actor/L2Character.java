@@ -2170,14 +2170,11 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2CharacterAI getAI()
 	{
-		if (_ai == null)
-		{
 			synchronized (this)
 			{
 				if (_ai == null)
 					_ai = initAI();
 			}
-		}
 		
 		return _ai;
 	}
@@ -2979,7 +2976,7 @@ public abstract class L2Character extends L2Object
 		return _effects;
 	}
 
-    private int _SpecialEffects;
+	private int _SpecialEffects;
 
 	// Method - Public
 	/**
@@ -3617,7 +3614,7 @@ public abstract class L2Character extends L2Object
 		return ae;
 	}
 
-    /**
+	/**
 	* Return a map of 32 bits (0x00000000) containing all special effect in progress for this L2Character.<BR><BR>
 	*
 	* <B><U> Concept</U> :</B><BR><BR>
@@ -3873,8 +3870,8 @@ public abstract class L2Character extends L2Object
 		if (m.onGeodataPathIndex == -1)
 			return false;
 
-        return m.onGeodataPathIndex != m.geoPath.length - 1;
-    }
+		return m.onGeodataPathIndex != m.geoPath.length - 1;
+	}
 
 	public final void addStatFunc(Func f)
 	{
@@ -4503,7 +4500,7 @@ public abstract class L2Character extends L2Object
 		final int curZ = super.getZ();
 
 		// Calculate distance (dx,dy) between current position and destination
-        // TODO improve Z axis move/follow support when dx,dy are small compared to dz
+		// TODO improve Z axis move/follow support when dx,dy are small compared to dz
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
@@ -4512,22 +4509,22 @@ public abstract class L2Character extends L2Object
 		// make water move short and use no geodata checks for swimming chars
 		// distance in a click can easily be over 3000
 		if (Config.GEODATA > 0 && isInsideZone(L2Zone.FLAG_WATER) && distance > 700)
-        {
+		{
 			double divider = 700/distance;
-        	x = curX + (int)(divider * dx);
-        	y = curY + (int)(divider * dy);
-        	z = curZ + (int)(divider * dz);
-        	dx = (x - curX);
-    		dy = (y - curY);
-    		dz = (z - curZ);
-    		distance = Math.sqrt(dx*dx + dy*dy);
-        }
+			x = curX + (int)(divider * dx);
+			y = curY + (int)(divider * dy);
+			z = curZ + (int)(divider * dz);
+			dx = (x - curX);
+			dy = (y - curY);
+			dz = (z - curZ);
+			distance = Math.sqrt(dx*dx + dy*dy);
+		}
 
 		if (_log.isDebugEnabled()) _log.info("distance to target:" + distance);
 
 		// Define movement angles needed
 		// ^
-		// |     X (x,y)
+		// |	 X (x,y)
 		// |   /
 		// |  /distance
 		// | /
@@ -4645,50 +4642,50 @@ public abstract class L2Character extends L2Object
 				{
 
 					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, getInstanceId());
-                	if (m.geoPath == null || m.geoPath.length < 2) // No path found
-                	{
-                		// * Even though there's no path found (remember geonodes aren't perfect),
-                		// the mob is attacking and right now we set it so that the mob will go
-                		// after target anyway, is dz is small enough.
-                		// * With cellpathfinding this approach could be changed but would require taking
-                		// off the geonodes and some more checks.
-                		// * Summons will follow their masters no matter what.
-                		// * Currently minions also must move freely since L2AttackableAI commands
-                		// them to move along with their leader
-                		if (this instanceof L2PcInstance
-                				|| (!(this instanceof L2Playable)
-                						&& !(this instanceof L2MinionInstance)
-                						&& Math.abs(z - curZ) > 140)
-                				|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
-                		{
-                			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-                			return;
-                		}
+					if (m.geoPath == null || m.geoPath.length < 2) // No path found
+					{
+						// * Even though there's no path found (remember geonodes aren't perfect),
+						// the mob is attacking and right now we set it so that the mob will go
+						// after target anyway, is dz is small enough.
+						// * With cellpathfinding this approach could be changed but would require taking
+						// off the geonodes and some more checks.
+						// * Summons will follow their masters no matter what.
+						// * Currently minions also must move freely since L2AttackableAI commands
+						// them to move along with their leader
+						if (this instanceof L2PcInstance
+								|| (!(this instanceof L2Playable)
+										&& !(this instanceof L2MinionInstance)
+										&& Math.abs(z - curZ) > 140)
+								|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
+						{
+							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+							return;
+						}
 
 						m.disregardingGeodata = true;
 						x = originalX;
 						y = originalY;
 						z = originalZ;
 						distance = originalDistance;
-                	}
-                	else
-                	{
-                		m.onGeodataPathIndex = 0; // on first segment
-                		m.geoPathGtx = gtx;
-                		m.geoPathGty = gty;
-                		m.geoPathAccurateTx = originalX;
-                		m.geoPathAccurateTy = originalY;
+					}
+					else
+					{
+						m.onGeodataPathIndex = 0; // on first segment
+						m.geoPathGtx = gtx;
+						m.geoPathGty = gty;
+						m.geoPathAccurateTx = originalX;
+						m.geoPathAccurateTy = originalY;
 
-                		x = m.geoPath[m.onGeodataPathIndex].getX();
-                		y = m.geoPath[m.onGeodataPathIndex].getY();
-                		z = m.geoPath[m.onGeodataPathIndex].getZ();
+						x = m.geoPath[m.onGeodataPathIndex].getX();
+						y = m.geoPath[m.onGeodataPathIndex].getY();
+						z = m.geoPath[m.onGeodataPathIndex].getZ();
 
-                		dx = (x - curX);
-                		dy = (y - curY);
-                		distance = Math.sqrt(dx*dx + dy*dy);
-                		sin = dy/distance;
-                		cos = dx/distance;
-                	}
+						dx = (x - curX);
+						dy = (y - curY);
+						distance = Math.sqrt(dx*dx + dy*dy);
+						sin = dy/distance;
+						cos = dx/distance;
+					}
 				}
 			}
 			// If no distance to go through, the movement is canceled
@@ -5195,7 +5192,12 @@ public abstract class L2Character extends L2Object
 					L2Skill skill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_PETRIFICATION, 1);
 
 					if (skill != null)
+					{
+						abortAttack();
+						abortCast();
+						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						skill.getEffects(target, this);
+					}
 					else
 						_log.warn("Skill " + L2Boss.BOSS_PENALTY_PETRIFICATION + " at level 1 is missing in DP.");
 
@@ -5216,9 +5218,7 @@ public abstract class L2Character extends L2Object
 				// enemy.sendMessage("You hit the target's armor.");*/
 			}
 			else if (target instanceof L2Summon)
-			{
 				((L2Summon) target).getOwner().getAI().clientStartAutoAttack();
-			}
 
 			if (!miss && damage > 0)
 			{
@@ -6346,7 +6346,12 @@ public abstract class L2Character extends L2Object
 					{
 						L2Skill tempSkill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_SILENCE, 1);
 						if (tempSkill != null)
+						{
+							abortAttack();
+							abortCast();
+							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 							tempSkill.getEffects(target, this);
+						}
 						else
 							_log.warn("Skill " + L2Boss.BOSS_PENALTY_SILENCE + " at level 1 is missing in DP.");
 					}
@@ -6354,7 +6359,12 @@ public abstract class L2Character extends L2Object
 					{
 						L2Skill tempSkill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_PETRIFICATION, 1);
 						if (tempSkill != null)
+						{
+							abortAttack();
+							abortCast();
+							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 							tempSkill.getEffects(target, this);
+						}
 						else
 							_log.warn("Skill " + L2Boss.BOSS_PENALTY_PETRIFICATION + " at level 1 is missing in DP.");
 					}

@@ -351,7 +351,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_negateLvl = set.getInteger("negateLvl", -1);
 		String str = set.getString("negateStats", "");
 		
-		if (str == "")
+		if (str.equals(""))
 			_negateStats = new L2SkillType[0];
 		else
 		{
@@ -2031,28 +2031,28 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 					return null;
 				}
-	            case TARGET_PARTY_CLAN:
-	            {
+				case TARGET_PARTY_CLAN:
+				{
 					if (onlyFirst)
-	                    return new L2Character[]{activeChar};
+						return new L2Character[]{activeChar};
 
 					final L2PcInstance player = activeChar.getActingPlayer();
 
-	                if (player == null)
-	                	return null;
+					if (player == null)
+						return null;
 
-	                targetList.add(player);
+					targetList.add(player);
 
-	                final int radius = getSkillRadius();
-	                final boolean hasClan = player.getClan() != null;
-	                final boolean hasParty = player.isInParty();
+					final int radius = getSkillRadius();
+					final boolean hasClan = player.getClan() != null;
+					final boolean hasParty = player.isInParty();
 
-	                if (addSummon(activeChar, player, radius, false))
-	                	targetList.add(player.getPet());
+					if (addSummon(activeChar, player, radius, false))
+						targetList.add(player.getPet());
 
-	                // if player in olympiad mode or not in clan and not in party
-	                if (player.isInOlympiadMode() || !(hasClan || hasParty))
-	                	return new L2Character[] { player };
+					// if player in olympiad mode or not in clan and not in party
+					if (player.isInOlympiadMode() || !(hasClan || hasParty))
+						return new L2Character[] { player };
 
 					for (L2PcInstance obj : activeChar.getKnownList().getKnownPlayersInRadius(radius))
 					{
@@ -2093,7 +2093,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					}
 
 					return targetList.moveToArray(new L2Character[targetList.size()]);
-	            }
+				}
 				case TARGET_CORPSE_ALLY:
 				case TARGET_ALLY:
 				{
@@ -3031,27 +3031,27 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
 
-    public static final boolean addSummon(L2Character caster, L2PcInstance owner, int radius, boolean isDead)
-    {
-        final L2Summon summon = owner.getPet();
+	public static final boolean addSummon(L2Character caster, L2PcInstance owner, int radius, boolean isDead)
+	{
+		final L2Summon summon = owner.getPet();
 
-        if (summon == null)
-        	return false;
-
-        return addCharacter(caster, summon, radius, isDead);
-    }
-
-    public static final boolean addCharacter(L2Character caster, L2Character target, int radius, boolean isDead)
-    {
-    	if (isDead != target.isDead())
-    		return false;
-
-    	if (radius > 0 && !Util.checkIfInRange(radius, caster, target, true))
+		if (summon == null)
 			return false;
 
-    	return true;
+		return addCharacter(caster, summon, radius, isDead);
+	}
 
-    }
+	public static final boolean addCharacter(L2Character caster, L2Character target, int radius, boolean isDead)
+	{
+		if (isDead != target.isDead())
+			return false;
+
+		if (radius > 0 && !Util.checkIfInRange(radius, caster, target, true))
+			return false;
+
+		return true;
+
+	}
 
 	private boolean eventCheck(L2PcInstance player, L2PcInstance newTarget)
 	{

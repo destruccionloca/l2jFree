@@ -208,10 +208,7 @@ public final class Elementals implements FuncOwner
 		if (_active)
 			return;
 		
-		if (isArmor)
-			player.addStatFunc(new FuncAdd(getResist(_element), 0x40, this, _value, null));
-		else
-			player.addStatFunc(new FuncAdd(getPower(_element), 0x40, this, _value, null));
+		player.addStatFunc(new FuncAdd(isArmor ? getResist(_element) : getPower(_element), 0x40, this, _value, null));
 		
 		_active = true;
 	}

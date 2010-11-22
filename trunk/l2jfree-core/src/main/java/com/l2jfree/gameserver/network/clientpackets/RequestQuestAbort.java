@@ -50,7 +50,7 @@ public class RequestQuestAbort extends L2GameClientPacket
 			{
 				qs.exitQuest(true);
 				// Is it still necessary?
-				if (qe.getName() == "605_AllianceWithKetraOrcs" || qe.getName() == "611_AllianceWithVarkaSilenos")
+				if (qe.getName().equals("605_AllianceWithKetraOrcs") || qe.getName().equals("611_AllianceWithVarkaSilenos"))
 					activeChar.setAllianceWithVarkaKetra(0);
 				sendPacket(new QuestList(activeChar));
 			}

@@ -549,16 +549,12 @@ public class Quest extends ManagedScript
 		try
 		{
 			res = onAcquireSkill(npc, player, skill);
-			if (res == "true")
-				return true;
-			else if (res == "false")
-				return false;
+			return res.equals("true") ? true : res.equals("false") ? false : showResult(player, res);
 		}
 		catch (Exception e)
 		{
 			return showError(player, e);
 		}
-		return showResult(player, res);
 	}
 	
 	// called by L2NpcTemplate

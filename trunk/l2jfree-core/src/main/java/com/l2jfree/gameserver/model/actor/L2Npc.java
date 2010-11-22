@@ -406,11 +406,8 @@ public class L2Npc extends L2Character
 				if (skills != null)
 					for (L2Skill sk : skills)
 					{
-						if (sk == null || sk.getSkillType() == L2SkillType.PASSIVE
-								|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
-						{
+						if (sk == null || sk.isPassive() || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
 							continue;
-						}
 						if (sk.getCastRange() >= 200)
 						{
 							skilldata.add(sk);
@@ -445,10 +442,7 @@ public class L2Npc extends L2Character
 			}
 		}
 		
-		if (hasLrange)
-			return skilldata;
-		else
-			return null;
+		return (hasLrange ? skilldata : null);
 	}
 	
 	public FastList<L2Skill> getSrangeSkill()
@@ -470,9 +464,7 @@ public class L2Npc extends L2Character
 				if (skills != null)
 					for (L2Skill sk : skills)
 					{
-						if (sk == null || sk.getSkillType() == L2SkillType.PASSIVE
-								|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
-						{
+						if (sk == null || sk.isPassive() || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
 							continue;
 						}
 						if (sk.getCastRange() <= 200)
@@ -509,10 +501,7 @@ public class L2Npc extends L2Character
 			}
 		}
 		
-		if (hasSrange)
-			return skilldata;
-		else
-			return null;
+		return (hasSrange ? skilldata : null);
 	}
 	
 	public final void broadcastRandomAnimation(boolean force)
@@ -2756,7 +2745,7 @@ public class L2Npc extends L2Character
 		case 31770:
 		case 31771:
 		case 31772:
-			if (player.isHero())
+			if (player.isHero() || player.isNoble())
 				filename = Olympiad.OLYMPIAD_HTML_PATH + "hero_main.htm";
 			else
 				filename = (getHtmlPath(npcId, val));

@@ -223,13 +223,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// from this location.  (Fulminus)
 
 			// Check if player is an ally (comparing mem addr)
-			if (me.getFactionId() == "varka" && player.isAlliedWithVarka())
+			if (me.getFactionId().equals("varka") && player.isAlliedWithVarka())
 				return false;
-			else if (me.getFactionId() == "ketra" && player.isAlliedWithKetra())
+			else if (me.getFactionId().equals("ketra") && player.isAlliedWithKetra())
 				return false;
 			
 			// if player is disguised beleth faction ignores him
-			if (me.getFactionId() == "beleth" && player.isTransformed() && player.getTransformationId() == 101)
+			if (me.getFactionId().equals("beleth") && player.isTransformed() && player.getTransformationId() == 101)
 				return false;
 			
 			// event players are also ignored
@@ -254,9 +254,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				if (owner.isGM() && (owner.isInvul() || owner.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO))
 					return false;
 				// Check if player is an ally (comparing mem addr)
-				if (me.getFactionId() == "varka" && owner.isAlliedWithVarka())
+				if (me.getFactionId().equals("varka") && owner.isAlliedWithVarka())
 					return false;
-				if (me.getFactionId() == "ketra" && owner.isAlliedWithKetra())
+				if (me.getFactionId().equals("ketra") && owner.isAlliedWithKetra())
 					return false;
 			}
 		}
@@ -743,19 +743,19 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 					// TODO Unhardcode this by AI scripts (DrHouse)
 					//Catacomb mobs should assist lilim and nephilim other than dungeon
-					if ( (faction_id == "c_dungeon_clan") &&
-						((npcfaction == "c_dungeon_lilim") || npcfaction == "c_dungeon_nephi"))
+					if ( (faction_id.equals("c_dungeon_clan")) &&
+						((npcfaction.equals("c_dungeon_lilim")) || npcfaction.equals("c_dungeon_nephi")))
 						sevenSignFaction = true;
 					//Lilim mobs should assist other Lilim and catacomb mobs
-					else if ( (faction_id == "c_dungeon_lilim") &&
-						(npcfaction == "c_dungeon_clan"))
+                    else if ( (faction_id.equals("c_dungeon_lilim")) &&
+                        (npcfaction.equals("c_dungeon_clan")))
 						sevenSignFaction = true;
 					//Nephilim mobs should assist other Nephilim and catacomb mobs
-					else if ( (faction_id == "c_dungeon_nephi") &&
-						(npcfaction == "c_dungeon_clan"))
+                    else if ( (faction_id.equals("c_dungeon_nephi")) &&
+                        (npcfaction.equals("c_dungeon_clan")))
 						sevenSignFaction = true;
 					
-					if (faction_id != npc.getFactionId() && !sevenSignFaction)
+					if (!faction_id.equals(npc.getFactionId()) && !sevenSignFaction)
 						continue;
 
 					// Check if the L2Object is inside the Faction Range of the actor
@@ -1005,7 +1005,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								continue;
 							
 							L2Attackable targets = ((L2Attackable)obj);
-							if (me.getFactionId() != targets.getFactionId()
+							if (!me.getFactionId().equals(targets.getFactionId())
 									&& me.getFactionId() != null)
 								continue;
 							percentage = targets.getCurrentHp() / targets.getMaxHp() * 100;
@@ -1077,7 +1077,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								continue;
 							
 							L2Attackable targets = ((L2Attackable)obj);
-							if (me.getFactionId() != targets.getFactionId()
+							if (!me.getFactionId().equals(targets.getFactionId())
 									&& me.getFactionId() != null)
 								continue;
 							if (Rnd.get(100) < 10)
@@ -1331,7 +1331,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						if (!(obj instanceof L2Attackable) || obj.isDead())
 							continue;
 						L2Attackable targets = ((L2Attackable)obj);
-						if (me.getFactionId() != targets.getFactionId()
+						if (!me.getFactionId().equals(targets.getFactionId())
 								&& me.getFactionId() != null)
 							continue;
 						percentage = targets.getCurrentHp() / targets.getMaxHp() * 100;
@@ -1403,7 +1403,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							continue;
 						
 						L2Attackable targets = ((L2Attackable) obj);
-						if (me.getFactionId() != targets.getFactionId()
+						if (!me.getFactionId().equals(targets.getFactionId())
 								&& me.getFactionId() != null)
 							continue;
 						if (Rnd.get(100) < 10)
@@ -2077,7 +2077,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 					
 					L2Attackable targets = (L2Attackable) obj;
-					if (getActor().getFactionId() != targets.getFactionId()
+					if (!getActor().getFactionId().equals(targets.getFactionId())
 							&& getActor().getFactionId() != null)
 						continue;
 					

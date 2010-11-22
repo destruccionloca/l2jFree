@@ -1470,7 +1470,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				// Copy the current L2PcInstance QuestState in the QuestState table
 				if (states == null)
 					states = new QuestState[]
-					                        { getQuestState(quest.getName()) };
+											{ getQuestState(quest.getName()) };
 				else
 					states = addToQuestStateArray(states, getQuestState(quest.getName()));
 			}
@@ -1500,7 +1500,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				// Copy the current L2PcInstance QuestState in the QuestState table
 				if (states == null)
 					states = new QuestState[]
-					                        { getQuestState(quest.getName()) };
+											{ getQuestState(quest.getName()) };
 				else
 					states = addToQuestStateArray(states, getQuestState(quest.getName()));
 			}
@@ -1535,7 +1535,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 					{
 						if (states == null)
 							states = new QuestState[]
-							                        { getQuestState(quest.getName()) };
+													{ getQuestState(quest.getName()) };
 						else
 							states = addToQuestStateArray(states, getQuestState(quest.getName()));
 					}
@@ -10113,12 +10113,15 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Jail task
 		updateJailState();
 
+		if (isGM())
+		{
 		if (_isInvul) // isInvul() is always true on login if login protection is activated...
 			sendPacket(SystemMessage.sendString("Entering world in Invulnerable mode."));
 		if (getAppearance().isInvisible())
 			sendPacket(SystemMessage.sendString("Entering world in Invisible mode."));
 		if (getMessageRefusal())
 			sendPacket(SystemMessage.sendString("Entering world in Message Refusal mode."));
+		}
 
 		revalidateZone(true);
 

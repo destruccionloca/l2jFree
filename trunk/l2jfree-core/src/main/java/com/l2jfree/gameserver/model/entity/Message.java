@@ -85,10 +85,7 @@ public class Message
 		_receiverId = receiverId;
 		_subject = subject;
 		_content = text;
-		if (isCod)
-			_expiration = System.currentTimeMillis() + COD_EXPIRATION * 3600000;
-		else
-			_expiration = System.currentTimeMillis() + EXPIRATION * 3600000;
+		_expiration = (isCod ? System.currentTimeMillis() + COD_EXPIRATION * 3600000 : System.currentTimeMillis() + EXPIRATION * 3600000);
 		_hasAttachments = false;
 		_unread = true;
 		_deletedBySender = false;
@@ -232,9 +229,7 @@ public class Message
 		{
 			_deletedBySender = true;
 			if (_deletedByReceiver)
-			{
 				MailManager.getInstance().deleteMessageInDb(_messageId);
-			}
 			else
 				MailManager.getInstance().markAsDeletedBySenderInDb(_messageId);
 		}
@@ -251,9 +246,7 @@ public class Message
 		{
 			_deletedByReceiver = true;
 			if (_deletedBySender)
-			{
 				MailManager.getInstance().deleteMessageInDb(_messageId);
-			}
 			else
 				MailManager.getInstance().markAsDeletedByReceiverInDb(_messageId);
 		}

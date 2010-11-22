@@ -115,7 +115,7 @@ public final class L2AirShipInstance extends L2Character
 				while ((line = lnr.readLine()) != null)
 				{
 					if (line.trim().length() == 0
-					        || !line.startsWith(idWaypoint + ";"))
+							|| !line.startsWith(idWaypoint + ";"))
 						continue;
 					parseLine(line);
 					return;
@@ -140,7 +140,7 @@ public final class L2AirShipInstance extends L2Character
 		 * @param state
 		 * @return
 		 */
-        public int state(int state, L2AirShipInstance _boat)
+		public int state(int state, L2AirShipInstance _boat)
 		{
 			if (state < max)
 			{
@@ -247,7 +247,7 @@ public final class L2AirShipInstance extends L2Character
 		
 		if (_log.isDebugEnabled())
 			_log.debug("dist:" + distance + "speed:" + speed + " ttt:"
-			        + ticksToMove + " heading:" + heading);
+					+ ticksToMove + " heading:" + heading);
 		
 		m._xDestination = x;
 		m._yDestination = y;
@@ -393,16 +393,10 @@ public final class L2AirShipInstance extends L2Character
 		switch (npcId)
 		{
 			case 32607:
-				if (isArraived)
-					message = "The regurarly scheduled airship has arrived. It will depart for the Aden continent in 1 minute. ";
-				else
-					message = "The regurarly scheduled airship that flies to the Aden continent has departed.";
+				message = (isArraived ? "The regularly scheduled airship has arrived. It will depart for the Aden continent in 1 minute." : "The regularly scheduled airship that flies to the Aden continent has departed.");
 				break;
 			case 32609:
-				if (isArraived)
-					message = "The regurarly scheduled airship has arrived. It will depart for the Gracia continent in 1 minute. ";
-				else
-					message = "The regurarly scheduled airship that flies to the Gracia continent has departed.";
+				message = (isArraived ? "The regularly scheduled airship has arrived. It will depart for the Gracia continent in 1 minute." : "The regularly scheduled airship that flies to the Gracia continent has departed.");
 				break;
 			default:
 				_log.warn("Invalid AirShipController npcId: " + npcId);
@@ -570,36 +564,43 @@ public final class L2AirShipInstance extends L2Character
 			player.sendPacket(new ExAirShipInfo(this));
 		}
 	}
+
 	@Override
 	public L2ItemInstance getActiveWeaponInstance()
 	{
 		return null;
 	}
+
 	@Override
 	public L2Weapon getActiveWeaponItem()
 	{
 		return null;
 	}
+
 	@Override
 	public L2ItemInstance getSecondaryWeaponInstance()
 	{
 		return null;
 	}
+
 	@Override
 	public L2Weapon getSecondaryWeaponItem()
 	{
 		return null;
 	}
+
 	@Override
 	public int getLevel()
 	{
 		return 0;
 	}
+
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		return false;
 	}
+
 	@Override
 	protected boolean canReplaceAI()
 	{
@@ -620,22 +621,20 @@ public final class L2AirShipInstance extends L2Character
 		}*/
 	}
 
-    public int getSpeed1()
-    {
-	    return 300;
-    }
-    public int getSpeed2()
-    {
-	    return 4000;
-    }
+	public int getSpeed1()
+	{
+		return 300;
+	}
+	public int getSpeed2()
+	{
+		return 4000;
+	}
 	
 	@Override
 	public void sendInfo(L2PcInstance activeChar)
 	{
 		if (this != activeChar.getAirShip())
-		{
 			activeChar.sendPacket(new ExAirShipInfo(this));
-		}
 	}
 	
 	@Override

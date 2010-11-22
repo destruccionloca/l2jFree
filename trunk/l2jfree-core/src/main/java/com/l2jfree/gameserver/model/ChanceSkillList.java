@@ -225,7 +225,7 @@ public final class ChanceSkillList
 		_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
 		
 		// Launch the magic skill and calculate its effects
-		// TODO once core will support all posible effects, use effects (not handler)
+		// TODO once core will support all possible effects, use effects (not handler)
 		SkillHandler.getInstance().useSkill(_owner, skill, targets);
 	}
 }
