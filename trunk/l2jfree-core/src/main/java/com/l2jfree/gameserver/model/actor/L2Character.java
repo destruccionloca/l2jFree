@@ -2170,11 +2170,14 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2CharacterAI getAI()
 	{
+		if (_ai == null)
+		{
 			synchronized (this)
 			{
 				if (_ai == null)
 					_ai = initAI();
 			}
+		}
 		
 		return _ai;
 	}
@@ -2184,7 +2187,7 @@ public abstract class L2Character extends L2Object
 		return new L2CharacterAI(new AIAccessor());
 	}
 	
-	public final void setAI(L2CharacterAI newAI)
+	public synchronized final void setAI(L2CharacterAI newAI)
 	{
 		if (!canReplaceAI())
 			return;
@@ -3777,10 +3780,13 @@ public abstract class L2Character extends L2Object
 		 */
 		public final void detachAI()
 		{
-			if (!canReplaceAI())
-				return;
-			
-			_ai = null;
+			synchronized (L2Character.this)
+			{
+				if (!canReplaceAI())
+					return;
+				
+				_ai = null;
+			}
 		}
 	}
 
@@ -3851,7 +3857,7 @@ public abstract class L2Character extends L2Object
 		NPC_STD_CALCULATOR = Formulas.getStdNPCCalculators();
 	}
 
-	private L2CharacterAI				_ai;
+	private volatile L2CharacterAI		_ai;
 
 	/** Future Skill Cast */
 	protected Future<?>					_skillCast;

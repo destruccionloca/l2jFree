@@ -10115,12 +10115,12 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		if (isGM())
 		{
-		if (_isInvul) // isInvul() is always true on login if login protection is activated...
-			sendPacket(SystemMessage.sendString("Entering world in Invulnerable mode."));
-		if (getAppearance().isInvisible())
-			sendPacket(SystemMessage.sendString("Entering world in Invisible mode."));
-		if (getMessageRefusal())
-			sendPacket(SystemMessage.sendString("Entering world in Message Refusal mode."));
+			if (_isInvul) // isInvul() is always true on login if login protection is activated...
+				sendPacket(SystemMessage.sendString("Entering world in Invulnerable mode."));
+			if (getAppearance().isInvisible())
+				sendPacket(SystemMessage.sendString("Entering world in Invisible mode."));
+			if (getMessageRefusal())
+				sendPacket(SystemMessage.sendString("Entering world in Message Refusal mode."));
 		}
 
 		revalidateZone(true);
