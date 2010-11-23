@@ -466,7 +466,6 @@ public class L2Npc extends L2Character
 					{
 						if (sk == null || sk.isPassive() || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
 							continue;
-						}
 						if (sk.getCastRange() <= 200)
 						{
 							skilldata.add(sk);
