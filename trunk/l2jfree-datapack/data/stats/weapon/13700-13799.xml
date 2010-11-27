@@ -11,6 +11,7 @@
   </item>
   <item id="13770" name="Shadow Item - Shield of Yehan Miakesh">
     <for>
+      <sub val="8" order="0x10" stat="rEvas"/>
       <set val="101" order="0x08" stat="sDef"/>
       <set val="20" order="0x08" stat="rShld"/>
     </for>

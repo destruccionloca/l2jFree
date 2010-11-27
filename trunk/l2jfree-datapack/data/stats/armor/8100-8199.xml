@@ -29,7 +29,7 @@
     <cond msgId="1518">
       <and>
         <player castle="9"/>
-        <player pledgeClass="2"> <!-- Heir -->
+        <player pledgeClass="2"/> <!-- Heir -->
       </and>
     </cond>
     <for/>

@@ -177,6 +177,7 @@ public final class GPLLicenseChecker extends Config
 		"package cron",
 		"package custom",
 		"package instances",
+		"package official_events",
 		"package quests",
 		"package teleports",
 		"package transformations",

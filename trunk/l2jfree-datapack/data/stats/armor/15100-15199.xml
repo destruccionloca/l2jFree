@@ -132,7 +132,7 @@
     </for>
   </item>
   <item id="15123" name="Plate Leather Gaiters of Friendship - 10 day Limited Period">
-    <for/>
+    <for>
       <add order="0x10" stat="pDef" val="59"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
