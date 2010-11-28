@@ -219,7 +219,7 @@ public abstract class L2Character extends L2Object
 
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
-	private boolean 				_isUsingPathFinding;
+	private boolean					_isUsingPathFinding;
 
 	/**
 	 * Objects known by this object
@@ -1829,7 +1829,7 @@ public abstract class L2Character extends L2Object
 	 */
 	protected boolean checkDoCastConditions(L2Skill skill)
 	{
-		if (skill == null || isSkillDisabled(skill.getId()) || skill.getSkillType() == L2SkillType.NOTDONE || (skill.getFlyType() != null && isRooted()))
+		if (skill == null || isSkillDisabled(skill.getId()) || skill.getSkillType() == L2SkillType.NOTDONE || (skill.getFlyType() != null && isMovementDisabled()))
 		{
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);

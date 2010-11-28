@@ -118,7 +118,7 @@ public final class QuestState
 	 * @return L2PcInstance
 	 */
 	public L2PcInstance getPlayer()
-    {
+	{
 		return _player;
 	}
 	
@@ -127,7 +127,7 @@ public final class QuestState
 	 * @return State
 	 */
 	public byte getState()
-    {
+	{
 		return _state;
 	}
 
@@ -136,7 +136,7 @@ public final class QuestState
 	 * @return boolean
 	 */
 	public boolean isCompleted()
-    {
+	{
 		return (getState() == State.COMPLETED);
 	}
 
@@ -179,13 +179,13 @@ public final class QuestState
 	 * @return String (equal to parameter "val")
 	 */
 	public String setInternal(String var, String val)
-    {
+	{
 		if (_vars == null)
 			_vars = new FastMap<String, String>();
-        
+		
 		if (val == null)
 			val = "";
-        
+		
 		_vars.put(var, val);
 		return val;
 	}
@@ -204,16 +204,16 @@ public final class QuestState
 	 * @return String (equal to parameter "val")
 	 */
 	public String set(String var, String val)
-    {
+	{
 		if (_vars == null)
 			_vars = new FastMap<String, String>();
-        
+		
 		if (val == null)
 			val = "";
-        
+		
 		// FastMap.put() returns previous value associated with specified key, or null if there was no mapping for key.
 		String old = _vars.put(var, val);
-        
+		
 		if (old != null)
 			Quest.updateQuestVarInDb(this, var, val);
 		else
@@ -236,7 +236,7 @@ public final class QuestState
 			}
 			catch (Exception e)
 			{
-				_log.info(getPlayer().getName()+", "+getQuestName()+" cond ["+val+"] is not an integer.  Value stored, but no packet was sent: ", e);
+				_log.info(getPlayer().getName()+", "+getQuestName()+" cond ["+val+"] is not an integer. Value stored, but no packet was sent: ", e);
 			}
 		}
 		return val;
@@ -271,8 +271,8 @@ public final class QuestState
 		if (cond == old)
 			return;
 		
-		// cond 0 and 1 do not need completedStateFlags.  Also, if cond > 1, the 1st step must
-		// always exist (i.e. it can never be skipped).  So if cond is 2, we can still safely
+		// cond 0 and 1 do not need completedStateFlags. Also, if cond > 1, the 1st step must
+		// always exist (i.e. it can never be skipped). So if cond is 2, we can still safely
 		// assume no steps have been skipped.
 		// Finally, more than 31 steps CANNOT be supported in any way with skipping.
 		if (cond < 3 || cond > 31)
@@ -285,7 +285,7 @@ public final class QuestState
 		// case 1: No steps have been skipped so far...
 		if (completedStateFlags == 0)
 		{
-			// check if this step also doesn't skip anything.  If so, no further work is needed
+			// check if this step also doesn't skip anything. If so, no further work is needed
 			// also, in this case, no work is needed if the state is being reset to a smaller value
 			// in those cases, skip forward to informing the client about the change...
 
@@ -312,7 +312,7 @@ public final class QuestState
 			// if this is a push back to a previous step, clear all completion flags ahead
 			if (cond < old)
 			{
-				completedStateFlags &= ((1 << cond) - 1);  // note, this also unsets the flag indicating that there exist skips
+				completedStateFlags &= ((1 << cond) - 1); // note, this also unsets the flag indicating that there exist skips
 
 				//now, check if this resulted in no steps being skipped any more
 				if ( completedStateFlags == ((1 << cond) - 1) )
@@ -366,7 +366,7 @@ public final class QuestState
 	/**
 	 * Insert (or Update) in the database variables that need to stay persistant for this player after a reboot.
 	 * This function is for storage of values that do not related to a specific quest but are
-	 * global for all quests.  For example, player's can get only once the adena and XP reward for
+	 * global for all quests. For example, player's can get only once the adena and XP reward for
 	 * the first class quests, but they can make more than one first class quest.
 	 * @param var : String designating the name of the variable for the quest
 	 * @param value : String designating the value of the variable for the quest
@@ -466,10 +466,10 @@ public final class QuestState
 	 * @return Object
 	 */
 	public Object get(String var)
-    {
+	{
 		if (_vars == null)
 			return null;
-        
+		
 		return _vars.get(var);
 	}
 
@@ -478,67 +478,67 @@ public final class QuestState
 	 * @param var : String designating the variable for the quest
 	 * @return int
 	 */
-    public int getInt(String var)
-    {
-        int varint = 0;
-        
-        try
-        {
-            varint = Integer.parseInt(_vars.get(var));
-        }
-        catch (Exception e)
-        {
-        	if(_log.isDebugEnabled())
-        		_log.info(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint, e);
-//	    if (Config.AUTODELETE_INVALID_QUEST_DATA)
+	public int getInt(String var)
+	{
+		int varint = 0;
+		
+		try
+		{
+			varint = Integer.parseInt(_vars.get(var));
+		}
+		catch (Exception e)
+		{
+			if(_log.isDebugEnabled())
+				_log.info(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint, e);
+//		if (Config.AUTODELETE_INVALID_QUEST_DATA)
 //		exitQuest(true);
-        }
-        
-        return varint;
-    }
+		}
+		
+		return varint;
+	}
 
-    /**
-     * Add player to get notification of characters death
-     * @param character : L2Character of the character to get notification of death
-     */
-    public void addNotifyOfDeath(L2Character character)
-    {
-        if (character == null || !(character instanceof L2PcInstance))
-            return;
-        
-        ((L2PcInstance)character).addNotifyQuestOfDeath(this);
-    }
+	/**
+	 * Add player to get notification of characters death
+	 * @param character : L2Character of the character to get notification of death
+	 */
+	public void addNotifyOfDeath(L2Character character)
+	{
+		if (character == null || !(character instanceof L2PcInstance))
+			return;
+		
+		((L2PcInstance)character).addNotifyQuestOfDeath(this);
+	}
 
 	/**
 	 * Return the quantity of one sort of item hold by the player
 	 * @param itemId : ID of the item wanted to be count
 	 * @return int
 	 */
-    public long getQuestItemsCount(int itemId)
-    {
-        long count = 0;
-        
-        for (L2ItemInstance item: getPlayer().getInventory().getItems())
-            if (item != null && item.getItemId() == itemId)
-                count += item.getCount();
+	public long getQuestItemsCount(int itemId)
+	{
+		long count = 0;
+		
+		for (L2ItemInstance item: getPlayer().getInventory().getItems())
+			if (item != null && item.getItemId() == itemId)
+				count += item.getCount();
 
-        return count;
-    }
-    
-    /**
-     * Return the level of enchantment on the weapon of the player(Done specifically for weapon SA's)
-     * @param itemId : ID of the item to check enchantment
-     * @return int
-     */
-    public int getEnchantLevel(int itemId)
-    {
-        L2ItemInstance enchanteditem = getPlayer().getInventory().getItemByItemId(itemId);
-        
-        if (enchanteditem == null)
-            return 0;
-        
-        return enchanteditem.getEnchantLevel();
-    }
+		return count;
+	}
+	
+	/**
+	 * Return the level of enchantment on the weapon of the player(Done specifically for weapon SA's)
+	 * @param itemId : ID of the item to check enchantment
+	 * @return long
+	 */
+	public long getEnchantLevel(int itemId)
+	{
+		L2ItemInstance enchanteditem = getPlayer().getInventory().getItemByItemId(itemId);
+		
+		if (enchanteditem == null)
+			return 0;
+		
+		return enchanteditem.getEnchantLevel();
+	}
 
 	/**
 	 * Give item to the player
@@ -701,96 +701,96 @@ public final class QuestState
 		getPlayer().getInventory().updateInventory(item);
 	}
 
-    /**
-     * Drop Quest item using Config.RATE_DROP_QUEST
-     * @param itemId Item Identifier of the item to be dropped
-     * @param count Quantity of items to be dropped
-     * @param neededCount Quantity of items needed for quest
-     * @param dropChance Base chance of drop, same as in droplist
-     * @param sound indicating whether to play sound
-     * @return whether player has requested number of items
-     */
-    public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound)
-    {
-        return dropQuestItems(itemId, count, neededCount, dropChance, sound, true);
-    }
-    
-    public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound, boolean party)
-    {
-        return dropQuestItems(itemId, count, count, neededCount, dropChance, sound, party);
-    }
-    
-    public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound)
-    {
-    	return dropQuestItems(itemId, minCount, maxCount, neededCount, dropChance, sound, true);
-    }
-    
-    public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound, boolean party)
-    {
-    	dropChance *= Config.RATE_DROP_QUEST;
-    	if (party)
-    	{
-    		L2Party p = getPlayer().getParty();
-    		if (p != null)
-    			dropChance /= getPlayer().getParty().getMemberCount();
-    	}
+	/**
+	 * Drop Quest item using Config.RATE_DROP_QUEST
+	 * @param itemId Item Identifier of the item to be dropped
+	 * @param count Quantity of items to be dropped
+	 * @param neededCount Quantity of items needed for quest
+	 * @param dropChance Base chance of drop, same as in droplist
+	 * @param sound indicating whether to play sound
+	 * @return whether player has requested number of items
+	 */
+	public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound)
+	{
+		return dropQuestItems(itemId, count, neededCount, dropChance, sound, true);
+	}
+	
+	public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound, boolean party)
+	{
+		return dropQuestItems(itemId, count, count, neededCount, dropChance, sound, party);
+	}
+	
+	public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound)
+	{
+		return dropQuestItems(itemId, minCount, maxCount, neededCount, dropChance, sound, true);
+	}
+	
+	public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound, boolean party)
+	{
+		dropChance *= Config.RATE_DROP_QUEST;
+		if (party)
+		{
+			L2Party p = getPlayer().getParty();
+			if (p != null)
+				dropChance /= getPlayer().getParty().getMemberCount();
+		}
 
-        long currentCount = getQuestItemsCount(itemId);
-        if (currentCount >= neededCount)
-            return true;
-        
-        long itemCount = 0;
-        int random = Rnd.get(L2DropData.MAX_CHANCE);
-        
-        while (random < dropChance)
-        {
-            // Get the item quantity dropped
-            if (minCount < maxCount)
-                itemCount += Rnd.get(minCount, maxCount);
-            else if (minCount == maxCount)
-                itemCount += minCount;
-            else
-                itemCount++;
+		long currentCount = getQuestItemsCount(itemId);
+		if (currentCount >= neededCount)
+			return true;
+		
+		long itemCount = 0;
+		int random = Rnd.get(L2DropData.MAX_CHANCE);
+		
+		while (random < dropChance)
+		{
+			// Get the item quantity dropped
+			if (minCount < maxCount)
+				itemCount += Rnd.get(minCount, maxCount);
+			else if (minCount == maxCount)
+				itemCount += minCount;
+			else
+				itemCount++;
 
-            // Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
-            dropChance -= L2DropData.MAX_CHANCE;
-        }
+			// Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
+			dropChance -= L2DropData.MAX_CHANCE;
+		}
 
-        if (itemCount > 0)
-        {
-            // if over neededCount, just fill the gap
-            if (neededCount > 0 && currentCount + itemCount > neededCount)
-                itemCount = neededCount - currentCount;
-            
-            // Inventory slot check
-            if (!getPlayer().getInventory().validateCapacityByItemId(itemId))
-                return false;
-            
-            // Give the item to Player
-            getPlayer().addItem(Quest.QUEST, itemId, itemCount, getPlayer().getTarget(), true);
-            
-            if (sound)
-                sendPacket((currentCount + itemCount < neededCount) ? Quest.SND_ITEM_GET : Quest.SND_MIDDLE);
-        }
-        
-        return (neededCount > 0 && currentCount + itemCount >= neededCount);
-    }
+		if (itemCount > 0)
+		{
+			// if over neededCount, just fill the gap
+			if (neededCount > 0 && currentCount + itemCount > neededCount)
+				itemCount = neededCount - currentCount;
+			
+			// Inventory slot check
+			if (!getPlayer().getInventory().validateCapacityByItemId(itemId))
+				return false;
+			
+			// Give the item to Player
+			getPlayer().addItem(Quest.QUEST, itemId, itemCount, getPlayer().getTarget(), true);
+			
+			if (sound)
+				sendPacket((currentCount + itemCount < neededCount) ? Quest.SND_ITEM_GET : Quest.SND_MIDDLE);
+		}
+		
+		return (neededCount > 0 && currentCount + itemCount >= neededCount);
+	}
 
 // TODO More radar functions need to be added when the radar class is complete.
 // BEGIN STUFF THAT WILL PROBABLY BE CHANGED
 	public void addRadar(int x, int y, int z)
-    {
-        getPlayer().getRadar().addMarker(x, y, z);
+	{
+		getPlayer().getRadar().addMarker(x, y, z);
 	}
 	
 	public void removeRadar(int x, int y, int z)
-    {
-        getPlayer().getRadar().removeMarker(x, y, z);
+	{
+		getPlayer().getRadar().removeMarker(x, y, z);
 	}
 	
 	public void clearRadar()
-    {
-	    getPlayer().getRadar().removeAllMarkers();
+	{
+		getPlayer().getRadar().removeAllMarkers();
 	}
 // END STUFF THAT WILL PROBABLY BE CHANGED
 
@@ -855,9 +855,9 @@ public final class QuestState
 	 * @param sp
 	 */
 	public void addExpAndSp(int exp, int sp)
-    {
-	    getPlayer().addExpAndSp((int) getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD_EXPSP, null, null),
-                           (int) getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD_EXPSP, null, null));
+	{
+		getPlayer().addExpAndSp((int) getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD_EXPSP, null, null),
+			(int) getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD_EXPSP, null, null));
 	}
 	
 	/**
@@ -866,7 +866,7 @@ public final class QuestState
 	 * @return int
 	 */
 	public int getRandom(int max)
-    {
+	{
 		return Rnd.get(max);
 	}
 	
@@ -875,7 +875,7 @@ public final class QuestState
 	 * @return int
 	 */
 	public int getItemEquipped(int loc)
-    {
+	{
 		return getPlayer().getInventory().getPaperdollItemId(loc);
 	}
 	
@@ -884,146 +884,146 @@ public final class QuestState
 	 * @return int
 	 */
 	public int getGameTicks()
-    {
+	{
 		return GameTimeController.getGameTicks();
 	}
-    
-    /**
-     * Return true if quest is to exited on clean up by QuestStateManager
-     * @return boolean
-     */
-    public final boolean isExitQuestOnCleanUp()
-    {
-        return _isExitQuestOnCleanUp;
-    }
-    
-    /**
-     * Return the QuestTimer object with the specified name
-     * @return QuestTimer<BR> Return null if name does not exist
-     */
-    public void setIsExitQuestOnCleanUp(boolean isExitQuestOnCleanUp)
-    {
-        _isExitQuestOnCleanUp = isExitQuestOnCleanUp;
-    }
-    
-    /**
-     * Start a timer for quest.<BR><BR>
-     * @param name<BR> The name of the timer. Will also be the value for event of onEvent
-     * @param time<BR> The milisecond value the timer will elapse
-     */
-    public void startQuestTimer(String name, long time)
-    {
-        getQuest().startQuestTimer(name, time, null, getPlayer(), false);
-    }
+	
+	/**
+	 * Return true if quest is to exited on clean up by QuestStateManager
+	 * @return boolean
+	 */
+	public final boolean isExitQuestOnCleanUp()
+	{
+		return _isExitQuestOnCleanUp;
+	}
+	
+	/**
+	 * Return the QuestTimer object with the specified name
+	 * @return QuestTimer<BR> Return null if name does not exist
+	 */
+	public void setIsExitQuestOnCleanUp(boolean isExitQuestOnCleanUp)
+	{
+		_isExitQuestOnCleanUp = isExitQuestOnCleanUp;
+	}
+	
+	/**
+	 * Start a timer for quest.<BR><BR>
+	 * @param name<BR> The name of the timer. Will also be the value for event of onEvent
+	 * @param time<BR> The milisecond value the timer will elapse
+	 */
+	public void startQuestTimer(String name, long time)
+	{
+		getQuest().startQuestTimer(name, time, null, getPlayer(), false);
+	}
 
-    public void startQuestTimer(String name, long time, L2Npc npc)
-    {
-        getQuest().startQuestTimer(name, time, npc, getPlayer(), false);
-    }
+	public void startQuestTimer(String name, long time, L2Npc npc)
+	{
+		getQuest().startQuestTimer(name, time, npc, getPlayer(), false);
+	}
 
-    public void startRepeatingQuestTimer(String name, long time)
-    {
-        getQuest().startQuestTimer(name, time, null, getPlayer(), true);
-    }
+	public void startRepeatingQuestTimer(String name, long time)
+	{
+		getQuest().startQuestTimer(name, time, null, getPlayer(), true);
+	}
 
-    public void startRepeatingQuestTimer(String name, long time, L2Npc npc)
-    {
-        getQuest().startQuestTimer(name, time, npc, getPlayer(), true);
-    }
-    
-    /**
-     * Return the QuestTimer object with the specified name
-     * @return QuestTimer<BR> Return null if name does not exist
-     */
-    public final QuestTimer getQuestTimer(String name)
-    {
-        return getQuest().getQuestTimer(name, null, getPlayer());
-    }
+	public void startRepeatingQuestTimer(String name, long time, L2Npc npc)
+	{
+		getQuest().startQuestTimer(name, time, npc, getPlayer(), true);
+	}
+	
+	/**
+	 * Return the QuestTimer object with the specified name
+	 * @return QuestTimer<BR> Return null if name does not exist
+	 */
+	public final QuestTimer getQuestTimer(String name)
+	{
+		return getQuest().getQuestTimer(name, null, getPlayer());
+	}
 
-    /**
-     * Add spawn for player instance
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId)
-    {
-        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, 0);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId)
+	{
+		return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, 0);
+	}
 
-    public L2Npc addSpawn(int npcId, int despawnDelay)
-    {
-        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, despawnDelay);
-    }
+	public L2Npc addSpawn(int npcId, int despawnDelay)
+	{
+		return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, despawnDelay);
+	}
 
-    public L2Npc addSpawn(int npcId, int x, int y, int z)
-    {
-        return addSpawn(npcId, x, y, z, 0, false, 0);
-    }
+	public L2Npc addSpawn(int npcId, int x, int y, int z)
+	{
+		return addSpawn(npcId, x, y, z, 0, false, 0);
+	}
 
-    /**
-     * Add spawn for player instance
-     * Will despawn after the spawn length expires
-     * Uses player's coords and heading.
-     * Adds a little randomization in the x y coords
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId, L2Character cha)
-    {
-        return addSpawn(npcId, cha, true,0);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Will despawn after the spawn length expires
+	 * Uses player's coords and heading.
+	 * Adds a little randomization in the x y coords
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId, L2Character cha)
+	{
+		return addSpawn(npcId, cha, true,0);
+	}
 
-    public L2Npc addSpawn(int npcId, L2Character cha, int despawnDelay)
-    {
-        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), true, despawnDelay);
-    }
+	public L2Npc addSpawn(int npcId, L2Character cha, int despawnDelay)
+	{
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), true, despawnDelay);
+	}
 
-    /**
-     * Add spawn for player instance
-     * Will despawn after the spawn length expires
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId, int x, int y, int z, int despawnDelay)
-    {
-        return addSpawn(npcId, x, y, z, 0, false, despawnDelay);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Will despawn after the spawn length expires
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId, int x, int y, int z, int despawnDelay)
+	{
+		return addSpawn(npcId, x, y, z, 0, false, despawnDelay);
+	}
 
-    /**
-     * Add spawn for player instance
-     * Inherits coords and heading from specified L2Character instance.
-     * It could be either the player, or any killed/attacked mob
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId, L2Character cha, boolean randomOffset, int despawnDelay)
-    {
-        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), randomOffset, despawnDelay);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Inherits coords and heading from specified L2Character instance.
+	 * It could be either the player, or any killed/attacked mob
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId, L2Character cha, boolean randomOffset, int despawnDelay)
+	{
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), randomOffset, despawnDelay);
+	}
 
-    /**
-     * Add spawn for player instance
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
-    {
-        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false, 0);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
+	{
+		return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false, 0);
+	}
 
-    public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn)
-    {
-        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, 0);
-    }
+	public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn)
+	{
+		return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, 0);
+	}
 
-    /**
-     * Add spawn for player instance
-     * Return object id of newly spawned npc
-     */
-    public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
-    {
-        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, instanceId);
-    }
+	/**
+	 * Add spawn for player instance
+	 * Return object id of newly spawned npc
+	 */
+	public L2Npc addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
+	{
+		return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, instanceId);
+	}
 
-    public String showHtmlFile(String fileName)
-    {
-        return getQuest().showHtmlFile(getPlayer(), fileName);
-    }
+	public String showHtmlFile(String fileName)
+	{
+		return getQuest().showHtmlFile(getPlayer(), fileName);
+	}
 
 	/**
 	 * Destroy element used by quest when quest is exited
