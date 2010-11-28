@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DecoyInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
@@ -623,6 +624,19 @@ public class L2Spawn
 		else
 		{
 			mob.setHeading(getHeading());
+		}
+
+		mob.setChampion(false);
+		if (Config.CHAMPION_FREQUENCY > 0)
+		{
+			if (mob instanceof L2MonsterInstance && !getTemplate().isQuestMonster() &&
+				(!mob.isRaid() || Config.CHAMPION_BOSS) &&
+				(!mob.isRaidMinion() || Config.CHAMPION_MINIONS) &&
+				mob.getLevel() <= Config.CHAMPION_MAX_LEVEL &&
+				mob.getLevel() >= Config.CHAMPION_MIN_LEVEL)
+			{
+				mob.setChampion(Rnd.get(100) < Config.CHAMPION_FREQUENCY);
+			}
 		}
 
 		// Link the L2Npc to this L2Spawn

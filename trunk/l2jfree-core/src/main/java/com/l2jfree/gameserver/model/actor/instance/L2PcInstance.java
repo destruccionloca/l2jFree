@@ -2034,13 +2034,17 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 					|| item.getItem().getCrystalType() <= getExpertiseIndex())
 				continue;
 
+			final int crystalType = item.getItem().getCrystalType();
+
 			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-				weaponPenalty = (item.getItem().getCrystalType() - getExpertiseIndex());
-			else
-				armorPenalty++;
+				weaponPenalty = crystalType - getExpertiseIndex();
+			else if (crystalType > armorPenalty)
+				armorPenalty = crystalType;
 		}
 
-		L2Skill skill = getKnownSkill(9009);
+		armorPenalty -= getExpertiseIndex();
+
+		L2Skill skill = getKnownSkill(6209);
 		int skillLevel = skill == null ? 0 : skill.getLevel();
 		if (weaponPenalty > 4)
 			weaponPenalty = 4;
@@ -2048,13 +2052,13 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			setWeaponPenalty(weaponPenalty);
 			if (weaponPenalty > 0)
-				super.addSkill(9009, weaponPenalty);
+				super.addSkill(6209, weaponPenalty);
 			else
 				super.removeSkill(skill);
 			sendUpdate = true;
 		}
 
-		skill = getKnownSkill(9010);
+		skill = getKnownSkill(6213);
 		skillLevel = skill == null ? 0 : skill.getLevel();
 		if (armorPenalty > 5)
 			armorPenalty = 5;
@@ -2062,7 +2066,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		{
 			setArmorPenalty(armorPenalty);
 			if (armorPenalty > 0)
-				super.addSkill(9010, armorPenalty);
+				super.addSkill(6213, armorPenalty);
 			else
 				super.removeSkill(skill);
 			sendUpdate = true;
@@ -8872,11 +8876,17 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		sendEtcStatusUpdate();
 	}
 
+	/**
+	 * @return the _silenceMode
+	 */
 	public boolean isSilenceMode()
 	{
 		return _silenceMode;
 	}
 
+	/**
+	 * @param mode the _silenceMode to set
+	 */
 	public void setSilenceMode(boolean silenceMode)
 	{
 		_silenceMode = silenceMode;

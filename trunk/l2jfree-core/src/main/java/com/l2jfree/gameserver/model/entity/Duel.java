@@ -46,11 +46,11 @@ public class Duel
 {
 	private final static Log _log = LogFactory.getLog(Duel.class);
 
-    public static final int DUELSTATE_NODUEL		= 0;
-    public static final int DUELSTATE_DUELLING		= 1;
-    public static final int DUELSTATE_DEAD			= 2;
-    public static final int DUELSTATE_WINNER		= 3;
-    public static final int DUELSTATE_INTERRUPTED	= 4;
+	public static final int DUELSTATE_NODUEL		= 0;
+	public static final int DUELSTATE_DUELLING		= 1;
+	public static final int DUELSTATE_DEAD			= 2;
+	public static final int DUELSTATE_WINNER		= 3;
+	public static final int DUELSTATE_INTERRUPTED	= 4;
 
 	// =========================================================
 	// Data Field
@@ -68,12 +68,12 @@ public class Duel
 	public static enum DuelResultEnum
 	{
 		Continue,
-    	Team1Win,
-        Team2Win,
-        Team1Surrender,
-        Team2Surrender,
-        Canceled,
-        Timeout
+		Team1Win,
+		Team2Win,
+		Team1Surrender,
+		Team2Surrender,
+		Canceled,
+		Timeout
 	}
 
 	// =========================================================
@@ -227,7 +227,7 @@ public class Duel
 				// FIXME 1.4.0
 				//_duel.teleportPlayers(-83760, -238825, -3331);
 
-				// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
+				// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical.)
 				ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
 			}
 			else if (count > 0) // duel not started yet - continue countdown
@@ -574,7 +574,7 @@ public class Duel
 	{
 		if (_playerB == null) return;
 
-		if (_partyDuel  && _playerB.getParty() != null)
+		if (_partyDuel && _playerB.getParty() != null)
 		{
 			for (L2PcInstance temp : _playerB.getParty().getPartyMembers())
 				temp.sendPacket(packet);
@@ -669,7 +669,8 @@ public class Duel
 		SystemMessage sm = null;
 		switch (result)
 		{
-			case Team1Win:
+			case Team1Win: // FALL THROUGH
+				case Team2Surrender:
 				restorePlayerConditions(false);
 				// send SystemMessage
 				if (_partyDuel) sm = new SystemMessage(SystemMessageId.C1_PARTY_HAS_WON_THE_DUEL);
@@ -679,7 +680,8 @@ public class Duel
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);
 				break;
-			case Team2Win:
+			case Team2Win: // FALL THROUGH
+				case Team1Surrender:
 				restorePlayerConditions(false);
 				// send SystemMessage
 				if (_partyDuel) sm = new SystemMessage(SystemMessageId.C1_PARTY_HAS_WON_THE_DUEL);
@@ -689,28 +691,7 @@ public class Duel
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);
 				break;
-			case Team1Surrender:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_C1_PARTY_WITHDREW_FROM_THE_DUEL_C2_PARTY_HAS_WON);
-				else sm = new SystemMessage(SystemMessageId.SINCE_C1_WITHDREW_FROM_THE_DUEL_C2_HAS_WON);
-				sm.addString(_playerA.getName());
-				sm.addString(_playerB.getName());
 
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Team2Surrender:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_C1_PARTY_WITHDREW_FROM_THE_DUEL_C2_PARTY_HAS_WON);
-				else sm = new SystemMessage(SystemMessageId.SINCE_C1_WITHDREW_FROM_THE_DUEL_C2_HAS_WON);
-				sm.addString(_playerB.getName());
-				sm.addString(_playerA.getName());
-
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
 			case Canceled:
 				stopFighting();
 				// dont restore hp, mp, cp
@@ -723,7 +704,7 @@ public class Duel
 				break;
 			case Timeout:
 				stopFighting();
-				// hp,mp,cp seem to be restored in a timeout too...
+				// hp,mp,cp seem to be restored in a timeout too.
 				restorePlayerConditions(false);
 				// send SystemMessage
 				sm = SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE.getSystemMessage();
