@@ -10,12 +10,12 @@ qn = "62_PathoftheTrooper"
 
 #NPCs
 Shubain = 32194
-Gwain = 32197
+Gwain   = 32197
 
 #Mobs
 Warrior = 20014
-Spider = 20038
-Tumran = 20062
+Spider  = 20038
+Tumran  = 20062
 
 #Items
 Head,Leg,Heart,Shubain_Rec,Gwain_Rec = range(9749,9754)

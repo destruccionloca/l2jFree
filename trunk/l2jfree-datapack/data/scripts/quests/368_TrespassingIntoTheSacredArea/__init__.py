@@ -1,5 +1,6 @@
 # Made by mtrix
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -60,12 +61,13 @@ class Quest (JQuest) :
      if not partyMember : return
      st = partyMember.getQuestState(qn)
 
-     npcId = npc.getNpcId()
-     random = st.getRandom(100)
-     chance = CHANCE + npcId - 20794
-     if random<=chance :
-         st.giveItems(BLADE_STAKATO_FANG,1)
-         st.playSound("ItemSound.quest_itemget")
+     chance = CHANCE + npc.getNpcId() - 20794
+     numItems, chance = divmod(chance * Config.RATE_DROP_QUEST,100)
+     if st.getRandom(100) < chance :
+        numItems += 1
+        if numItems :
+           st.giveItems(BLADE_STAKATO_FANG,1)
+           st.playSound("ItemSound.quest_itemget")
      return
 
 QUEST       = Quest(368,qn,"Trespassing Into The Sacred Area")

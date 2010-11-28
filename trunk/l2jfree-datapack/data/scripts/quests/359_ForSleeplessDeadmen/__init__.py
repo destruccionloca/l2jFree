@@ -11,10 +11,10 @@ QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 359,"ForSleeplessDeadmen","For Sleep
 qn = "359_ForSleeplessDeadmen"
 
 #Variables
-DROP_RATE = 10  #in %
+DROP_RATE = 10 #in %
 DROP_MAX = 100 #unless you change this
 
-REQUIRED=60  #how many items will be paid for a reward
+REQUIRED = 60  #how many items will be paid for a reward
 
 #Quest items
 REMAINS = 5869
@@ -81,7 +81,7 @@ class Quest (JQuest) :
      st = player.getQuestState(qn)
      if not st : return 
      if st.getState() != State.STARTED : return 
-   
+
      count = st.getQuestItemsCount(REMAINS)
      if count < REQUIRED :
         chance = DROP_RATE * Config.RATE_DROP_QUEST
@@ -94,7 +94,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
            else:
-              st.playSound("ItemSound.quest_itemget")   
+              st.playSound("ItemSound.quest_itemget")
            st.giveItems(REMAINS,int(numItems))
      return
 

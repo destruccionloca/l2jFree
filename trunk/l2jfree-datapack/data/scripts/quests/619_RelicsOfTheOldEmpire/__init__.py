@@ -86,7 +86,7 @@ class Quest (JQuest) :
      st = partyMember.getQuestState(qn)
      if st :
        if st.getState() == State.STARTED :
-         numItems, chance = divmod(100*Config.RATE_DROP_QUEST,100)
+         numItems, chance = divmod(30*Config.RATE_DROP_QUEST,100)
          if st.getRandom(100) < chance :
             numItems += 1
          st.giveItems(RELICS,int(numItems))

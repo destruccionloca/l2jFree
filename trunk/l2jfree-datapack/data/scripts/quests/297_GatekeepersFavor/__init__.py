@@ -7,7 +7,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "297_GatekeepersFavor"
 
-STARSTONE2_ID = 1573
+STARSTONE2_ID       = 1573
 GATEKEEPER_TOKEN_ID = 1659
 
 class Quest (JQuest) :
@@ -56,7 +56,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return 
    if st.getState() != State.STARTED : return 
-   
+
    npcId = npc.getNpcId()
    if npcId == 20521 :
       if st.getInt("cond") == 1 and st.getQuestItemsCount(STARSTONE2_ID) < 20 :

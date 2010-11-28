@@ -78,8 +78,13 @@ class Quest (JQuest) :
       if st.getState() == State.STARTED :
          count = st.getQuestItemsCount(BLOOD_OF_SAINT)
          if st.getInt("cond") == 1 and count < 300 :
-            st.giveItems(BLOOD_OF_SAINT,1)
-            if count == 299 :
+            rate = int(Config.RATE_DROP_QUEST)
+            if count + rate > 300:
+              items = 300 - count
+            else:
+              items = rate
+            st.giveItems(BLOOD_OF_SAINT,items)
+            if count + items == 300 :
                st.playSound("ItemSound.quest_middle")
                st.set("cond","2")
             else:

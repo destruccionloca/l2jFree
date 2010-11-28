@@ -129,7 +129,7 @@ class Quest (JQuest) :
         JQuest.__init__(self,id,name,descr)
 
     def onAdvEvent(self,event,npc,player):
-        if Config.DISABLE_TUTORIAL :
+        if Config.ALT_DISABLE_TUTORIAL :
             return
         st = player.getQuestState(qn)
         classId = int(st.getPlayer().getClassId().getId())

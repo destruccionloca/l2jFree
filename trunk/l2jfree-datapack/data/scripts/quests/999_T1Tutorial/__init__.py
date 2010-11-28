@@ -69,7 +69,7 @@ TALKS={
 30530:[4,["30530-01.htm","30530-03.htm",0,"30530-04.htm",],1,LICENSE_OF_MINER],
 32133:[5,["32133-01.htm","32133-02.htm","32133-04.htm"],0,0],
 32134:[5,["32134-01.htm","32134-03.htm",0,"32134-04.htm",],1,DIPLOMA]
-}    
+}
 
 class Quest (JQuest) :
 
@@ -77,7 +77,7 @@ class Quest (JQuest) :
     JQuest.__init__(self,id,name,descr)
 
  def onAdvEvent(self,event,npc,player):
-    if Config.DISABLE_TUTORIAL :
+    if Config.ALT_DISABLE_TUTORIAL :
         return
     st = player.getQuestState(qn)
     if not st: return

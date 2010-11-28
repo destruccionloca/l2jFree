@@ -7,9 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "331_ArrowForVengeance"
 
 HARPY_FEATHER = 1452
-MEDUSA_VENOM = 1453
-WYRMS_TOOTH = 1454
-ADENA = 57
+MEDUSA_VENOM  = 1453
+WYRMS_TOOTH   = 1454
+ADENA         = 57
 
 class Quest (JQuest) :
 
@@ -62,7 +62,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return 
    if st.getState() != State.STARTED : return 
-   
+
    npcId = npc.getNpcId()
    n = st.getRandom(10)
    if n<5 :
