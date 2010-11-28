@@ -20,20 +20,26 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class KnightofDawn extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public KnightofDawn()
 	{
 		// id, colRadius, colHeight
-		super(20, 12, 24);
+		super(20, 12, 24.5);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		{
 		addSkill(player, 878, 1); // Knight of Dawn Power Strike
 		addSkill(player, 879, 1); // Knight of Dawn Curse Fear
 		addSkill(player, 880, 1); // Knight of Dawn Ultimate Defense
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -41,7 +47,7 @@ public class KnightofDawn extends L2Transformation
 		removeSkill(player, 879); // Knight of Dawn Curse Fear
 		removeSkill(player, 880); // Knight of Dawn Ultimate Defense
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new KnightofDawn());

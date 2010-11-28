@@ -29,11 +29,13 @@ public class GuardianStrider extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 8336, 1); // Guardian's Strider Mount
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 8336); // Guardian's Strider Mount
 	}
 	
 	public static void main(String[] args)

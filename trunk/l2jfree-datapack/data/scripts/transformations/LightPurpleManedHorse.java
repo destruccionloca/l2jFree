@@ -25,17 +25,17 @@ public class LightPurpleManedHorse extends L2Transformation
 		// id, colRadius, colHeight
 		super(106, 31, 32.5);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new LightPurpleManedHorse());

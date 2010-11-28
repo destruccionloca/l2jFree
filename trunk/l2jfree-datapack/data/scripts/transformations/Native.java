@@ -20,22 +20,29 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Native extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public Native()
 	{
 		// id, colRadius, colHeight
 		super(101, 8, 23.5);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		{
+			addSkill(player, 961, 1); // Swift Dash
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Native());

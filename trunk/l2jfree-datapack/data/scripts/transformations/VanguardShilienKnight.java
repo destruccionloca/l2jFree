@@ -20,12 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardShilienKnight extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{18, 22, 28, 33, 278, 279, 289, 401};
+
 	public VanguardShilienKnight()
 	{
 		// id
 		super(315);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,13 +37,28 @@ public class VanguardShilienKnight extends L2Transformation
 			addSkill(player, 144, level); // Dual Weapon Mastery
 			addSkill(player, 815, level); // Blade Hurricane
 			addSkill(player, 817, level); // Double Strike
-			addSkill(player, 956, level); // Boost Morale
+		}
+
+		if (player.getLevel() > 48)
+		{
+			int level = player.getLevel() - 48;
 			addSkill(player, 958, level); // Triple Blade Slash
 		}
-		
-		player.addTransformAllowedSkill(new int[] { 18, 22, 28, 33, 278, 279, 289, 401 });
+
+		int level = -1;
+		if (player.getLevel() >= 73)
+			level = 3;
+		else if (player.getLevel() >= 65)
+			level = 2;
+		else if (player.getLevel() >= 57)
+			level = 1;
+		{
+			addSkill(player, 956, level); // Boost Morale
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -51,7 +68,7 @@ public class VanguardShilienKnight extends L2Transformation
 		removeSkill(player, 956); // Boost Morale
 		removeSkill(player, 958); // Triple Blade Slash
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new VanguardShilienKnight());

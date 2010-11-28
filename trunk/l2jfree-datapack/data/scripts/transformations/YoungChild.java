@@ -20,22 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class YoungChild extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public YoungChild()
 	{
 		// id, colRadius, colHeight
 		super(112, 5, 12.3);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		{
+			addSkill(player, 960, 1);  // Race Running
+			addSkill(player, 5437, 1); // Dissonance
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 960);  // Race Running
+		removeSkill(player, 5437); // Dissonance
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new YoungChild());

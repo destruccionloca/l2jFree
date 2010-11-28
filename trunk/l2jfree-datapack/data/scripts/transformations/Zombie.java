@@ -25,17 +25,17 @@ public class Zombie extends L2Transformation
 		// id, colRadius, colHeight
 		super(303, 11, 24.6);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Zombie());

@@ -20,34 +20,45 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class LilimKnightWeak extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public LilimKnightWeak()
 	{
 		// id, colRadius, colHeight
 		super(209, 12, 25.5);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 568, 2); // Attack Buster
-		addSkill(player, 569, 2); // Attack Storm
-		addSkill(player, 570, 2); // Attack Rage
-		addSkill(player, 571, 2); // Poison Dust
-		
-		player.clearCharges();
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 2;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 568, level); // Attack Buster (4 levels)
+			addSkill(player, 569, level); // Attack Storm (4 levels)
+			addSkill(player, 570, level); // Attack Rage (4 levels)
+			addSkill(player, 571, level); // Poison Dust (4 levels)
+
+			player.clearCharges();
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 568); // Attack Buster
-		removeSkill(player, 569); // Attack Storm
-		removeSkill(player, 570); // Attack Rage
-		removeSkill(player, 571); // Poison Dust
+		removeSkill(player, 568); // Attack Buster (4 levels)
+		removeSkill(player, 569); // Attack Storm (4 levels)
+		removeSkill(player, 570); // Attack Rage (4 levels)
+		removeSkill(player, 571); // Poison Dust (4 levels)
 		
 		player.clearCharges();
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new LilimKnightWeak());

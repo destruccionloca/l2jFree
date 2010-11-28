@@ -20,26 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class MagicLeader extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public MagicLeader()
 	{
 		// id, colRadius, colHeight
 		super(18, 9, 23.5);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 874, 1); // Magic Leader Flame Strike
-		addSkill(player, 875, 1); // Magic Leader Empower
+		{
+			addSkill(player, 874, 1); // Magic Leader Flame Strike
+			addSkill(player, 875, 1); // Magic Leader Empower
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 874); // Magic Leader Flame Strike
 		removeSkill(player, 875); // Magic Leader Empower
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new MagicLeader());

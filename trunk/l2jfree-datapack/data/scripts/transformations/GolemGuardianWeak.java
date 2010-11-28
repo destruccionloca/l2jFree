@@ -20,6 +20,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GolemGuardianWeak extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public GolemGuardianWeak()
 	{
 		// id, colRadius, colHeight
@@ -29,19 +31,28 @@ public class GolemGuardianWeak extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 572, 2); // Double Slasher
-		addSkill(player, 573, 2); // Earthquake
-		addSkill(player, 574, 2); // Bomb Installation
-		addSkill(player, 575, 2); // Steel Cutter
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 2;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 572, level); // Double Slasher (4 levels)
+			addSkill(player, 573, level); // Earthquake (4 levels)
+			addSkill(player, 574, level); // Bomb Installation (4 levels)
+			addSkill(player, 575, level); // Steel Cutter (4 levels)
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 572); // Double Slasher
-		removeSkill(player, 573); // Earthquake
-		removeSkill(player, 574); // Bomb Installation
-		removeSkill(player, 575); // Steel Cutter
+		removeSkill(player, 572); // Double Slasher (4 levels)
+		removeSkill(player, 573); // Earthquake (4 levels)
+		removeSkill(player, 574); // Bomb Installation (4 levels)
+		removeSkill(player, 575); // Steel Cutter (4 levels)
 	}
 	
 	public static void main(String[] args)

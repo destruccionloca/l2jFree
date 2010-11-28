@@ -20,30 +20,41 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class InfernoDrakeStrong extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public InfernoDrakeStrong()
 	{
 		// id, colRadius, colHeight
 		super(213, 15, 24);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 576, 4); // Paw Strike
-		addSkill(player, 577, 4); // Fire Breath
-		addSkill(player, 578, 4); // Blaze Quake
-		addSkill(player, 579, 4); // Fire Armor
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 4;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 576, level); // Paw Strike (4 levels)
+			addSkill(player, 577, level); // Fire Breath (4 levels)
+			addSkill(player, 578, level); // Blaze Quake (4 levels)
+			addSkill(player, 579, level); // Fire Armor (4 levels)
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 576); // Paw Strike
-		removeSkill(player, 577); // Fire Breath
-		removeSkill(player, 578); // Blaze Quake
-		removeSkill(player, 579); // Fire Armor
+		removeSkill(player, 576); // Paw Strike (4 levels)
+		removeSkill(player, 577); // Fire Breath (4 levels)
+		removeSkill(player, 578); // Blaze Quake (4 levels)
+		removeSkill(player, 579); // Fire Armor (4 levels)
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new InfernoDrakeStrong());

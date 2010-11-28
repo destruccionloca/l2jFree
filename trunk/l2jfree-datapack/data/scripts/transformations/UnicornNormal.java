@@ -20,30 +20,41 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class UnicornNormal extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public UnicornNormal()
 	{
 		// id, colRadius, colHeight
 		super(205, 15, 28);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 563, 3); // Horn of Doom
-		addSkill(player, 564, 3); // Gravity Control
-		addSkill(player, 565, 3); // Horn Assault
-		addSkill(player, 567, 3); // Light of Heal
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 3;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 563, level); // Horn of Doom (4 levels)
+			addSkill(player, 564, level); // Gravity Control (4 levels)
+			addSkill(player, 565, level); // Horn Assault (4 levels)
+			addSkill(player, 567, level); // Light of Heal (4 levels)
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 563); // Horn of Doom
-		removeSkill(player, 564); // Gravity Control
-		removeSkill(player, 565); // Horn Assault
-		removeSkill(player, 567); // Light of Heal
+		removeSkill(player, 563); // Horn of Doom (4 levels)
+		removeSkill(player, 564); // Gravity Control (4 levels)
+		removeSkill(player, 565); // Horn Assault (4 levels)
+		removeSkill(player, 567); // Light of Heal (4 levels)
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new UnicornNormal());

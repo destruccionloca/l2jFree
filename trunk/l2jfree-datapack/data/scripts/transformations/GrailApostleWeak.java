@@ -20,6 +20,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GrailApostleWeak extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public GrailApostleWeak()
 	{
 		// id, colRadius, colHeight
@@ -29,10 +31,19 @@ public class GrailApostleWeak extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 559, 2); // Spear
-		addSkill(player, 560, 2); // Power Slash
-		addSkill(player, 561, 2); // Bless of Angel
-		addSkill(player, 562, 2); // Wind of Angel
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 2;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 559, level); // Spear
+			addSkill(player, 560, level); // Power Slash
+			addSkill(player, 561, level); // Bless of Angel
+			addSkill(player, 562, level); // Wind of Angel
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
 	
 	@Override

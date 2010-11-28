@@ -20,30 +20,41 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DragonBomberNormal extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public DragonBomberNormal()
 	{
 		// id, colRadius, colHeight
 		super(217, 16, 24);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 580, 3); // Death Blow
-		addSkill(player, 581, 3); // Sand Cloud
-		addSkill(player, 582, 3); // Scope Bleed
-		addSkill(player, 583, 3); // Assimilation
+			int level = -1;
+			if (player.getLevel() >= 60)
+				level = 3;
+			else if (player.getLevel() >= 1)
+				level = 1;
+		{
+			addSkill(player, 580, level); // Death Blow (4 levels)
+			addSkill(player, 581, level); // Sand Cloud (4 levels)
+			addSkill(player, 582, level); // Scope Bleed (4 levels)
+			addSkill(player, 583, level); // Assimilation (4 levels)
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 580); // Death Blow
-		removeSkill(player, 581); // Sand Cloud
-		removeSkill(player, 582); // Scope Bleed
-		removeSkill(player, 583); // Assimilation
+		removeSkill(player, 580); // Death Blow (4 levels)
+		removeSkill(player, 581); // Sand Cloud (4 levels)
+		removeSkill(player, 582); // Scope Bleed (4 levels)
+		removeSkill(player, 583); // Assimilation (4 levels)
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DragonBomberNormal());

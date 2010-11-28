@@ -20,28 +20,34 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class FortressCaptain extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public FortressCaptain()
 	{
 		// id, colRadius, colHeight
 		super(21, 14, 27);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 891, 1); // Fortress Captain Twister
-		addSkill(player, 892, 1); // Fortress Captain Blaze
-		addSkill(player, 893, 1); // Fortress Captain Seal of Binding
+		{
+			addSkill(player, 881, 1); // Fortress Captain Twister
+			addSkill(player, 882, 1); // Fortress Captain Blaze
+			addSkill(player, 883, 1); // Fortress Captain Seal of Binding
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 891); // Fortress Captain Twister
-		removeSkill(player, 892); // Fortress Captain Blaze
-		removeSkill(player, 893); // Fortress Captain Seal of Binding
+		removeSkill(player, 881); // Fortress Captain Twister
+		removeSkill(player, 882); // Fortress Captain Blaze
+		removeSkill(player, 883); // Fortress Captain Seal of Binding
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new FortressCaptain());

@@ -20,25 +20,31 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineKnight extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public DivineKnight()
 	{
 		// id, colRadius, colHeight
 		super(252, 16, 30);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 680, 1); // Divine Knight Hate
-		addSkill(player, 681, 1); // Divine Knight Hate Aura
-		addSkill(player, 682, 1); // Divine Knight Stun Attack
-		addSkill(player, 683, 1); // Divine Knight Thunder Storm
-		addSkill(player, 684, 1); // Divine Knight Ultimate Defense
-		addSkill(player, 685, 1); // Sacrifice Knight
-		addSkill(player, 795, 1); // Divine Knight Brandish
-		addSkill(player, 796, 1); // Divine Knight Explosion
+		{
+			addSkill(player, 680, 1); // Divine Knight Hate
+			addSkill(player, 681, 1); // Divine Knight Hate Aura
+			addSkill(player, 682, 1); // Divine Knight Stun Attack
+			addSkill(player, 683, 1); // Divine Knight Thunder Storm
+			addSkill(player, 684, 1); // Divine Knight Ultimate Defense
+			addSkill(player, 685, 1); // Sacrifice Knight
+			addSkill(player, 795, 1); // Divine Knight Brandish
+			addSkill(player, 796, 1); // Divine Knight Explosion
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -51,7 +57,7 @@ public class DivineKnight extends L2Transformation
 		removeSkill(player, 795); // Divine Knight Brandish
 		removeSkill(player, 796); // Divine Knight Explosion
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineKnight());

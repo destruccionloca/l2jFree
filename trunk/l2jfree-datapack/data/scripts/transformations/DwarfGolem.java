@@ -20,21 +20,27 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DwarfGolem extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public DwarfGolem()
 	{
 		// id, colRadius, colHeight
 		super(259, 31, 51.8);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 806, 1); // Magic Obstacle
-		addSkill(player, 807, 1); // Over-hit
-		addSkill(player, 808, 1); // Golem Punch
-		addSkill(player, 809, 1); // Golem Tornado Swing
+		{
+			addSkill(player, 806, 1); // Magic Obstacle
+			addSkill(player, 807, 1); // Over-hit
+			addSkill(player, 808, 1); // Golem Punch
+			addSkill(player, 809, 1); // Golem Tornado Swing
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -43,7 +49,7 @@ public class DwarfGolem extends L2Transformation
 		removeSkill(player, 808); // Golem Punch
 		removeSkill(player, 809); // Golem Tornado Swing
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DwarfGolem());

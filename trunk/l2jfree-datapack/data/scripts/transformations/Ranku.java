@@ -20,26 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Ranku extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public Ranku()
 	{
 		// id, colRadius, colHeight
 		super(309, 13, 29);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 731, 1); // Ranku Dark Explosion
-		addSkill(player, 732, 1); // Ranku Stun Attack
+		{
+			addSkill(player, 731, 1); // Ranku Dark Explosion
+			addSkill(player, 732, 1); // Ranku Stun Attack
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 731); // Ranku Dark Explosion
 		removeSkill(player, 732); // Ranku Stun Attack
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Ranku());

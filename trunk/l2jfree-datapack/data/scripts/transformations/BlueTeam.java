@@ -20,24 +20,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class BlueTeam extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public BlueTeam()
 	{
 		// id, colRadius, colHeight
-		super(122, 12, 28);
+		super(122, 9, 28.3);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 5852, 1); // Flip Block
+		{
+			addSkill(player, 5852, 1); // Flip Block
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 5852); // Flip Block
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new BlueTeam());

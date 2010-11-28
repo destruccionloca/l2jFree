@@ -20,24 +20,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class OrcMercenary extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public OrcMercenary()
 	{
 		// id, colRadius, colHeight
 		super(13, 8, 27);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 869, 1); // Mercenary Power Strike
+		{
+			addSkill(player, 869, 1); // Mercenary Power Strike
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 869); // Mercenary Power Strike
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new OrcMercenary());

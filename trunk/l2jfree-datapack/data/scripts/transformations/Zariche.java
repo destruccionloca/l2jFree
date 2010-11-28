@@ -20,34 +20,40 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Zariche extends L2Transformation
 {
+	private static final int[] SKILLS = new int[]{};
+
 	public Zariche()
 	{
 		// id, colRadius, colHeight
 		super(301, 12, 31.58);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Set charachter name to transformed name
-		player.getAppearance().setVisibleName("Zariche");
-		player.getAppearance().setVisibleTitle("");
-		
-		addSkill(player, 3630, 1); // Void Burst
-		addSkill(player, 3631, 1); // Void Flow
+		{
+			// Set charachter name to transformed name
+			player.getAppearance().setVisibleName("Zariche");
+			player.getAppearance().setVisibleTitle("");
+
+			addSkill(player, 3630, 1); // Void Burst
+			addSkill(player, 3631, 1); // Void Flow
+		}
+
+		player.addTransformAllowedSkill(SKILLS);
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		// set character back to true name.
 		player.getAppearance().setVisibleName(null);
 		player.getAppearance().setVisibleTitle(null);
-		
+
 		removeSkill(player, 3630); // Void Burst
 		removeSkill(player, 3631); // Void Flow
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Zariche());
