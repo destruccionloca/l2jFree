@@ -110,7 +110,6 @@ public final class ZoneManager
 	
 	protected int parseDocument(Document doc)
 	{
-		int zoneCount = 0;
 		List<L2Zone> zones = new ArrayList<L2Zone>();
 		
 		// Get the world regions
@@ -154,7 +153,6 @@ public final class ZoneManager
 								}
 							}
 						}
-						zoneCount++;
 					}
 				}
 			}
@@ -162,7 +160,7 @@ public final class ZoneManager
 		
 		_zones = (L2Zone[])ArrayUtils.addAll(_zones, zones.toArray(new L2Zone[zones.size()]));
 		
-		return zoneCount;
+		return zones.size();
 	}
 	
 	public L2Zone[] getZones()

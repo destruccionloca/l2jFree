@@ -1320,7 +1320,7 @@ public class Config extends L2Config
 			SERVER_AGE_LIM = Integer.parseInt(optionsSettings.getProperty("ServerAgeLimitation", "15"));
 
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "600")) * 1000;
-			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "15")) * 1000;
+			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "60")) * 1000;
 			String PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems", "0");
 			LIST_PROTECTED_ITEMS.clear();
 			for (String id : PROTECTED_ITEMS.trim().split(","))

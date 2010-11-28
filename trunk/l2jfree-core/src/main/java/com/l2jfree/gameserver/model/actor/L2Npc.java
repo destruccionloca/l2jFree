@@ -604,7 +604,7 @@ public class L2Npc extends L2Character
 	 * Constructor of L2Npc (use L2Character constructor).<BR><BR>
 	 *
 	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Call the L2Character constructor to set the _template of the L2Character (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)  </li>
+	 * <li>Call the L2Character constructor to set the _template of the L2Character (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
 	 * <li>Set the name of the L2Character</li>
 	 * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
 	 *
@@ -1815,6 +1815,11 @@ public class L2Npc extends L2Character
 				player.sendPacket(htm);
 			}
 
+			else
+				{
+					_log.info(getClass().getSimpleName() + ": Unknown NPC bypass: \"" + command + "\" NpcId:" + getNpcId());
+				}
+
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -2551,9 +2556,9 @@ public class L2Npc extends L2Character
 			return;
 
 		// Blessing of protection - author kerberos_20. Used codes from Rayan - L2Emu project.
-		// Prevent a cursed weapon weilder of being buffed - I think no need of that becouse karma check > 0
+		// Prevent a cursed weapon weilder of being buffed - I think no need of that because karma check > 0
 		// if (player.isCursedWeaponEquiped())
-		//   return;
+		// return;
 
 		int player_level = player.getLevel();
 		// Select the player

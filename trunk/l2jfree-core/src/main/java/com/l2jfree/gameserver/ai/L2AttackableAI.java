@@ -747,12 +747,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						((npcfaction.equals("c_dungeon_lilim")) || npcfaction.equals("c_dungeon_nephi")))
 						sevenSignFaction = true;
 					//Lilim mobs should assist other Lilim and catacomb mobs
-                    else if ( (faction_id.equals("c_dungeon_lilim")) &&
-                        (npcfaction.equals("c_dungeon_clan")))
+					else if ( (faction_id.equals("c_dungeon_lilim")) &&
+						(npcfaction.equals("c_dungeon_clan")))
 						sevenSignFaction = true;
 					//Nephilim mobs should assist other Nephilim and catacomb mobs
-                    else if ( (faction_id.equals("c_dungeon_nephi")) &&
-                        (npcfaction.equals("c_dungeon_clan")))
+					else if ( (faction_id.equals("c_dungeon_nephi")) &&
+						(npcfaction.equals("c_dungeon_clan")))
 						sevenSignFaction = true;
 					
 					if (!faction_id.equals(npc.getFactionId()) && !sevenSignFaction)
@@ -968,9 +968,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							if (GeoData.getInstance().canSeeTarget(_actor, leader))
 							{
 								clientStopMoving(null);
-								_actor.setTarget(leader);
-								clientStopMoving(null);
-								_actor.doCast(sk);
+								newTargetCastAndReset(leader, leader, sk);
 								return;
 							}
 						}
@@ -984,9 +982,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							continue;
 						}
-						clientStopMoving(null);
-						_actor.setTarget(_actor);
-						_actor.doCast(sk);
+						newTargetCastAndReset(_actor, _actor, sk);
 						return;
 					}
 				for (L2Skill sk : getSkillRender()._healskills)
@@ -1013,17 +1009,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							{
 								if (GeoData.getInstance().canSeeTarget(_actor, targets))
 								{
-									clientStopMoving(null);
-									_actor.setTarget(obj);
-									_actor.doCast(sk);
+									newTargetCastAndReset(obj, obj, sk);
 									return;
 								}
 							}
 						}
 					if (isParty(sk))
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return;
 					}
 				}
@@ -1054,9 +1047,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							}
 							if (GeoData.getInstance().canSeeTarget(_actor, leader))
 							{
-								clientStopMoving(null);
-								_actor.setTarget(((L2MinionInstance) _actor).getLeader());
-								_actor.doCast(sk);
+								newTargetCastAndReset(leader, leader, sk);
 								return;
 							}
 						}
@@ -1084,20 +1075,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							{
 								if (GeoData.getInstance().canSeeTarget(_actor, targets))
 								{
-									clientStopMoving(null);
-									_actor.setTarget(obj);
-									_actor.doCast(sk);
+									newTargetCastAndReset(obj, obj, sk);
 									return;
 								}
 							}
 						}
 					if (isParty(sk))
 					{
-						clientStopMoving(null);
-						L2Object target = getAttackTarget();
-						_actor.setTarget(_actor);
-						_actor.doCast(sk);
-						_actor.setTarget(target);
+						newTargetCastAndReset(getAttackTarget(), _actor, sk);
 						return;
 					}
 				}
@@ -1222,6 +1207,54 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		
 		_accessor.doAttack(getAttackTarget());
 	}
+
+	/**
+	 * Check if the skill's target type is an aura type (TARGET_AURA, TARGET_BEHIND_AURA, TARGET_FRONT_AURA)
+	 */
+	private boolean isTargetTypeAura(final L2Skill sk)
+		{
+			SkillTargetType type = sk.getTargetType();
+			return (type == SkillTargetType.TARGET_AURA || type == SkillTargetType.TARGET_BEHIND_AURA ||
+					type == SkillTargetType.TARGET_FRONT_AURA);
+		}
+
+	/**
+	 * Check if given target is in range to perfor an AOE area or multiface attack.
+	 */
+	private boolean isTargetInAreaRange(final L2Skill sk, final L2Character attackTarget, final double distance, final double skillRange)
+		{
+			SkillTargetType type = sk.getTargetType();
+			return ((type == SkillTargetType.TARGET_AREA
+					|| type == SkillTargetType.TARGET_BEHIND_AREA
+					|| type == SkillTargetType.TARGET_FRONT_AREA
+					|| type == SkillTargetType.TARGET_MULTIFACE)
+					&& GeoData.getInstance().canSeeTarget(_actor, attackTarget)
+					&& !attackTarget.isDead() && distance <= skillRange);
+		}
+
+	/**
+	 * Stop moving and cast skill
+	 */
+	private void stopMovingAndCast(final L2Skill sk)
+	{
+		clientStopMoving(null);
+		_actor.doCast(sk);
+	}
+
+	/**
+	 * Stop moving, change target, cast skill, and reset _actor's target to
+	 * oldTarget if oldTarget != target
+	 */
+	private void newTargetCastAndReset(final L2Character oldTarget, final L2Character target, final L2Skill sk)
+	{
+		clientStopMoving(null);
+		_actor.setTarget(target);
+		_actor.doCast(sk);
+		if (oldTarget != target) // Plain pointer comparison is INTENDED.
+		{
+			_actor.setTarget(oldTarget);
+		}
+	}
 	
 	private boolean cast(L2Skill sk)
 	{
@@ -1230,18 +1263,26 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId())
 				|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
 			return false;
+
+		final SkillTargetType targetType = sk.getTargetType();
 		L2Attackable me = getActor();
-		if (getAttackTarget() == null)
+				L2Character attackTarget = getAttackTarget();
+		if (attackTarget == null)
+			{
 			if (me.getMostHated() != null)
+				{
 				setAttackTarget(me.getMostHated());
-		if (getAttackTarget() == null)
+				attackTarget = getAttackTarget();
+				}
+			}
+		if (attackTarget == null)
 			return false;
-		double dist = Math.sqrt(_actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY()));
-		double dist2 = dist - getAttackTarget().getTemplate().getCollisionRadius();
+		double dist = Math.sqrt(_actor.getPlanDistanceSq(attackTarget.getX(), attackTarget.getY()));
+		double dist2 = dist - attackTarget.getTemplate().getCollisionRadius();
 		double range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius()
-				+ getAttackTarget().getTemplate().getCollisionRadius();
+				+ attackTarget.getTemplate().getCollisionRadius();
 		double srange = sk.getCastRange() + _actor.getTemplate().getCollisionRadius();
-		if (getAttackTarget().isMoving())
+		if (attackTarget.isMoving())
 			dist2 = dist2 - 30;
 		
 		switch (sk.getSkillType())
@@ -1251,37 +1292,26 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				if (_actor.getFirstEffect(sk) == null)
 				{
-					clientStopMoving(null);
-					// L2Object target = getAttackTarget();
-					_actor.setTarget(_actor);
-					_actor.doCast(sk);
-					// _actor.setTarget(target);
+					newTargetCastAndReset(_actor, _actor, sk);
+					// _actor.setTarget(attackTarget);
 					return true;
 				}
 				// ----------------------------------------
 				// If actor already have buff, start looking at others same faction mob to cast
-				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+				if (targetType == L2Skill.SkillTargetType.TARGET_SELF)
 					return false;
-				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+				if (targetType == L2Skill.SkillTargetType.TARGET_ONE)
 				{
 					L2Character target = effectTargetReconsider(sk, true);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						L2Object targets = getAttackTarget();
-						_actor.setTarget(target);
-						_actor.doCast(sk);
-						_actor.setTarget(targets);
+						newTargetCastAndReset(attackTarget, target, sk);
 						return true;
 					}
 				}
 				if (canParty(sk))
 				{
-					clientStopMoving(null);
-					L2Object targets = getAttackTarget();
-					_actor.setTarget(_actor);
-					_actor.doCast(sk);
-					_actor.setTarget(targets);
+					newTargetCastAndReset(attackTarget, _actor, sk);
 					return true;
 				}
 				break;
@@ -1293,7 +1323,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			case BALANCE_LIFE:
 			{
 				double percentage = _actor.getCurrentHp() / _actor.getMaxHp() * 100;
-				if (_actor instanceof L2MinionInstance && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
+				if (_actor instanceof L2MinionInstance && targetType != L2Skill.SkillTargetType.TARGET_SELF)
 				{
 					L2Character leader = ((L2MinionInstance)_actor).getLeader();
 					if (leader != null && !leader.isDead()
@@ -1308,22 +1338,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						}
 						if (GeoData.getInstance().canSeeTarget(_actor, leader))
 						{
-							clientStopMoving(null);
-							_actor.setTarget(leader);
-							_actor.doCast(sk);
+							newTargetCastAndReset(leader, leader, sk);
 							return true;
 						}
 					}
 				}
 				if (Rnd.get(100) < (100 - percentage) / 3)
 				{
-					clientStopMoving(null);
-					_actor.setTarget(_actor);
-					_actor.doCast(sk);
+					newTargetCastAndReset(_actor, _actor, sk);
 					return true;
 				}
 				
-				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+				if (targetType == L2Skill.SkillTargetType.TARGET_ONE)
 				{
 					for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
 							sk.getCastRange() + _actor.getTemplate().getCollisionRadius()))
@@ -1339,9 +1365,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							if (GeoData.getInstance().canSeeTarget(_actor, targets))
 							{
-								clientStopMoving(null);
-								_actor.setTarget(obj);
-								_actor.doCast(sk);
+								newTargetCastAndReset(obj, obj, sk);
 								return true;
 							}
 						}
@@ -1362,9 +1386,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.get(100) <= 20)
 							{
-								clientStopMoving(null);
-								_actor.setTarget(_actor);
-								_actor.doCast(sk);
+								newTargetCastAndReset(_actor, _actor, sk);
 								return true;
 							}
 						}
@@ -1376,7 +1398,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				if (!isParty(sk))
 				{
-					if (_actor instanceof L2MinionInstance && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
+					if (_actor instanceof L2MinionInstance && targetType != L2Skill.SkillTargetType.TARGET_SELF)
 					{
 						L2Character leader = ((L2MinionInstance) _actor).getLeader();
 						if (leader != null && leader.isDead())
@@ -1389,9 +1411,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							}
 						if (GeoData.getInstance().canSeeTarget(_actor, leader))
 						{
-							clientStopMoving(null);
-							_actor.setTarget(((L2MinionInstance) _actor).getLeader());
-							_actor.doCast(sk);
+							newTargetCastAndReset(leader, leader, sk);
 							return true;
 						}
 					}
@@ -1410,9 +1430,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							if (GeoData.getInstance().canSeeTarget(_actor, targets))
 							{
-								clientStopMoving(null);
-								_actor.setTarget(obj);
-								_actor.doCast(sk);
+								newTargetCastAndReset(obj, obj, sk);
 								return true;
 							}
 						}
@@ -1433,9 +1451,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.get(100) <= 20)
 							{
-								clientStopMoving(null);
-								_actor.setTarget(_actor);
-								_actor.doCast(sk);
+								newTargetCastAndReset(_actor, _actor, sk);
 								return true;
 							}
 						}
@@ -1450,47 +1466,36 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			case MDOT:
 			case BLEED:
 			{
-				if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !canAOE(sk)
-						&& !getAttackTarget().isDead() && dist2 <= srange)
+				if (GeoData.getInstance().canSeeTarget(_actor, attackTarget) && !canAOE(sk)
+						&& !attackTarget.isDead() && dist2 <= srange)
 				{
-					if (getAttackTarget().getFirstEffect(sk) == null)
+					if (attackTarget.getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
 				else if (canAOE(sk))
 				{
-					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					if (isTargetTypeAura(sk))
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					if (isTargetInAreaRange(sk, attackTarget, dist2, srange)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
-				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				else if (targetType == SkillTargetType.TARGET_ONE)
 				{
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk)
 						return true;
 					}
 				}
@@ -1498,17 +1503,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 			case SLEEP:
 			{
-				if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				if (targetType == SkillTargetType.TARGET_ONE)
 				{
-					if (getAttackTarget() != null && !getAttackTarget().isDead() && dist2 <= srange)
+					if (attackTarget != null && !attackTarget.isDead() && dist2 <= srange)
 					{
-						if (dist2 > range || getAttackTarget().isMoving())
+						if (dist2 > range || attackTarget.isMoving())
 						{
-							if (getAttackTarget().getFirstEffect(sk) == null)
+							if (attackTarget.getFirstEffect(sk) == null)
 							{
-								clientStopMoving(null);
-								// _actor.setTarget(getAttackTarget());
-								_actor.doCast(sk);
+								// _actor.setTarget(attackTarget);
+								stopMovingAndCast(sk);
 								return true;
 							}
 						}
@@ -1517,32 +1521,22 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
 				else if (canAOE(sk))
 				{
-					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					if (isTargetTypeAura(sk))
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					if (isTargetInAreaRange(sk, attackTarget, dist2, srange))
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
@@ -1552,46 +1546,35 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			case STUN:
 			case PARALYZE:
 			{
-				if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !canAOE(sk) && dist2 <= srange)
+				if (GeoData.getInstance().canSeeTarget(_actor, attackTarget) && !canAOE(sk) && dist2 <= srange)
 				{
-					if (getAttackTarget().getFirstEffect(sk) == null)
+					if (attackTarget.getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
 				else if (canAOE(sk))
 				{
-					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					if (isTargetTypeAura(sk))
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					else if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					else if (isTargetInAreaRange(sk, attackTarget, dist2, srange))
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
-				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				else if (targetType == SkillTargetType.TARGET_ONE)
 				{
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
@@ -1604,42 +1587,31 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				{
 					if (getAttackTarget().getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
 				else if (canAOE(sk))
 				{
-					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					if (isTargetTypeAura(sk))
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					if (isTargetInAreaRange(sk, attackTarget, dist2, srange))
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
-				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				else if (targetType == SkillTargetType.TARGET_ONE)
 				{
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
@@ -1648,52 +1620,37 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			case CANCEL:
 			case NEGATE:
 			{
-				if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				if (targetType == SkillTargetType.TARGET_ONE)
 				{
-					if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					if (attackTarget.getFirstEffect(L2EffectType.BUFF) != null
+							&& GeoData.getInstance().canSeeTarget(_actor, attackTarget)
+							&& !attackTarget.isDead() && dist2 <= srange)
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						clientStopMoving(null);
-						L2Object targets = getAttackTarget();
-						_actor.setTarget(target);
-						_actor.doCast(sk);
-						_actor.setTarget(targets);
+						newTargetCastAndReset(attackTarget, target, sk);
 						return true;
 					}
 				}
 				else if (canAOE(sk))
 				{
-					if ((sk.getTargetType() == SkillTargetType.TARGET_AURA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA || sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+					if (isTargetTypeAura(sk) && GeoData.getInstance().canSeeTarget(_actor, attackTarget))
 
 					{
-						clientStopMoving(null);
-						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
-						// _actor.setTarget(target);
+						stopMovingAndCast(sk);
+						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					else if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
-							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
-							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
-							&& !getAttackTarget().isDead() && dist2 <= srange)
+					else if (isTargetInAreaRange(sk, attackTarget, dist2, srange))
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
@@ -1710,11 +1667,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				if (!canAura(sk))
 				{
-					if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !getAttackTarget().isDead()
+					if (GeoData.getInstance().canSeeTarget(_actor, attackTarget) && !attackTarget.isDead()
 							&& dist2 <= srange)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 					else
@@ -1722,19 +1678,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						L2Character target = skillTargetReconsider(sk);
 						if (target != null)
 						{
-							clientStopMoving(null);
-							L2Object targets = getAttackTarget();
-							_actor.setTarget(target);
-							_actor.doCast(sk);
-							_actor.setTarget(targets);
+							newTargetCastAndReset(attackTarget, target, sk);
 							return true;
 						}
 					}
 				}
 				else
 				{
-					clientStopMoving(null);
-					_actor.doCast(sk);
+					stopMovingAndCast(sk);
 					return true;
 				}
 				break;
@@ -1743,11 +1694,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				if (!canAura(sk))
 				{
-					if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !getAttackTarget().isDead()
+					if (GeoData.getInstance().canSeeTarget(_actor, attackTarget) && !attackTarget.isDead()
 							&& dist2 <= srange)
 					{
-						clientStopMoving(null);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						return true;
 					}
 					else
@@ -1755,22 +1705,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						L2Character target = skillTargetReconsider(sk);
 						if (target != null)
 						{
-							clientStopMoving(null);
-							L2Object targets = getAttackTarget();
-							_actor.setTarget(target);
-							_actor.doCast(sk);
-							_actor.setTarget(targets);
+							newTargetCastAndReset(attackTarget, target, sk);
 							return true;
 						}
 					}
 				}
 				else
 				{
-					clientStopMoving(null);
-					// L2Object targets = getAttackTarget();
 					// _actor.setTarget(_actor);
-					_actor.doCast(sk);
-					// _actor.setTarget(targets);
+					stopMovingAndCast(sk);
+					// _actor.setTarget(attackTarget);
 					return true;
 				}
 			}
@@ -1781,7 +1725,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	}
 	
 	/**
-	 * This AI task will start when ACTOR cannot move and attack range larger than distance
+	 * This AI task will start when ACTOR cannot move and attack range larger than distanceSquared
 	 */
 	private void movementDisable()
 	{
@@ -1831,10 +1775,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 					if (getAttackTarget().getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
 						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						// _actor.setTarget(target);
 						return;
 					}
@@ -1858,10 +1801,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 					if (getAttackTarget().getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
 						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						// _actor.setTarget(target);
 						return;
 					}
@@ -1884,10 +1826,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 					if (getAttackTarget().getFirstEffect(sk) == null)
 					{
-						clientStopMoving(null);
 						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						// _actor.setTarget(target);
 						return;
 					}
@@ -1911,10 +1852,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						continue;
 					if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null)
 					{
-						clientStopMoving(null);
 						// L2Object target = getAttackTarget();
 						// _actor.setTarget(_actor);
-						_actor.doCast(sk);
+						stopMovingAndCast(sk);
 						// _actor.setTarget(target);
 						return;
 					}
@@ -1936,10 +1876,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					}
 					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
 						continue;
-					clientStopMoving(null);
 					// L2Object target = getAttackTarget();
 					// _actor.setTarget(_actor);
-					_actor.doCast(sk);
+					stopMovingAndCast(sk);
 					// _actor.setTarget(target);
 					return;
 				}
