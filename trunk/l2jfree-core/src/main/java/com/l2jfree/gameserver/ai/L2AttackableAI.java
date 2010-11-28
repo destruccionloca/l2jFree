@@ -1484,7 +1484,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						// _actor.setTarget(attackTarget);
 						return true;
 					}
-					if (isTargetInAreaRange(sk, attackTarget, dist2, srange)
+					if (isTargetInAreaRange(sk, attackTarget, dist2, srange))
 					{
 						stopMovingAndCast(sk);
 						return true;
@@ -1495,7 +1495,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					L2Character target = effectTargetReconsider(sk, false);
 					if (target != null)
 					{
-						stopMovingAndCast(sk)
+						stopMovingAndCast(sk);
 						return true;
 					}
 				}
@@ -1505,7 +1505,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				if (targetType == SkillTargetType.TARGET_ONE)
 				{
-					if (attackTarget != null && !attackTarget.isDead() && dist2 <= srange)
+					if (!attackTarget.isDead() && dist2 <= srange)
 					{
 						if (dist2 > range || attackTarget.isMoving())
 						{

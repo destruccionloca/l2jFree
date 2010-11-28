@@ -48,8 +48,8 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -1982,17 +1982,20 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				case TARGET_PARTY_MEMBER:
 				{
-					if ((target != null && target == activeChar) || (target != null && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty() == target.getParty())
-							|| (target != null && activeChar instanceof L2PcInstance && target instanceof L2Summon && activeChar.getPet() == target)
-							|| (target != null && activeChar instanceof L2Summon && target instanceof L2PcInstance && activeChar == target.getPet()))
+					if (target != null)
 					{
-						if (!target.isDead())
+						if (target == activeChar || (activeChar.getParty() != null && target.getParty() != null && activeChar.getParty() == target.getParty())
+								|| (activeChar instanceof L2PcInstance && target instanceof L2Summon && activeChar.getPet() == target)
+								|| (activeChar instanceof L2Summon && target instanceof L2PcInstance && activeChar == target.getPet()))
 						{
-							// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
-							return new L2Character[] { target };
-						}
+							if (!target.isDead())
+							{
+								// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
+								return new L2Character[] { target };
+							}
 
-						return null;
+							return null;
+						}
 					}
 
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
