@@ -50,6 +50,7 @@ public abstract class IdFactory
 			"UPDATE character_friends     SET charId2 = ?     WHERE charId2 = ?",
 			"UPDATE character_hennas      SET charId = ?      WHERE charId = ?",
 			"UPDATE character_recipebook  SET charId = ?      WHERE charId = ?",
+			"UPDATE character_recipeshoplist  SET charId = ? WHERE charId = ?",
 			"UPDATE character_shortcuts   SET charId = ?      WHERE charId = ?",
 			"UPDATE character_shortcuts   SET shortcut_id = ? WHERE shortcut_id = ? AND type = 1", // items
 			"UPDATE character_macroses    SET charId = ?      WHERE charId = ?",
@@ -101,6 +102,7 @@ public abstract class IdFactory
 			"SELECT charId2     FROM character_friends     WHERE charId2 >= ?     AND charId2 < ?",
 			"SELECT charId      FROM character_hennas      WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_recipebook  WHERE charId >= ?      AND charId < ?",
+			"SELECT charId      FROM character_recipeshoplist  WHERE charId >= ?     AND charId < ?",
 			"SELECT charId      FROM character_shortcuts   WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_macroses    WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_skill_reuses WHERE charId >= ?     AND charId < ?",
@@ -150,9 +152,11 @@ public abstract class IdFactory
 		case Increment:
 			_instance = new IncrementIDFactory();
 			break;
+		/* TODO: Either update to match current DB structure, or remove
 		case Rebuild:
 			_instance = new BitSetRebuildFactory();
 			break;
+		*/
 		}
 	}
 

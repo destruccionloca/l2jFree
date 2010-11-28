@@ -28,9 +28,11 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.tools.util.PrimeFinder;
 
-/*
+/**
  * @author evill33t
+ * @deprecated Missing statements for newer tables. Do not use.
  */
+@Deprecated
 public class BitSetRebuildFactory extends IdFactory
 {
 	private final static Log	_log	= LogFactory.getLog(BitSetRebuildFactory.class);

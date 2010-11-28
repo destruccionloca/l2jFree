@@ -152,6 +152,7 @@ public final class TableOptimizer
 		new CharacterRelatedTable("character_quests", "charId");
 		new CharacterRelatedTable("character_raid_points", "charId");
 		new CharacterRelatedTable("character_recipebook", "charId");
+		new CharacterRelatedTable("character_recipeshoplist", "charId");
 		new CharacterRelatedTable("character_recommend_data", "charId");
 		new CharacterRelatedTable("character_recommends", "charId");
 		new CharacterRelatedTable("character_recommends", "target_id");

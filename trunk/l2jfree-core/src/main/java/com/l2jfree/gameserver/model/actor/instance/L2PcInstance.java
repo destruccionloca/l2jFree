@@ -27,8 +27,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -50,8 +50,8 @@ import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2PlayerAI;
@@ -63,6 +63,7 @@ import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharNameTable;
+import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.FishTable;
@@ -76,7 +77,6 @@ import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.RecordTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
-import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
@@ -117,6 +117,7 @@ import com.l2jfree.gameserver.model.L2Fishing;
 import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Macro;
+import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2Marker;
 import com.l2jfree.gameserver.model.L2Object;
@@ -128,6 +129,7 @@ import com.l2jfree.gameserver.model.L2Request;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2Transformation;
@@ -137,7 +139,6 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.MacroList;
 import com.l2jfree.gameserver.model.ShortCuts;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
@@ -203,6 +204,7 @@ import com.l2jfree.gameserver.network.serverpackets.CameraMode;
 import com.l2jfree.gameserver.network.serverpackets.ChangeWaitType;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
 import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
@@ -273,7 +275,6 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialCloseHtml;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
-import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
@@ -286,8 +287,8 @@ import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.MovementController;
-import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
@@ -3533,9 +3534,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			return;
 
 		if (_log.isDebugEnabled() && (protect || _protectEndTime > 0))
-			_log.debug(getName() + ": Protection "
-					+ (protect ? "ON " + (GameTimeController.getGameTicks() + proTime * GameTimeController.TICKS_PER_SECOND) : "OFF")
-					+ " (currently " + GameTimeController.getGameTicks() + ")");
+			_log.debug(getName() + ": Protection " +
+				 (protect ? "ON " + (GameTimeController.getGameTicks() + proTime * GameTimeController.TICKS_PER_SECOND) : "OFF") +
+				 " (currently " + GameTimeController.getGameTicks() + ")");
 
 		_protectEndTime = protect ? GameTimeController.getGameTicks() + proTime * GameTimeController.TICKS_PER_SECOND : 0;
 	}
@@ -6441,12 +6442,12 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("INSERT INTO characters "
-					+ "(account_name,charId,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
-					+ "face,hairStyle,hairColor,sex,exp,sp,karma,fame,pvpkills,pkkills,clanid,race,"
-					+ "classid,deletetime,cancraft,title,accesslevel,online,isin7sdungeon,clan_privs,"
-					+ "wantspeace,base_class,newbie,nobless,pledge_rank) "
-					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement statement = con.prepareStatement("INSERT INTO characters " +
+				 "(account_name,charId,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp," +
+				 "face,hairStyle,hairColor,sex,exp,sp,karma,fame,pvpkills,pkkills,clanid,race," +
+				 "classid,deletetime,cancraft,title,accesslevel,online,isin7sdungeon,clan_privs," +
+				 "wantspeace,base_class,newbie,nobless,pledge_rank) " +
+				 "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, _accountName);
 			statement.setInt(2, getObjectId());
 			statement.setString(3, getName());
@@ -6882,7 +6883,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		// Retrieve from the database the recipe book of this L2PcInstance.
 		restoreRecipeBook(true);
-
+		
+		restoreRecipeShopList();
+		
 		restoreCreationDate();
 		
 		getAppearance().restoreNameTitleColors();
@@ -7021,6 +7024,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		getEffects().storeEffects(storeActiveEffects);
 		storeSkillReuses();
 		transformInsertInfo();
+		storeRecipeShopList();
 		getAppearance().storeNameTitleColors();
 
 		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
@@ -14365,6 +14369,74 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
 			sm.addItemName(item);
 			sendPacket(sm);
+		}
+	}
+	
+	private void storeRecipeShopList()
+	{
+		if (!Config.ALT_STORE_MANUFACTURE_SHOPLIST)
+			return;
+		
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			L2ManufactureList list = getCreateList();
+			if (list != null && list.size() > 0)
+			{
+				PreparedStatement statement = con.prepareStatement("DELETE FROM character_recipeshoplist WHERE charId=?");
+				statement.setInt(1, getObjectId());
+				statement.executeUpdate();
+				statement.close();
+				int pos = 1;
+				for (L2ManufactureItem item : list.getList())
+				{
+					statement = con.prepareStatement("INSERT INTO character_recipeshoplist VALUES (?,?,?,?)");
+					statement.setInt(1, getObjectId());
+					statement.setInt(2, item.getRecipeId());
+					statement.setLong(3, item.getCost());
+					statement.setInt(4, pos++);
+					statement.execute();
+					statement.close();
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.error("Cannot store manufacture shop list!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+	
+	private void restoreRecipeShopList()
+	{
+		if (!Config.ALT_STORE_MANUFACTURE_SHOPLIST)
+			return;
+		
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT Recipeid,Price FROM character_recipeshoplist WHERE charId=? ORDER BY Pos ASC");
+			statement.setInt(1, getObjectId());
+			ResultSet rset = statement.executeQuery();
+			L2ManufactureList createList = new L2ManufactureList();
+			while (rset.next())
+				createList.add(new L2ManufactureItem(rset.getInt("Recipeid"), rset.getLong("Price")));
+			setCreateList(createList);
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Cannot restore manufacture shop list!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 	}
 }

@@ -1729,6 +1729,8 @@ public class Config extends L2Config
 	public static int					ANTIFEED_INTERVAL;
 	
 	public static boolean				DISPLAY_SERVER_TIME;
+	
+	public static boolean				ALT_STORE_MANUFACTURE_SHOPLIST;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1946,6 +1948,7 @@ public class Config extends L2Config
 			ANTIFEED_INTERVAL = 1000 * Integer.parseInt(altSettings.getProperty("AntiFeedInterval", "120"));
 
 			ALT_DISABLE_TUTORIAL = Boolean.parseBoolean(altSettings.getProperty("DisableTutorial", "false"));
+			ALT_STORE_MANUFACTURE_SHOPLIST = Boolean.parseBoolean(altSettings.getProperty("AltStoreManufactureList", "false"));
 			
 			DISPLAY_SERVER_TIME = Boolean.parseBoolean(altSettings.getProperty("DisplayServerTime", "false"));
 		}
