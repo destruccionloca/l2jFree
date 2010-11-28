@@ -1098,6 +1098,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 					for (L2ItemInstance element : unequiped)
 						iu.addModifiedItem(element);
 					player.sendPacket(iu);
+					player.broadcastUserInfo();
 				}
 				
 				if (getLocation() != ItemLocation.WAREHOUSE)
@@ -1268,7 +1269,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 * 
 	 * @param ownerId :
 	 *            int designating the objectID of the item
-     * @param rs
+	 * @param rs
 	 * @return L2ItemInstance
 	 */
 	public static L2ItemInstance restoreFromDb(int ownerId, ResultSet rs)
@@ -1329,8 +1330,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			inst.scheduleLifeTimeTask();
 
 		//load augmentation and elemental enchant
- 		if (inst.isEquipable())
- 		{
+		if (inst.isEquipable())
+		{
 			inst.restoreAttributes();
 		}
 
@@ -1577,6 +1578,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				for (L2ItemInstance item: unequiped)
 					iu.addModifiedItem(item);
 				player.sendPacket(iu);
+				player.broadcastUserInfo();
 			}
 			
 			if (getLocation() != ItemLocation.WAREHOUSE)

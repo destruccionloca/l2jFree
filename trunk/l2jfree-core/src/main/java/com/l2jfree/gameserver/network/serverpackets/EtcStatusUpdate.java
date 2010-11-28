@@ -40,7 +40,7 @@ public final class EtcStatusUpdate extends StaticPacket
 		writeC(0xF9); // several icons to a separate line (0 = disabled)
 		writeD(activeChar.getCharges());
 		writeD(activeChar.getWeightPenalty());
-		writeD(activeChar.getMessageRefusal() || activeChar.isChatBanned() ? 1 : 0);
+		writeD(activeChar.getMessageRefusal() || activeChar.isChatBanned() || activeChar.isSilenceMode() ? 1 : 0);
 		writeD(activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
 		writeD(activeChar.getExpertiseWeaponPenalty()); // Weapon Grade Penalty [1-4]
 		writeD(activeChar.getExpertiseArmorPenalty()); // Armor Grade Penalty [1-4]

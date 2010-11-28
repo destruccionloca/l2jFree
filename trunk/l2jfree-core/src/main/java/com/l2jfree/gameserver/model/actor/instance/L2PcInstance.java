@@ -351,10 +351,10 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private static final String	UPDATE_CHAR_TRANSFORM			= "UPDATE characters SET transform_id=? WHERE charId=?";
 
 	// Character Teleport Bookmark:
-	private static final String INSERT_TP_BOOKMARK 				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
-	private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
-	private static final String DELETE_TP_BOOKMARK 				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
+	private static final String INSERT_TP_BOOKMARK				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_TP_BOOKMARK				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
+	private static final String RESTORE_TP_BOOKMARK				= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
+	private static final String DELETE_TP_BOOKMARK				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
 
 	// Subclass certification
 	public static final String  STORE_CHAR_CERTIFICATION		= "INSERT INTO character_subclass_certification (charId,class_index,certif_level) VALUES (?,?,?)";
@@ -480,7 +480,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	private boolean							_isIn7sDungeon			= false;
 
-	public int 								_bookmarkslot = 0; // The Teleport Bookmark Slot
+	public int								_bookmarkslot = 0; // The Teleport Bookmark Slot
 	public final List<TeleportBookmark> tpbookmark = new SingletonList<TeleportBookmark>();
 
 	private int								_subPledgeType			= 0;
@@ -500,7 +500,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	//private long							_creationTime;
 	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
-	private PcRefund 						_refund;
+	private PcRefund						_refund;
 	private final PcSkills					_pcSkills = new PcSkills(this);
 
 	/** True if the L2PcInstance is sitting */
@@ -510,8 +510,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private boolean							_relax;
 
 	/** AirShip */
-	private L2AirShipInstance 				_airShip;
-	private Point3D 						_inAirShipPosition;
+	private L2AirShipInstance				_airShip;
+	private Point3D							_inAirShipPosition;
 
 	public ScheduledFuture<?>				_taskforfish;
 
@@ -555,7 +555,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private boolean							_isRidingStrider		= false;
 	private boolean							_isRidingRedStrider		= false;
 	private boolean							_isRidingHorse			= false;
-	private boolean 						_isFlyingMounted 		= false;
+	private boolean							_isFlyingMounted		= false;
 
 	/** The L2Summon of the L2PcInstance */
 	private L2Summon						_summon					= null;
@@ -600,6 +600,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	private int								_accessLevel;
 
 	private boolean							_messageRefusal			= false;													// Message refusal mode
+	private boolean							_silenceMode			= false;
 	private boolean							_dietMode				= false;													// Ignore weight penalty
 	private boolean							_tradeRefusal			= false;													// Trade refusal
 	private boolean							_exchangeRefusal		= false;													// Exchange refusal
@@ -632,7 +633,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	private int								_mountType;
 	private int								_mountNpcId;
-	private int 							_mountLevel;
+	private int								_mountLevel;
 
 	/** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5, S80=6, S84=7)*/
 	private int								_expertiseIndex;																	// Index in EXPERTISE_LEVELS
@@ -872,7 +873,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 *
 	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Create a new L2PcInstance with an account name </li>
-	 * <li>Set the name, the Hair Style, the Hair Color and  the Face type of the L2PcInstance</li>
+	 * <li>Set the name, the Hair Style, the Hair Color and the Face type of the L2PcInstance</li>
 	 * <li>Add the player in the characters table of the database</li><BR><BR>
 	 *
 	 * @param objectId Identifier of the object to initialized
@@ -3711,7 +3712,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				if (isAutoAttackable(player))
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
-					// And a cursed weapon holder  can't attack players with lvl < 21
+					// And a cursed weapon holder can't attack players with lvl < 21
 					if ((isCursedWeaponEquipped() && player.getLevel() < 21) || (player.isCursedWeaponEquipped() && getLevel() < 21))
 					{
 						player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -4892,7 +4893,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			return;
 
 		// Check if it's pvp
-		if ((checkIfPvP(target) && //  Can pvp and
+		if ((checkIfPvP(target) && // Can pvp and
 				targetPlayer.getPvpFlag() != 0 // Target player has pvp flag set
 		)
 		|| // or
@@ -5032,7 +5033,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		if (newKarma > karmaLimit)
 			newKarma = karmaLimit;
 
-		// Fix to prevent overflow (=> karma has a  max value of 2 147 483 647)
+		// Fix to prevent overflow (=> karma has a max value of 2 147 483 647)
 		if (getKarma() > (Integer.MAX_VALUE - newKarma))
 			newKarma = Integer.MAX_VALUE - getKarma();
 
@@ -8871,6 +8872,16 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		sendEtcStatusUpdate();
 	}
 
+	public boolean isSilenceMode()
+	{
+		return _silenceMode;
+	}
+
+	public void setSilenceMode(boolean silenceMode)
+	{
+		_silenceMode = silenceMode;
+	}
+
 	public void setDietMode(boolean mode)
 	{
 		_dietMode = mode;
@@ -9824,7 +9835,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		try
 		{
-			//  Cannot switch or change subclasses while transformed
+			// Cannot switch or change subclasses while transformed
 			if (_transformation != null)
 				return false;
 
@@ -10119,8 +10130,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				sendPacket(SystemMessage.sendString("Entering world in Invulnerable mode."));
 			if (getAppearance().isInvisible())
 				sendPacket(SystemMessage.sendString("Entering world in Invisible mode."));
-			if (getMessageRefusal())
-				sendPacket(SystemMessage.sendString("Entering world in Message Refusal mode."));
+			if (isSilenceMode())
+				sendPacket(SystemMessage.sendString("Entering world in Silence mode."));
 		}
 
 		revalidateZone(true);
@@ -12521,7 +12532,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	 * Simple class containing all neccessary information to maintain
 	 * valid timestamps and reuse for skills upon relog. Filter this
 	 * carefully as it becomes redundant to store reuse for small delays.
-	 * @author  Yesod
+	 * @author Yesod
 	 */
 	public static final class TimeStamp
 	{

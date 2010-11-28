@@ -240,7 +240,7 @@ public class RegionBBSManager extends BaseBBSManager
 				CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, activeChar.getName(), ar3);
 				if (!BlockList.isBlocked(receiver, activeChar))
 				{
-					if (!receiver.getMessageRefusal())
+					if (!receiver.isSilenceMode())
 					{
 						receiver.sendPacket(cs);
 						activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, "->" + receiver.getName(), ar3));
@@ -257,7 +257,7 @@ public class RegionBBSManager extends BaseBBSManager
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
-					sm.addString(receiver.getName());
+					sm.addString(ar2);
 					activeChar.sendPacket(sm);
 					sm = null;
 				}

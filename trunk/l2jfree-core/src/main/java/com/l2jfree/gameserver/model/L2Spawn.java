@@ -515,7 +515,7 @@ public class L2Spawn
 	 * <li>Link the L2Npc to this L2Spawn </li>
 	 * <li>Init other values of the L2Npc (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world </li>
 	 * <li>Lauch the action onSpawn fo the L2Npc </li><BR><BR>
-	 * <li>Increase the current number of L2Npc managed by this L2Spawn  </li><BR><BR>
+	 * <li>Increase the current number of L2Npc managed by this L2Spawn </li><BR><BR>
 	 * 
 	 */
 	public L2Npc doSpawn(boolean isSummonSpawn, boolean firstspawn)
@@ -698,6 +698,11 @@ public class L2Spawn
 	 */
 	public void respawnNpc(L2Npc oldNpc)
 	{
+		if (!_doRespawn)
+		{
+			return;
+		}
+
 		oldNpc.refreshID();
 		intializeNpcInstance(oldNpc, false);
 	}
