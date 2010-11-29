@@ -1739,7 +1739,7 @@ public class Quest extends ManagedScript
 		return super.reload();
 	}
 
-	public boolean unload(boolean removeFromList
+	public boolean unload(boolean removeFromList)
 	{
 		saveGlobalData();
 		// cancel all pending timers before reloading.
