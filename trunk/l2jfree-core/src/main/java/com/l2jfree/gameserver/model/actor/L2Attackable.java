@@ -475,15 +475,15 @@ public class L2Attackable extends L2Npc
 
 				if (player != null)
 				{
-					//only 1 randomly choosen quest of all quests registered to this character can be applied
+					// only 1 randomly choosen quest of all quests registered to this character can be applied
 					Quest[] allOnKillQuests = getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL);
 					if (allOnKillQuests != null && allOnKillQuests.length > 0)
 					{
-						//Quest quest;
-						//if(allOnKillQuests.length > 1)
-						//    quest = allOnKillQuests[Rnd.get(allOnKillQuests.length)];
-						//else
-						//    quest = allOnKillQuests[0];
+						// Quest quest;
+						// if(allOnKillQuests.length > 1)
+						//		quest = allOnKillQuests[Rnd.get(allOnKillQuests.length)];
+						// else
+						//		quest = allOnKillQuests[0];
 						for (Quest quest : allOnKillQuests)
 							quest.notifyKill(this, player, killer instanceof L2Summon);
 					}
@@ -1319,16 +1319,16 @@ public class L2Attackable extends L2Npc
 			if (drop == null)
 				return null;
 
-			// Now decide the quantity to drop based on the rates and penalties.  To get this value
-			// simply divide the modified categoryDropChance by the base category chance.  This
+			// Now decide the quantity to drop based on the rates and penalties. To get this value
+			// simply divide the modified categoryDropChance by the base category chance. This
 			// results in a chance that will dictate the drops amounts: for each amount over 100
 			// that it is, it will give another chance to add to the min/max quantities.
 			//
 			// For example, If the final chance is 120%, then the item should drop between
-			// its min and max one time, and then have 20% chance to drop again.  If the final
+			// its min and max one time, and then have 20% chance to drop again. If the final
 			// chance is 330%, it will similarly give 3 times the min and max, and have a 30%
 			// chance to give a 4th time.
-			// At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
+			// At least 1 item will be dropped for sure. So the chance will be adjusted to 100%
 			// if smaller.
 
 			final long dropChance = calculateDropChance(drop.getChance(), drop, false, levelModifier);
@@ -2063,9 +2063,9 @@ public class L2Attackable extends L2Npc
 				players = killer.getParty().getPartyMembers();
 			else if (absorbType == L2NpcTemplate.AbsorbCrystalType.PARTY_ONE_RANDOM && killer.isInParty())
 			{
-				// This is a naive method for selecting a random member.  It gets any random party member and
-				// then checks if the member has a valid crystal.  It does not select the random party member
-				// among those who have crystals, only.  However, this might actually be correct (same as retail).
+				// This is a naive method for selecting a random member. It gets any random party member and
+				// then checks if the member has a valid crystal. It does not select the random party member
+				// among those who have crystals, only. However, this might actually be correct (same as retail).
 				players = Collections.singletonList(killer.getParty().getPartyMembers().get(Rnd.get(killer.getParty().getMemberCount())));
 			}
 			else
@@ -2331,6 +2331,8 @@ public class L2Attackable extends L2Npc
 		_harvestItems = null;
 		// Clear mod Seeded stat
 		setSeeded(false);
+		// Clear overhir value
+		overhitEnabled(false);
 
 		_sweepItems = null;
 		resetAbsorbList();

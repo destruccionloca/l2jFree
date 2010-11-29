@@ -55,8 +55,6 @@ public class L2SignsPriestInstance extends L2Npc
 		else if (command.startsWith("SevenSigns"))
 		{
 			SystemMessage sm;
-			InventoryUpdate iu;
-			StatusUpdate su;
 			
 			String path;
 			
@@ -69,7 +67,7 @@ public class L2SignsPriestInstance extends L2Npc
 			int val = Integer.parseInt(command.substring(11, 12).trim());
 
 			if (command.length() > 12) // SevenSigns x[x] x [x..x]
-			                                                 val = Integer.parseInt(command.substring(11, 13).trim());
+				val = Integer.parseInt(command.substring(11, 13).trim());
 
 			if (command.length() > 13)
 			{
@@ -562,11 +560,6 @@ public class L2SignsPriestInstance extends L2Npc
 				player.reduceAncientAdena("SevenSigns", ancientAdenaConvert, this, true);
 				player.addAdena("SevenSigns", ancientAdenaConvert, this, true);
 
-				iu = new InventoryUpdate();
-				iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
-				iu.addModifiedItem(player.getInventory().getAdenaInstance());
-				player.sendPacket(iu);
-				
 				showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "blkmrkt_5.htm");
 				break;
 			case 9: // Receive Contribution Rewards
@@ -588,16 +581,6 @@ public class L2SignsPriestInstance extends L2Npc
 					}
 
 					player.addAncientAdena("SevenSigns", ancientAdenaReward, this, true);
-
-					// Send inventory update packet
-					iu = new InventoryUpdate();
-					iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
-					player.sendPacket(iu);
-
-					// Update current load as well
-					su = new StatusUpdate(player.getObjectId());
-					su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-					player.sendPacket(su);
 
 					if (this instanceof L2DawnPriestInstance)
 						showChatWindow(player, 9, "dawn_a", false);
@@ -700,22 +683,6 @@ public class L2SignsPriestInstance extends L2Npc
 					
 					player.addAncientAdena("SevenSigns", ancientAdenaRewardAll, this, true);
 					
-					// Send inventory update packet
-					iu = new InventoryUpdate();
-					iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
-					if (blueStonesAll != null)
-						iu.addModifiedItem(blueStonesAll);
-					if (greenStonesAll != null)
-						iu.addModifiedItem(greenStonesAll);
-					if (redStonesAll != null)
-						iu.addModifiedItem(redStonesAll);
-					player.sendPacket(iu);
-					
-					// Update current load as well
-					su = new StatusUpdate(player.getObjectId());
-					su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-					player.sendPacket(su);
-					
 					if (this instanceof L2DawnPriestInstance)
 						showChatWindow(player, 18, "dawn", false);
 					else
@@ -785,17 +752,6 @@ public class L2SignsPriestInstance extends L2Npc
 						if (player.destroyItemByItemId("SevenSigns", convertStoneId, convertCount, this, true))
 						{
 							player.addAncientAdena("SevenSigns", ancientAdenaReward, this, true);
-							
-							// Send inventory update packet
-							iu = new InventoryUpdate();
-							iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
-							iu.addModifiedItem(convertItem);
-							player.sendPacket(iu);
-							
-							// Update current load as well
-							su = new StatusUpdate(player.getObjectId());
-							su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-							player.sendPacket(su);
 							
 							if (this instanceof L2DawnPriestInstance)
 								showChatWindow(player, 18, "dawn", false);

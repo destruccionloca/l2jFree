@@ -126,10 +126,10 @@ public class PcInventory extends Inventory
 	}
 
 	/**
-	* Returns the list of items in inventory available for transaction
-	* Allows an item to appear twice if and only if there is a difference in enchantment level.
-	* @return L2ItemInstance : items in inventory
-	*/
+	 * Returns the list of items in inventory available for transaction
+	 * Allows an item to appear twice if and only if there is a difference in enchantment level.
+	 * @return L2ItemInstance : items in inventory
+	 */
 	public L2ItemInstance[] getUniqueItemsByEnchantLevel(boolean allowAdena, boolean allowAncientAdena)
 	{
 		return getUniqueItemsByEnchantLevel(allowAdena, allowAncientAdena, true);
@@ -162,15 +162,16 @@ public class PcInventory extends Inventory
 	}
 
 	/**
-	* Returns the list of all items in inventory that have a given item id.
-	* @return L2ItemInstance[] : matching items from inventory
-	*/
-	public L2ItemInstance[] getAllItemsByItemId(int itemId)
+	 * Returns the list of all items in inventory that have a given item id.
+	 * @param includeEquipped : include equipped items
+	 * @return L2ItemInstance[] : matching items from inventory
+	 */
+	public L2ItemInstance[] getAllItemsByItemId(int itemId, boolean includeEquipped)
 	{
 		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if (item.getItemId() == itemId)
+			if (item.getItemId() == itemId && (includeEquipped || !item.isEquipped()))
 				list.add(item);
 		}
 
@@ -178,18 +179,33 @@ public class PcInventory extends Inventory
 	}
 
 	/**
-	* Returns the list of all items in inventory that have a given item id AND a given enchantment level.
-	* @return L2ItemInstance[] : matching items from inventory
-	*/
+	 * @see com.l2jfree.gameserver.model.itemcontainer.PcInventory
+	 */
+	public L2ItemInstance[] getAllItemsByItemId(int itemId)
+	{
+		return getAllItemsByItemId(itemId, true);
+	}
+
+	/**
+	 * Returns the list of all items in inventory that have a given item id AND a given enchantment level.
+	 * @return L2ItemInstance[] : matching items from inventory
+	 */
 	public L2ItemInstance[] getAllItemsByItemId(int itemId, int enchantment)
 	{
+		return getAllItemsByItemId(itemId, enchantment, true);
+	}
+
+	public L2ItemInstance[] getAllItemsByItemId(int itemId, int enchantment, boolean includeEquipped)
+		{
 		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
+			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment)
+					&& (includeEquipped || !item.isEquipped()))
+			{
 				list.add(item);
+			}
 		}
-
 		return list.moveToArray(new L2ItemInstance[list.size()]);
 	}
 
@@ -257,10 +273,10 @@ public class PcInventory extends Inventory
 	}
 
 	/**
-	* Adjust TradeItem according his status in inventory
-	* @param item : L2ItemInstance to be adjusten
-	* @return TradeItem representing adjusted item
-	*/
+	 * Adjust TradeItem according his status in inventory
+	 * @param item : L2ItemInstance to be adjusten
+	 * @return TradeItem representing adjusted item
+	 */
 	public void adjustAvailableItem(TradeItem item)
 	{
 		boolean notAllEquipped = false;
@@ -640,24 +656,24 @@ public class PcInventory extends Inventory
 	
 	public boolean validateCapacity(FastList<L2ItemInstance> items)
 	{
-	   int slots = 0;
-	   
-	   for (L2ItemInstance item : items)
-		   if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null))
+		int slots = 0;
+	
+		for (L2ItemInstance item : items)
+			if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null))
 				slots++;
-			  
-	   return validateCapacity(slots);
+			
+		return validateCapacity(slots);
 	}
-		  
+		
 	public boolean validateCapacityByItemId(int ItemId)
 	{
-	   int slots = 0;
-			  
-	   L2ItemInstance invItem = getItemByItemId(ItemId);
-	   if (!(invItem != null && invItem.isStackable()))
-		   slots++;
-			  
-	   return validateCapacity(slots);
+		int slots = 0;
+			
+		L2ItemInstance invItem = getItemByItemId(ItemId);
+		if (!(invItem != null && invItem.isStackable()))
+			slots++;
+			
+		return validateCapacity(slots);
 	}
 	
 	@Override

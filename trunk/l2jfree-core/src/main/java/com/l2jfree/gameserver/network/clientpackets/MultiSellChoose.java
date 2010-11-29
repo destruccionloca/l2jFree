@@ -275,13 +275,13 @@ public final class MultiSellChoose extends L2GameClientPacket
 						return;
 					}
 					
-					if (itemToTake.isEquipped())
+					/*if (itemToTake.isEquipped())
 					{ // this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
 						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, exchanging equipped item, merchatnt id:"
 								+ merchant.getNpcId());
 						requestFailed(SystemMessageId.NOT_ENOUGH_REQUIRED_ITEMS);
 						return;
-					}
+					}*/
 					
 					if (itemToTake.isWear())
 					{// Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
@@ -308,7 +308,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 							if (maintainEnchantment)
 							{
 								// loop through this list and remove (one by one) each item until the required amount is taken.
-								L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), e.getEnchantmentLevel());
+								L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), e.getEnchantmentLevel(), false);
 								for (int i = 0; i < (e.getItemCount() * _amount); i++)
 								{
 									if (inventoryContents[i].isAugmented())
@@ -357,7 +357,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 								// choice 1. Small number of items exchanged. No sorting.
 								for (int i = 1; i <= (e.getItemCount() * _amount); i++)
 								{
-									L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId());
+									L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), false);
 									
 									itemToTake = inventoryContents[0];
 									// get item with the LOWEST enchantment level from the inventory...

@@ -1266,7 +1266,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 		final SkillTargetType targetType = sk.getTargetType();
 		L2Attackable me = getActor();
-				L2Character attackTarget = getAttackTarget();
+		L2Character attackTarget = getAttackTarget();
 		if (attackTarget == null)
 			{
 			if (me.getMostHated() != null)
