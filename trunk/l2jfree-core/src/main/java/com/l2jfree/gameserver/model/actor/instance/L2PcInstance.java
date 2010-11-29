@@ -1439,6 +1439,11 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			if (qs == null)
 				continue;
 
+			if (qs.getQuest() == null)
+			{
+				continue;
+			}
+
 			int questId = qs.getQuest().getQuestIntId();
 			if ((questId > 19999) || (questId < 1))
 				continue;

@@ -122,7 +122,7 @@ public class L2Party
 	 * returns all party members
 	 * @return
 	 */
-	public List<L2PcInstance> getPartyMembers()
+	public final List<L2PcInstance> getPartyMembers()
 	{
 		return _members;
 	}
@@ -417,7 +417,7 @@ public class L2Party
 	/**
 	 * Remove player from party
 	 * @param player
-    */
+	 */
 	public void removePartyMember(L2PcInstance player)
 	{
 		removePartyMember(player, false);
@@ -621,14 +621,13 @@ public class L2Party
 	 * @return
 	 */
 	private L2PcInstance getPlayerByName(String name)
-    {
+	{
 		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member.getName().equals(name)) return member;
 		}
 		return null;
 	}
-
 
 	
 	/**
@@ -689,7 +688,7 @@ public class L2Party
 		// Send messages to other aprty members about reward
 		if (item.getCount() > 1)
 		{
-			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3)
+			SystemMessage msg = spoil ? new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3)
 									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
 			msg.addString(looter.getName());
 			msg.addItemName(item.getItemId());
@@ -698,7 +697,7 @@ public class L2Party
 		}
 		else
 		{
-			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2)
+			SystemMessage msg = spoil ? new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2)
 									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
 			msg.addString(looter.getName());
 			msg.addItemName(item.getItemId());
@@ -785,8 +784,8 @@ public class L2Party
 				// The L2SummonInstance penalty
 				if (member.getPet() instanceof L2SummonInstance)
 				{
-					summon     = (L2SummonInstance) member.getPet();
-					penalty    = summon.getExpPenalty();
+					summon	= (L2SummonInstance) member.getPet();
+					penalty	= summon.getExpPenalty();
 				}
 				// Pets that leech xp from the owner (like babypets) do not get rewarded directly
 				if (member instanceof L2PetInstance)
@@ -816,8 +815,8 @@ public class L2Party
 							{
 								L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 								
-							    if (skill.getExpNeeded() <= addexp)
-							    	((L2PcInstance) member).absorbSoulFromNpc(skill,target);
+								if (skill.getExpNeeded() <= addexp)
+									((L2PcInstance) member).absorbSoulFromNpc(skill,target);
 							}
 							((L2PcInstance)member).addExpAndSp(addexp, addsp, useVitalityRate);
 							if (addexp > 0)

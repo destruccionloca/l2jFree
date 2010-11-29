@@ -1242,7 +1242,7 @@ public class Siege extends AbstractSiege
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE castle SET siegeDate = ?, regTimeEnd = ?, regTimeOver = ?  WHERE id = ?");
+			PreparedStatement statement = con.prepareStatement("UPDATE castle SET siegeDate = ?, regTimeEnd = ?, regTimeOver = ? WHERE id = ?");
 			statement.setLong(1, getSiegeDate().getTimeInMillis());
 			statement.setLong(2, getTimeRegistrationOverDate().getTimeInMillis());
 			statement.setString(3, String.valueOf(getIsTimeRegistrationOver()));
@@ -1341,6 +1341,9 @@ public class Siege extends AbstractSiege
 
 		if (!SevenSigns.getInstance().isDateInSealValidPeriod(getCastle().getSiegeDate()))
 			getCastle().getSiegeDate().add(Calendar.DAY_OF_MONTH, 7);
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_ANNOUNCED_SIEGE_TIME);
+		sm.addString(getCastle().getName());
+		Announcements.getInstance().announceToAll(sm);
 
 		_isRegistrationOver = false; // Allow registration for next siege
 	}

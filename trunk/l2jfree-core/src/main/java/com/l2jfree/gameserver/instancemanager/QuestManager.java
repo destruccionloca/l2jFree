@@ -86,8 +86,10 @@ public class QuestManager extends ScriptManager<Quest>
 			for (Quest quest : _quests.values().toArray(new Quest[_quests.size()]))
 			{
 				if (quest != null)
-					quest.unload();
+					quest.unload(false);
 			}
+
+			_quests.clear()
 
 			// now load all scripts
 			File scripts = new File(Config.DATAPACK_ROOT, "data/scripts.cfg");

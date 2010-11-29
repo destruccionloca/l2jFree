@@ -1739,11 +1739,7 @@ public class Quest extends ManagedScript
 		return super.reload();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.scripting.ManagedScript#unload()
-	 */
-	@Override
-	public boolean unload()
+	public boolean unload(boolean removeFromList
 	{
 		saveGlobalData();
 		// cancel all pending timers before reloading.
@@ -1754,7 +1750,21 @@ public class Quest extends ManagedScript
 			for (QuestTimer timer : timers)
 				timer.cancel();
 		_allEventTimers.clear();
-		return QuestManager.getInstance().removeQuest(this);
+		if (removeFromList)
+		{
+			return QuestManager.getInstance().removeQuest(this);
+		}
+
+		return true;
+	}
+
+	/**
+	 * @see com.l2jfree.gameserver.scripting.ManagedScript#unload()
+	 */
+	@Override
+	public boolean unload()
+	{
+		return unload(true);
 	}
 
 	/**

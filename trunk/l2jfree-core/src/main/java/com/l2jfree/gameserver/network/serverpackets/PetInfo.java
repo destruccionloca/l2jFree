@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 
 /**
  * This class ...
@@ -64,9 +65,14 @@ public class PetInfo extends L2GameServerPacket
 		{
 			L2PetInstance pet = (L2PetInstance) _summon;
 			_curFed = pet.getCurrentFed(); // how fed it is
-			_maxFed = pet.getMaxFed(); //max fed it can be
+			_maxFed = pet.getMaxFed(); // max fed it can be
 		}
-	}
+		else if (_summon instanceof L2SummonInstance)
+		{
+			L2SummonInstance sum = (L2SummonInstance) _summon;
+			_curFed = sum.getTimeRemaining();
+			_maxFed = sum.getTotalLifeTime();
+		}
 
 	@Override
 	protected final void writeImpl()
