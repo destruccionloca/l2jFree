@@ -73,7 +73,8 @@ public class PetInfo extends L2GameServerPacket
 			_curFed = sum.getTimeRemaining();
 			_maxFed = sum.getTotalLifeTime();
 		}
-
+	}
+	
 	@Override
 	protected final void writeImpl()
 	{

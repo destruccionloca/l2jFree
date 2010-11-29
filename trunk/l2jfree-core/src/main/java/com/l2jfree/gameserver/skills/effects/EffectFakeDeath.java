@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  */
 public final class EffectFakeDeath extends L2Effect
 {
-	
 	public EffectFakeDeath(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -58,36 +57,6 @@ public final class EffectFakeDeath extends L2Effect
 		if (getEffected().isDead())
 			return false;
 		
-		/*
-		 * for (L2Object obj :
-		 * getEffected().getKnownList().getKnownCharacters()) {
-		 * 
-		 * if ((obj != null) && (obj instanceof L2MonsterInstance || obj
-		 * instanceof L2SiegeGuardInstance || obj instanceof L2GuardInstance ))
-		 * continue;
-		 * 
-		 * if (((L2Npc)obj).getTarget() == getEffected() &&
-		 * (!((L2Npc)obj) instanceof L2DoorInstance) &&
-		 * ((L2Npc)obj).getTarget() != null &&
-		 * !((L2Npc)obj).isDead()) {
-		 * ((L2Npc)obj).setTarget(null);
-		 * ((L2Npc)obj).getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, //
-		 * Move Npc to Spawn Location new
-		 * L2CharPosition(((L2Npc)obj).getSpawn().getLocx(),
-		 * ((L2Npc)obj).getSpawn().getLocy(),
-		 * ((L2Npc)obj).getSpawn().getLocz(),0)); } }
-		 * 
-		 * if (!((L2PcInstance)obj).isDead() && ((L2PcInstance)obj) != null &&
-		 * ((L2PcInstance)obj) != getEffected() &&
-		 * ((L2PcInstance)obj).isInsideRadius(getEffected(),130,true,false))
-		 * //check if PC you Train is Close to you { if
-		 * (((L2PcInstance)obj).isMoving() && (NPC.getTemplate().aggroRange > 0) &&
-		 * (Rnd.get(100) < 75)); //If PC is moving give a chance to move agrro
-		 * mobs on him. { NPC.setTarget(((L2PcInstance)obj));
-		 * NPC.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK); //Train
-		 * him! } }
-		 */
-
 		double manaDam = calc();
 		
 		if (manaDam > getEffected().getStatus().getCurrentMp())

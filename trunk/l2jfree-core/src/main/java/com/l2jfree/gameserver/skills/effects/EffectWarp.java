@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.util.Util;
 public final class EffectWarp extends L2Effect
 {
 	private int x, y, z;
-	
 	private L2Character _actor;
 	
 	public EffectWarp(Env env, EffectTemplate template)

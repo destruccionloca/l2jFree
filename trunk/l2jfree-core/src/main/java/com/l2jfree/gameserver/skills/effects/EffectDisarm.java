@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author nBd
  */
-
 public final class EffectDisarm extends L2Effect
 {
 	public EffectDisarm(Env env, EffectTemplate template)

@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  */
 public final class EffectPhysicalMute extends L2Effect
 {
-	
 	public EffectPhysicalMute(Env env, EffectTemplate template)
 	{
 		super(env, template);

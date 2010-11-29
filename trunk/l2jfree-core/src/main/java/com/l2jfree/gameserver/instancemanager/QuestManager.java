@@ -89,7 +89,7 @@ public class QuestManager extends ScriptManager<Quest>
 					quest.unload(false);
 			}
 
-			_quests.clear()
+			_quests.clear();
 
 			// now load all scripts
 			File scripts = new File(Config.DATAPACK_ROOT, "data/scripts.cfg");

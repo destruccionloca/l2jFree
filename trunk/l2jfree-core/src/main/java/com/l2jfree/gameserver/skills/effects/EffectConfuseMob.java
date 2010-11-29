@@ -33,7 +33,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class EffectConfuseMob extends L2Effect
 {
-	
 	public EffectConfuseMob(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -82,7 +81,6 @@ public final class EffectConfuseMob extends L2Effect
 		L2Object target = targetList.get(nextTargetIdx);
 		
 		// Attacking the target
-		// getEffected().setTarget(target);
 		getEffected().setTarget(target);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 		
