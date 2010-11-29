@@ -43,12 +43,15 @@ import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.TableOptimizer.CharacterRelatedTable;
 import com.l2jfree.gameserver.util.TableOptimizer.ItemRelatedTable;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.mmocore.network.MMOConnection;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a client connected on Game Server
@@ -388,6 +391,20 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 	public void setProtocolOk(boolean b)
 	{
 		_protocol = b;
+	}
+
+	public boolean handleCheat(String punishment)
+	{
+		if (_activeChar != null)
+		{
+			Util.handleIllegalPlayerAction(_activeChar, toString() + punishment, Config.DEFAULT_PUNISH);
+			return true;
+		}
+
+		Logger _logAudit = Logger.getLogger("audit");
+		_logAudit.log(Level.INFO, "AUDIT: Client " + toString() + " kicked for reason: " + punishment);
+		closeNow();
+		return false;
 	}
 	
 	boolean isDisconnected()

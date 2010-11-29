@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
  */
 public class PetInfo extends L2GameServerPacket
 {
-	private static final String	_S__CA_PETINFO	= "[S] b1 PetInfo";
+	private static final String			_S__B2_PETINFO	= "[S] b2 PetInfo";
 	private final L2Summon				_summon;
 	private final int					_x, _y, _z, _heading;
 	private final boolean				_isSummoned;
@@ -185,6 +185,6 @@ public class PetInfo extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__CA_PETINFO;
+		return _S__B2_PETINFO;
 	}
 }

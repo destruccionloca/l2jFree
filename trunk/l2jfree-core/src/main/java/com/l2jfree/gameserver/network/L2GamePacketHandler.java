@@ -272,13 +272,16 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						// RequestTeleportPacket
 						break;
 					case 0x34:
-						msg = new RequestSocialAction();
+						// msg = new RequestSocialAction();
+						client.handleCheat("Used obsolete RequestSocialAction packet");
 						break;
 					case 0x35:
-						msg = new ChangeMoveType();
+						// msg = new ChangeMoveType();
+						client.handleCheat("Used obsolete ChangeMoveType packet");
 						break;
 					case 0x36:
-						msg = new ChangeWaitType();
+						// msg = new ChangeWaitType();
+						client.handleCheat("Used obsolete ChangeWaitType packet");
 						break;
 					case 0x37:
 						msg = new RequestSellItem();
