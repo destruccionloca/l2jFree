@@ -64,7 +64,7 @@ public class CursedWeapon
 	// this should be false unless if the cursed weapon is dropped, in that case it would be true.
 	private boolean				_isDropped		= false;
 	// this sets the cursed weapon status to true only if a player has the cursed weapon, otherwise this should be false.
-	private boolean 			_isActivated		= false;
+	private boolean				_isActivated	= false;
 	private ScheduledFuture<?>	_removeTask;
 
 	private int					_nbKills		= 0;
@@ -184,7 +184,7 @@ public class CursedWeapon
 
 				_player.broadcastUserInfo();
 			}
-			//  is dropped on the ground
+			// is dropped on the ground
 			else if (_item != null)
 			{
 				_item.decayMe();
@@ -200,7 +200,7 @@ public class CursedWeapon
 		sm.addString(_name);
 		CursedWeaponsManager.announce(sm);
 
-		// Reset  state
+		// Reset state
 		cancelTask();
 		_isActivated = false;
 		_isDropped = false;
@@ -311,17 +311,17 @@ public class CursedWeapon
 
 		CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquippedId());
 		SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
-		int timeLeftInHours = (int) ((cw.getTimeLeft() / 60000) / 60);
+		int timeLeftInHours = (int) ((cw.getTimeLeft() / 60000));
 		msg2.addItemName(_player.getCursedWeaponEquippedId());
-		msg2.addNumber(timeLeftInHours * 60);
+		msg2.addNumber(timeLeftInHours);
 		_player.sendPacket(msg2);
 	}
 
 	/**
-	* Yesod:<br>
-	* Rebind the passive skill belonging to the CursedWeapon. Invoke this
-	* method if the weapon owner switches to a subclass.
-	*/
+	 * Yesod:<br>
+	 * Rebind the passive skill belonging to the CursedWeapon. Invoke this
+	 * method if the weapon owner switches to a subclass.
+	 */
 	public void giveSkill()
 	{
 		int level = 1 + (_nbKills / _stageKills);
@@ -386,7 +386,7 @@ public class CursedWeapon
 			return false;
 		}
 
-		// if the player is mounted, attempt to unmount first.  Only allow picking up
+		// if the player is mounted, attempt to unmount first. Only allow picking up
 		// the zariche if unmounting is successful.
 		if (player.isMounted())
 		{
@@ -418,7 +418,7 @@ public class CursedWeapon
 
 		// Equip with the weapon
 		_item = item;
-		//L2ItemInstance[] items =
+		// L2ItemInstance[] items =
 		_player.getInventory().equipItemAndRecord(_item);
 		_player.sendItemEquippedMessage(_item);
 
@@ -431,7 +431,7 @@ public class CursedWeapon
 		{
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addItem(_item);
-			//iu.addItems(Arrays.asList(items));
+			// iu.addItems(Arrays.asList(items));
 			_player.sendPacket(iu);
 		}
 		else
@@ -444,9 +444,9 @@ public class CursedWeapon
 		transform();
 		_player.broadcastUserInfo();
 		_player.setCursedWeaponEquippedId(_itemId);
-		//SocialAction atk = new SocialAction(_player.getObjectId(), 17);
+		// SocialAction atk = new SocialAction(_player.getObjectId(), 17);
 
-		//_player.broadcastPacket(atk);
+		// _player.broadcastPacket(atk);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
@@ -503,7 +503,7 @@ public class CursedWeapon
 		}
 		else
 		{
-			//Unequip & Drop
+			// Unequip & Drop
 			dropIt(null, _player, killer, false);
 			// Reset player stats
 			_player.setKarma(_playerKarma);
@@ -514,7 +514,7 @@ public class CursedWeapon
 			_player.abortAttack();
 
 			// Unequip weapon
-			//_player.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_LRHAND);
+			// _player.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_LRHAND);
 
 			_player.broadcastUserInfo();
 		}

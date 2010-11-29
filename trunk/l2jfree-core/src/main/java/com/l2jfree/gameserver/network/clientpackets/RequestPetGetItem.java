@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -70,6 +71,12 @@ public class RequestPetGetItem extends L2GameClientPacket
 		}
 
 		if (!GlobalRestrictions.canPickUp(player, item, pet))
+		{
+			sendAF();
+			return;
+		}
+
+		if (FortSiegeManager.getInstance().isCombat(item.getItemId()))
 		{
 			sendAF();
 			return;

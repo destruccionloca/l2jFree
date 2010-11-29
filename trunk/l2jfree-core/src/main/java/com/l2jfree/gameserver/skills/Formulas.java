@@ -129,7 +129,7 @@ public final class Formulas
 		for (int i = 0; i < MENbonus.length; i++)
 			MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) * 100 + .5d) / 100;
 		
-		// precompute  square root values
+		// precompute square root values
 		for (int i = 0; i < sqrtCONbonus.length; i++)
 			sqrtCONbonus[i] = Math.sqrt(CONbonus[i]);
 		for (int i = 0; i < sqrtMENbonus.length; i++)
@@ -1206,7 +1206,7 @@ public final class Formulas
 			init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
 		}
 		else if (cha instanceof L2PetInstance)
-			init = ((L2PetInstance) cha).getPetData().getPetRegenHP();
+			init = ((L2PetInstance) cha).getPetData().getPetRegenHP() * Config.PET_HP_REGEN_MULTIPLIER;
 
 		if (init < 1)
 			init = 1;
@@ -1324,7 +1324,7 @@ public final class Formulas
 			init *= cha.getLevelMod() * MENbonus[cha.getStat().getMEN()];
 		}
 		else if (cha instanceof L2PetInstance)
-			init = ((L2PetInstance) cha).getPetData().getPetRegenMP();
+			init = ((L2PetInstance) cha).getPetData().getPetRegenHP() * Config.PET_HP_REGEN_MULTIPLIER;
 
 		if (init < 1)
 			init = 1;

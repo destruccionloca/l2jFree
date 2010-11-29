@@ -34,6 +34,8 @@ public class L2JailZone extends L2Zone
 			
 			if (Config.JAIL_IS_PVP)
 				character.setInsideZone(FLAG_PVP, true);
+			if (Config.JAIL_DISABLE_TRANSACTION)
+				character.setInsideZone(FLAG_NOSTORE, true);
 		}
 		
 		super.onEnter(character);
@@ -46,6 +48,9 @@ public class L2JailZone extends L2Zone
 		{
 			character.setInsideZone(FLAG_JAIL, false);
 			character.setInsideZone(FLAG_NOSUMMON, false);
+
+			if (Config.JAIL_DISABLE_TRANSACTION)
+				character.setInsideZone(FLAG_NOSTORE, false);
 			
 			if (Config.JAIL_IS_PVP)
 				character.setInsideZone(FLAG_PVP, false);

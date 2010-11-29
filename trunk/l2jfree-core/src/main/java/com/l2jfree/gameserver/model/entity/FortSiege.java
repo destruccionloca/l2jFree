@@ -266,6 +266,7 @@ public class FortSiege extends AbstractSiege
 			unSpawnFlags();
 			
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town);
+			getFort().banishForeigners();
 			_isInProgress = false; // Flag so that siege instance can be started
 			getZone().updateSiegeStatus();
 			
@@ -299,7 +300,12 @@ public class FortSiege extends AbstractSiege
 		if (!getIsInProgress())
 		{
 			if (_siegeStartTask != null) // used admin command "admin_startfortsiege"
+			{
 				_siegeStartTask.cancel(false);
+				removeFlags();
+				removeCommanders();
+			}
+
 			_siegeStartTask = null;
 			
 			if (getAttackerClans().isEmpty())
@@ -612,7 +618,7 @@ public class FortSiege extends AbstractSiege
 				else if (_siegeRestore == null)
 				{
 					getFort().getSiege().announceToPlayer(SystemMessageId.SEIZED_BARRACKS.getSystemMessage(), 0, false);
-					_siegeRestore  = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSiegeRestore(getFort()), Config.FORTSIEGE_COUNTDOWN_LENGTH*60*1000);
+					_siegeRestore = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSiegeRestore(getFort()), Config.FORTSIEGE_COUNTDOWN_LENGTH*60*1000);
 				}
 				else
 					getFort().getSiege().announceToPlayer(SystemMessageId.SEIZED_BARRACKS.getSystemMessage(), 0, false);
@@ -1040,7 +1046,7 @@ public class FortSiege extends AbstractSiege
 				else
 				{
 					_log.warn("FortSiege.spawnCommander: Data missing in NPC table for ID: "
-				        + _sp.getNpcId() + ".");
+						+ _sp.getNpcId() + ".");
 				}
 				_commanders.put(getFort().getFortId(), _commandersSpawns);
 			}
@@ -1049,7 +1055,7 @@ public class FortSiege extends AbstractSiege
 		{
 			// problem with initializing spawn, go to next one
 			_log.warn("FortSiege.spawnCommander: Spawn could not be initialized: "
-			        + e.getMessage(), e);
+					+ e.getMessage(), e);
 		}
 	}
 

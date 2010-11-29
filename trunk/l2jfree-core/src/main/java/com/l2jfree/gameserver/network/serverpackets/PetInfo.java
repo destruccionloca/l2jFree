@@ -25,16 +25,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 public class PetInfo extends L2GameServerPacket
 {
 	private static final String	_S__CA_PETINFO	= "[S] b1 PetInfo";
-	private final L2Summon			_summon;
+	private final L2Summon				_summon;
 	private final int					_x, _y, _z, _heading;
 	private final boolean				_isSummoned;
 	private final int					_val;
 	private final int					_mAtkSpd, _pAtkSpd;
 	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
-	private int _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
+	private int							_flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
 	private final int					_maxHp, _maxMp;
-	private int					_maxFed, _curFed;
-	private final float				_multiplier;
+	private int							_maxFed, _curFed;
+	private final float					_multiplier;
 
 	/**
 	 * rev 478  dddddddddddddddddddffffdddcccccSSdddddddddddddddddddddddddddhc
@@ -169,7 +169,7 @@ public class PetInfo extends L2GameServerPacket
 				form = 1;
 		}
 		writeD(form);//CT1.5 Pet form and skills
-		writeD(0x00);
+		writeD(_summon.getSpecialEffect());
 	}
 
 	/* (non-Javadoc)

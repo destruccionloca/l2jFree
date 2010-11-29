@@ -123,6 +123,12 @@ public class TradeRequest extends L2GameClientPacket
 			}
 		}
 
+		if (Config.JAIL_DISABLE_TRANSACTION && (player.isInJail() || partner.isInJail()))
+		{
+			player.sendMessage("You can't trade in jail.");
+			return;
+		}
+
 		if (player.getPrivateStoreType() != 0 || partner.getPrivateStoreType() != 0)
 		{
 			requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);

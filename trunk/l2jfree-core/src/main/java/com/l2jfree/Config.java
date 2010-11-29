@@ -364,7 +364,7 @@ public class Config extends L2Config
 
 			// Clan Fame
 			TAKE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("TakeFortPoints", "200"));
-			LOOSE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("LooseFortPoints", "400"));
+			LOOSE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("LooseFortPoints", "0"));
 			TAKE_CASTLE_POINTS			= Integer.parseInt(clansSettings.getProperty("TakeCastlePoints", "1500"));
 			LOOSE_CASTLE_POINTS			= Integer.parseInt(clansSettings.getProperty("LooseCastlePoints", "3000"));
 			CASTLE_DEFENDED_POINTS		= Integer.parseInt(clansSettings.getProperty("CastleDefendedPoints", "750"));
@@ -915,6 +915,7 @@ public class Config extends L2Config
 	// *******************************************************************************************
 	public static boolean			JAIL_IS_PVP;											// Jail config
 	public static boolean			JAIL_DISABLE_CHAT;										// Jail config
+	public static boolean			JAIL_DISABLE_TRANSACTION;
 	public static int				GREAT_WOLF_MOUNT_LEVEL;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
@@ -967,6 +968,8 @@ public class Config extends L2Config
 	public static double			PLAYER_HP_REGEN_MULTIPLIER;								// Player regen multipliers
 	public static double			PLAYER_MP_REGEN_MULTIPLIER;								// Player regen multipliers
 	public static double			PLAYER_CP_REGEN_MULTIPLIER;								// Player regen multipliers
+	public static double			PET_HP_REGEN_MULTIPLIER;
+	public static double			PET_MP_REGEN_MULTIPLIER;
 	public static int				MAX_ITEM_IN_PACKET;
 
 	/**
@@ -1035,6 +1038,8 @@ public class Config extends L2Config
 			PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100")) / 100;
 			PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100")) / 100;
 			PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100")) / 100;
+			PET_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PetHpRegenMultiplier", "100")) /100;
+			PET_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PetMpRegenMultiplier", "100")) /100;
 
 			RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "100")) / 100;
 			RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "100")) / 100;
@@ -1101,6 +1106,7 @@ public class Config extends L2Config
 
 			JAIL_IS_PVP = Boolean.parseBoolean(otherSettings.getProperty("JailIsPvp", "True"));
 			JAIL_DISABLE_CHAT = Boolean.parseBoolean(otherSettings.getProperty("JailDisableChat", "True"));
+			JAIL_DISABLE_TRANSACTION = Boolean.parseBoolean(otherSettings.getProperty("JailDisableTransaction", "False"));
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
 
 			BANKING_SYSTEM_ENABLED	= Boolean.parseBoolean(otherSettings.getProperty("BankingEnabled", "false"));

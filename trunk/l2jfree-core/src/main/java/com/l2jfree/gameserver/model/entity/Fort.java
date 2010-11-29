@@ -47,24 +47,24 @@ public class Fort extends Siegeable<FortSiege>
 {
 	// =========================================================
 	// Data Field
-	private int						_fortId			= 0;
+	private int							_fortId			= 0;
 	private final List<L2DoorInstance>	_doors			= new FastList<L2DoorInstance>();
-	private L2StaticObjectInstance	_flagPole		= null;
+	private L2StaticObjectInstance		_flagPole		= null;
 	private final List<String>			_doorDefault	= new FastList<String>();
 	private final List<String>			_flagPoleStats	= new FastList<String>();
-	private FortSiege				_siege			= null;
-	private Calendar				_siegeDate;
-	private long					_lastOwnedTime;
-	private final FortManager				_spawnManager;
-	private L2Clan					_fortOwner		= null;
-	private int						_fortType		= 0;
-	private int						_state			= 0;
-	private int						_castleId		= 0;
+	private FortSiege					_siege			= null;
+	private Calendar					_siegeDate;
+	private long						_lastOwnedTime;
+	private final FortManager			_spawnManager;
+	private L2Clan						_fortOwner		= null;
+	private int							_fortType		= 0;
+	private int							_state			= 0;
+	private int							_castleId		= 0;
 
 	private final FastMap<Integer, FortFunction> _function;
 
-	private int						_blood			= 0;
-	private ScheduledFuture<?>		_fortUpdater;
+	private int							_blood			= 0;
+	private ScheduledFuture<?>			_fortUpdater;
 
 	/** Fortress Functions */
 	public static final int FUNC_TELEPORT = 1;
@@ -339,7 +339,7 @@ public class Fort extends Siegeable<FortSiege>
 		// Remove old owner
 		if (getOwnerClan() != null && (clan != null && clan != getOwnerClan()))
 		{
-			updateClansReputation(clan, true);
+			updateClansReputation(getOwnerClan(), true);
 
 			L2PcInstance oldLord = getOwnerClan().getLeader().getPlayerInstance();
 			if (oldLord != null && oldLord.getMountType() == 2)

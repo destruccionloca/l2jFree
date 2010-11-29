@@ -75,7 +75,7 @@ public abstract class L2Summon extends L2Playable
 	private boolean			_follow					= true;
 	private boolean			_previousFollowStatus	= true;
 
-	// TODO currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
+	// TODO currently, all servitors use 1 shot. However, this value should vary depending on the servitor template (id and level)!
 	//private int				_soulShotsPerHit		= 1;
 	//private int				_spiritShotsPerHit		= 1;
 
@@ -112,7 +112,7 @@ public abstract class L2Summon extends L2Playable
 		_owner = owner;
 		getAI();
 
-		getPosition().setXYZInvisible(owner.getX() + 50, owner.getY() + 100, owner.getZ() + 100);
+		getPosition().setXYZInvisible(owner.getX() + 20, owner.getY() + 20, owner.getZ() + 100);
 	}
 
 	@Override
@@ -457,18 +457,18 @@ public abstract class L2Summon extends L2Playable
 		if (isVisible() && !isDead())
 		{
 			getAI().stopFollow();
-	        owner.sendPacket(new PetDelete(getObjectId(), 2));
-            L2Party party;
-            if ((party = owner.getParty()) != null)
-            {
-                party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
-            }
-            
-	        store();
-	        giveAllToOwner();
-	        owner.setPet(null);
+			owner.sendPacket(new PetDelete(getObjectId(), 2));
+			L2Party party;
+			if ((party = owner.getParty()) != null)
+			{
+				party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+			}
+			
+			store();
+			giveAllToOwner();
+			owner.setPet(null);
 
-	        stopAllEffects();
+			stopAllEffects();
 			getStatus().stopHpMpRegeneration();
 
 			L2WorldRegion oldRegion = getWorldRegion();
