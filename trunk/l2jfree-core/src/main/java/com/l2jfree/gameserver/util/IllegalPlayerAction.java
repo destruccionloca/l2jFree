@@ -72,6 +72,7 @@ public final class IllegalPlayerAction implements Runnable
 			return;
 
 		case PUNISH_KICKBAN:
+			_actor.setAccessLevel(-100);
 			_actor.setAccountAccesslevel(-100);
 			//$FALL-THROUGH$
 		case PUNISH_KICK:

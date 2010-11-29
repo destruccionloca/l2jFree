@@ -239,6 +239,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						html.replace("%mp_regen%", "0");
 					sendHtmlMessage(player, html);
 				}
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("manage"))
 			{
@@ -912,30 +913,30 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
-    private void showVaultWindowDeposit(L2PcInstance player)
-    {
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-        player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN));
-    }
+	private void showVaultWindowDeposit(L2PcInstance player)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.setActiveWarehouse(player.getClan().getWarehouse());
+		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN));
+	}
 
-    private void showVaultWindowWithdraw(L2PcInstance player)
-    {
-        if (L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
-        {
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            player.setActiveWarehouse(player.getClan().getWarehouse());
-            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
-        }
-        else
-        {
+	private void showVaultWindowWithdraw(L2PcInstance player)
+	{
+		if (L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.setActiveWarehouse(player.getClan().getWarehouse());
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
+		}
+		else
+		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/fortress/foreman-noprivs.htm");
 			html.replace("%objectId%", String.valueOf(getObjectId()));
 			player.sendPacket(html);
 			return;
-        }
-    }
+		}
+	}
 
 	protected int validateCondition(L2PcInstance player)
 	{

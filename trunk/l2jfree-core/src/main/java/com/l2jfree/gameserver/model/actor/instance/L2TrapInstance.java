@@ -32,6 +32,7 @@ public final class L2TrapInstance extends L2Trap
 	public L2TrapInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, int lifeTime, L2Skill skill)
 	{
 		super(objectId, template, lifeTime, skill);
+		setInstanceId(owner.getInstanceId());
 		_owner = owner;
 	}
 	
