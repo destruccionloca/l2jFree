@@ -488,7 +488,15 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+        <add order="0x40" stat="runSpd" val="11"/>
+      </effect>
     </for>
   </skill>
   <skill id="22046" levels="1" name="Death Blader Transformation Scroll">
@@ -502,7 +510,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="22047" levels="1" name="Grail Apostle Transformation Scroll">
@@ -516,7 +531,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="31"/>
+        <set order="0x08" stat="CON" val="41"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="22048" levels="1" name="Unicorn Transformation Scroll">
@@ -530,7 +552,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="37"/>
+        <set order="0x08" stat="DEX" val="36"/>
+        <set order="0x08" stat="CON" val="34"/>
+        <set order="0x08" stat="INT" val="23"/>
+        <set order="0x08" stat="WIT" val="14"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="22049" levels="1" name="Lilim Knight Transformation Scroll">
@@ -544,7 +573,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="34"/>
+        <set order="0x08" stat="CON" val="30"/>
+        <set order="0x08" stat="INT" val="25"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="22050" levels="1" name="Golem Guardian Transformation Scroll">
@@ -558,7 +594,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="20"/>
+        <set order="0x08" stat="WIT" val="10"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="22051" levels="1" name="Inferno Drake Transformation Scroll">
@@ -572,7 +615,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="42"/>
+        <set order="0x08" stat="DEX" val="26"/>
+        <set order="0x08" stat="CON" val="45"/>
+        <set order="0x08" stat="INT" val="18"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="22052" levels="1" name="Dragon Bomber Transformation Scroll">
@@ -586,7 +636,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="29"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="22053" levels="19" name="Escape">
@@ -1280,9 +1337,29 @@
       M. Def. by 30%, moving speed by 30, and physical P. Atk. by 20%.
       Decreases MP consumption during skill use by 10%.
     -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="20602"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
+    <set name="castRange" val="20"/>
+    <set name="effectRange" val="400"/>
+    <set name="reuseDelay" val="120000"/>
+    <set name="staticReuse" val="true"/>
+    <for>
+      <effect name="Buff" time="120" val="0" stackOrder="2" stackType="multi_buff">
+        <mul order="0x40" stat="maxHp" val="1.60"/>
+        <mul order="0x40" stat="maxMp" val="1.60"/>
+        <mul order="0x40" stat="maxCp" val="1.60"/>
+        <mul order="0x40" stat="pDef" val="1.30"/>
+        <mul order="0x40" stat="mDef" val="1.30"/>
+        <add order="0x40" stat="runSpd" val="30"/>
+        <mul order="0x40" stat="pAtk" val="1.20"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
+      </effect>
+    </for>
   </skill>
 </list>

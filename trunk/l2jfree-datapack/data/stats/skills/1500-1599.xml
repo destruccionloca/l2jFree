@@ -326,21 +326,21 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect name="Buff" time="10" val="0">
+      <effect name="Buff" time="10" val="0" stackOrder="1" stackType="deflect">
         <mul order="0x30" stat="bowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="mDef" val="2"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" val="0">
+      <effect name="Buff" time="#ench1time" val="0" stackOrder="1" stackType="deflect">
         <mul order="0x30" stat="bowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="mDef" val="2"/>
       </effect>
     </enchant1for>
     <enchant2for>
-      <effect name="Buff" time="10" val="0">
+      <effect name="Buff" time="10" val="0" stackOrder="1" stackType="deflect">
         <mul order="0x30" stat="bowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="mDef" val="2"/>
@@ -559,7 +559,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
@@ -689,7 +689,7 @@
     <set name="target" val="TARGET_PARTY_MEMBER"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
@@ -707,7 +707,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="600000"/>
+    <set name="reuseDelay" val="3000000"/>
     <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="20" val="0">
@@ -740,10 +740,20 @@
     </for>
   </skill>
   <skill id="1534" levels="1" name="Courage of Pa'agrio">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="mpInitialConsume" val="56"/>
+    <set name="mpConsume" val="224"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="isMagic" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="aggroPoints" val="666"/>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1.5" stackType="max_cp_up">
+        <mul order="0x30" stat="maxCp" val="1.5"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1535" levels="1" name="Chant of Movement">
     <set name="mpInitialConsume" val="13"/>

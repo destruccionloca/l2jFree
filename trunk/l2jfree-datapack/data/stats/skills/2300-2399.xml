@@ -869,7 +869,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Transformation lasts 60 minutes -->
+      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
@@ -884,7 +884,15 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+        <add order="0x40" stat="runSpd" val="11"/>
+      </effect>
     </for>
   </skill>
   <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
@@ -899,7 +907,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
@@ -914,7 +929,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="31"/>
+        <set order="0x08" stat="CON" val="41"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
@@ -929,7 +951,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="37"/>
+        <set order="0x08" stat="DEX" val="36"/>
+        <set order="0x08" stat="CON" val="34"/>
+        <set order="0x08" stat="INT" val="23"/>
+        <set order="0x08" stat="WIT" val="14"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
@@ -944,7 +973,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="34"/>
+        <set order="0x08" stat="CON" val="30"/>
+        <set order="0x08" stat="INT" val="25"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
@@ -959,7 +995,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="20"/>
+        <set order="0x08" stat="WIT" val="10"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
@@ -974,7 +1017,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="42"/>
+        <set order="0x08" stat="DEX" val="26"/>
+        <set order="0x08" stat="CON" val="45"/>
+        <set order="0x08" stat="INT" val="18"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
@@ -989,7 +1039,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="29"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="2379" levels="1" name="Wind">

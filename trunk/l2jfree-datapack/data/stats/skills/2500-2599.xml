@@ -1017,8 +1017,8 @@
       <player flyMounted="false"/>
     </cond>
     <for>
-      <effect name="Buff" time="240" val="0">
-        <mul order="0x30" stat="bowWpnVuln" val="0.6"/>
+      <effect name="Buff" time="60" val="0">
+        <mul order="0x30" stat="bowWpnVuln" val="0.8"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.8"/>
       </effect>
     </for>

@@ -625,15 +625,47 @@
   </skill>
   <skill id="23167" levels="1" name="Rosy Seduction">
     <!-- Increases Max HP by 20%, Max MP by 20%, and the moving speed by 20% for 5 minutes. Increases the resistance to de-buffs by 10%. Reuse delay 10 minutes. Consumes 3 Rose Essence during skill use. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_OWNER_PET"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="itemConsumeId" val="20904"/>
+    <set name="itemConsumeCount" val="3"/>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="rose_seduction">
+        <mul order="0x30" stat="maxHp" val="1.2"/>
+        <mul order="0x30" stat="maxMp" val="1.2"/>
+        <mul order="0x30" stat="runSpd" val="1.2"/>
+        <mul order="0x30" stat="debuffVuln" val="0.9"/>
+      </effect>
+    </for>
   </skill>
   <skill id="23168" levels="1" name="Critical Seduction">
     <!-- Increases party members' Max HP by 30%, Max MP by 30%, Max CP by 30%, physical P. Def. by 30%, magic M. Def. by 30%, moving speed by 20%, and physical P. Atk. by 10%, and decreases MP consumption during skill use by 15% for 20 minutes. Reuse delay 40 minutes. Consumes 10 Rose Essence during skill use. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="2400000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="skillRadius" val="900"/>
+    <set name="itemConsumeId" val="20904"/>
+    <set name="itemConsumeCount" val="10"/>
+    <for>
+      <effect name="Buff" time="1200" val="0" stackOrder="2" stackType="rose_seduction">
+        <mul order="0x30" stat="maxHp" val="1.3"/>
+        <mul order="0x30" stat="maxMp" val="1.3"/>
+        <mul order="0x30" stat="maxCp" val="1.3"/>
+        <mul order="0x30" stat="pDef" val="1.3"/>
+        <mul order="0x30" stat="mDef" val="1.3"/>
+        <mul order="0x30" stat="runSpd" val="1.2"/>
+        <mul order="0x30" stat="pAtk" val="1.1"/>
+        <mul order="0x30" stat="mAtk" val="1.2"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.85"/>
+      </effect>
+    </for>
   </skill>
   <skill id="23169" levels="1" name="Mesmerized">
     <!-- Critical Seduction has left you mesmerized. You cannot be buffed with Critical Seduction again during the next 40 minutes. -->
@@ -661,18 +693,36 @@
   </skill>
   <skill id="23172" levels="1" name="Phoenix Agathion Special Skill - Nirvana Rebirth">
     <!-- All HP, MP, CP are recovered, and becomes invincible for 5 seconds with the power of Phoenix. Possible to use under HP 30% only. Cooldown of 12 hours. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <cond msgId="2292">
-      <player agathionId="1574"/>
+    <set name="skillType" val="RECOVER"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="2000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="43200000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="dispelOnAttack" val="true"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player agathionId="1574"/>
+        <player hp="30"/>
+      </and>
     </cond>
+    <for>
+      <effect name="Invincible" time="15" val="0" stackOrder="2" stackType="Instant_Shield" special="invincible"/>
+    </for>
   </skill>
   <skill id="23173" levels="1" name="Phoenix Agathion Special Skill - Oriental Phoenix">
     <!-- All Debuff is canceled with the power of Phoenix. Cooldown of 4 hours. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="ROOT PARALYZE DEBUFF POISON BLEED"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="2000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="14400000"/>
+    <set name="staticReuse" val="true"/>
     <cond msgId="2292">
       <player agathionId="1574"/>
     </cond>

@@ -161,22 +161,46 @@
     </for>
   </skill>
   <skill id="21014" levels="1" name="Scissors">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="castRange" val="400"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="109">
+      <target npcId="13183"/>
+    </cond>
   </skill>
   <skill id="21015" levels="1" name="Rock">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="castRange" val="400"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="109">
+      <target npcId="13183"/>
+    </cond>
   </skill>
   <skill id="21016" levels="1" name="Paper">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="castRange" val="400"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="109">
+      <target npcId="13183"/>
+    </cond>
   </skill>
   <skill id="21017" levels="1" name="Holiday Dream Weapon">
     <set name="target" val="TARGET_SELF"/>
@@ -1249,17 +1273,38 @@
   </skill>
   <skill id="21086" levels="1" name="Blessing of Love">
     <!-- Can feel the warm love of family. Protects the target with sacred power. Makes the target invincible for 10 seconds. Reuse Delay 4 hours -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="14400000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="staticReuse" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+    </for>
   </skill>
   <skill id="21087" levels="1" name="Berserker Spirit">
     <!-- Decreases P. Def. by 8%, M. Def. by 16%, and evasion by 4, and increases P. Atk. by 8%, M. Atk. by 16%, Atk. Spd. by 8%, Casting Spd. by 8%, and moving speed by 8 for 20 minutes. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="113" addName="1">
+      <player SiegeZone="126"/>
+    </cond>
+    <for>
+      <effect name="Buff" time="1200" val="0" stackOrder="2" stackType="berserk">
+        <mul order="0x30" stat="mAtk" val="1.16"/>
+        <mul order="0x30" stat="pAtk" val="1.08"/>
+        <mul order="0x30" stat="mDef" val="0.84"/>
+        <mul order="0x30" stat="pDef" val="0.92"/>
+        <mul order="0x30" stat="mAtkSpd" val="1.08"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.08"/>
+        <add order="0x40" stat="runSpd" val="8"/>
+        <sub order="0x40" stat="rEvas" val="4"/>
+      </effect>
+    </for>
   </skill>
   <skill id="21088" levels="1" name="Summon Friend">
     <!-- Summons your friend. -->
@@ -1325,18 +1370,21 @@
     <set name="npcId" val="1528"/>
   </skill>
   <skill id="21092" levels="1" name="Theme - Love">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="21093" levels="1" name="Theme - Hero">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="21094" levels="1" name="Theme - Theme Park">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="21095" levels="1" name="Blessed Resurrection">
@@ -1353,10 +1401,18 @@
   </skill>
   <skill id="21096" levels="1" name="Ability of Cool Watermelon">
     <!-- For 30 minutes, increases critical rate by 30% and critical power by 35%. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="1800" val="0">
+        <basemul order="0x30" stat="rCrit" val="0.3"/>
+        <mul order="0x30" stat="cAtk" val="1.35"/>
+      </effect>
+    </for>
   </skill>
   <skill id="21097" levels="1" name="Summon Friend">
     <!-- Summons your friend. -->
@@ -1375,14 +1431,36 @@
   </skill>
   <skill id="21098" levels="1" name="Great Adventurer's Soul Power : Endless">
     <!-- For five minutes, the Great Spirit increases maximum HP by 20%, maximum MP by 20%, moving speed by 20%, and resistance against debuff by 10%. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="soul_buff">
+        <mul order="0x30" stat="maxHp" val="1.2"/>
+        <mul order="0x30" stat="maxMp" val="1.2"/>
+        <mul order="0x30" stat="runSpd" val="1.2"/>
+        <mul order="0x30" stat="debuffVuln" val="0.9"/>
+      </effect>
+    </for>
   </skill>
   <skill id="21099" levels="1" name="Great Warrior's Soul Power: Strength">
     <!-- For five minutes, the Great Spirit increases Atk.Spd. by 20%, damage by 10% and P.Def. by 20%. You recover HP equal to 5% of the melee damage. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="soul_buff">
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
+        <mul order="0x30" stat="pAtk" val="1.1"/>
+        <mul order="0x30" stat="pDef" val="1.2"/>
+        <add order="0x40" stat="absorbDam" val="5"/>
+      </effect>
+    </for>
   </skill>
 </list>
