@@ -106,7 +106,7 @@ public class RequestActionUse extends L2GameClientPacket
 		
 		switch (_actionId)
 		{
-			case 0:
+			case 0: // Sit/stand
 				if (activeChar.getMountType() != 0)
 					break;
 				
@@ -131,7 +131,7 @@ public class RequestActionUse extends L2GameClientPacket
 					_log.debug("new wait type: " + (activeChar.isSitting() ? "STANDING" : "SITTING"));
 				
 				break;
-			case 1:
+			case 1: // Walk/run
 				if (activeChar.isRunning())
 					activeChar.setWalking();
 				else
@@ -140,17 +140,16 @@ public class RequestActionUse extends L2GameClientPacket
 				if (_log.isDebugEnabled())
 					_log.debug("new move type: " + (activeChar.isRunning() ? "RUNNING" : "WALKIN"));
 				break;
-			case 10:
-				// Private Store Sell
+			case 10: // Private Store Sell
 				activeChar.tryOpenPrivateSellStore(false);
 				break;
 			case 15:
-			case 21: // pet follow/stop
+			case 21: // Change movement mode (pet follow/stop)
 				if (pet != null && !pet.isOutOfControl())
 					((L2SummonAI) pet.getAI()).notifyFollowStatusChange();
 				break;
 			case 16:
-			case 22: // pet attack
+			case 22: // Attack (pet attack)
 				if (target != null && pet != null && pet != target && activeChar != target && !pet.isAttackingDisabled() && !pet.isOutOfControl())
 				{
 					if (pet instanceof L2PetInstance && (pet.getLevel() - activeChar.getLevel() > 20))
@@ -201,11 +200,11 @@ public class RequestActionUse extends L2GameClientPacket
 				}
 				break;
 			case 17:
-			case 23: // pet - cancel action
+			case 23: // Stop (pet - cancel action)
 				if (pet != null && !pet.isMovementDisabled() && !pet.isOutOfControl())
 					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
 				break;
-			case 19: // pet unsummon
+			case 19: // Unsummon pet
 				if (pet != null)
 				{
 					// returns pet to control item
@@ -229,20 +228,19 @@ public class RequestActionUse extends L2GameClientPacket
 				}
 				// everything handled
 				break;
-			case 38: // pet mount
-				// mount
+			case 38: // Mount/dismount
 				activeChar.mountPlayer(pet);
 				break;
-			case 28:
+			case 28: // Private Store Buy
 				activeChar.tryOpenPrivateBuyStore();
 				break;
-			case 32: // Wild Hog Cannon - Mode Change
+			case 32: // Wild Hog Cannon - Switch Mode
 				// useSkill(4230);
 				break;
 			case 36: // Soulless - Toxic Smoke
 				useSkill(4259);
 				break;
-			case 37: // Manufacture - Dwarven
+			case 37: // Dwarven Manufacture
 				if (activeChar.getPrivateStoreType() != 0)
 				{
 					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -290,7 +288,7 @@ public class RequestActionUse extends L2GameClientPacket
 			case 48: // Mechanic Golem - Mech. Cannon
 				useSkill(4068);
 				break;
-			case 51: // Manufacture - non-dwarven
+			case 51: // General Manufacture
 				if (activeChar.getPrivateStoreType() != 0)
 				{
 					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -303,7 +301,7 @@ public class RequestActionUse extends L2GameClientPacket
 					activeChar.setCreateList(new L2ManufactureList());
 				activeChar.sendPacket(new RecipeShopManageList(activeChar, false));
 				break;
-			case 52: // unsummon
+			case 52: // Unsummon
 				if (pet != null && pet instanceof L2SummonInstance)
 				{
 					if (pet.isOutOfControl())
@@ -316,38 +314,26 @@ public class RequestActionUse extends L2GameClientPacket
 						pet.unSummon(activeChar);
 				}
 				break;
-			case 53: // move to target
+			case 53: // Move to target
 				if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				{
 					pet.setFollowStatus(false);
 					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 				}
 				break;
-			case 54: // move to target hatch/strider
+			case 54: // Move to target hatch/strider
 				if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				{
 					pet.setFollowStatus(false);
 					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 				}
 				break;
-			case 61:
-				// Private Store Package Sell
+			case 61: // Private Store Package Sell
 				activeChar.tryOpenPrivateSellStore(true);
 				break;
-			case 64:
-				// Teleport bookmark button
-			case 65:
-				// Bot report Button.
+			case 64: // Teleport bookmark button
+			case 65: // Bot report Button.
 				sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-				break;
-			case 96: // Quit Party Command Channel
-				_log.info("96 Accessed");
-				break;
-			case 97: // Request Party Command Channel Info
-				// if (!PartyCommandManager.getInstance().isPlayerInChannel(activeChar))
-				// return;
-				_log.info("97 Accessed");
-				// PartyCommandManager.getInstance().getActiveChannelInfo(activeChar);
 				break;
 			case 1000: // Siege Golem - Siege Hammer
 				if (target instanceof L2DoorInstance)
@@ -451,7 +437,6 @@ public class RequestActionUse extends L2GameClientPacket
 			case 1046: // Strider - Roar
 				useSkill(5585);
 				break;
-			// CT2.3
 			case 1047: // Bite (Divine Beast)
 				useSkill(5580);
 				break;
@@ -634,10 +619,10 @@ public class RequestActionUse extends L2GameClientPacket
 			case 66:
 				useSocial(15, activeChar);
 				break;
-			case 67:
-			case 68:
-			case 69:
-			case 70:
+			case 67: // Steer
+			case 68: // Cancel control
+			case 69: // Destination map
+			case 70: // Exit airship
 				sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 				break;
 			case 71:

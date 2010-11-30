@@ -16,42 +16,44 @@ package com.l2jfree.gameserver.model;
 
 public class L2PetData
 {
-	public static final String PET_TYPE = "typeID";
-	public static final String PET_LEVEL = "level";
-	//  public static final String PET_EXP              = "exp";
-	public static final String PET_MAX_EXP = "expMax";
-	//  public static final String PET_HP           = "hp";
-	public static final String PET_MAX_HP = "hpMax";
-	//  public static final String PET_MP               = "mp";
-	public static final String PET_MAX_MP = "mpMax";
-	public static final String PET_PATK = "patk";
-	public static final String PET_PDEF = "pdef";
-	public static final String PET_MATK = "matk";
-	public static final String PET_MDEF = "mdef";
-	public static final String PET_ACCURACY = "acc";
-	public static final String PET_EVASION = "evasion";
-	public static final String PET_CRITICAL = "crit";
-	public static final String PET_SPEED = "speed";
-	public static final String PET_ATK_SPEED = "atk_speed";
-	public static final String PET_CAST_SPEED = "cast_speed";
-	//  public static final String PET_FEED                 = "feed";
-	public static final String PET_MAX_FEED = "feedMax";
-	public static final String PET_FEED_BATTLE = "feedbattle";
-	public static final String PET_FEED_NORMAL = "feednormal";
-	//  public static final String PET_LOAD                 = "load";
-	public static final String PET_MAX_LOAD = "loadMax";
-	public static final String PET_REGEN_HP = "hpregen";
-	public static final String PET_REGEN_MP = "mpregen";
-	public static final String OWNER_EXP_TAKEN = "owner_exp_taken";
+	public static final String PET_TYPE			= "typeID";
+	public static final String PET_LEVEL		= "level";
+	// public static final String PET_EXP		= "exp";
+	public static final String PET_MAX_EXP		= "expMax";
+	// public static final String PET_HP		= "hp";
+	public static final String PET_MAX_HP		= "hpMax";
+	// public static final String PET_MP		= "mp";
+	public static final String PET_MAX_MP		= "mpMax";
+	public static final String PET_PATK			= "patk";
+	public static final String PET_PDEF			= "pdef";
+	public static final String PET_MATK			= "matk";
+	public static final String PET_MDEF			= "mdef";
+	public static final String PET_ACCURACY		= "acc";
+	public static final String PET_EVASION		= "evasion";
+	public static final String PET_CRITICAL		= "crit";
+	public static final String PET_SPEED		= "speed";
+	public static final String PET_ATK_SPEED	= "atk_speed";
+	public static final String PET_CAST_SPEED	= "cast_speed";
+	// public static final String PET_FEED		= "feed";
+	public static final String PET_MAX_FEED		= "feedMax";
+	public static final String PET_FEED_BATTLE	= "feedbattle";
+	public static final String PET_FEED_NORMAL	= "feednormal";
+	// public static final String PET_LOAD		= "load";
+	public static final String PET_MAX_LOAD		= "loadMax";
+	public static final String PET_REGEN_HP		= "hpregen";
+	public static final String PET_REGEN_MP		= "mpregen";
+	public static final String OWNER_EXP_TAKEN	= "owner_exp_taken";
+	public static final String PET_SOUL_SHOT	= "soul_shot";
+	public static final String PET_SPIRIT_SHOT	= "spirit_shot";
 
 	private int _petId;
 	private int _petLevel;
 	private float _ownerExpTaken;
-	//  private int petExp;
+	// private int petExp;
 	private long _petMaxExp;
-	//    private int petHP;
+	// private int petHP;
 	private int _petMaxHP;
-	//    private int petMP;
+	// private int petMP;
 	private int _petMaxMP;
 	private int _petPAtk;
 	private int _petPDef;
@@ -63,13 +65,15 @@ public class L2PetData
 	private int _petSpeed;
 	private int _petAtkSpeed;
 	private int _petCastSpeed;
-	//      private int petFeed;
+	// private int petFeed;
 	private int _petMaxFeed;
 	private int _petFeedBattle;
 	private int _petFeedNormal;
 	private int _petMaxLoad;
 	private int _petRegenHP;
 	private int _petRegenMP;
+	private short _petSoulShot;
+	private short _petSpiritShot;
 
 	//  ID
 	public int getPetID()
@@ -332,6 +336,26 @@ public class L2PetData
 		_petRegenMP = pPetRegenMP;
 	}
 
+	public void setPetSoulShot(short soulshot_count)
+	{
+		 _petSoulShot = soulshot_count;
+	}
+
+	public void setPetSpiritShot(short spiritshot_count)
+	{
+		_petSoulShot = spiritshot_count;
+	}
+
+	public short getPetSoulShot()
+	{
+		return _petSoulShot;
+	}
+
+	public short getPetSpiritShot()
+	{
+		return _petSpiritShot;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -352,6 +376,7 @@ public class L2PetData
 			+ " \t" + PET_FEED_NORMAL + ": " + getPetFeedNormal() + " \t" +
 			//        PET_LOAD + ": " + getPetLoad() + " \t" +
 			PET_MAX_LOAD + ": " + getPetMaxLoad() + " \t" + PET_REGEN_HP + ": " + getPetRegenHP()
-			+ " \t" + PET_REGEN_MP + ": " + getPetRegenMP();
+			+ " \t" + PET_REGEN_MP + ": " + getPetRegenMP() + " \t" + PET_SOUL_SHOT + ": " + getPetSoulShot()
+			+ " \t" + PET_SPIRIT_SHOT + ": " + getPetSpiritShot();
 	}
 }

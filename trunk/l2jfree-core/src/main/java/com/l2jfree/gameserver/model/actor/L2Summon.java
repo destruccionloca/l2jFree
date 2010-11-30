@@ -315,14 +315,18 @@ public abstract class L2Summon extends L2Playable
 		return getTemplate().getNpcId();
 	}
 
-	public final int getSoulShotsPerHit()
+	public short getSoulShotsPerHit()
 	{
-		return 1/*_soulShotsPerHit*/;
+		if (getTemplate().getSoulShotCount() > 0)
+			return getTemplate().getSoulShotCount();
+		return 1;
 	}
 
-	public final int getSpiritShotsPerHit()
+	public short getSpiritShotsPerHit()
 	{
-		return 1/*_spiritShotsPerHit*/;
+		if (getTemplate().getSpiritShotCount() > 0)
+			return getTemplate().getSpiritShotCount();
+		return 1;
 	}
 
 	public void followOwner()

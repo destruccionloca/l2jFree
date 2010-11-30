@@ -217,15 +217,16 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (_log.isDebugEnabled())
 					_log.debug("Showing chamberlain buylist");
 				showBuyWindow(player, Integer.parseInt(val + "1"));
+				return;
 			}
 			else if (actualCommand.equals("manage_siege_defender"))
 			{
 				if (!validatePrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE))
 					return;
-			 	if (siegeBlocksFunction(player))
+				if (siegeBlocksFunction(player))
 					return;
 
-			 	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-defender.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
@@ -371,6 +372,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
 					break;
 				}
+				return;
 			}
 			else if (actualCommand.equals("operate_door")) // door
 			// control
@@ -507,6 +509,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						html.replace("%mp%", String.valueOf((int) getStatus().getCurrentMp()));
 					}
 					sendHtmlMessage(player, html);
+					return;
 				}
 				else if (val.equals("back"))
 				{
@@ -1366,6 +1369,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					html.replace("%time%", String.valueOf(getCastle().getSiegeDate().getTime()));
 				}
 				sendHtmlMessage(player, html);
+				return;
 			}
 			else if (actualCommand.equals("give_crown"))
 			{
@@ -1392,6 +1396,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 				else
 					player.sendPacket(NO_AUTH);
+					return;
 			}
 			else if (actualCommand.equals("give_LotMCoA"))
 			{

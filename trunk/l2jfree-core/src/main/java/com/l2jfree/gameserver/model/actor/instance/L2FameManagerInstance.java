@@ -61,6 +61,7 @@ public class L2FameManagerInstance extends L2Npc
 				html.setFile("data/html/famemanager/"+getNpcId()+"-lowfame.htm");
 			}
 			sendHtmlMessage(player, html);
+			return;
 		}
 		else if (actualCommand.equalsIgnoreCase("CRP"))
 		{
@@ -82,6 +83,7 @@ public class L2FameManagerInstance extends L2Npc
 				html.setFile("data/html/famemanager/" + getNpcId() + "-noclan.htm");
 			
 			sendHtmlMessage(player, html);
+			return;
 		}
 		else
 			super.onBypassFeedback(player, command);

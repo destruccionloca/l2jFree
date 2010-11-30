@@ -1210,6 +1210,18 @@ public class L2PetInstance extends L2Summon
 	}
 
 	@Override
+	public short getSoulShotsPerHit()
+	{
+		return _data.getPetSoulShot();
+	}
+
+	@Override
+	public short getSpiritShotsPerHit()
+	{
+		return _data.getPetSpiritShot();
+	}
+
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 		refreshOverloaded();

@@ -29,7 +29,9 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.tools.random.Rnd;
+import java.util.concurrent.Future;
 
 /**
 * Thanks to L2Fortress and balancer.ru - kombat
@@ -47,6 +49,8 @@ public class DimensionalRift
 	private TimerTask teleporterTimerTask;
 	private Timer spawnTimer;
 	private TimerTask spawnTimerTask;
+	
+	private Future<?> earthQuakeTask;
 	
 	protected byte _choosenRoom = -1;
 	private boolean _hasJumped = false;
@@ -103,6 +107,12 @@ public class DimensionalRift
 			teleporterTimer = null;
 		}
 
+		if (earthQuakeTask != null)
+		{
+			earthQuakeTask.cancel(false);
+			earthQuakeTask = null;
+		}
+
 		teleporterTimer = new Timer();
 		teleporterTimerTask = new TimerTask()
 		{
@@ -137,7 +147,26 @@ public class DimensionalRift
 		};
 		
 		if(reasonTP)
-			teleporterTimer.schedule(teleporterTimerTask, calcTimeToNextJump()); //Teleporter task, 8-10 minutes
+		{
+			final long jumpTime = calcTimeToNextJump();
+			teleporterTimer.schedule(teleporterTimerTask, jumpTime); //Teleporter task, 8-10 minutes
+
+			earthQuakeTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						for (L2PcInstance player : _party.getPartyMembers())
+						{
+							if (!revivedInWaitingRoom.contains(player))
+							{
+								player.sendPacket(new Earthquake(player.getX(), player.getY(),
+									player.getZ(), 65, 9));
+							}
+						}
+					}
+				} , jumpTime - 7000);
+		}
 		else
 			teleporterTimer.schedule(teleporterTimerTask, seconds_5); //incorrect party member invited.
 	}
@@ -274,6 +303,13 @@ public class DimensionalRift
 		_party = null;
 		revivedInWaitingRoom = null;
 		deadPlayers = null;
+
+		if (earthQuakeTask != null)
+		{
+			earthQuakeTask.cancel(false);
+			earthQuakeTask = null;
+		}
+
 		DimensionalRiftManager.getInstance().getRoom(_roomType, _choosenRoom).unspawn();
 		DimensionalRiftManager.getInstance().killRift(this);
 	}

@@ -1119,7 +1119,7 @@ public class L2Attackable extends L2Npc
 	 * 
 	 * @param target The L2Character whose hate level must be returned
 	 */
-	public int getHating(L2Character target)
+	public int getHating(final L2Character target)
 	{
 		if (target == null || getAggroListRP().isEmpty())
 			return 0;
@@ -2115,6 +2115,10 @@ public class L2Attackable extends L2Npc
 									{
 										// Split the name of the crystal into 'name' & 'level'
 										crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split("-");
+										if (crystalNFO.length != 2)
+										{
+											crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split(":");
+										}
 										// Get Level
 										crystalLVL = Integer.parseInt(crystalNFO[1].trim());
 									}
