@@ -10250,6 +10250,7 @@ INSERT INTO `etcitem` VALUES
 
 --
 -- L2J-Free Add-ons
+-- TODO: have to be reviewed - last review 02 December 2010 - Spire
 --
 
 -- Dark Seed cannot be exchanged or dropped according to client's description.
@@ -10273,7 +10274,6 @@ UPDATE `etcitem` SET `consume_type` = 'stackable', `sellable` = 'false', `tradea
 UPDATE `etcitem` SET `item_type` = 'herb' WHERE `item_id` IN (13028,13029,13030,13031);
 
 -- Bolts stats fix
-UPDATE `etcitem` SET `price` = 2 WHERE `item_id` = 9632;
 UPDATE `etcitem` SET `material` = 'bone', `crystal_type` = 'd' WHERE `item_id` = 9633;
 UPDATE `etcitem` SET `material` = 'fine_steel', `crystal_type` = 'c' WHERE `item_id` = 9634;
 UPDATE `etcitem` SET `material` = 'silver', `crystal_type` = 'b', `price` = 7 WHERE `item_id` = 9635;
@@ -10353,9 +10353,18 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22056-1;22057-1;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22062-1;22063-1;22065-1;22066-1;22067-1;22068-1;22069-1;22070-1' WHERE `item_id` = 10179;
 
 -- Some items aren't in this table... (savormix)
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2136-1' WHERE `item_id` = 5283;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2037-1' WHERE `item_id` = 9206;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2592-1' WHERE `item_id` = 9207;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2490-1' WHERE `item_id` = 10473;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2561-1' WHERE `item_id` = 10865;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2856-1' WHERE `item_id` = 14614;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2857-1' WHERE `item_id` = 14615;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2858-1' WHERE `item_id` = 14612;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2869-1' WHERE `item_id` = 14724;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2870-1' WHERE `item_id` = 14725;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2880-1' WHERE `item_id` = 14726;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2881-1' WHERE `item_id` = 14727;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2883-1' WHERE `item_id` = 14742;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2884-1' WHERE `item_id` = 14743;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2894-1' WHERE `item_id` = 14769;
@@ -10422,67 +10431,7 @@ UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = '
 UPDATE `etcitem` SET `handler` = 'Book' WHERE `item_id` IN (13130, 13131, 13132, 13133, 13134, 13135, 13136);
 
 -- Various updates (Spire)
-UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '7736';
-UPDATE `etcitem` SET `price` = '163' WHERE `item_id` = '7743';
 UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '7745';
-UPDATE `etcitem` SET `price` = '198' WHERE `item_id` = '7746';
-UPDATE `etcitem` SET `price` = '202' WHERE `item_id` = '7747';
-UPDATE `etcitem` SET `price` = '197' WHERE `item_id` = '7748';
-UPDATE `etcitem` SET `price` = '210' WHERE `item_id` = '7749';
-UPDATE `etcitem` SET `price` = '213' WHERE `item_id` = '7750';
-UPDATE `etcitem` SET `price` = '216' WHERE `item_id` = '7751';
-UPDATE `etcitem` SET `price` = '218' WHERE `item_id` = '7752';
-UPDATE `etcitem` SET `price` = '221' WHERE `item_id` = '7753';
-UPDATE `etcitem` SET `price` = '224' WHERE `item_id` = '7754';
-UPDATE `etcitem` SET `price` = '226' WHERE `item_id` = '7755';
-UPDATE `etcitem` SET `price` = '284' WHERE `item_id` = '7758';
-UPDATE `etcitem` SET `price` = '290' WHERE `item_id` = '7759';
-UPDATE `etcitem` SET `price` = '297' WHERE `item_id` = '7760';
-UPDATE `etcitem` SET `price` = '304' WHERE `item_id` = '7761';
-UPDATE `etcitem` SET `price` = '311' WHERE `item_id` = '7762';
-UPDATE `etcitem` SET `price` = '318' WHERE `item_id` = '7763';
-UPDATE `etcitem` SET `price` = '325' WHERE `item_id` = '7764';
-UPDATE `etcitem` SET `price` = '332' WHERE `item_id` = '7765';
-UPDATE `etcitem` SET `price` = '388' WHERE `item_id` = '7766';
-UPDATE `etcitem` SET `price` = '396' WHERE `item_id` = '7767';
-UPDATE `etcitem` SET `price` = '408' WHERE `item_id` = '7768';
-UPDATE `etcitem` SET `price` = '420' WHERE `item_id` = '7769';
-UPDATE `etcitem` SET `price` = '429' WHERE `item_id` = '7770';
-UPDATE `etcitem` SET `price` = '438' WHERE `item_id` = '7771';
-UPDATE `etcitem` SET `price` = '447' WHERE `item_id` = '7772';
-UPDATE `etcitem` SET `price` = '465' WHERE `item_id` = '7774';
-UPDATE `etcitem` SET `price` = '474' WHERE `item_id` = '7775';
-UPDATE `etcitem` SET `price` = '545' WHERE `item_id` = '7776';
-UPDATE `etcitem` SET `price` = '556' WHERE `item_id` = '7777';
-UPDATE `etcitem` SET `price` = '567' WHERE `item_id` = '7778';
-UPDATE `etcitem` SET `price` = '579' WHERE `item_id` = '7779';
-UPDATE `etcitem` SET `price` = '639' WHERE `item_id` = '7780';
-UPDATE `etcitem` SET `price` = '651' WHERE `item_id` = '7781';
-UPDATE `etcitem` SET `price` = '663' WHERE `item_id` = '7782';
-UPDATE `etcitem` SET `price` = '676' WHERE `item_id` = '7783';
-UPDATE `etcitem` SET `price` = '688' WHERE `item_id` = '7784';
-UPDATE `etcitem` SET `price` = '701' WHERE `item_id` = '7785';
-UPDATE `etcitem` SET `price` = '789' WHERE `item_id` = '7786';
-UPDATE `etcitem` SET `price` = '804' WHERE `item_id` = '7787';
-UPDATE `etcitem` SET `price` = '858' WHERE `item_id` = '7788';
-UPDATE `etcitem` SET `price` = '874' WHERE `item_id` = '7789';
-UPDATE `etcitem` SET `price` = '891' WHERE `item_id` = '7790';
-UPDATE `etcitem` SET `price` = '907' WHERE `item_id` = '7791';
-UPDATE `etcitem` SET `price` = '925' WHERE `item_id` = '7792';
-UPDATE `etcitem` SET `price` = '944' WHERE `item_id` = '7793';
-UPDATE `etcitem` SET `price` = '962' WHERE `item_id` = '7794';
-UPDATE `etcitem` SET `price` = '981' WHERE `item_id` = '7795';
-UPDATE `etcitem` SET `price` = '1000' WHERE `item_id` = '7796';
-UPDATE `etcitem` SET `price` = '1020' WHERE `item_id` = '7797';
-UPDATE `etcitem` SET `price` = '1041' WHERE `item_id` = '7798';
-UPDATE `etcitem` SET `price` = '1062' WHERE `item_id` = '7799';
-UPDATE `etcitem` SET `price` = '1083' WHERE `item_id` = '7800';
-UPDATE `etcitem` SET `price` = '1155' WHERE `item_id` = '7801';
-UPDATE `etcitem` SET `price` = '1179' WHERE `item_id` = '7802';
-UPDATE `etcitem` SET `price` = '1202' WHERE `item_id` = '7803';
-UPDATE `etcitem` SET `price` = '1226' WHERE `item_id` = '7804';
-UPDATE `etcitem` SET `price` = '1251' WHERE `item_id` = '7805';
-UPDATE `etcitem` SET `price` = '1276' WHERE `item_id` = '7806';
 UPDATE `etcitem` SET `price` = '5000' WHERE `item_id` = '8201';
 UPDATE `etcitem` SET `item_type` = 'none' WHERE `item_id` = '8202';
 UPDATE `etcitem` SET `price` = '28000' WHERE `item_id` = '8303';
@@ -10490,81 +10439,50 @@ UPDATE `etcitem` SET `price` = '28000' WHERE `item_id` = '8304';
 UPDATE `etcitem` SET `price` = '86000' WHERE `item_id` = '8319';
 UPDATE `etcitem` SET `price` = '262000' WHERE `item_id` = '8323';
 UPDATE `etcitem` SET `price` = '262000' WHERE `item_id` = '8324';
-UPDATE `etcitem` SET `price` = '138' WHERE `item_id` = '8403';
-UPDATE `etcitem` SET `price` = '141' WHERE `item_id` = '8404';
-UPDATE `etcitem` SET `price` = '153' WHERE `item_id` = '8405';
-UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '8406';
-UPDATE `etcitem` SET `price` = '187' WHERE `item_id` = '8407';
-UPDATE `etcitem` SET `price` = '208' WHERE `item_id` = '8408';
-UPDATE `etcitem` SET `price` = '225' WHERE `item_id` = '8409';
-UPDATE `etcitem` SET `price` = '248' WHERE `item_id` = '8410';
-UPDATE `etcitem` SET `price` = '285' WHERE `item_id` = '8412';
-UPDATE `etcitem` SET `price` = '295' WHERE `item_id` = '8413';
-UPDATE `etcitem` SET `price` = '325' WHERE `item_id` = '8415';
-UPDATE `etcitem` SET `price` = '340' WHERE `item_id` = '8416';
-UPDATE `etcitem` SET `price` = '355' WHERE `item_id` = '8417';
-UPDATE `etcitem` SET `price` = '375' WHERE `item_id` = '8419';
-UPDATE `etcitem` SET `price` = '395' WHERE `item_id` = '8421';
-UPDATE `etcitem` SET `price` = '400' WHERE `item_id` = '8422';
-UPDATE `etcitem` SET `price` = '415' WHERE `item_id` = '8424';
-UPDATE `etcitem` SET `price` = '420' WHERE `item_id` = '8426';
-UPDATE `etcitem` SET `price` = '425' WHERE `item_id` = '8427';
-UPDATE `etcitem` SET `price` = '431' WHERE `item_id` = '8428';
-UPDATE `etcitem` SET `price` = '435' WHERE `item_id` = '8429';
-UPDATE `etcitem` SET `price` = '447' WHERE `item_id` = '8431';
-UPDATE `etcitem` SET `price` = '452' WHERE `item_id` = '8432';
-UPDATE `etcitem` SET `price` = '540' WHERE `item_id` = '8433';
-UPDATE `etcitem` SET `price` = '553' WHERE `item_id` = '8434';
-UPDATE `etcitem` SET `price` = '568' WHERE `item_id` = '8435';
-UPDATE `etcitem` SET `price` = '608' WHERE `item_id` = '8438';
-UPDATE `etcitem` SET `price` = '663' WHERE `item_id` = '8442';
-UPDATE `etcitem` SET `price` = '776' WHERE `item_id` = '8443';
-UPDATE `etcitem` SET `price` = '792' WHERE `item_id` = '8444';
-UPDATE `etcitem` SET `price` = '816' WHERE `item_id` = '8445';
-UPDATE `etcitem` SET `price` = '840' WHERE `item_id` = '8446';
-UPDATE `etcitem` SET `price` = '858' WHERE `item_id` = '8447';
-UPDATE `etcitem` SET `price` = '875' WHERE `item_id` = '8448';
-UPDATE `etcitem` SET `price` = '893' WHERE `item_id` = '8449';
-UPDATE `etcitem` SET `price` = '910' WHERE `item_id` = '8450';
-UPDATE `etcitem` SET `price` = '930' WHERE `item_id` = '8451';
-UPDATE `etcitem` SET `price` = '948' WHERE `item_id` = '8452';
-UPDATE `etcitem` SET `price` = '1090' WHERE `item_id` = '8453';
-UPDATE `etcitem` SET `price` = '1111' WHERE `item_id` = '8454';
-UPDATE `etcitem` SET `price` = '1133' WHERE `item_id` = '8455';
-UPDATE `etcitem` SET `price` = '1157' WHERE `item_id` = '8456';
-UPDATE `etcitem` SET `price` = '1277' WHERE `item_id` = '8457';
-UPDATE `etcitem` SET `price` = '1301' WHERE `item_id` = '8458';
-UPDATE `etcitem` SET `price` = '1351' WHERE `item_id` = '8460';
-UPDATE `etcitem` SET `price` = '1376' WHERE `item_id` = '8461';
-UPDATE `etcitem` SET `price` = '1402' WHERE `item_id` = '8462';
-UPDATE `etcitem` SET `price` = '1577' WHERE `item_id` = '8463';
-UPDATE `etcitem` SET `price` = '1715' WHERE `item_id` = '8465';
-UPDATE `etcitem` SET `price` = '1747' WHERE `item_id` = '8466';
-UPDATE `etcitem` SET `price` = '1781' WHERE `item_id` = '8467';
-UPDATE `etcitem` SET `price` = '1814' WHERE `item_id` = '8468';
-UPDATE `etcitem` SET `price` = '1849' WHERE `item_id` = '8469';
-UPDATE `etcitem` SET `price` = '1887' WHERE `item_id` = '8470';
-UPDATE `etcitem` SET `price` = '1923' WHERE `item_id` = '8471';
-UPDATE `etcitem` SET `price` = '1961' WHERE `item_id` = '8472';
-UPDATE `etcitem` SET `price` = '2000' WHERE `item_id` = '8473';
-UPDATE `etcitem` SET `price` = '2039' WHERE `item_id` = '8474';
-UPDATE `etcitem` SET `price` = '2081' WHERE `item_id` = '8475';
-UPDATE `etcitem` SET `price` = '2123' WHERE `item_id` = '8476';
-UPDATE `etcitem` SET `price` = '2166' WHERE `item_id` = '8477';
-UPDATE `etcitem` SET `price` = '2309' WHERE `item_id` = '8478';
-UPDATE `etcitem` SET `price` = '2357' WHERE `item_id` = '8479';
-UPDATE `etcitem` SET `price` = '2403' WHERE `item_id` = '8480';
-UPDATE `etcitem` SET `price` = '2452' WHERE `item_id` = '8481';
-UPDATE `etcitem` SET `price` = '2502' WHERE `item_id` = '8482';
-UPDATE `etcitem` SET `price` = '2552' WHERE `item_id` = '8483';
-UPDATE `etcitem` SET `price` = '706000' WHERE `item_id` BETWEEN 8690 AND 8701;
-UPDATE `etcitem` SET `price` = '706000' WHERE `item_id` BETWEEN 8704 AND 8711;
-UPDATE `etcitem` SET `price` = '82400' WHERE `item_id` BETWEEN 8712 AND 8722;
-UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '1493000' WHERE `item_id` IN (9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983);
-UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '243700' WHERE `item_id` IN (9985,9988);
-UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '324920' WHERE `item_id` IN (9986,9989);
-UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '162460' WHERE `item_id` IN (9987,9990);
-UPDATE `etcitem` SET `price` = '2068800' WHERE `item_id` BETWEEN 10373 AND 10396;
+UPDATE `etcitem` SET `price` = '100000' WHERE `item_id` = '8370';
+UPDATE `etcitem` SET `price` = '100000' WHERE `item_id` = '8554';
+UPDATE `etcitem` SET `price` = '50000' WHERE `item_id` IN (5205,5210);
+UPDATE `etcitem` SET `price` = '60000' WHERE `item_id` IN (5206,5211);
+UPDATE `etcitem` SET `price` = '70000' WHERE `item_id` IN (5207,5212);
+UPDATE `etcitem` SET `price` = '170000' WHERE `item_id` IN (5208,5209,5213,5214);
+UPDATE `etcitem` SET `price` = '100000' WHERE `item_id` IN (5215,5218,5219);
+UPDATE `etcitem` SET `price` = '25000', `crystal_count` = '0' WHERE `item_id` IN (9549,9550);
+UPDATE `etcitem` SET `item_type` = 'Recipes', `price` = '1493000' WHERE `item_id` IN (9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983);
+UPDATE `etcitem` SET `item_type` = 'Recipes', `price` = '243700' WHERE `item_id` IN (9985,9988);
+UPDATE `etcitem` SET `item_type` = 'Recipes', `price` = '324920' WHERE `item_id` IN (9986,9989);
+UPDATE `etcitem` SET `item_type` = 'Recipes', `price` = '162460' WHERE `item_id` IN (9987,9990);
+UPDATE `etcitem` SET `price` = '2600' WHERE `item_id` = '10035';
+UPDATE `etcitem` SET `consume_type` = 'normal', `crystal_type` = 's80' WHERE `item_id` IN (10117,10118);
+UPDATE `etcitem` SET `item_type` = 'Recipes' WHERE `item_id` BETWEEN 10382 AND 10396;
+UPDATE `etcitem` SET `crystallizable` = 'true', `crystal_type` = 's' WHERE `item_id` IN (13077,13102);
+UPDATE `etcitem` SET `consume_type` = 'stackable' WHERE `item_id` BETWEEN 13149 AND 13152;
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` BETWEEN 13386 AND 13388;
+UPDATE `etcitem` SET `crystal_type` = 's84' WHERE `item_id` IN (12686,13893);
+UPDATE `etcitem` SET `price` = '120000' WHERE `item_id` BETWEEN 14170 AND 14227;
+UPDATE `etcitem` SET `crystal_type` = 's80' WHERE `item_id` = 14603;
+UPDATE `etcitem` SET `price` = '21' WHERE `item_id` = '20332';
+UPDATE `etcitem` SET `price` = '43' WHERE `item_id` = '20333';
+UPDATE `etcitem` SET `price` = '108' WHERE `item_id` = '20334';
+UPDATE `etcitem` SET `crystal_type` = 'd' WHERE `item_id` IN (20354,20359,22027,22032,22089,22094,22099,22104,22109,22114,22119,22149);
+UPDATE `etcitem` SET `crystal_type` = 'c' WHERE `item_id` IN (20355,20360,22028,22033,22090,22095,22100,22105,22110,22115,22120,22150);
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` IN (20356,20361,22029,22034,22091,22096,22101,22106,22111,22116,22121,22151);
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` IN (20357,20362,22030,22035,22092,22097,22102,22107,22112,22117,22122,22152);
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` IN (20358,20363,22031,22036,22093,22098,22103,22108,22113,22118,22123,22153);
+UPDATE `etcitem` SET `price` = '45' WHERE `item_id` = '22072';
+UPDATE `etcitem` SET `price` = '90' WHERE `item_id` = '22073';
+UPDATE `etcitem` SET `price` = '245' WHERE `item_id` = '22074';
+UPDATE `etcitem` SET `price` = '290' WHERE `item_id` = '22075';
+UPDATE `etcitem` SET `price` = '350' WHERE `item_id` = '22076';
+UPDATE `etcitem` SET `price` = '18' WHERE `item_id` = '22077';
+UPDATE `etcitem` SET `price` = '35' WHERE `item_id` = '22078';
+UPDATE `etcitem` SET `price` = '100' WHERE `item_id` = '22079';
+UPDATE `etcitem` SET `price` = '120' WHERE `item_id` = '22080';
+UPDATE `etcitem` SET `price` = '150' WHERE `item_id` = '22081';
+UPDATE `etcitem` SET `price` = '10' WHERE `item_id` = '22082';
+UPDATE `etcitem` SET `price` = '15' WHERE `item_id` = '22083';
+UPDATE `etcitem` SET `price` = '50' WHERE `item_id` = '22084';
+UPDATE `etcitem` SET `price` = '80' WHERE `item_id` = '22085';
+UPDATE `etcitem` SET `price` = '100' WHERE `item_id` = '22086';
 
 -- Mutated Kaneus (Spire)
 UPDATE `etcitem` SET `item_type` = 'quest', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` BETWEEN 13830 AND 13840;
@@ -10598,8 +10516,29 @@ UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '672-1' WHERE (item_i
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '673-1' WHERE (item_id='10305');-- Oel Mahum
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '674-1' WHERE (item_id='10306');-- Doll Blader
 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2631-1' WHERE `item_id` = 13800; -- Frog Transformation Scroll
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2632-1' WHERE `item_id` = 13801; -- Young Child Transformation Scroll
+
 -- Prison Gate Key (Psycho)
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2362-1' WHERE `item_id` =10015;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2362-1' WHERE `item_id` = 10015;
 
 -- Chest Key - For Events Only (Spire)
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2322-1' WHERE `item_id` =9205;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2322-1' WHERE `item_id` = 9205;
+
+-- Foundation Grade fixes (Spire)
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` BETWEEN 12375 AND 12404;
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` BETWEEN 12405 AND 12446;
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` BETWEEN 12447 AND 12459;
+UPDATE `etcitem` SET `crystal_type` = 's80' WHERE `item_id` BETWEEN 12460 AND 12485;
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` BETWEEN 12486 AND 12543;
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` BETWEEN 12544 AND 12618;
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` BETWEEN 12619 AND 12646;
+UPDATE `etcitem` SET `crystal_type` = 's80' WHERE `item_id` BETWEEN 12647 AND 12709;
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` BETWEEN 12710 AND 12715;
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` BETWEEN 12716 AND 12727;
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` BETWEEN 12728 AND 12733;
+UPDATE `etcitem` SET `crystal_type` = 's80' WHERE `item_id` BETWEEN 12734 AND 12739;
+
+UPDATE `etcitem` SET `crystal_type` = 'c' WHERE `item_id` BETWEEN 14292 AND 14309;
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` BETWEEN 14310 AND 14326;
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` BETWEEN 14327 AND 14350;
