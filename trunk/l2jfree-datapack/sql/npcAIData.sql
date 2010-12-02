@@ -9837,3 +9837,69 @@ INSERT INTO `npcAIData` VALUES
 (36597,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'',0,NULL,NULL,NULL,'balanced'),
 (36598,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'',0,NULL,NULL,NULL,'balanced'),
 (36599,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'',0,NULL,NULL,NULL,'balanced');
+
+
+--
+-- L2J-Free Add-ons
+-- TODO: have to be reviewed - last review 02 December 2010 - Spire
+--
+
+
+-- Van Halter
+UPDATE `npcAIData` SET `clan_range` = 1800 WHERE `npc_id` IN (22191,22192,22193,29062);
+
+-- Siegeable clan halls
+UPDATE `npcAIData` SET `clan` = 'gustav_clan', `clan_range` = 1900 WHERE `npc_id` = 35410;
+UPDATE `npcAIData` SET `clan` = 'hellman_clan', `clan_range` = 1900 WHERE `npc_id` BETWEEN 35629 AND 35631;
+UPDATE `npcAIData` SET `clan` = 'hellman_clan', `clan_range` = 1000 WHERE `npc_id` BETWEEN 35632 AND 35637;
+
+-- Mercenary AI
+-- Sword (knight), Spear (warlord) - balanced
+UPDATE `npcAIData` SET `ai_type` = 'balanced' WHERE `npc_id` = 35060;
+-- Bow - archer (perhaps fighter for stationary)
+UPDATE `npcAIData` SET `ai_type` = 'archer' WHERE `npc_id` IN (35012,35017,35022,35027,35032,35037,35042,35047,35052,35057);
+-- Cleric, Wizard - mage
+UPDATE `npcAIData` SET `ai_type` = 'mage' WHERE `npc_id` IN (35033,35034,35038,35039,35048,35049,35053,35054,35058,35059);
+
+-- Frintezza
+UPDATE `npcAIData` SET `clan` = 'frintezza_clan', `clan_range` = 5000 WHERE `npc_id` IN (29045, 29046, 29047);
+
+-- Last Imperial Tomb Updates
+UPDATE `npcAIData` SET `clan` = 'LIT_R2', `clan_range` = 500 WHERE `npc_id` = 18393;
+
+-- CT1, Hellbound Updates
+REPLACE INTO `npcAIData` VALUES
+(22326,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'desert_clan',0,NULL,NULL,NULL,'balanced'),
+(22331,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'remnant_w_clan',300,NULL,NULL,NULL,'fighter'),
+(22332,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'remnant_w_clan',300,NULL,NULL,NULL,'fighter'),
+(22354,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'',0,NULL,NULL,NULL,'balanced'),
+(22355,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'enceinte_clan',300,NULL,NULL,NULL,'balanced'),
+(22416,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'STEAM_CLAN',100,NULL,NULL,NULL,'balanced'),
+(22417,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'KECHI_CLAN',700,NULL,NULL,NULL,'balanced'),
+(22418,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'STEAM_CLAN',100,NULL,NULL,NULL,'balanced'),
+(22419,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'STEAM_CLAN',100,NULL,NULL,NULL,'balanced'),
+(22420,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'STEAM_CLAN',100,NULL,NULL,NULL,'balanced'),
+(22421,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'',0,NULL,NULL,NULL,'balanced'),
+(22421,15,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'FAILAN',300,NULL,NULL,NULL,'balanced');
+
+# Valdstone
+UPDATE `npcAIData` SET `clan` = 'master_rider_clan', `clan_range` = 3000 WHERE `npc_id` IN (25623, 25633);
+# Rok
+UPDATE `npcAIData` SET `clan` = 'king_of_birds_clan', `clan_range` = 3000 WHERE `npc_id` IN (25624, 25627, 25628);
+# Enira
+UPDATE `npcAIData` SET `clan` = 'banshee_queen_clan', `clan_range` = 3000 WHERE `npc_id` = 25625;
+UPDATE `npcAIData` SET `clan` = 'banshee_queen_clan', `clan_range` = 2500 WHERE `npc_id` IN (25629, 25630);
+# Dius
+UPDATE `npcAIData` SET `clan` = 'destruction_lord_clan', `clan_range` = 3000 WHERE `npc_id` = 25626;
+UPDATE `npcAIData` SET `clan` = 'destruction_lord_clan', `clan_range` = 2500 WHERE `npc_id` IN (25631, 25632);
+
+# Mutated Kaneus
+UPDATE `npcAIData` SET `clan` = 'Ariosh_clan' WHERE `npc_id` IN (18555, 18556);
+UPDATE `npcAIData` SET `clan` = 'Flouros_clan' WHERE `npc_id` IN (18559, 18560);
+UPDATE `npcAIData` SET `clan` = 'Otis_clan' WHERE `npc_id` IN (18562, 18563);
+UPDATE `npcAIData` SET `clan` = 'Abigore_clan' WHERE `npc_id` IN (18566, 18567);
+UPDATE `npcAIData` SET `clan` = 'Montagnar_clan' WHERE `npc_id` IN (18568, 18569);
+UPDATE `npcAIData` SET `clan` = 'Storace_clan' WHERE `npc_id` IN (18571, 18572);
+UPDATE `npcAIData` SET `clan` = 'Bilette_clan' WHERE `npc_id` IN (18573, 18574);
+UPDATE `npcAIData` SET `clan` = 'Tamuze_clan' WHERE `npc_id` IN (18575, 18576);
+UPDATE `npcAIData` SET `clan` = 'Allosce_clan' WHERE `npc_id` IN (18577, 18578);

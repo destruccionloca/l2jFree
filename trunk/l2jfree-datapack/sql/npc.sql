@@ -157,7 +157,7 @@ INSERT INTO `npc` VALUES
 (4303,4303,'Skooldy',0,'Halloween Children',0,'LineageMonster5.br_scooldie',23.00,23.00,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,60,120,0,0,'LAST_HIT','false'),
 (4304,4304,'Santa',0,'Merry Christmas',0,'LineageNPC2.br_xmas08_santa',9.00,16.00,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,60,120,0,0,'LAST_HIT','false'),
 (4305,4305,'Rosalia',0,'Hopeless Romantic',0,'LineageNPC2.message_event_master',10.00,20.00,70,'female','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,60,180,0,0,'LAST_HIT','false'),
-(4306,4306,'Jack Sage',0,'Eva\'s High Priest',0,'LineageNPC2.br_archbishop_of_eva',8.00,26.50,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,60,180,0,0,'LAST_HIT','false');
+(4306,4306,'Steve Shyagel',0,'Eva\'s High Priest',0,'LineageNPC2.br_archbishop_of_eva',8.00,26.50,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,60,180,0,0,'LAST_HIT','false');
 
 INSERT INTO `npc` VALUES
 (12077,12077,'Wolf',0,'',0,'LineageMonster.pet_wolf',13.00,11.50,15,'male','L2Pet',40,195,164,3.95,1.21,40,43,30,21,20,25,0,0,9,19,3,17,304,0,333,3907,0,0,0,24,125,0,0,'LAST_HIT','false'),
@@ -9864,6 +9864,7 @@ INSERT INTO `npc` VALUES
 
 --
 -- L2J-Free Add-ons
+-- TODO: have to be reviewed - last review 02 December 2010 - IntoDev
 --
 
 -- Fix for Triol's High Priest
@@ -10027,19 +10028,19 @@ UPDATE `npc` SET `exp` = 440000,`sp` = 40000 WHERE `id` IN (29063,29064);
 UPDATE `npc` SET `type` = 'L2RiftInvader' WHERE `id` IN (21671,21694,21717,21740,21763,21786);
 UPDATE `npc` SET `absorb_type` = 'FULL_PARTY' WHERE `id` IN (29066,29067,29068);
 
-REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11,27,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
-(25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17,35,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,NULL,0,0,0,'LAST_HIT'),
-(27198,27198,'Gremlin',0,'',0,'Monster.gremlin',10,15,1,'male','L2Monster',40,62,44,3.16,0.91,40,43,30,21,35,10,29,2,9,39,3,32,278,0,253,0,0,0,20,50,NULL,0,0,0,'LAST_HIT'),
-(35001,35001,'Royal Gatekeeper',0,'Gludio',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35002,35002,'Royal Gatekeeper',0,'Dion',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35003,35003,'Royal Gatekeeper',0,'Giran',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35004,35004,'Royal Gatekeeper',0,'Oren',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35005,35005,'Royal Gatekeeper',0,'Aden',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,5149,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,941,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35006,35006,'Radcliff',0,'Chamberlain',0,'NPC.a_chamberlain_MHuman',9.5,22.5,70,'male','L2CastleChamberlain',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35007,35007,'Rodd',0,'Mercenary Manager',0,'NPC.a_common_peopleA_MHuman',8,21.5,70,'male','L2MercManager',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1335,470,780,382,278,0,253,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35008,35008,'Shamus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7,24,72,'male','L2Defender',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT'),
-(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7,24,72,'male','L2Defender',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT');
+REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11,27,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,1,0,'LAST_HIT'),
+(25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17,35,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,0,0,'LAST_HIT'),
+(27198,27198,'Gremlin',0,'',0,'Monster.gremlin',10,15,1,'male','L2Monster',40,62,44,3.16,0.91,40,43,30,21,35,10,29,2,9,39,3,32,278,0,253,0,0,0,20,50,0,0,'LAST_HIT'),
+(35001,35001,'Royal Gatekeeper',0,'Gludio',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35002,35002,'Royal Gatekeeper',0,'Dion',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35003,35003,'Royal Gatekeeper',0,'Giran',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35004,35004,'Royal Gatekeeper',0,'Oren',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35005,35005,'Royal Gatekeeper',0,'Aden',0,'NPC.a_guard_MHuman',8,24,70,'male','L2CastleTeleporter',40,5149,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,941,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35006,35006,'Radcliff',0,'Chamberlain',0,'NPC.a_chamberlain_MHuman',9.5,22.5,70,'male','L2CastleChamberlain',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,1,0,'LAST_HIT'),
+(35007,35007,'Rodd',0,'Mercenary Manager',0,'NPC.a_common_peopleA_MHuman',8,21.5,70,'male','L2MercManager',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1335,470,780,382,278,0,253,0,0,0,80,120,1,0,'LAST_HIT'),
+(35008,35008,'Shamus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7,24,72,'male','L2Defender',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,1,0,'LAST_HIT'),
+(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7,24,72,'male','L2Defender',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,1,0,'LAST_HIT');
 
 -- Update Boss Manager
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
@@ -10049,37 +10050,37 @@ UPDATE `npc` SET `aggro` = 800 WHERE `id` IN (29019,29066,29067,29068,29028);
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29014,29020,29021,29022);
 
 DELETE FROM `npc` WHERE `id` BETWEEN 29066 AND 29076;
-INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(29066,29066,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,11506110,19511,2092.02,233.22,60,57,73,76,70,80,230931687,25593295,11698,7088,24699,1442,333,0,3819,0,0,0,81,301,'',0,0,13,'LAST_HIT'),
-(29067,29067,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,13090000,22197,2380,265.32,60,57,73,76,70,80,262720918,29116376,13308,8064,28099,1641,333,0,3819,0,0,0,81,301,'',0,0,13,'LAST_HIT'),
-(29068,29068,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,14307370,24261,2601.34,289.99,60,57,73,76,70,80,287153963,31824199,14546,8814,30712,1794,333,0,3819,0,0,0,81,301,'',0,0,13,'LAST_HIT'),
-(29069,29069,'Behemoth Dragon',0,'',0,'LineageMonster3.antaras_ex_a',63,54,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29070,29070,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29071,29071,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29072,29072,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29073,29073,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29074,29074,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29075,29075,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT'),
-(29076,29076,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b',42,34.5,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,'',0,0,0,'LAST_HIT');
+INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(29066,29066,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,11506110,19511,2092.02,233.22,60,57,73,76,70,80,230931687,25593295,11698,7088,24699,1442,333,0,3819,0,0,0,81,301,0,13,'LAST_HIT'),
+(29067,29067,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,13090000,22197,2380,265.32,60,57,73,76,70,80,262720918,29116376,13308,8064,28099,1641,333,0,3819,0,0,0,81,301,0,13,'LAST_HIT'),
+(29068,29068,'Antharas',0,'',0,'LineageMonster.antaras',300,300,79,'male','L2GrandBoss',40,14307370,24261,2601.34,289.99,60,57,73,76,70,80,287153963,31824199,14546,8814,30712,1794,333,0,3819,0,0,0,81,301,0,13,'LAST_HIT'),
+(29069,29069,'Behemoth Dragon',0,'',0,'LineageMonster3.antaras_ex_a',63,54,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29070,29070,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29071,29071,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29072,29072,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29073,29073,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29074,29074,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29075,29075,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b_80p',37,28,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(29076,29076,'Dragon Bomber',0,'',0,'LineageMonster3.antaras_ex_b',42,34.5,78,'male','L2Monster',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT');
 
 DELETE FROM npc WHERE id IN (29045,29046,29047,29048,29049,29050,29051);
-INSERT INTO npc(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(29045,29045,'Frintezza',0,'',0,'LineageMonster3.frintessa',10,42,90,'male','L2GrandBoss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
-(29046,29046,'Scarlet van Halisha',0,'',0,'LineageMonster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29047,29047,'Scarlet van Halisha',0,'',0,'LineageMonster3.follower_of_frintessa_tran',29,110,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29048,29048,'Evil Spirit',0,'',0,'LineageMonster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29049,29049,'Evil Spirit',0,'',0,'LineageMonster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29050,29050,'Breath of Halisha',0,'',0,'LineageMonster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29051,29051,'Breath of Halisha',0,'',0,'LineageMonster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');
+INSERT INTO npc(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(29045,29045,'Frintezza',0,'',0,'LineageMonster3.frintessa',10,42,90,'male','L2GrandBoss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,0,13,'LAST_HIT'),
+(29046,29046,'Scarlet van Halisha',0,'',0,'LineageMonster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,0,13,'FULL_PARTY'),
+(29047,29047,'Scarlet van Halisha',0,'',0,'LineageMonster3.follower_of_frintessa_tran',29,110,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,0,13,'FULL_PARTY'),
+(29048,29048,'Evil Spirit',0,'',0,'LineageMonster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,0,0,'LAST_HIT'),
+(29049,29049,'Evil Spirit',0,'',0,'LineageMonster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,0,0,'LAST_HIT'),
+(29050,29050,'Breath of Halisha',0,'',0,'LineageMonster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,0,0,'LAST_HIT'),
+(29051,29051,'Breath of Halisha',0,'',0,'LineageMonster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,0,0,'LAST_HIT');
 
 -- L2Trap NPC
 REPLACE INTO `npc` VALUES
-(13037,13037,'Trap',0,'',0,'LineageNpc2.trap_mark',5.00,10.00,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,NULL,0,0,1,'',0,0,0,'LAST_HIT','balanced','false');
+(13037,13037,'Trap',0,'',0,'LineageNpc2.trap_mark',5.00,10.00,70,'male','L2Npc',40,3862,1494,0.00,0.00,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,0,0,0,0,0,0,'LAST_HIT','false');
 
-REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(29065,29065,'Sailren',0,'Sealed Evil Power',0,'LineageMonster3.sailren',100,83.1,87,'male','L2RaidBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,12,'LAST_HIT'),
-(25595,25595,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc',9,21.5,1,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT'),
-(29102,29102,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem',40,47,78,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT');
+REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(29065,29065,'Sailren',0,'Sealed Evil Power',0,'LineageMonster3.sailren',100,83.1,87,'male','L2RaidBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,0,12,'LAST_HIT'),
+(25595,25595,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc',9,21.5,1,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,0,0,'LAST_HIT'),
+(29102,29102,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem',40,47,78,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,0,0,'LAST_HIT');
 
 
 -- L2JFree addon from forced_updates
@@ -10094,64 +10095,62 @@ UPDATE `npc` SET `aggro` = 500 WHERE `idTemplate` = 29065;
 UPDATE `npc` SET `rhand` = 8208,`aggro` = 0 WHERE `id` = 29062;
 UPDATE `npc` SET `rhand` = 8208,`aggro` = 0 WHERE `id` = 29063;
 UPDATE `npc` SET `rhand` = 8207,`lhand` = 8207,`aggro` = 0 WHERE `id` = 29064;
-UPDATE `npc` SET `faction_range` = 1800 WHERE `id` IN (22191,22192,22193,29062);
 UPDATE `npc` SET `type` = 'L2Monster' ,`walkspd` = 0 ,`runspd` = 0,`aggro` = 500 WHERE `id` IN (32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068);
 
 -- Last Imperial Tomb Updates
-REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`,`AI`) VALUES
-(18328,18328,'Hall Alarm Device',0,'',0,'LineageNPC.grave_keeper_key',8,21,80,'male','L2Monster',80,1264000,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,0,0,0,0,0,NULL,0,0,0,'LAST_HIT','balanced'),
-(18329,18329,'Hall Keeper Captain',0,'',0,'LineageMonster.death_lord',21,40,80,'male','L2Monster',80,23582,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,78,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18330,18330,'Hall Keeper Wizard',0,'',0,'LineageMonster.vale_master',12,40,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,326,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18331,18331,'Hall Keeper Guard',0,'',0,'LineageMonster.death_knight',12,29,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,142,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18332,18332,'Hall Keeper Patrol',0,'',0,'LineageMonster.headless_knight',21,31,80,'male','L2Monster',80,18434,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,70,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18333,18333,'Hall Keeper Suicidal Soldier',0,'',0,'LineageMonster3.self_blaster',20,23,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18334,18334,'Dark Choir Captain',0,'',0,'LineageMonster2.erinyes_cmd',21,50,85,'male','L2Monster',80,24069,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,0,0,0,0,0,NULL,0,0,0,'LAST_HIT','balanced'),
-(18335,18335,'Dark Choir Prima Donna',0,'',0,'LineageMonster3.portrait_spirit',11,30,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18336,18336,'Dark Choir Lancer',0,'',0,'LineageMonster.death_blader',15,45,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,1472,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18337,18337,'Dark Choir Archer',0,'',0,'LineageMonster.skeleton_archer_20_bi',13,33,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,279,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18338,18338,'Dark Choir Witch Doctor',0,'',0,'LineageMonster3.portrait_spirit_winged',11,30,80,'male','L2Monster',80,13991,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT','balanced'),
-(18339,18339,'Dark Choir Player',0,'',0,'LineageMonster.skeleton',11,25,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,148,103,0,88,132,'LIT_R2',500,0,0,'LAST_HIT','balanced'),
-(32011,32011,'Imperial Tomb Guide',0,'',0,'LineageNPC.a_tombkeeperA',9.5,23,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,'NULL',0,0,0,'LAST_HIT','fighter');
+REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(18328,18328,'Hall Alarm Device',0,'',0,'LineageNPC.grave_keeper_key',8,21,80,'male','L2Monster',80,1264000,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,0,0,0,0,0,0,0,'LAST_HIT'),
+(18329,18329,'Hall Keeper Captain',0,'',0,'LineageMonster.death_lord',21,40,80,'male','L2Monster',80,23582,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,78,0,0,88,132,0,0,'LAST_HIT'),
+(18330,18330,'Hall Keeper Wizard',0,'',0,'LineageMonster.vale_master',12,40,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,326,0,0,88,132,0,0,'LAST_HIT'),
+(18331,18331,'Hall Keeper Guard',0,'',0,'LineageMonster.death_knight',12,29,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,142,0,0,88,132,0,0,'LAST_HIT'),
+(18332,18332,'Hall Keeper Patrol',0,'',0,'LineageMonster.headless_knight',21,31,80,'male','L2Monster',80,18434,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,70,0,0,88,132,0,0,'LAST_HIT'),
+(18333,18333,'Hall Keeper Suicidal Soldier',0,'',0,'LineageMonster3.self_blaster',20,23,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(18334,18334,'Dark Choir Captain',0,'',0,'LineageMonster2.erinyes_cmd',21,50,85,'male','L2Monster',80,24069,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,0,0,0,0,0,0,0,'LAST_HIT'),
+(18335,18335,'Dark Choir Prima Donna',0,'',0,'LineageMonster3.portrait_spirit',11,30,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(18336,18336,'Dark Choir Lancer',0,'',0,'LineageMonster.death_blader',15,45,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,1472,0,0,88,132,0,0,'LAST_HIT'),
+(18337,18337,'Dark Choir Archer',0,'',0,'LineageMonster.skeleton_archer_20_bi',13,33,80,'male','L2Monster',80,18655,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,279,0,0,88,132,0,0,'LAST_HIT'),
+(18338,18338,'Dark Choir Witch Doctor',0,'',0,'LineageMonster3.portrait_spirit_winged',11,30,80,'male','L2Monster',80,13991,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,0,0,0,88,132,0,0,'LAST_HIT'),
+(18339,18339,'Dark Choir Player',0,'',0,'LineageMonster.skeleton',11,25,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,148,103,0,88,132,0,0,'LAST_HIT'),
+(32011,32011,'Imperial Tomb Guide',0,'',0,'LineageNPC.a_tombkeeperA',9.5,23,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,0,0,'LAST_HIT');
 
 -- CT1, Hellbound Updates
 REPLACE INTO `npc` VALUES
-(22326,22326,'Hellinark',0,'Naia''s Guardian',0,'LineageMonster.karik',19,88,84,'male','L2Monster',40,530976,4355,202.02,10.45,64,66,68,62,61,58,905448,13206,6198,2922,3245,2647,382,0,3819,0,0,0,80,307,'desert_clan',0,0,0,'LAST_HIT','balanced','false'),
-(22331,22331,'Remnant Diabolist',0,'',0,'LineageMonster3.spectral_knight',12.5,33.5,83,'male','L2Monster',40,25899,2465,36.86,15.09,58,54,52,55,55,55,49501,5345,2554,700,1220,620,253,300,253,0,0,0,55,182,'remnant_w_clan',400,1,0,'LAST_HIT','balanced','false'),
-(22332,22332,'Remnant Diviner',0,'',0,'LineageMonster3.spectral_knight',12.5,33.5,83,'male','L2Monster',40,25900,3444,36.86,5.09,45,58,46,57,56,57,63716,6880,2558,720,2564,620,365,300,650,0,0,0,55,120,'remnant_w_clan',400,1,0,'LAST_HIT','balanced','false'),
-(22354,22354,'Outpost Captain',0,'',0,'LineageMonster.kaim_vanul',24,40,1,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,80,120,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22355,22355,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,22048,2048,22.4,45.3,40,38,37,21,22,23,32641,7029,4800,1075,4800,1540,445,248,445,0,0,0,0,120,'',0,0,0,'LAST_HIT',90,90,30,'balanced','false'),
-(22356,22356,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,41810,2154,23.11,11.1,32,34,28,22,21,18,72657,4203,2554,720,1923,680,334,300,365,0,0,0,0,182,'enceinte_clan',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22357,22357,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,25715,2689,23.11,4.09,43,41,38,32,31,30,41657,4203,2554,720,1989,680,353,300,453,0,0,0,0,182,'enceinte_clan',500,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22358,22358,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,22048,3566,23.11,4.09,32,33,31,33,32,28,36247,3424,2554,720,1989,680,353,300,553,0,0,0,0,182,'enceinte_clan',500,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22400,22400,'Parme\'s Healer',0,'',0,'LineageMonster4.tears_d',20,27,82,'male','L2Monster',40,4663,2444,26.86,3.09,45,42,41,55,55,55,11092,971,2600,625,2600,1245,340,0,340,9638,9638,0,80,120,'parme_clan',300,0,0,'LAST_HIT',0,50,80,'balanced','false'),
-(22401,22401,'Parme\'s Healer',0,'',0,'LineageMonster4.tears_d',20,27,1,'male','L2Npc',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,80,120,'parme_clan',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22416,22416,'Kechi\'s Captain',0,'',0,'LineageMonster2.ifrit_30_bi',36,55,82,'male','L2Monster',40,13013,2154,23.11,4.09,23,24,25,33,21,25,0,0,2554,720,1258,700,332,500,353,0,0,0,0,192,'STEAM_CLAN',100,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22417,22417,'Kechi\'s Guard',0,'',0,'LineageMonster3.portrait_spirit_winged_150p',36,43.5,82,'male','L2Monster',40,13991,2345,0,0,23,22,24,10,10,10,20754,2160,2554,650,1880,700,253,1000,455,0,0,0,80,120,'KECHI_CLAN',700,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22418,22418,'Burning Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1446,26.86,3.09,40,42,39,30,30,30,14080,1468,2249,760,1880,710,345,250,424,0,0,0,80,120,'STEAM_CLAN',50,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22419,22419,'Flame Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1664,26.86,3.09,40,40,40,35,35,35,13237,1377,2249,760,1450,700,371,250,371,0,0,0,80,120,'STEAM_CLAN',50,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22420,22420,'Brimstone Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1664,26.86,3.09,41,45,45,35,35,35,14435,1506,2249,720,1750,700,345,250,424,0,0,0,80,120,'STEAM_CLAN',50,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22421,22421,'Hellios Native',0,'',0,'LineageNPC.a_common_peopleC_Mhuman',8,23.5,1,'male','L2Npc',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,80,120,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22422,22422,'Failan\'s Guard',0,'',0,'LineageMonster3.Death_Blader_Raid',11,34,83,'female','L2Monster',55,5763,1934,23.11,15.09,45,40,39,35,32,31,21285,2298,2249,620,1898,547,353,0,453,0,0,0,32,162,'FAILAN',300,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(25533,25533,'Kechi\'s Henchman',0,'',0,'LineageMonster3.Death_Blader_Raid',15.00,32.50,82,'male','L2Minion',40,29706,1935,13.43,3.09,40,43,30,21,20,20,0,0,4351,1077,2020,1166,253,200,333,0,0,0,0,50,170,'Kechi',600,0,0,'LAST_HIT','fighter','false'),
-(25534,25534,'Tears',0,'Ice',0,'LineageMonster4.tears',20,27.5,83,'female','L2RaidBoss',40,2219066,19500,362.02,10.81,62,61,64,79,70,66,1810897,729241,8156,4615,8408,2011,422,0,3819,9640,9643,0,80,307,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(25535,25535,'Tears',0,'Ice',0,'LineageMonster4.tears',20,27.5,83,'female','L2Monster',40,2219066,19500,362.02,9.81,62,61,64,79,70,80,1,1,450,5000,300,7000,409,500,3819,9640,9643,0,55,307,'',0,0,0,'LAST_HIT',150,50,75,'balanced','false'),
-(25536,25536,'Hannibal',0,'Raid Boss',0,'LineageMonster4.rah',8,42,84,'male','L2RaidBoss',40,1027906,5689,362,0,60,62,69,76,75,71,1810897,26897,6720,4603,2405,2256,422,0,3819,0,0,0,80,307,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(25537,25537,'Enmity',0,'Raid Fighter',0,'LineageMonster4.eyeless',8,45,84,'male','L2Minion',40,64234,5571,0,0,10,10,10,10,10,10,28416,3164,7613,2451,3841,1456,355,0,433,0,0,NULL,80,201,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(25538,25538,'Vengeance',0,'Raid Fighter',0,'LineageMonster4.eyeless',8,45,83,'male','L2Minion',40,64231,8710,24.2,11.2,61,63,64,59,58,59,28416,3172,4100,2120,4100,1400,351,0,401,0,0,0,80,209,'',0,0,0,'LAST_HIT',80,80,30,'balanced','false'),
-(25539,25539,'Typhoon',0,'Raid Boss',0,'LineageMonster3.Death_Blader_Raid_sand',10,33,84,'male','L2RaidBoss',40,2076371,9547,542.43,9.81,61,68,68,70,70,70,5071950,1256048,5687,5036,11304,2045,414,5000,3819,0,0,0,0,0,'',0,0,0,'FULL_PARTY',100,100,30,'balanced','false');
+(22326,22326,'Hellinark',0,'Naia''s Guardian',0,'LineageMonster.karik',19,88,84,'male','L2Monster',40,530976,4355,202.02,10.45,64,66,68,62,61,58,905448,13206,6198,2922,3245,2647,382,0,3819,0,0,0,0,80,307,0,0,'LAST_HIT','false'),
+(22331,22331,'Remnant Diabolist',0,'',0,'LineageMonster3.spectral_knight',12.5,33.5,83,'male','L2Monster',40,25899,2465,36.86,15.09,58,54,52,55,55,55,49501,5345,2554,700,1220,620,253,300,253,0,0,0,0,55,182,1,0,'LAST_HIT','false'),
+(22332,22332,'Remnant Diviner',0,'',0,'LineageMonster3.spectral_knight',12.5,33.5,83,'male','L2Monster',40,25900,3444,36.86,5.09,45,58,46,57,56,57,63716,6880,2558,720,2564,620,365,300,650,0,0,0,0,55,120,1,0,'LAST_HIT','false'),
+(22354,22354,'Outpost Captain',0,'',0,'LineageMonster.kaim_vanul',24,40,1,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,0,80,120,0,0,'LAST_HIT','false'),
+(22355,22355,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,22048,2048,22.4,45.3,40,38,37,21,22,23,32641,7029,4800,1075,4800,1540,445,248,445,0,0,0,0,0,120,0,0,'LAST_HIT','false'),
+(22356,22356,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,41810,2154,23.11,11.1,32,34,28,22,21,18,72657,4203,2554,720,1923,680,334,300,365,0,0,0,0,0,182,0,0,'LAST_HIT','false'),
+(22357,22357,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,25715,2689,23.11,4.09,43,41,38,32,31,30,41657,4203,2554,720,1989,680,353,300,453,0,0,0,0,0,182,0,0,'LAST_HIT','false'),
+(22358,22358,'Enceinte Defender',0,'',0,'LineageMonster4.eyeless',50,50,85,'male','L2Monster',40,22048,3566,23.11,4.09,32,33,31,33,32,28,36247,3424,2554,720,1989,680,353,300,553,0,0,0,0,0,182,0,0,'LAST_HIT','false'),
+(22400,22400,'Parme\'s Healer',0,'',0,'LineageMonster4.tears_d',20,27,82,'male','L2Monster',40,4663,2444,26.86,3.09,45,42,41,55,55,55,11092,971,2600,625,2600,1245,340,0,340,9638,9638,0,0,80,120,0,0,'LAST_HIT','false'),
+(22401,22401,'Parme\'s Healer',0,'',0,'LineageMonster4.tears_d',20,27,1,'male','L2Npc',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,0,80,120,0,0,'LAST_HIT','false'),
+(22416,22416,'Kechi\'s Captain',0,'',0,'LineageMonster2.ifrit_30_bi',36,55,82,'male','L2Monster',40,13013,2154,23.11,4.09,23,24,25,33,21,25,0,0,2554,720,1258,700,332,500,353,0,0,0,0,0,192,0,0,'LAST_HIT','false'),
+(22417,22417,'Kechi\'s Guard',0,'',0,'LineageMonster3.portrait_spirit_winged_150p',36,43.5,82,'male','L2Monster',40,13991,2345,0,0,23,22,24,10,10,10,20754,2160,2554,650,1880,700,253,1000,455,0,0,0,0,80,120,0,0,'LAST_HIT','false'),
+(22418,22418,'Burning Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1446,26.86,3.09,40,42,39,30,30,30,14080,1468,2249,760,1880,710,345,250,424,0,0,0,0,80,120,0,0,'LAST_HIT','false'),
+(22419,22419,'Flame Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1664,26.86,3.09,40,40,40,35,35,35,13237,1377,2249,760,1450,700,371,250,371,0,0,0,0,80,120,0,0,'LAST_HIT','false'),
+(22420,22420,'Brimstone Iris',0,'',0,'LineageMonster4.eyeless_080p',32,35,82,'male','L2Monster',40,9328,1664,26.86,3.09,41,45,45,35,35,35,14435,1506,2249,720,1750,700,345,250,424,0,0,0,0,80,120,0,0,'LAST_HIT','false'),
+(22421,22421,'Hellios Native',0,'',0,'LineageNPC.a_common_peopleC_Mhuman',8,23.5,1,'male','L2Npc',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,0,80,120,0,0,'LAST_HIT','false'),
+(22422,22422,'Failan\'s Guard',0,'',0,'LineageMonster3.Death_Blader_Raid',11,34,83,'female','L2Monster',55,5763,1934,23.11,15.09,45,40,39,35,32,31,21285,2298,2249,620,1898,547,353,0,453,0,0,0,0,32,162,0,0,'LAST_HIT','false'),
+(25533,25533,'Kechi\'s Henchman',0,'',0,'LineageMonster3.Death_Blader_Raid',15.00,32.50,82,'male','L2Minion',40,29706,1935,13.43,3.09,40,43,30,21,20,20,0,0,4351,1077,2020,1166,253,200,333,0,0,0,0,50,170,0,0,'LAST_HIT','false'),
+(25534,25534,'Tears',0,'Ice',0,'LineageMonster4.tears',20,27.5,83,'female','L2RaidBoss',40,2219066,19500,362.02,10.81,62,61,64,79,70,66,1810897,729241,8156,4615,8408,2011,422,0,3819,9640,9643,0,0,80,307,0,0,'LAST_HIT','false'),
+(25535,25535,'Tears',0,'Ice',0,'LineageMonster4.tears',20,27.5,83,'female','L2Monster',40,2219066,19500,362.02,9.81,62,61,64,79,70,80,1,1,450,5000,300,7000,409,500,3819,9640,9643,0,0,55,307,0,0,'LAST_HIT','false'),
+(25536,25536,'Hannibal',0,'Raid Boss',0,'LineageMonster4.rah',8,42,84,'male','L2RaidBoss',40,1027906,5689,362,0,60,62,69,76,75,71,1810897,26897,6720,4603,2405,2256,422,0,3819,0,0,0,0,80,307,0,0,'LAST_HIT','false'),
+(25537,25537,'Enmity',0,'Raid Fighter',0,'LineageMonster4.eyeless',8,45,84,'male','L2Minion',40,64234,5571,0,0,10,10,10,10,10,10,28416,3164,7613,2451,3841,1456,355,0,433,0,0,NULL,0,80,201,0,0,'LAST_HIT','false'),
+(25538,25538,'Vengeance',0,'Raid Fighter',0,'LineageMonster4.eyeless',8,45,83,'male','L2Minion',40,64231,8710,24.2,11.2,61,63,64,59,58,59,28416,3172,4100,2120,4100,1400,351,0,401,0,0,0,0,80,209,0,0,'LAST_HIT','false'),
+(25539,25539,'Typhoon',0,'Raid Boss',0,'LineageMonster3.Death_Blader_Raid_sand',10,33,84,'male','L2RaidBoss',40,2076371,9547,542.43,9.81,61,68,68,70,70,70,5071950,1256048,5687,5036,11304,2045,414,5000,3819,0,0,0,0,0,0,0,0,'FULL_PARTY','false');
 
 UPDATE `npc` SET `walkspd` = 0,`runspd` = 0 WHERE `id` = 22138;
 
 REPLACE INTO `npc` VALUES
-(14916,14916,'Tigress',0,'',0,'LineageMonster.saber_toothed_tiger_070p',22.00,18.40,85,'female','L2Monster',40,7134,2657,13.43,3.09,40,43,30,21,20,25,0,0,3688,761,2958,708,278,0,333,0,0,0,0,52,198,'NULL',0,0,0,'LAST_HIT','balanced','false'),
-(14917,14917,'Tigress',0,'',0,'LineageMonster.saber_toothed_tiger_070p',22.00,18.40,85,'female','L2Monster',40,7134,2657,13.43,3.09,40,43,30,21,20,25,0,0,3688,761,2958,708,278,0,333,0,0,0,0,52,198,'NULL',0,0,0,'LAST_HIT','balanced','false');
+(14916,14916,'Tigress',0,'',0,'LineageMonster.saber_toothed_tiger_070p',22.00,18.40,85,'female','L2Monster',40,7134,2657,13.43,3.09,40,43,30,21,20,25,0,0,3688,761,2958,708,278,0,333,0,0,0,0,52,198,0,0,'LAST_HIT','false'),
+(14917,14917,'Tigress',0,'',0,'LineageMonster.saber_toothed_tiger_070p',22.00,18.40,85,'female','L2Monster',40,7134,2657,13.43,3.09,40,43,30,21,20,25,0,0,3688,761,2958,708,278,0,333,0,0,0,0,52,198,0,0,'LAST_HIT','false');
 
 -- -------------------
 -- Halloween Pumpkin
 -- -------------------
 REPLACE INTO `npc` VALUES
-(13135,13135,'Pumpkin Ghost',0,'',0,'LineageNpc2.Pumpkin_Head_man',12.00,18.00,70,'etc','L2Npc',40,3862,1494,11.85,2.78,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,NULL,0,50,120,'',0,1,0,'LAST_HIT','balanced','false');
-
+(13135,13135,'Pumpkin Ghost',0,'',0,'LineageNpc2.Pumpkin_Head_man',12.00,18.00,70,'etc','L2Npc',40,3862,1494,11.85,2.78,40,43,30,21,20,20,0,0,1303,471,607,382,253,0,333,0,0,NULL,0,50,120,1,0,'LAST_HIT','false');
 
 -- Daniel - Clan Hall Gatekeeper Type fix
 -- UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = 35440;
@@ -10171,13 +10170,10 @@ UPDATE `npc` SET `collision_height` = 40.5 WHERE `id` IN (32273,32274,32275,3227
 
 -- Siegeable clan halls
 UPDATE `npc` SET `type` = 'L2CCHBoss' WHERE `id` IN (35410,35629);
-UPDATE `npc` SET `faction_id` = 'gustav_clan', `faction_range` = 1900 WHERE `id` = 35410;
 UPDATE `npc` SET `type` = 'L2Doormen', `collision_radius` = 8, `collision_height` = 23.5 WHERE `id` IN (35417,35418);
 UPDATE `npc` SET `type` = 'L2CCHRegistrar' WHERE `id` IN (35420,35639);
 UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35421,35640);
 UPDATE `npc` SET `type` = 'L2Monster' WHERE `id` BETWEEN 35630 AND 35637;
-UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1900 WHERE `id` BETWEEN 35629 AND 35631;
-UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1000 WHERE `id` BETWEEN 35632 AND 35637;
 UPDATE `npc` SET `type` = 'L2ClanHallDoormen' WHERE `id` BETWEEN 35641 AND 35642;
 
 -- Control towers (quick fix as rune castle's ones have higher stats)
@@ -10199,14 +10195,6 @@ UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35040 AND 35044;
 UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35050 AND 35054;
 -- Mercenary teleporters
 UPDATE `npc` SET `type` = 'L2SiegeTeleporter' WHERE `id` IN (35092,35093,35094,35134,35135,35136,35176,35177,35178,35218,35219,35220,35261,35262,35263,35264,35265,35308,35309,35310,35352,35353,35354,35497,35498,35499,35500,35501,35544,35545,35546);
--- Mercenary AI
--- Sword (knight), Spear (warlord) - balanced
-UPDATE `npc` SET `AI` = 'balanced' WHERE `id` IN (35010,35011,35015,35016,35020,35021,35025,35026,35030,35031,35035,35036,35040,35041,35045,35046,35050,35051,35055,35056,35060);
--- Bow - archer (perhaps fighter for stationary)
-UPDATE `npc` SET `AI` = 'archer' WHERE `id` IN (35012,35017,35022,35027,35032,35037,35042,35047,35052,35057);
--- Cleric, Wizard - mage
-UPDATE `npc` SET `AI` = 'mage' WHERE `id` IN (35013,35014,35018,35019,35023,35024,35028,35029,35033,35034,35038,35039,35043,35044,35048,35049,35053,35054,35058,35059,35061);
-
 
 # Quarry Slaves by Psycho (Needed for their AI)
 UPDATE `npc` SET `type` = 'L2Guard', `hp` = '10' WHERE `id` = '32299';
@@ -10223,7 +10211,7 @@ UPDATE `npc` SET `type` = 'L2BirthdayHelper' WHERE `id` = 32600;
 UPDATE `npc` SET `hp` = 2566624, `exp` = 2856882, `sp` = 1322380 WHERE `id` = 29099;
 UPDATE `npc` SET `hp` = 177459 WHERE `id` = 29101;
 
-# Silent valley
+# Silent Valley
 UPDATE `npc` SET `drop_herbs` = 'true' WHERE `id` IN (20964, 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973);
 # Swamp of screams
 UPDATE `npc` SET `drop_herbs` = 'true' WHERE `id` IN (21508, 21509, 21510, 21511, 21512, 21513, 21514, 21515, 21516, 21517, 21518, 21519);
@@ -10244,24 +10232,24 @@ UPDATE `npc` SET `collision_height` = 22, `hp` = 4955, `walkspd` = 80, `runspd` 
 UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4997, `atkspd` = 399, `matkspd` = 359, `walkspd` = 30 WHERE `id` = 22135;
 
 # Valdstone (savormix)
-UPDATE `npc` SET `hp` = 489654, `mp` = 1859, `exp` = 3539613, `sp` = 991696, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1195, `pdef` = 1558, `matk` = 159, `mdef` = 843, `faction_id` = 'master_rider_clan', `faction_range` = 3000 WHERE `id` = 25623;
+UPDATE `npc` SET `hp` = 489654, `mp` = 1859, `exp` = 3539613, `sp` = 991696, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1195, `pdef` = 1558, `matk` = 159, `mdef` = 843 WHERE `id` = 25623;
 # Valdstone minions (savormix)
-UPDATE `npc` SET `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76, `faction_id` = 'master_rider_clan', `faction_range` = 2300 WHERE `id` = 25633;
+UPDATE `npc` SET `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76 WHERE `id` = 25633;
 # Rok (savormix)
-UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 504491, `mp` = 1973, `exp` = 3658390, `sp` = 1026322, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1253, `pdef` = 1643, `matk` = 170, `mdef` = 890, `faction_id` = 'king_of_birds_clan', `faction_range` = 3000 WHERE `id` = 25624;
+UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 504491, `mp` = 1973, `exp` = 3658390, `sp` = 1026322, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1253, `pdef` = 1643, `matk` = 170, `mdef` = 890 WHERE `id` = 25624;
 # Rok minions (savormix)
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 91055, `mp` = 1674, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 837, `pdef` = 707, `matk` = 138, `mdef` = 765, `level` = 75, `faction_id` = 'king_of_birds_clan', `faction_range` = 2100 WHERE `id` = 25627;
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76, `faction_id` = 'king_of_birds_clan', `faction_range` = 2300 WHERE `id` = 25628;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 91055, `mp` = 1674, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 837, `pdef` = 707, `matk` = 138, `mdef` = 765, `level` = 75 WHERE `id` = 25627;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76 WHERE `id` = 25628;
 # Enira (savormix)
-UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `isUndead` = 1, `faction_id` = 'banshee_queen_clan', `faction_range` = 3000 WHERE `id` = 25625;
+UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `isUndead` = 1 WHERE `id` = 25625;
 # Enira minions (savormix)
-UPDATE `npc` SET `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78, `faction_id` = 'banshee_queen_clan', `faction_range` = 2500 WHERE `id` = 25629;
-UPDATE `npc` SET `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77, `faction_id` = 'banshee_queen_clan', `faction_range` = 2400 WHERE `id` = 25630;
+UPDATE `npc` SET `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78 WHERE `id` = 25629;
+UPDATE `npc` SET `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77 WHERE `id` = 25630;
 # Dius (savormix)
-UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `faction_id` = 'destruction_lord_clan', `faction_range` = 3000 WHERE `id` = 25626;
+UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920 WHERE `id` = 25626;
 # Dius minions (savormix)
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77, `faction_id` = 'destruction_lord_clan', `faction_range` = 2400 WHERE `id` = 25631;
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78, `faction_id` = 'destruction_lord_clan', `faction_range` = 2500 WHERE `id` = 25632;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77 WHERE `id` = 25631;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78 WHERE `id` = 25632;
 
 # Anais (savormix)
 UPDATE `npc` SET `hp` = 759807, `mp` = 2277, `exp` = 8827525, `sp` = 2036475, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 6164, `pdef` = 2004, `matk` = 1674, `mdef` = 1085, `rhand` = 8214, `atkspd` = 253 WHERE `id` = 29096;
@@ -10323,30 +10311,30 @@ UPDATE `npc` SET `patk` = '3242' WHERE `id` = 25030;
 
 # Mutated Kaneus (Spire)
 UPDATE `npc` SET `level` = 23, `hp` = 81589, `mp` = 1287, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 355901, `sp` = 19458, `patk` = 91, `pdef` = 171, `matk` = 40, `mdef` = 209, `atkspd` = 253, `rhand` = 4, `runspd` = 140 WHERE `id` = 18554;
-UPDATE `npc` SET `level` = 26, `hp` = 95696, `mp` = 1515, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 397272, `sp` = 23285, `patk` = 136, `pdef` = 193, `matk` = 61, `mdef` = 235, `atkspd` = 253, `rhand` = 67, `lhand` = 633, `runspd` = 140, `faction_id` = 'Ariosh_clan' WHERE `id` = 18555;
-UPDATE `npc` SET `level` = 26, `hp` = 770, `mp` = 1515, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 95, `pdef` = 121, `matk` = 46, `mdef` = 98, `atkspd` = 253, `rhand` = 69, `lhand` = 102, `runspd` = 140, `faction_id` = 'Ariosh_clan' WHERE `id` = 18556;
+UPDATE `npc` SET `level` = 26, `hp` = 95696, `mp` = 1515, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 397272, `sp` = 23285, `patk` = 136, `pdef` = 193, `matk` = 61, `mdef` = 235, `atkspd` = 253, `rhand` = 67, `lhand` = 633, `runspd` = 140 WHERE `id` = 18555;
+UPDATE `npc` SET `level` = 26, `hp` = 770, `mp` = 1515, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 95, `pdef` = 121, `matk` = 46, `mdef` = 98, `atkspd` = 253, `rhand` = 69, `lhand` = 102, `runspd` = 140 WHERE `id` = 18556;
 UPDATE `npc` SET `level` = 26, `hp` = 95696, `mp` = 1515, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 397272, `sp` = 23285, `patk` = 136, `pdef` = 193, `matk` = 61, `mdef` = 235, `atkspd` = 253, `rhand` = 93, `runspd` = 140 WHERE `id` = 18557;
 UPDATE `npc` SET `level` = 33, `hp` = 121680, `mp` = 2070, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 549172, `sp` = 35415, `patk` = 278, `pdef` = 252, `matk` = 131, `mdef` = 307, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18558;
-UPDATE `npc` SET `level` = 36, `hp` = 148876, `mp` = 2318, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 620253, `sp` = 41849, `patk` = 366, `pdef` = 281, `matk` = 168, `mdef` = 343, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Flouros_clan' WHERE `id` = 18559;
-UPDATE `npc` SET `level` = 36, `hp` = 1279, `mp` = 2318, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 205, `pdef` = 176, `matk` = 93, `mdef` = 143, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Flouros_clan' WHERE `id` = 18560;
+UPDATE `npc` SET `level` = 36, `hp` = 148876, `mp` = 2318, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 620253, `sp` = 41849, `patk` = 366, `pdef` = 281, `matk` = 168, `mdef` = 343, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18559;
+UPDATE `npc` SET `level` = 36, `hp` = 1279, `mp` = 2318, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 205, `pdef` = 176, `matk` = 93, `mdef` = 143, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18560;
 UPDATE `npc` SET `level` = 36, `hp` = 148876, `mp` = 2318, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 620253, `sp` = 41849, `patk` = 366, `pdef` = 281, `matk` = 168, `mdef` = 343, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18561;
-UPDATE `npc` SET `level` = 43, `hp` = 209563, `mp` = 3094, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 784383, `sp` = 58093, `patk` = 567, `pdef` = 357, `matk` = 261, `mdef` = 435, `atkspd` = 253, `rhand` = 131, `runspd` = 140, `faction_id` = 'Otis_clan' WHERE `id` = 18562;
-UPDATE `npc` SET `level` = 43, `hp` = 1729, `mp` = 3094, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 330, `pdef` = 223, `matk` = 155, `mdef` = 181, `atkspd` = 253, `rhand` = 223, `runspd` = 140, `faction_id` = 'Otis_clan' WHERE `id` = 18563;
+UPDATE `npc` SET `level` = 43, `hp` = 209563, `mp` = 3094, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 784383, `sp` = 58093, `patk` = 567, `pdef` = 357, `matk` = 261, `mdef` = 435, `atkspd` = 253, `rhand` = 131, `runspd` = 140 WHERE `id` = 18562;
+UPDATE `npc` SET `level` = 43, `hp` = 1729, `mp` = 3094, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 330, `pdef` = 223, `matk` = 155, `mdef` = 181, `atkspd` = 253, `rhand` = 223, `runspd` = 140 WHERE `id` = 18563;
 UPDATE `npc` SET `level` = 46, `hp` = 261052, `mp` = 3540, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 848114, `sp` = 69276, `patk` = 756, `pdef` = 394, `matk` = 349, `mdef` = 479, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18564;
 UPDATE `npc` SET `level` = 46, `hp` = 261052, `mp` = 3540, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 848114, `sp` = 69276, `patk` = 756, `pdef` = 394, `matk` = 349, `mdef` = 479, `atkspd` = 253, `rhand` = 298, `runspd` = 140 WHERE `id` = 18565;
-UPDATE `npc` SET `level` = 53, `hp` = 464796, `mp` = 4620, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 967925, `sp` = 88254, `patk` = 1361, `pdef` = 487, `matk` = 634, `mdef` = 593, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Abigore_clan' WHERE `id` = 18566;
-UPDATE `npc` SET `level` = 53, `hp` = 2482, `mp` = 4620, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 598, `pdef` = 304, `matk` = 279, `mdef` = 247, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Abigore_clan' WHERE `id` = 18567;
-UPDATE `npc` SET `level` = 56, `hp` = 502835, `mp` = 5099, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1002611, `sp` = 124970, `patk` = 1923, `pdef` = 530, `matk` = 892, `mdef` = 646, `atkspd` = 253, `rhand` = 946, `lhand` = 945, `runspd` = 140, `faction_id` = 'Montagnar_clan' WHERE `id` = 18568;
-UPDATE `npc` SET `level` = 56, `hp` = 2725, `mp` = 5099, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 700, `pdef` = 331, `matk` = 327, `mdef` = 269, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Montagnar_clan', `isUndead` = 1 WHERE `id` = 18569;
+UPDATE `npc` SET `level` = 53, `hp` = 464796, `mp` = 4620, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 967925, `sp` = 88254, `patk` = 1361, `pdef` = 487, `matk` = 634, `mdef` = 593, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18566;
+UPDATE `npc` SET `level` = 53, `hp` = 2482, `mp` = 4620, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 598, `pdef` = 304, `matk` = 279, `mdef` = 247, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18567;
+UPDATE `npc` SET `level` = 56, `hp` = 502835, `mp` = 5099, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1002611, `sp` = 124970, `patk` = 1923, `pdef` = 530, `matk` = 892, `mdef` = 646, `atkspd` = 253, `rhand` = 946, `lhand` = 945, `runspd` = 140 WHERE `id` = 18568;
+UPDATE `npc` SET `level` = 56, `hp` = 2725, `mp` = 5099, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 700, `pdef` = 331, `matk` = 327, `mdef` = 269, `atkspd` = 253, `runspd` = 140, `isUndead` = 1 WHERE `id` = 18569;
 UPDATE `npc` SET `level` = 56, `hp` = 502835, `mp` = 5099, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1002611, `sp` = 124970, `patk` = 1923, `pdef` = 530, `matk` = 892, `mdef` = 646, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18570;
-UPDATE `npc` SET `level` = 63, `hp` = 664392, `mp` = 6257, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1046467, `sp` = 179455, `patk` = 3388, `pdef` = 638, `matk` = 1572, `mdef` = 777, `atkspd` = 253, `rhand` = 73, `runspd` = 140, `faction_id` = 'Storace_clan' WHERE `id` = 18571;
-UPDATE `npc` SET `level` = 63, `hp` = 3302, `mp` = 6257, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 979, `pdef` = 399, `matk` = 453, `mdef` = 324, `atkspd` = 253, `rhand` = 73, `runspd` = 140, `faction_id` = 'Storace_clan' WHERE `id` = 18572;
-UPDATE `npc` SET `level` = 66, `hp` = 704666, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1052061, `sp` = 186892, `patk` = 3928, `pdef` = 686, `matk` = 1827, `mdef` = 836, `atkspd` = 253, `rhand` = 75, `runspd` = 140, `faction_id` = 'Bilette_clan' WHERE `id` = 18573;
-UPDATE `npc` SET `level` = 66, `hp` = 3547, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1114, `pdef` = 429, `matk` = 519, `mdef` = 348, `atkspd` = 253, `rhand` = 193, `runspd` = 140, `faction_id` = 'Bilette_clan' WHERE `id` = 18574;
-UPDATE `npc` SET `level` = 66, `hp` = 704666, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1052061, `sp` = 186892, `patk` = 3928, `pdef` = 686, `matk` = 1827, `mdef` = 836, `atkspd` = 253, `rhand` = 8686, `runspd` = 140, `faction_id` = 'Tamuze_clan' WHERE `id` = 18575;
-UPDATE `npc` SET `level` = 66, `hp` = 3547, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1114, `pdef` = 429, `matk` = 519, `mdef` = 348, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Tamuze_clan' WHERE `id` = 18576;
-UPDATE `npc` SET `level` = 73, `hp` = 750958, `mp` = 8005, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1169076, `sp` = 202886, `patk` = 5666, `pdef` = 804, `matk` = 2635, `mdef` = 979, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Allosce_clan' WHERE `id` = 18577;
-UPDATE `npc` SET `level` = 73, `hp` = 4087, `mp` = 8005, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1451, `pdef` = 502, `matk` = 672, `mdef` = 408, `atkspd` = 253, `runspd` = 140, `faction_id` = 'Allosce_clan' WHERE `id` = 18578;
+UPDATE `npc` SET `level` = 63, `hp` = 664392, `mp` = 6257, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1046467, `sp` = 179455, `patk` = 3388, `pdef` = 638, `matk` = 1572, `mdef` = 777, `atkspd` = 253, `rhand` = 73, `runspd` = 140 WHERE `id` = 18571;
+UPDATE `npc` SET `level` = 63, `hp` = 3302, `mp` = 6257, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 979, `pdef` = 399, `matk` = 453, `mdef` = 324, `atkspd` = 253, `rhand` = 73, `runspd` = 140 WHERE `id` = 18572;
+UPDATE `npc` SET `level` = 66, `hp` = 704666, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1052061, `sp` = 186892, `patk` = 3928, `pdef` = 686, `matk` = 1827, `mdef` = 836, `atkspd` = 253, `rhand` = 75, `runspd` = 140 WHERE `id` = 18573;
+UPDATE `npc` SET `level` = 66, `hp` = 3547, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1114, `pdef` = 429, `matk` = 519, `mdef` = 348, `atkspd` = 253, `rhand` = 193, `runspd` = 140 WHERE `id` = 18574;
+UPDATE `npc` SET `level` = 66, `hp` = 704666, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1052061, `sp` = 186892, `patk` = 3928, `pdef` = 686, `matk` = 1827, `mdef` = 836, `atkspd` = 253, `rhand` = 8686, `runspd` = 140 WHERE `id` = 18575;
+UPDATE `npc` SET `level` = 66, `hp` = 3547, `mp` = 6770, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1114, `pdef` = 429, `matk` = 519, `mdef` = 348, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18576;
+UPDATE `npc` SET `level` = 73, `hp` = 750958, `mp` = 8005, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 1169076, `sp` = 202886, `patk` = 5666, `pdef` = 804, `matk` = 2635, `mdef` = 979, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18577;
+UPDATE `npc` SET `level` = 73, `hp` = 4087, `mp` = 8005, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 1451, `pdef` = 502, `matk` = 672, `mdef` = 408, `atkspd` = 253, `runspd` = 140 WHERE `id` = 18578;
 UPDATE `npc` SET `hp` = 81572, `mp` = 350, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `exp` = 5013133, `sp` = 233765, `patk` = 702, `pdef` = 1221, `matk` = 110, `mdef` = 661, `atkspd` = 253 WHERE `id` = 29129;
 UPDATE `npc` SET `hp` = 5126, `mp` = 350, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 351, `pdef` = 204, `matk` = 161, `mdef` = 110, `atkspd` = 253, `rhand` = 72 WHERE `id` = 29130;
 UPDATE `npc` SET `hp` = 5126, `mp` = 350, `hpreg` = 13.43, `mpreg` = 3.09, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `exp` = 0, `sp` = 0, `patk` = 234, `pdef` = 204, `matk` = 110, `mdef` = 110, `atkspd` = 253, `rhand` = 201 WHERE `id` = 29131;
