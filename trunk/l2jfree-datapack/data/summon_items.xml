@@ -203,6 +203,11 @@
     <npcId val="16053"/>
     <summonType val="1"/>
   </item>
+  <!-- Guardian Strider -->
+  <item id="14819">
+    <npcId val="16068"/>
+    <summonType val="1"/>
+  </item>
   <!-- Deinonychus -->
   <item id="14828">
     <npcId val="16067"/>

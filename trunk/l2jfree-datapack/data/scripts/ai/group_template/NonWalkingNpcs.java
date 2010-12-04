@@ -36,8 +36,8 @@ public class NonWalkingNpcs extends L2AttackableAIScript
 	public NonWalkingNpcs(int id, String name, String descr)
 	{
 		super(id, name, descr);
-        for (int mobId : MOBLIST)
-            super.addSpawnId(mobId);
+		for (int mobId : MOBLIST)
+			super.addSpawnId(mobId);
 	}
 
 	@Override
