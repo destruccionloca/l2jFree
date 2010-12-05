@@ -1141,7 +1141,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="#absorbDam" stackType="vampRage">
-        <add order="0x40" stat="absorbDam" val="#absorbDam"/>
+        <add order="0x40" stat="absorbDam" val="#absorbDam"/> <!-- absorb HP from damage inflicted on enemies -->
       </effect>
     </for>
   </skill>

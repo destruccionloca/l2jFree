@@ -725,6 +725,7 @@
     </for>
   </skill>
   <skill id="4556" levels="1" name="Dispel Hot Spring Disease A_D">
+    <!-- Zone Skill -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="isMagic" val="true"/>
@@ -736,10 +737,11 @@
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-        <effect name="Negate" val="0" noicon="1" effectType="NEGATE" />
+        <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="4557" levels="1" name="Dispel Hot Spring Disease B_D">
+    <!-- Zone Skill -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="isMagic" val="true"/>
@@ -751,10 +753,11 @@
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-        <effect name="Negate" val="0" noicon="1" effectType="NEGATE" />
+        <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="4558" levels="1" name="Dispel Hot Spring Disease C_D">
+    <!-- Zone Skill -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="isMagic" val="true"/>
@@ -766,10 +769,11 @@
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-        <effect name="Negate" val="0" noicon="1" effectType="NEGATE" />
+        <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="4559" levels="1" name="Hot Spring Illusion">
+    <!-- Zone Skill -->
     <set name="magicLvl" val="75"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>

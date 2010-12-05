@@ -1010,6 +1010,8 @@
         <add order="0x40" stat="runSpd" val="30"/>
         <mul order="0x30" stat="pAtk" val="1.2"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
       </effect>
     </for>
   </skill>
@@ -1036,6 +1038,8 @@
         <add order="0x40" stat="runSpd" val="20"/>
         <mul order="0x30" stat="mAtk" val="1.45"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
       </effect>
     </for>
   </skill>

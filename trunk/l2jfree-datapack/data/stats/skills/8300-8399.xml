@@ -710,9 +710,22 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8371" levels="1" name="Transform Halloween Pumpkin">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpConsume" val="31"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="transformId" val="108"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
+    <for>
+      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    </for>
   </skill>
   <skill id="8372" levels="1" name="Super Strong Giant's Mask">
     <!-- Mask's effect. For 60 minutes, increases Max HP and Max MP by 10%, P. Atk. by 5%, and earth tolerance by 5. -->

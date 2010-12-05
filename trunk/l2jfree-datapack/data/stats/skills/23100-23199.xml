@@ -664,6 +664,8 @@
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="mAtk" val="1.2"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.85"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.85"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.85"/>
       </effect>
     </for>
   </skill>
@@ -694,6 +696,9 @@
   <skill id="23172" levels="1" name="Phoenix Agathion Special Skill - Nirvana Rebirth">
     <!-- All HP, MP, CP are recovered, and becomes invincible for 5 seconds with the power of Phoenix. Possible to use under HP 30% only. Cooldown of 12 hours. -->
     <set name="target" val="TARGET_SELF"/>
+    <set name="restoredCP" val="-1"/> <!-- Need retail value -->
+    <set name="restoredHP" val="-1"/> <!-- Need retail value -->
+    <set name="restoredMP" val="-1"/> <!-- Need retail value -->
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="RECOVER"/>
     <set name="power" val="100"/>

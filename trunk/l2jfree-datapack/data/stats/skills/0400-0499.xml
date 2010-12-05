@@ -1225,6 +1225,7 @@
     <!-- For 5 minutes, returns damage from close range physical attacks and skills back to the opponent at a fixed rate. -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="78"/>
+    <set name="magicLvl" val="79"/>
     <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="2500"/>
     <set name="operateType" val="OP_ACTIVE"/>

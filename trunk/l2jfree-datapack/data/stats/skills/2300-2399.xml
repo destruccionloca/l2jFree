@@ -1258,7 +1258,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4 Hours -->
     <set name="transformId" val="304"/>
     <cond msgId="113" addName="1">
       <player SiegeZone="126"/>

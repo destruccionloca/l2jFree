@@ -41,6 +41,9 @@
     </for>
   </item>
   <item id="13042" name="Ancient Legacy Sword">
+    <cond msgId="1518">
+      <player instanceid="44"/>
+    </cond>
     <for>
       <set val="259" order="0x08" stat="pAtk"/>
       <set val="143" order="0x08" stat="mAtk"/>
@@ -51,6 +54,9 @@
     </for>
   </item>
   <item id="13043" name="Enhanced Ancient Legacy Sword">
+    <cond msgId="1518">
+      <player instanceid="44"/>
+    </cond>
     <for>
       <set val="279" order="0x08" stat="pAtk"/>
       <set val="153" order="0x08" stat="mAtk"/>
@@ -61,6 +67,9 @@
     </for>
   </item>
   <item id="13044" name="Complete Ancient Legacy Sword">
+    <cond msgId="1518">
+      <player instanceid="44"/>
+    </cond>
     <for>
       <set val="299" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
@@ -71,6 +80,9 @@
     </for>
   </item>
   <item id="13052" name="Spear of Silenos">
+    <cond msgId="1518">
+      <player instanceid="45"/>
+    </cond>
     <for>
       <set val="251" order="0x08" stat="pAtk"/>
       <set val="161" order="0x08" stat="mAtk"/>
@@ -82,6 +94,9 @@
     </for>
   </item>
   <item id="13053" name="Enhanced Spear of Silenos">
+    <cond msgId="1518">
+      <player instanceid="45"/>
+    </cond>
     <for>
       <set val="271" order="0x08" stat="pAtk"/>
       <set val="171" order="0x08" stat="mAtk"/>
@@ -93,6 +108,9 @@
     </for>
   </item>
   <item id="13054" name="Complete Spear of Silenos">
+    <cond msgId="1518">
+      <player instanceid="45"/>
+    </cond>
     <for>
       <set val="291" order="0x08" stat="pAtk"/>
       <set val="181" order="0x08" stat="mAtk"/>

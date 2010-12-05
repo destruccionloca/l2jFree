@@ -854,7 +854,7 @@
     <set name="talismanManaConsume" val="6"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_blue">
-        <add order="0x40" stat="sDef" val="225"/>
+        <add order="0x40" stat="sDef" val="220"/>
       </effect>
     </for>
   </skill>
@@ -1005,7 +1005,8 @@
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_red">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.5"/>
-        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.1"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.8"/>
         <mul order="0x30" stat="DanceMpConsumeRate" val="0.8"/> <!-- Guess -->
       </effect>
     </for>
@@ -1245,12 +1246,11 @@
     </for>
   </skill>
   <skill id="3299" levels="1" name="Yellow Talisman of Critical Power">
-    <!-- Guessing : Critical Damage +50 -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="cAtkAdd" val="50"/>
+      <add order="0x40" stat="cAtkAdd" val="30"/>
     </for>
   </skill>
 </list>

@@ -200,6 +200,8 @@
     <set name="reuseDelay" val="6000"/>
     <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="power" val="100"/>
+    <set name="ignoreResists" val="true"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="200"/>
@@ -217,6 +219,8 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="power" val="100"/>
+    <set name="ignoreResists" val="true"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="canBeDispeled" val="false"/>
@@ -235,6 +239,8 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="power" val="100"/>
+    <set name="ignoreResists" val="true"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="canBeDispeled" val="false"/>
@@ -274,7 +280,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="4" stackType="pd_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="1.15" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -358,7 +364,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="4" stackType="casting_time_down">
+      <effect name="Buff" time="3600" val="0" stackOrder="1.3" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="1.3"/>
       </effect>
     </for>
@@ -581,6 +587,7 @@
       <effect name="Buff" time="1200" val="0" stackOrder="#itemConsumeCount" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="#mpConsumeRate"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="#mpConsumeRate"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="#mpConsumeRate"/>
       </effect>
     </for>
   </skill>
@@ -1117,7 +1124,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="200"/>
     <set name="skillType" val="CPDRAIN"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
   </skill>
   <skill id="5682" levels="1" name="PvP Weapon - Cancel">
     <!-- Triggered from 3651 -->
@@ -1129,7 +1136,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="skillType" val="CANCEL"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
   </skill>
   <skill id="5683" levels="1" name="PvP Weapon - Ignore Shield Defense">
     <!-- Triggered from 3652 -->
@@ -1140,7 +1147,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="skillType" val="DEBUFF"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <for>
       <effect name="Debuff" time="10" val="0">
         <mul order="0x30" stat="sDef" val="0"/>
@@ -1155,7 +1162,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Guess -->
     <set name="skillType" val="PDAM"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
   </skill>
   <skill id="5685" levels="1" name="PvP Weapon - Casting">
     <!-- Triggered from 3654 -->
@@ -1192,7 +1199,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="skillType" val="DEBUFF"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <for>
       <effect name="Debuff" time="10" val="0">
         <mul order="0x30" stat="pAtkRange" val="0.8">
@@ -1204,7 +1211,7 @@
   <skill id="5688" levels="1" name="PvP Weapon - Decrease Resist">
     <!-- Triggered from 3657 -->
     <set name="power" val="80"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
@@ -1275,7 +1282,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="skillType" val="DEBUFF"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <for>
       <effect name="Debuff" time="10" val="0">
         <mul order="0x30" stat="pAtkSpd" val="0.8"/>
@@ -1286,15 +1293,17 @@
   </skill>
   <skill id="5694" levels="1" name="PvP Armor - Mirage">
     <!-- Triggered from 3663 -->
-    <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
     <set name="hitTime" val="100"/>
+    <set name="isDebuff" val="true"/>
+    <set name="ignoreResists" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="isMagic" val="false"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <for>
-      <effect name="RemoveTarget" val="0" noicon="1"/>
+      <effect name="RemoveTarget" time="2" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="5695" levels="1" name="Talisman - Increase Force">
@@ -1326,7 +1335,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="skillType" val="MUTE"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <for>
       <effect name="SilenceMagicPhysical" time="10" val="0"/>
     </for>

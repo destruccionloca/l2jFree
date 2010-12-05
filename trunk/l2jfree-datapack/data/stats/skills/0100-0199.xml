@@ -345,6 +345,7 @@
     <table name="#bowWpnVuln"> 0.84 0.76 0.68 0.6 </table>
     <table name="#crossbowWpnVuln"> 0.92 0.88 0.84 0.8 </table>
     <table name="#mpConsume"> 11 14 19 22 </table>
+    <table name="#stackOrder"> 1 2 3 4 </table>
     <table name="#aggroPoints"> 10 20 30 40 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
@@ -355,13 +356,13 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="deflect">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="deflect">
         <mul order="0x30" stat="bowWpnVuln" val="#bowWpnVuln"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="#crossbowWpnVuln"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" val="0" stackOrder="1" stackType="deflect">
+      <effect name="Buff" time="#ench1time" val="0" stackOrder="4" stackType="deflect">
         <mul order="0x30" stat="bowWpnVuln" val="0.6"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.8"/>
       </effect>

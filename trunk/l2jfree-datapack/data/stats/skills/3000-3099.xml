@@ -702,6 +702,7 @@
     <set name="absorbPart" val="#absorbPart"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
   </skill>
   <skill id="3023" levels="6" name="Special Ability: Critical Damage">
     <!-- s_critical_dmg_up_sword -->
@@ -1124,6 +1125,7 @@
     <set name="absorbPart" val="#absorbPart"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
   </skill>
   <skill id="3040" levels="6" name="Special Ability: Critical Poison">
     <!-- s_critical_poison_fist1/2/3/4/5/6 -->
@@ -1789,6 +1791,7 @@
     <set name="absorbPart" val="#absorbPart"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
   </skill>
   <skill id="3060" levels="2" name="Special Ability: Critical Drain">
     <!-- s_opt_crt_drain_2hsword64/67 -->
@@ -1811,6 +1814,7 @@
     <set name="absorbPart" val="35"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
   </skill>
   <skill id="3061" levels="3" name="Special Ability: Critical Poison">
     <!-- s_opt_crt_poison_sword64/67 -->

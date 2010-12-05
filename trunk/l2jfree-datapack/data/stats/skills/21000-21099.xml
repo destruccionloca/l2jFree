@@ -1282,7 +1282,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invincible"/>
     </for>
   </skill>
   <skill id="21087" levels="1" name="Berserker Spirit">
