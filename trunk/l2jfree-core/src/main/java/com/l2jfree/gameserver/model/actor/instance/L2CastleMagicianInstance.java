@@ -104,6 +104,7 @@ public class L2CastleMagicianInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe){}
 			catch (NumberFormatException nfe){}
 			showChatWindow(player, val);
+                        return;
 		}
 		else if (command.startsWith("ExchangeKE"))
 		{
@@ -125,6 +126,7 @@ public class L2CastleMagicianInstance extends L2NpcInstance
 				filename = "data/html/castlemagician/magician-no-KE.htm";
 			
 			showChatWindow(player, filename);
+                        return;
 		}
 		else
 			super.onBypassFeedback(player, command);

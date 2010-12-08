@@ -218,6 +218,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						html.replace("%mp%", String.valueOf((int)getStatus().getCurrentMp()));
 					}
 					sendHtmlMessage(player, html);
+                                        return;
 				}
 				else if (val.equalsIgnoreCase("back"))
 					showChatWindow(player);

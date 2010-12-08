@@ -161,24 +161,15 @@ public class Fort extends Siegeable<FortSiege>
 				if (getOwnerClan().getWarehouse().getAdena() >= _fee || !_cwh)
 				{
 					int fee = _fee;
-					boolean newfc = true;
-					if (getEndTime() == 0 || getEndTime() == -1)
-					{
-						if (getEndTime() == -1)
-						{
-							newfc = false;
-							fee = _tempFee;
-						}
-					}
-					else
-						newfc = false;
+					if (getEndTime() == -1)
+                                                fee = _tempFee;
 					setEndTime(System.currentTimeMillis() + getRate());
-					dbSave(newfc);
+					dbSave();
 					if (_cwh)
 					{
 						getOwnerClan().getWarehouse().destroyItemByItemId("CS_function_fee", PcInventory.ADENA_ID, fee, null, null);
 						if (_log.isDebugEnabled())
-							_log.warn("deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
+							_log.warn("Deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
 					}
 					ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 				}
@@ -187,7 +178,7 @@ public class Fort extends Siegeable<FortSiege>
 			}
 		}
 
-		public void dbSave(boolean newFunction)
+		public void dbSave()
 		{
 			Connection con = null;
 			try
@@ -195,25 +186,13 @@ public class Fort extends Siegeable<FortSiege>
 				PreparedStatement statement;
 
 				con = L2DatabaseFactory.getInstance().getConnection(con);
-				if (newFunction)
-				{
-					statement = con.prepareStatement("INSERT INTO fort_functions (fort_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)");
-					statement.setInt(1, getFortId());
-					statement.setInt(2, getType());
-					statement.setInt(3, getLvl());
-					statement.setInt(4, getLease());
-					statement.setLong(5, getRate());
-					statement.setLong(6, getEndTime());
-				}
-				else
-				{
-					statement = con.prepareStatement("UPDATE fort_functions SET lvl=?, lease=?, endTime=? WHERE fort_id=? AND type=?");
-					statement.setInt(1, getLvl());
-					statement.setInt(2, getLease());
-					statement.setLong(3, getEndTime());
-					statement.setInt(4, getFortId());
-					statement.setInt(5, getType());
-				}
+                                statement = con.prepareStatement("REPLACE INTO fort_functions (fort_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)");
+                                statement.setInt(1, getFortId());
+                                statement.setInt(2, getType());
+                                statement.setInt(3, getLvl());
+                                statement.setInt(4, getLease());
+                                statement.setLong(5, getRate());
+                                statement.setLong(6, getEndTime());
 				statement.execute();
 				statement.close();
 			}
@@ -606,7 +585,7 @@ public class Fort extends Siegeable<FortSiege>
 				{
 					_function.get(type).setLease(lease);
 					_function.get(type).setLvl(lvl);
-					_function.get(type).dbSave(false);
+					_function.get(type).dbSave();
 				}
 			}
 		}

@@ -100,6 +100,8 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
 			return;
+                else if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+                        return;
 		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
@@ -1396,7 +1398,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 				else
 					player.sendPacket(NO_AUTH);
-					return;
+                                return;
 			}
 			else if (actualCommand.equals("give_LotMCoA"))
 			{
