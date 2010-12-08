@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.util;
 
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SummonItemsData;
@@ -25,12 +26,112 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
 
 public final class Evolve
 {
+        public static final boolean doRestore(L2PcInstance player, L2Npc npc, int itemIdtake, int itemIdgive, int petminlvl)
+        {
+ 	 	if (itemIdtake == 0 || itemIdgive == 0 || petminlvl == 0)
+                        return false;
+
+ 	 	L2ItemInstance item = player.getInventory().getItemByItemId(itemIdtake);
+ 	 	if (item == null)
+                        return false;
+
+ 	 	int oldpetlvl = item.getEnchantLevel();
+ 	 	if (oldpetlvl < petminlvl)
+                        oldpetlvl = petminlvl;
+
+ 	 	L2SummonItem oldItem = SummonItemsData.getInstance().getSummonItem(itemIdtake);
+                if (oldItem == null)
+                        return false;
+
+ 	 	L2SummonItem sItem = SummonItemsData.getInstance().getSummonItem(itemIdgive);
+ 	 	if (sItem == null)
+                        return false;
+
+ 	 	int npcId = sItem.getNpcId();
+ 	 	if (npcId == 0)
+                        return false;
+
+ 	 	L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcId);
+ 	 	//deleting old pet item
+ 	 	L2ItemInstance removedItem = player.getInventory().destroyItem("PetRestore", item, player, npc);
+ 	 	player.sendPacket(new SystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(removedItem));
+ 	 	//Give new pet item
+ 	 	L2ItemInstance addedItem = player.getInventory().addItem("PetRestore", itemIdgive, 1, player, npc);
+ 	 	//Summoning new pet
+ 	 	L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, player, addedItem);
+
+                if (petSummon == null)
+                        return false;
+
+                long _maxexp = petSummon.getStat().getExpForLevel(oldpetlvl);
+ 	 	petSummon.getStat().addExp(_maxexp);
+
+                //petSummon.set
+ 	 	petSummon.setCurrentFed(petSummon.getMaxFed());
+                petSummon.getStatus().setCurrentHp(petSummon.getMaxHp());
+                petSummon.getStatus().setCurrentMp(petSummon.getMaxMp());
+ 	 	petSummon.setTitle(player.getName());
+ 	 	petSummon.setRunning();
+ 	 	petSummon.store();
+
+                player.setPet(petSummon);
+ 	 	player.sendPacket(new MagicSkillUse(npc, 2046, 1, 1000, 600000));
+ 	 	player.sendPacket(new SystemMessage(SystemMessageId.SUMMON_A_PET));
+
+                L2World.getInstance().storeObject(petSummon);
+ 	 	petSummon.spawnMe(player.getX(), player.getY(), player.getZ());
+ 	 	petSummon.startFeed();
+ 	 	addedItem.setEnchantLevel(petSummon.getLevel());
+
+                //Inventory update
+ 	 	InventoryUpdate iu = new InventoryUpdate();
+ 	 	iu.addRemovedItem(removedItem);
+ 	 	player.sendPacket(iu);
+ 	 	StatusUpdate su = new StatusUpdate(player.getObjectId());
+ 	 	su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
+ 	 	player.sendPacket(su);
+ 	 	player.broadcastUserInfo();
+
+                L2World world = L2World.getInstance();
+ 	 	world.removeObject(removedItem);
+ 	 	ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFinalizer(player, petSummon), 900);
+
+                if (petSummon.getCurrentFed() <= 0)
+                        ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFeedWait(player, petSummon), 60000);
+ 	 	else
+                        petSummon.startFeed();
+
+                // pet control item no longer exists, delete the pet from the db
+ 	 	Connection con = null;
+ 	 	try
+ 	 	{
+                        con = L2DatabaseFactory.getInstance().getConnection();
+                        PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
+                        statement.setInt(1, removedItem.getObjectId());
+                        statement.execute();
+                        statement.close();
+ 	 	}
+ 	 	catch (Exception e)
+ 	 	{
+ 	 	}
+ 	 	finally
+ 	 	{
+                        try { con.close(); } catch (Exception e) {}
+ 	 	}
+                return true;
+        }
+
 	public static final boolean doEvolve(L2PcInstance player, L2Npc npc, int itemIdtake, int itemIdgive, int petminlvl)
 	{
 		if (itemIdtake == 0 || itemIdgive == 0 || petminlvl == 0)

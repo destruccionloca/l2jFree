@@ -112,6 +112,8 @@ public class PcInventory extends Inventory
 			boolean isDuplicate = false;
 			for (L2ItemInstance litem : list)
 			{
+                                if (item == null)
+                                        continue;
 				if (litem.getItemId() == item.getItemId())
 				{
 					isDuplicate = true;
@@ -140,6 +142,8 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
+                        if (item == null)
+                                continue;
 			if ((!allowAdena && item.getItemId() == ADENA_ID))
 				continue;
 			if ((!allowAncientAdena && item.getItemId() == ANCIENT_ADENA_ID))
@@ -171,6 +175,8 @@ public class PcInventory extends Inventory
 		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
+                        if (item == null)
+                                continue;
 			if (item.getItemId() == itemId && (includeEquipped || !item.isEquipped()))
 				list.add(item);
 		}
@@ -200,6 +206,8 @@ public class PcInventory extends Inventory
 		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
+                        if (item == null)
+                                continue;
 			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment)
 					&& (includeEquipped || !item.isEquipped()))
 			{
@@ -207,7 +215,7 @@ public class PcInventory extends Inventory
 			}
 		}
 		return list.moveToArray(new L2ItemInstance[list.size()]);
-	}
+        }
 
 	/**
 	 * Returns the list of items in inventory available for transaction

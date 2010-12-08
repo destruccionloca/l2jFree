@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Evolve;
@@ -35,6 +36,10 @@ public class L2PetManagerInstance extends L2MerchantInstance
 	public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/petmanager/" + getNpcId() + ".htm";
+
+                L2Summon summon = player.getPet();
+                if (getNpcId() == 36478 && summon != null)
+                        filename = "data/html/petmanager/restore-unsummonpet.htm";
 
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
@@ -119,25 +124,25 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			{
 			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
 			case 1:
-				ok = Evolve.doEvolve(player, this, 10307, 9882, 55);
+				ok = Evolve.doRestore(player, this, 10307, 9882, 55);
 				break;
 			case 2:
-				ok = Evolve.doEvolve(player, this, 10611, 10426, 70);
+				ok = Evolve.doRestore(player, this, 10611, 10426, 70);
 				break;
 			case 3:
-				ok = Evolve.doEvolve(player, this, 10308, 4422, 55);
+				ok = Evolve.doRestore(player, this, 10308, 4422, 55);
 				break;
 			case 4:
-				ok = Evolve.doEvolve(player, this, 10309, 4423, 55);
+				ok = Evolve.doRestore(player, this, 10309, 4423, 55);
 				break;
 			case 5:
-				ok = Evolve.doEvolve(player, this, 10310, 4424, 55);
+				ok = Evolve.doRestore(player, this, 10310, 4424, 55);
 				break;
 			}
 			if (!ok)
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile("data/html/petmanager/evolve_no.htm");
+				html.setFile("data/html/petmanager/restore_no.htm");
 				player.sendPacket(html);
 			}
 		}

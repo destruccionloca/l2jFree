@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -24,6 +26,22 @@ public class L2FortDoormenInstance extends L2DoormenInstance
 	{
 		super(objectID, template);
 	}
+
+        @Override
+        public void showChatWindow(L2PcInstance player)
+        {
+                player.sendPacket(ActionFailed.STATIC_PACKET);
+ 	 	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+ 	 	if (!isOwnerClan(player))
+                        html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + "-no.htm");
+ 	 	else if (isUnderSiege())
+                        html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + "-busy.htm");
+ 	 	else
+                        html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + ".htm");
+
+ 	 	html.replace("%objectId%", String.valueOf(getObjectId()));
+ 	 	player.sendPacket(html);
+        }
 
 	@Override
 	protected final void openDoors(L2PcInstance player, String command)
@@ -61,13 +79,10 @@ public class L2FortDoormenInstance extends L2DoormenInstance
 		}
 		return false;
 	}
-	
-	// TODO enable then teleports for forts will be done
-	/*
+
 	@Override
 	protected final boolean isUnderSiege()
 	{
 		return getFort().getSiege().getIsInProgress();
 	}
-	*/
 }
