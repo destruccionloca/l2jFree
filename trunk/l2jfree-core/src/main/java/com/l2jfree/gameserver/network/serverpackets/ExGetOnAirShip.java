@@ -38,6 +38,11 @@ public class ExGetOnAirShip extends L2GameServerPacket
 		_y = ship.getY();
 		_z = ship.getZ();
 		player.getPosition().setXYZ(_x, _y, _z);
+
+                if (player.getPet() != null)
+                {
+                        player.getPet().teleToLocation(_x, _y, _z);
+                }
 	}
 
 	@Override

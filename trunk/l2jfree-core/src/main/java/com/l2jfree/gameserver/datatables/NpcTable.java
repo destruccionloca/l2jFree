@@ -453,6 +453,10 @@ public final class NpcTable
 			npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 			npcDat.set("absorb_type", NpcData.getString("absorb_type"));
 			
+			npcDat.set("soulshot_count", NpcData.getInt("soulshot_count"));
+			npcDat.set("spiritshot_count", NpcData.getInt("spiritshot_count"));
+			npcDat.set("ssRate", NpcData.getInt("ss_rate"));
+
 			npcDat.set("AI", NpcData.getString("AI"));
 			npcDat.set("drop_herbs", Boolean.valueOf(NpcData.getString("drop_herbs")));
 			

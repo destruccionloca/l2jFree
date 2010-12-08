@@ -92,6 +92,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private int									_factionRange;
 	private int									_absorbLevel;
 	private AbsorbCrystalType					_absorbType;
+	private short								_soulShotCount;
+	private short								_spiritShotCount;
+
+	private short								_ssRate;
 	private int									_npcFaction;
 	private String								_npcFactionName;
 	private String								_jClass;
@@ -287,6 +291,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_factionRange = set.getInteger("factionRange");
 		_absorbLevel = set.getInteger("absorb_level");
 		_absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
+		_spiritShotCount = set.getShort("spiritshot_count");
+		_soulShotCount = set.getShort("soulshot_count");
+		_ssRate = set.getShort("ssRate");
+
 		_npcFaction = set.getInteger("NPCFaction", 0);
 		_npcFactionName = set.getString("NPCFactionName", "Devine Clan").intern();
 		_jClass = set.getString("jClass").intern();
@@ -1367,9 +1375,29 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_jClass = class1;
 	}
 
+        public short getSoulShotCount()
+        {
+                return _soulShotCount;
+        }
+
+        public short getSpiritShotCount()
+        {
+                return _spiritShotCount;
+        }
+
+	public short getSSRate()
+	{
+		return _ssRate;
+	}
+
 	public AIType getAI()
 	{
 		return _ai;
+	}
+
+	public void setSSRate(short ssrate)
+	{
+		_ssRate = ssrate;
 	}
 
 	public void setAI(AIType type)
