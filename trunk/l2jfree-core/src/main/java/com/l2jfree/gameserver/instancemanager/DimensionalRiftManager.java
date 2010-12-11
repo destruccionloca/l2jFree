@@ -455,6 +455,7 @@ public class DimensionalRiftManager
 				spawn.stopRespawn();
 				if (spawn.getLastSpawn() != null)
 					spawn.getLastSpawn().deleteMe();
+				spawn.decreaseCount(null);
 			}
 			_isUsed = false;
 		}

@@ -29,6 +29,7 @@ public final class ServerObjectInfo extends L2GameServerPacket
 	private final int _x, _y, _z, _heading;
 	private final int _idTemplate;
 	private final double _collisionHeight, _collisionRadius;
+	private String _name;
 
 	public ServerObjectInfo(L2Npc activeChar)
 	{
@@ -40,6 +41,7 @@ public final class ServerObjectInfo extends L2GameServerPacket
 		_y = _activeChar.getY();
 		_z = _activeChar.getZ();
 		_heading = _activeChar.getHeading();
+		_name = _activeChar.getTemplate().serverSideName ? _activeChar.getTemplate().name : "";
 	}
 	
 	/**
@@ -53,7 +55,7 @@ public final class ServerObjectInfo extends L2GameServerPacket
 		writeC(0x92);
 		writeD(_activeChar.getObjectId());
 		writeD(_idTemplate + 1000000);
-		writeS(""); // name
+		writeS(_name); // name
 		writeD(isAttackable ? 1 : 0);
 		writeD(_x);
 		writeD(_y);

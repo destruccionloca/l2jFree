@@ -575,48 +575,48 @@ public class RequestActionUse extends L2GameClientPacket
 			case 5000: // TODO Reindeer Scratch (Baby Rudolph)
 				break;
 			// CT2.3 Social Packets
-			case 12:
+			case 12: // Greeting
 				useSocial(2, activeChar);
 				break;
-			case 13:
+			case 13: // Victory
 				useSocial(3, activeChar);
 				break;
-			case 14:
+			case 14: // Advance
 				useSocial(4, activeChar);
 				break;
-			case 24:
+			case 24: // Yes
 				useSocial(6, activeChar);
 				break;
-			case 25:
+			case 25: // No
 				useSocial(5, activeChar);
 				break;
-			case 26:
+			case 26: // Bow
 				useSocial(7, activeChar);
 				break;
-			case 29:
+			case 29: // Unaware
 				useSocial(8, activeChar);
 				break;
-			case 30:
+			case 30: // Social Waiting
 				useSocial(9, activeChar);
 				break;
-			case 31:
+			case 31: // Laugh
 				useSocial(10, activeChar);
 				break;
-			case 33:
+			case 33: // Applaud
 				useSocial(11, activeChar);
 				break;
-			case 34:
+			case 34: // Dance
 				useSocial(12, activeChar);
 				break;
-			case 35:
+			case 35: // Sorrow
 				useSocial(13, activeChar);
 				break;
-			case 62:
+			case 62: // Charm
 				useSocial(14, activeChar);
 				break;
 			case 63:
 				break;
-			case 66:
+			case 66: // Shyness
 				useSocial(15, activeChar);
 				break;
 			case 67: // Steer

@@ -35,6 +35,8 @@ public abstract class L2Transformation
 	public static final int TRANSFORM_ZARICHE = 301;
 	public static final int TRANSFORM_AKAMANAH = 302;
 	
+	protected static final int[] EMPTY_ARRAY = {};
+	
 	/**
 	 * @param id Internal id that server will use to associate this transformation
 	 * @param collisionRadius Collision Radius of the player while transformed

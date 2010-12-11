@@ -165,7 +165,7 @@ public class L2DefenderInstance extends L2Guard
 		_castle = CastleManager.getInstance().getCastle(getX(), getY(), getZ());
 		
 		if (_fort == null && _castle == null)
-			_log.warn("L2DefenderInstance spawned outside of Fortress and Castle Zone!");
+			_log.warn("L2DefenderInstance spawned outside of Fortress or Castle Zone! NpcId: "+getNpcId()+ " x="+getX()+ " y="+getY()+ " z="+getZ());
 	}
 	
 	/**

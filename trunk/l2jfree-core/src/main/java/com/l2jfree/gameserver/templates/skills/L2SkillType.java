@@ -138,6 +138,7 @@ public enum L2SkillType
 	DETECTION,
 	BALLISTA,
 	EXTRACTABLE,
+	EXTRACTABLE_FISH,
 	LEARN_SKILL(L2SkillLearnSkill.class),
 	CANCEL_STATS,
 

@@ -43,7 +43,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count < 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
+		if (count < 1 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -110,7 +110,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 			return;
 		}
 
-		int totalCost = 0;
+		long totalCost = 0;
 		for (Item i : _items)
 		{
 			if (!i.addToTradeList(tradeList))
