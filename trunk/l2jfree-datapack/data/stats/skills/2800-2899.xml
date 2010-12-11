@@ -2,6 +2,7 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="2800" levels="1" name="Stone of Ease">
+    <set name="itemConsumeId" val="14049"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -16,6 +17,7 @@
     </for>
   </skill>
   <skill id="2801" levels="1" name="Stone of Abundance">
+    <set name="itemConsumeId" val="14050"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -36,6 +38,7 @@
     <set name="hitTime" val="100"/>
   </skill>
   <skill id="2803" levels="1" name="Seed of Revenge">
+    <set name="itemConsumeId" val="14170"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -54,6 +57,7 @@
     </cond>
   </skill>
   <skill id="2804" levels="1" name="Hell Scream">
+    <set name="itemConsumeId" val="14171"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -72,6 +76,7 @@
     </cond>
   </skill>
   <skill id="2805" levels="1" name="Spirit of Phoenix">
+    <set name="itemConsumeId" val="14172"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -90,6 +95,7 @@
     </cond>
   </skill>
   <skill id="2806" levels="1" name="Eva's Will">
+    <set name="itemConsumeId" val="14173"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -108,6 +114,7 @@
     </cond>
   </skill>
   <skill id="2807" levels="1" name="Pain of Shilen">
+    <set name="itemConsumeId" val="14174"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -126,6 +133,7 @@
     </cond>
   </skill>
   <skill id="2808" levels="1" name="Exciting Adventure">
+    <set name="itemConsumeId" val="14175"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -144,6 +152,7 @@
     </cond>
   </skill>
   <skill id="2809" levels="1" name="Wind Riding">
+    <set name="itemConsumeId" val="14176"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -162,6 +171,7 @@
     </cond>
   </skill>
   <skill id="2810" levels="1" name="Ghost Walking">
+    <set name="itemConsumeId" val="14177"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -180,6 +190,7 @@
     </cond>
   </skill>
   <skill id="2811" levels="1" name="Flame Hawk">
+    <set name="itemConsumeId" val="14178"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -198,6 +209,7 @@
     </cond>
   </skill>
   <skill id="2812" levels="1" name="Arrow Rain">
+    <set name="itemConsumeId" val="14179"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -216,6 +228,7 @@
     </cond>
   </skill>
   <skill id="2813" levels="1" name="Ghost Piercing">
+    <set name="itemConsumeId" val="14180"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -234,6 +247,7 @@
     </cond>
   </skill>
   <skill id="2814" levels="1" name="Dread Pool">
+    <set name="itemConsumeId" val="14181"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -252,6 +266,7 @@
     </cond>
   </skill>
   <skill id="2815" levels="1" name="Force of Destruction">
+    <set name="itemConsumeId" val="14182"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -270,6 +285,7 @@
     </cond>
   </skill>
   <skill id="2816" levels="1" name="Demolition Impact">
+    <set name="itemConsumeId" val="14183"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -288,6 +304,7 @@
     </cond>
   </skill>
   <skill id="2817" levels="1" name="Golem Armor">
+    <set name="itemConsumeId" val="14184"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -306,6 +323,7 @@
     </cond>
   </skill>
   <skill id="2818" levels="1" name="Wild Shot">
+    <set name="itemConsumeId" val="14185"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -324,6 +342,7 @@
     </cond>
   </skill>
   <skill id="2819" levels="1" name="Lightning Shock">
+    <set name="itemConsumeId" val="14186"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -342,6 +361,7 @@
     </cond>
   </skill>
   <skill id="2820" levels="1" name="Flame Armor">
+    <set name="itemConsumeId" val="14187"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -360,6 +380,7 @@
     </cond>
   </skill>
   <skill id="2821" levels="1" name="Frost Armor">
+    <set name="itemConsumeId" val="14188"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -378,6 +399,7 @@
     </cond>
   </skill>
   <skill id="2822" levels="1" name="Hurricane Armor">
+    <set name="itemConsumeId" val="14189"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -396,6 +418,7 @@
     </cond>
   </skill>
   <skill id="2823" levels="1" name="Vampiric Mist">
+    <set name="itemConsumeId" val="14190"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -414,6 +437,7 @@
     </cond>
   </skill>
   <skill id="2824" levels="1" name="Meteor">
+    <set name="itemConsumeId" val="14191"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -432,6 +456,7 @@
     </cond>
   </skill>
   <skill id="2825" levels="1" name="Starfall">
+    <set name="itemConsumeId" val="14192"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -450,6 +475,7 @@
     </cond>
   </skill>
   <skill id="2826" levels="1" name="Sublime Self-Sacrifice">
+    <set name="itemConsumeId" val="14193"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -468,6 +494,7 @@
     </cond>
   </skill>
   <skill id="2827" levels="1" name="Blessing of Eva">
+    <set name="itemConsumeId" val="14194"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -486,6 +513,7 @@
     </cond>
   </skill>
   <skill id="2828" levels="1" name="Lord of Vampire">
+    <set name="itemConsumeId" val="14195"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -504,6 +532,7 @@
     </cond>
   </skill>
   <skill id="2829" levels="1" name="Throne Root">
+    <set name="itemConsumeId" val="14196"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -522,6 +551,7 @@
     </cond>
   </skill>
   <skill id="2830" levels="1" name="Seal of Limit">
+    <set name="itemConsumeId" val="14197"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -540,6 +570,7 @@
     </cond>
   </skill>
   <skill id="2831" levels="1" name="Weapon Blockade">
+    <set name="itemConsumeId" val="14203"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -558,6 +589,7 @@
     </cond>
   </skill>
   <skill id="2832" levels="1" name="S80 Weapon Chest">
+    <set name="itemConsumeId" val="13988"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -570,6 +602,7 @@
     </cond>
   </skill>
   <skill id="2833" levels="1" name="S80 Armor Chest">
+    <set name="itemConsumeId" val="13989"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -582,6 +615,7 @@
     </cond>
   </skill>
   <skill id="2834" levels="1" name="S Weapon Chest">
+    <set name="itemConsumeId" val="13990"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -594,6 +628,7 @@
     </cond>
   </skill>
   <skill id="2835" levels="1" name="S Armor Chest">
+    <set name="itemConsumeId" val="13991"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -606,6 +641,7 @@
     </cond>
   </skill>
   <skill id="2836" levels="1" name="S Accessory Chest">
+    <set name="itemConsumeId" val="13992"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -643,6 +679,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="2840" levels="1" name="Star Stone Gathering">
+    <set name="itemConsumeId" val="13728"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -847,6 +884,7 @@
     </cond>
   </skill>
   <skill id="2856" levels="1" name="Santa's Buff Gift Set">
+    <set name="itemConsumeId" val="14614"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -876,6 +914,7 @@
     </for>
   </skill>
   <skill id="2857" levels="1" name="Christmas Event - Magic Use Enhancement Scroll">
+    <set name="itemConsumeId" val="14615"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -920,8 +959,10 @@
     </cond>
   </skill>
   <skill id="2860" levels="6" name="Highest Power Secret Medicine of Life">
+    <table name="#itemConsumeId"> 14682 14683 14684 14685 14686 14687 </table>
     <table name="#minLvl"> 0 20 40 52 61 76 </table>
     <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="100"/>
     <set name="target" val="TARGET_SELF"/>
@@ -942,8 +983,10 @@
   </skill>
   <skill id="2861" levels="6" name="Highest Power Secret Medicine of Mind">
     <table name="#power"> 150 250 350 500 700 840 </table>
+    <table name="#itemConsumeId"> 14688 14689 14690 14691 14692 14693 </table>
     <table name="#minLvl"> 0 20 40 52 61 76 </table>
     <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SELF"/>
@@ -964,8 +1007,10 @@
   </skill>
   <skill id="2862" levels="6" name="Highest Power Secret Medicine of Will">
     <table name="#power"> 200 400 1200 1600 2000 2400 </table>
+    <table name="#itemConsumeId"> 14694 14695 14696 14697 14698 14699 </table>
     <table name="#minLvl"> 0 20 40 52 61 76 </table>
     <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1110,7 +1155,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="berserk">
+      <effect name="Buff" time="3600" val="0" stackOrder="3" stackType="berserk">
         <mul order="0x30" stat="pDef" val="0.92"/>
         <mul order="0x30" stat="mDef" val="0.84"/>
         <sub order="0x40" stat="rEvas" val="4"/>
@@ -1184,6 +1229,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2883" levels="1" name="Energy Replenishing Herb Tea">
+    <set name="itemConsumeId" val="14742"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1199,6 +1245,7 @@
     </for>
   </skill>
   <skill id="2884" levels="1" name="Energy Replenishing Herb Tea">
+    <set name="itemConsumeId" val="14743"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1303,6 +1350,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2894" levels="1" name="White Day Candy">
+    <set name="itemConsumeId" val="14769"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="20000"/>
     <set name="target" val="TARGET_SELF"/>

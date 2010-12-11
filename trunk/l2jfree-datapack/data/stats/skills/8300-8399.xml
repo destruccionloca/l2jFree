@@ -558,7 +558,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8350" levels="3" name="Royal Guard Earring - Giran">
+  <skill id="8350" levels="2" name="Royal Guard Earring - Giran">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -569,7 +569,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8351" levels="4" name="Royal Guard Earring - Oren">
+  <skill id="8351" levels="2" name="Royal Guard Earring - Oren">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -580,7 +580,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8352" levels="5" name="Royal Guard Earring - Aden">
+  <skill id="8352" levels="2" name="Royal Guard Earring - Aden">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -591,7 +591,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8353" levels="6" name="Royal Guard Earring - Innadril">
+  <skill id="8353" levels="2" name="Royal Guard Earring - Innadril">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -602,7 +602,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8354" levels="7" name="Royal Guard Earring - Goddard">
+  <skill id="8354" levels="2" name="Royal Guard Earring - Goddard">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -613,7 +613,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8355" levels="8" name="Royal Guard Earring - Rune">
+  <skill id="8355" levels="2" name="Royal Guard Earring - Rune">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -624,7 +624,7 @@
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
-  <skill id="8356" levels="9" name="Royal Guard Earring - Schuttgart">
+  <skill id="8356" levels="2" name="Royal Guard Earring - Schuttgart">
     <table name="#maxCp"> 1 1.05 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -672,9 +672,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="stunRes" val="0.8"/> <!-- Stun Resistance +20 -->
+      <mul order="0x30" stat="stunVuln" val="0.8"/> <!-- Stun Resistance +20 -->
       <mul order="0x30" stat="derangementVuln" val="0.8"/> <!-- Derangement Resistance +20 -->
-      <add order="0x30" stat="stunProf" val="20"/> <!-- Stun Proficency +20 -->
+      <mul order="0x30" stat="stunProf" val="1.2"/> <!-- Stun Proficency +20 -->
       <mul order="0x30" stat="derangementProf" val="1.2"/> <!-- Derangement Proficency +20 -->
       <add order="0x40" stat="absorbDam" val="4"/> <!-- absorb 4% HP from damage inflicted on enemies -->
     </for>

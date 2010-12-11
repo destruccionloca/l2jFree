@@ -111,7 +111,7 @@
       <player agathionId="1535"/>
     </cond>
     <for>
-      <effect name="PhoenixBless" time="1800" val="0"/>
+      <effect name="PhoenixBless" time="1800" val="0" stackOrder="2" stackType="ab_preserve_abnormal"/>
     </for>
   </skill>
   <skill id="23119" levels="1" name="Baekyi Hwamae Agathion Cute Trick">
@@ -164,7 +164,7 @@
     <!-- Stimulates the enemy's attack by 6983 Power. Cooldown of 1 minute. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <cond msgId="2292">
       <player agathionId="1551"/>
     </cond>
@@ -184,7 +184,7 @@
   <skill id="23126" levels="1" name="Gwanseum Nyang Nyang Agathion Special Skill - Blessing of Mercy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <cond msgId="2292">
       <player agathionId="1552"/>
     </cond>
@@ -204,7 +204,7 @@
   <skill id="23128" levels="1" name="Blue Opera Agathion Special Skill - Sword of Recovery">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <cond msgId="2292">
       <player agathionId="1553"/>
     </cond>
@@ -212,7 +212,7 @@
   <skill id="23129" levels="1" name="Blue Opera Agathion Special Skill - Sword of Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <cond msgId="2292">
       <player agathionId="1553"/>
     </cond>
@@ -232,7 +232,7 @@
   <skill id="23131" levels="1" name="Red Opera Agathion Special Skill - Spear of Flames">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <cond msgId="2292">
       <player agathionId="1554"/>
     </cond>

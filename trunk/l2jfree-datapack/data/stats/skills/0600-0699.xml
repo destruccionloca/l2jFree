@@ -166,6 +166,7 @@
       <mul order="0x30" stat="maxMp" val="#maxMp"/>
       <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
+      <mul order="0x30" stat="DanceMpConsumeRate" val="#MpConsumeRate"/>
     </for>
   </skill>
   <skill id="616" levels="3" name="Dark Squad">
@@ -280,7 +281,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="20" val="0" stackOrder="1" stackType="multi_buff">
+      <effect name="Buff" time="20" val="0">
         <add order="0x40" stat="rEvas" val="#rEvas"/>
         <add order="0x40" stat="runSpd" val="#runSpd"/>
         <add order="0x40" stat="pSkillEvas" val="#pSkillEvas"/>
@@ -509,7 +510,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" val="15" stat="mAtkSpd"/>
+      <add order="0x40" val="11" stat="mAtkSpd"/>
     </for>
   </skill>
   <skill id="640" levels="1" name="Master Ability - Focus">
@@ -525,7 +526,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.06" stat="maxHp"/>
+      <add order="0x40" val="295" stat="maxHp"/>
     </for>
   </skill>
   <skill id="642" levels="1" name="Enchanter Ability - Boost Mana">
@@ -559,7 +560,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtkRange" val="200"/>
+      <add order="0x40" stat="pAtkRange" val="100"/>
     </for>
   </skill>
   <skill id="646" levels="1" name="Wizard Ability - Mana Gain">
@@ -1225,9 +1226,9 @@
       <player hp="30"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
         <mul order="0x30" stat="pAtk" val="1.2"/>
       </effect>
@@ -1345,9 +1346,9 @@
       <player hp="30"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
         <mul order="0x30" stat="pDef" val="1.2"/>
       </effect>
@@ -1471,11 +1472,11 @@
       <player hp="30"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
-        <mul order="0x30" stat="rEvas" val="1.2"/> <!-- Guess -->
+        <add order="0x40" stat="rEvas" val="10"/>
       </effect>
     </for>
   </skill>
@@ -1598,9 +1599,9 @@
       <player mp="10"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
         <mul order="0x30" stat="mAtk" val="1.2"/> <!-- Guess -->
       </effect>

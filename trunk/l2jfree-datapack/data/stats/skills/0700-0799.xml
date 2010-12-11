@@ -65,9 +65,9 @@
         <player mp="10"/>
       </not>
     </cond>
-    <for>
+    <!-- for>
       <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT"/>
-    </for>
+    </for -->
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
     <set name="itemConsumeId" val="3031"/>
@@ -228,19 +228,19 @@
       <player mp="10"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
-        <mul order="0x30" stat="pAtk" val="1.2"/> <!-- Guess -->
-        <mul order="0x30" stat="mAtk" val="1.2"/> <!-- Guess -->
-        <mul order="0x30" stat="pDef" val="1.2"/> <!-- Guess -->
-        <mul order="0x30" stat="mDef" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="pAtk" val="1.1"/> <!-- Guess -->
+        <mul order="0x30" stat="mAtk" val="1.1"/> <!-- Guess -->
+        <mul order="0x30" stat="pDef" val="1.1"/> <!-- Guess -->
+        <mul order="0x30" stat="mDef" val="1.1"/> <!-- Guess -->
         <add order="0x40" stat="accCombat" val="2"/>
-        <basemul order="0x30" stat="rCrit" val="0.2"/> <!-- Guess -->
-        <mul order="0x30" stat="runSpd" val="1.2"/> <!-- Guess -->
-        <mul order="0x30" stat="pAtkSpd" val="1.2"/> <!-- Guess -->
-        <mul order="0x30" stat="mAtkSpd" val="1.15"/>
+        <basemul order="0x30" stat="rCrit" val="0.1"/> <!-- Guess -->
+        <mul order="0x30" stat="runSpd" val="1.1"/> <!-- Guess -->
+        <mul order="0x30" stat="pAtkSpd" val="1.1"/> <!-- Guess -->
+        <mul order="0x30" stat="mAtkSpd" val="1.1"/>
       </effect>
     </for>
   </skill>
@@ -337,9 +337,9 @@
       <player mp="10"/>
     </cond>
     <for>
-      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
-        <mul order="0x50" stat="limitHp" val="0.1"/>
-      </effect>
+      <!-- effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x30" stat="limitHp" val="0.1"/>
+      </effect -->
       <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
         <basemul order="0x30" stat="rCrit" val="0.2"/> <!-- Guess -->
         <mul order="0x30" stat="cAtk" val="1.2"/> <!-- Guess -->
@@ -597,6 +597,7 @@
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_AURA"/>
+    <set name="power" val="50"/>
     <set name="skillRadius" val="200"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1185,7 +1186,7 @@
   <skill id="763" levels="1" name="Hell Scream">
     <set name="mpInitialConsume" val="17"/>
     <set name="mpConsume" val="69"/>
-    <set name="power" val="40"/>
+    <set name="power" val="80"/>
     <set name="magicLvl" val="83"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="50000"/>
@@ -1377,7 +1378,7 @@
     <set name="mpInitialConsume" val="17"/>
     <set name="mpConsume" val="69"/>
     <set name="magicLvl" val="83"/>
-    <set name="power" val="40"/> <!-- Guessing -->
+    <set name="power" val="70"/> <!-- Guessing -->
     <set name="isMagic" val="false"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="50000"/>
@@ -1408,9 +1409,9 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
-    <cond msgId="113" addName="1">
-      <player Charges="2"/> <!-- Need to recharge 2nd stage of Sword Energy. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Need to recharge 2nd stage of Sword Energy. -->
+    <!-- /cond -->
     <for>
       <effect name="Disarm" time="5" val="0"/>
     </for>
@@ -1433,9 +1434,9 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
-    <cond msgId="113" addName="1">
-      <player Charges="2"/> <!-- Chi Energy Stage 2 Recharge needed. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Chi Energy Stage 2 Recharge needed. -->
+    <!-- /cond -->
     <for>
       <effect count="8" name="DamOverTime" val="212" effectPower="40" effectType="DOT"/>
     </for>
@@ -1747,32 +1748,24 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <for>
-      <effect name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="6092" triggeredLevel="1" chanceType="ON_EXIT" effectPower="40" effectType="PARALYZE"/>
+      <!-- effect name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="6092" triggeredLevel="1" chanceType="ON_EXIT" effectPower="40" effectType="PARALYZE"/ -->
+      <effect name="Paralyze" time="9" val="0" effectPower="40" effectType="PARALYZE"/> <!-- TODO: This effect should be in the skill 6092 -->
     </for>
   </skill>
   <skill id="792" levels="1" name="Betrayal Mark">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1200"/>
-    <!--
-    <set name="mpInitialConsume" val="7"/>
-    <set name="mpConsume" val="29"/>
-    <set name="magicLvl" val="78"/>
-    <set name="power" val="70"/> Base Land Rate
-    <set name="isMagic" val="true"/>
-    <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="11000"/>
-    <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="skillType" val="DEBUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="triggeredId" val="5600"/>
-    <set name="triggeredLevel" val="1"/>
-    -->
+    <set name="hitTime" val="1200"/>
+    <set name="isMagic" val="true"/>
+    <set name="mpConsume" val="37"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="70"/> <!-- Base Land Rate -->
+    <set name="reuseDelay" val="11000"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="ChanceSkillTrigger" time="30" val="0" abnormal="poison" triggeredId="5600" activationChance="30" chanceType="ON_ATTACKED"/>
+    </for>
   </skill>
   <skill id="793" levels="1" name="Rush Impact" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15" enchantLevels8="15">
     <table name="#ench1power"> 4071 4102 4133 4164 4195 4226 4257 4289 4320 4351 4382 4413 4444 4475 4507 </table>
@@ -1906,10 +1899,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="effectType" val="POISON"/>
-    <set name="effectPower" val="35"/> <!-- Base Land Rate -->
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="144" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="144" abnormal="poison" effectPower="35" effectType="POISON"/>
     </for>
   </skill>
   <skill id="799" levels="3" name="Master Ability - Defense">

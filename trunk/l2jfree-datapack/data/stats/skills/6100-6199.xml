@@ -155,11 +155,12 @@
     </for>
   </skill>
   <skill id="6120" levels="1" name="Santa Claus' Reward">
+    <set name="itemConsumeId" val="20101"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <cond msgId="129">
+    <cond msgId="1139">
       <and>
         <player invSize="10"/>
         <player weight="80"/>

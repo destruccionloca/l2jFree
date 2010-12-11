@@ -263,6 +263,8 @@
     <table name="#mpConsume"> 36 60 83 111 143 176 206 220 230 238 244 247 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#aggroPoints"> 138 204 285 379 477 566 635 659 676 689 700 709 </table>
+    <table name="#mDef"> 1350 1575 1800 2025 2250 2475 2700 2925 3150 3375 3600 3825 </table>
+    <table name="#pDef"> 1800 2100 2400 2700 3000 3300 3600 3900 4200 4500 4800 5100 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -275,8 +277,8 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="ImmobileBuff" time="30" val="0">
-        <mul order="0x30" stat="mDef" val="5"/>
-        <mul order="0x30" stat="pDef" val="5"/>
+        <add order="0x40" stat="mDef" val="#mDef"/>
+        <add order="0x40" stat="pDef" val="#pDef"/>
         <mul order="0x30" stat="pAtkSpd" val="0.3"/>
         <mul order="0x30" stat="runSpd" val="0.1"/>
       </effect>

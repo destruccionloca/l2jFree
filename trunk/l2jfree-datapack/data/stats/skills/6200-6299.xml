@@ -82,7 +82,7 @@
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="power" val="#power"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
@@ -146,6 +146,7 @@
     <table name="#rCrit"> -0.1 -0.2 -0.3 -0.4 </table>
     <table name="#cAtk"> 0.9 0.8 0.7 0.6 </table>
     <!-- table name="#magicFailureRate"> 2000 4000 6000 8000 </table --> <!--Guess -->
+    <table name="#mFailRate"> 2000 4000 6000 8000 </table> <!-- Guess -->
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -158,6 +159,7 @@
       <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <mul order="0x30" stat="pAtk" val="0.9"/>
       <!-- add order="0x40" stat="magicFailureRate" val="#magicFailureRate"/ -->
+      <add order="0x40" stat="mFailRate" val="#mFailRate"/>
     </for>
   </skill>
   <skill id="6213" levels="4" name="Armor Grade Penalty">

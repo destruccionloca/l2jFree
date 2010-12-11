@@ -15,6 +15,7 @@
     </for>
   </skill>
   <skill id="22001" levels="1" name="Spicy Kimchee">
+    <set name="itemConsumeId" val="20001"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -27,6 +28,7 @@
     </for>
   </skill>
   <skill id="22002" levels="1" name="Spicy Kimchee">
+    <set name="itemConsumeId" val="20002"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -45,6 +47,7 @@
     <set name="hitTime" val="100"/>
   </skill>
   <skill id="22004" levels="1" name="Energy Ginseng">
+    <set name="itemConsumeId" val="20004"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="100"/>
     <set name="target" val="TARGET_SELF"/>
@@ -64,6 +67,7 @@
     <set name="hitTime" val="100"/>
   </skill>
   <skill id="22006" levels="1" name="Halloween Candy">
+    <set name="itemConsumeId" val="20034"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="GIVE_VITALITY"/>
@@ -92,6 +96,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="22011" levels="1" name="Santa Claus' Gift - Joy">
+    <set name="itemConsumeId" val="20075"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -104,6 +109,7 @@
     </cond>
   </skill>
   <skill id="22012" levels="1" name="Santa Claus' Gift - Enjoyment">
+    <set name="itemConsumeId" val="20076"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -211,6 +217,7 @@
     </for>
   </skill>
   <skill id="22017" levels="1" name="Santa Claus' Gift - Luck">
+    <set name="itemConsumeId" val="20077"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -223,6 +230,7 @@
     </cond>
   </skill>
   <skill id="22018" levels="1" name="Santa Claus' Gift - Luck">
+    <set name="itemConsumeId" val="20078"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -255,10 +263,12 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="22023" levels="1" name="Simple Valentine Cake">
+    <set name="itemConsumeId" val="20195"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -267,10 +277,12 @@
     </cond>
   </skill>
   <skill id="22024" levels="1" name="Velvety Valentine Cake">
+    <set name="itemConsumeId" val="20196"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -279,10 +291,12 @@
     </cond>
   </skill>
   <skill id="22025" levels="1" name="Delectable Valentine Cake">
+    <set name="itemConsumeId" val="20197"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -291,10 +305,12 @@
     </cond>
   </skill>
   <skill id="22026" levels="1" name="Decadent Valentine Cake">
+    <set name="itemConsumeId" val="20198"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -319,12 +335,13 @@
     <set name="hitTime" val="100"/>
     <set name="isPotion" val="true"/>
     <for>
-      <effect count="1" name="Buff" event="afrobaguette1" time="600" val="0" stackOrder="1" stackType="event_herb">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
         <mul order="0x30" stat="pAtkSpd" val="1.08"/>
       </effect>
     </for>
   </skill>
   <skill id="22030" levels="1" name="Cream Puff Herb">
+    <set name="itemConsumeId" val="20273"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="100"/>
     <set name="target" val="TARGET_SELF"/>
@@ -335,7 +352,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" event="afrobaguette2" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -347,7 +364,7 @@
     <set name="hitTime" val="100"/>
     <set name="isPotion" val="true"/>
     <for>
-      <effect count="1" name="Buff" event="afrobaguette3" time="600" val="0" stackOrder="1" stackType="event_herb">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
         <mul order="0x30" stat="mAtkSpd" val="1.08"/>
       </effect>
     </for>
@@ -364,6 +381,7 @@
   </skill>
   <!-- Vitamin Pack -->
   <skill id="22034" levels="1" name="Birthday Cake">
+    <set name="itemConsumeId" val="20314"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="20320"/>
     <set name="create_item_count" val="1"/>
@@ -376,6 +394,7 @@
   <!-- Vitamin Item -->
   <skill id="22035" levels="1" name="Birthday Cake Effect">
     <!-- Someone should verify the consume -->
+    <set name="itemConsumeId" val="20320"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -403,14 +422,22 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="22039" levels="2" name="Rune of Experience Points">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#rRExp"> 1.3 1.5 </table>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="rRExp" val="#rRExp"/>
+    </for>
   </skill>
   <skill id="22040" levels="2" name="Rune of SP">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#rRSp"> 1.3 1.5 </table>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="rRSp" val="#rRSp"/>
+    </for>
   </skill>
   <skill id="22041" levels="2" name="Rune of Crystal Form Level">
     <set name="target" val="TARGET_NONE"/>
@@ -418,6 +445,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="22042" levels="1" name="High Grade Potion of Will">
+    <set name="itemConsumeId" val="20353"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="200"/>
     <set name="target" val="TARGET_SELF"/>
@@ -478,6 +506,7 @@
     </cond>
   </skill>
   <skill id="22045" levels="1" name="Omen Beast Transformation Scroll">
+    <set name="itemConsumeId" val="20364"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -500,6 +529,7 @@
     </for>
   </skill>
   <skill id="22046" levels="1" name="Death Blader Transformation Scroll">
+    <set name="itemConsumeId" val="20365"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -521,6 +551,7 @@
     </for>
   </skill>
   <skill id="22047" levels="1" name="Grail Apostle Transformation Scroll">
+    <set name="itemConsumeId" val="20366"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -542,6 +573,7 @@
     </for>
   </skill>
   <skill id="22048" levels="1" name="Unicorn Transformation Scroll">
+    <set name="itemConsumeId" val="20367"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -563,6 +595,7 @@
     </for>
   </skill>
   <skill id="22049" levels="1" name="Lilim Knight Transformation Scroll">
+    <set name="itemConsumeId" val="20368"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -584,6 +617,7 @@
     </for>
   </skill>
   <skill id="22050" levels="1" name="Golem Guardian Transformation Scroll">
+    <set name="itemConsumeId" val="20369"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -605,6 +639,7 @@
     </for>
   </skill>
   <skill id="22051" levels="1" name="Inferno Drake Transformation Scroll">
+    <set name="itemConsumeId" val="20370"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -626,6 +661,7 @@
     </for>
   </skill>
   <skill id="22052" levels="1" name="Dragon Bomber Transformation Scroll">
+    <set name="itemConsumeId" val="20371"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -647,6 +683,8 @@
     </for>
   </skill>
   <skill id="22053" levels="19" name="Escape">
+    <table name="#itemConsumeId"> 20372 20373 20374 20375 20376 20377 20378 20379 20380 20381 20382
+      20383 20384 20385 20386 20387 20388 20389 20390 </table>
     <table name="#teleCoords">
       -84318,244579,-3730
       46934,51467,-2977
@@ -668,6 +706,7 @@
       43799,-47727,-798
       87331,-142842,-1317
     </table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="20000"/>
@@ -676,6 +715,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="22054" levels="1" name="Potion of Energy Maintenance">
+    <set name="itemConsumeId" val="20391"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -693,6 +733,7 @@
     </for>
   </skill>
   <skill id="22055" levels="1" name="Potion of Energy Replenishing">
+    <set name="itemConsumeId" val="20392"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="GIVE_VITALITY"/>
@@ -854,7 +895,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="2" stackType="berserk">
+      <effect name="Buff" time="3600" val="0" stackOrder="3" stackType="berserk">
         <mul order="0x30" stat="pDef" val="0.92"/>
         <mul order="0x30" stat="mDef" val="0.84"/>
         <sub order="0x40" stat="rEvas" val="4"/>
@@ -1105,7 +1146,6 @@
     <table name="#mpInitialConsume"> 9 </table>
     <table name="#mpConsume"> 38 </table>
     <table name="#rCrit"> 0.3 </table>
-    <table name="#stackOrder"> 30 </table>
     <table name="#aggroPoints"> 495 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1119,7 +1159,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="#stackOrder" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="30" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
       </effect>
     </for>
@@ -1211,7 +1251,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="#rate" stackType="hp_regen_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="#regHp" stackType="hp_regen_up">
         <mul order="0x30" stat="regHp" val="#regHp"/>
       </effect>
     </for>
@@ -1289,24 +1329,24 @@
     -->
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="SPAWN"/>
+    <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="npcId" val="8"/>
+    <!-- set name="npcId" val="8"/>
     <set name="despawnDelay" val="60000"/>
-    <set name="isSummonSpawn" val="true"/>
+    <set name="isSummonSpawn" val="true"/ -->
   </skill>
   <skill id="22096" levels="1" name="Summon Reckless Spirit of Fire">
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="SPAWN"/>
+    <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="npcId" val="9"/>
+    <!-- set name="npcId" val="9"/>
     <set name="despawnDelay" val="60000"/>
-    <set name="isSummonSpawn" val="true"/>
+    <set name="isSummonSpawn" val="true"/ -->
   </skill>
   <skill id="22097" levels="1" name="Girl's Gift of Gratitude">
     <!--
@@ -1349,13 +1389,13 @@
     <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="2" stackType="multi_buff">
-        <mul order="0x40" stat="maxHp" val="1.60"/>
-        <mul order="0x40" stat="maxMp" val="1.60"/>
-        <mul order="0x40" stat="maxCp" val="1.60"/>
-        <mul order="0x40" stat="pDef" val="1.30"/>
-        <mul order="0x40" stat="mDef" val="1.30"/>
+        <mul order="0x30" stat="maxHp" val="1.60"/>
+        <mul order="0x30" stat="maxMp" val="1.60"/>
+        <mul order="0x30" stat="maxCp" val="1.60"/>
+        <mul order="0x30" stat="pDef" val="1.30"/>
+        <mul order="0x30" stat="mDef" val="1.30"/>
         <add order="0x40" stat="runSpd" val="30"/>
-        <mul order="0x40" stat="pAtk" val="1.20"/>
+        <mul order="0x30" stat="pAtk" val="1.20"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
         <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>

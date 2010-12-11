@@ -15,7 +15,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" val="738" stat="maxCp"/> <!-- Maybe need little correction -->
+      <add order="0x40" val="738" stat="maxCp"/>
     </for>
   </skill>
   <skill id="802" levels="1" name="Wizard Ability - Anti-magic">
@@ -30,7 +30,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="effectRange" val="-1"/>
     <for>
       <add order="0x40" stat="darkRes" val="5"/>
       <add order="0x40" stat="holyRes" val="5"/>
@@ -40,7 +39,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="effectRange" val="-1"/>
     <for>
       <mul order="0x30" stat="critVuln" val="0.97"/>
     </for>
@@ -247,7 +245,7 @@
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_ONE"/>
@@ -346,7 +344,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="824" levels="3" name="Armor Golem">
+  <skill id="824" levels="3" name="Golem Reinforcement">
     <table name="#pDef"> 1.08 1.12 1.15 </table>
     <table name="#maxHp"> 1.05 1.08 1.1 </table>
     <table name="#mpInitialConsume"> 7 8 8 </table>
@@ -582,7 +580,7 @@
   <skill id="835" levels="4" name="Imbue Seed of Destruction">
     <table name="#mdot"> 76 83 83 83 </table>
     <table name="#magicLvl"> 68 70 72 74 </table>
-    <table name="#triggeredLevel"> 1 2 3 4 </table>
+    <!-- table name="#triggeredLevel"> 1 2 3 4 </table -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -600,7 +598,7 @@
     <set name="effectRange" val="400"/>
     <for>
       <effect count="7" name="ManaDamOverTime" time="3" val="#mdot" abnormal="poison"/>
-      <effect name="ChanceSkillTrigger" time="20" noicon="1" val="0" triggeredId="5697" triggeredLevel="#triggeredLevel" chanceType="ON_EXIT"/>
+      <!-- effect name="ChanceSkillTrigger" time="20" noicon="1" val="0" triggeredId="5697" triggeredLevel="#triggeredLevel" chanceType="ON_EXIT"/ -->
     </for>
   </skill>
   <skill id="836" levels="3" name="Oblivion Trap">
@@ -667,7 +665,15 @@
       <player landingZone="true"/>
     </cond>
     <for>
-      <effect name="Transformation" time="-1" val="0"/> <!-- Transformation have unlimited time -->
+      <effect name="Transformation" time="-1" val="0"> <!-- Transformation have unlimited time -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="31"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+        <mul order="0x30" stat="maxCp" val="0.15"/>
+      </effect>
     </for>
   </skill>
   <skill id="841" levels="1" name="Aura Bird - Falcon">
@@ -753,7 +759,7 @@
     <set name="skillType" val="SIEGEFLAG"/>
     <set name="skillRadius" val="900"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="isOutpost" val="true"/>
+    <!-- set name="isOutpost" val="true"/ -->
   </skill>
   <skill id="845" levels="1" name="Outpost Demolition">
   <!-- Demolishes an outpost. After demolition, a new outpost can be constructed. -->
@@ -891,7 +897,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="858" levels="1" name="Elf Mercenary">
@@ -906,7 +912,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="859" levels="1" name="Dark Elf Mercenary">
@@ -921,7 +927,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="860" levels="1" name="Orc Mercenary">
@@ -936,7 +942,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="861" levels="1" name="Dwarf Mercenary">
@@ -951,7 +957,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="862" levels="1" name="Kamael Mercenary">
@@ -966,7 +972,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="863" levels="1" name="Royal Guard Captain">
@@ -981,7 +987,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="864" levels="1" name="Archer Captain">
@@ -996,7 +1002,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="865" levels="1" name="Magic Leader">
@@ -1011,7 +1017,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="866" levels="1" name="Kamael Guard Captain">
@@ -1026,7 +1032,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="867" levels="1" name="Knight of Dawn">
@@ -1041,7 +1047,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="868" levels="1" name="Fortress Captain">
@@ -1056,7 +1062,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
+      <effect name="Transformation" time="1800" val="0"/>
     </for>
   </skill>
   <skill id="869" levels="1" name="Mercenary Power Strike">
@@ -1092,10 +1098,10 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="871" levels="1" name="Royal Guard Captain Might">
-    <set name="mpInitialConsume" val="7"/>
-    <set name="mpConsume" val="28"/>
     <table name="#pAtk"> 1.15 </table>
     <table name="#aggroPoints"> 379 </table>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="28"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="4000"/>

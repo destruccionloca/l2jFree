@@ -1006,7 +1006,6 @@
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_red">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.5"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.1"/>
-        <mul order="0x30" stat="DanceMpConsumeRate" val="0.8"/>
         <mul order="0x30" stat="DanceMpConsumeRate" val="0.8"/> <!-- Guess -->
       </effect>
     </for>

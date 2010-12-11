@@ -9,14 +9,19 @@
    -->
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="60"/>
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="12000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="BLOW"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
+    <for>
+      <effect count="1" name="SilenceMagicPhysical" time="5" val="0" stackOrder="30" stackType="silence_all"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
+    </for>
   </skill>
   <skill id="5901" levels="2" name="Mist of Oblivion">
   <!-- Lv1: When a blow is incurred, the target is continuously removed, and skills and magic cannot be used. -->
@@ -56,14 +61,19 @@
    -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="59"/>
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DISARM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
+    <for>
+      <effect name="Disarm" time="5" val="0"/>
+    </for>
   </skill>
   <skill id="5904" levels="3" name="Mist of Souliter">
   <!-- Lv1: none -->
@@ -97,12 +107,18 @@
    -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MUTE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <for>
+      <effect name="Mute" time="120" val="0" stackOrder="1" stackType="silence"/>
+    </for>
   </skill>
   <skill id="5906" levels="1" name="Ritual of Revive">
   <!-- none -->
@@ -172,12 +188,13 @@
     22523 22524 22525 22526 22527 22528 22529 22530 22531 22650
     22651 22652 22653 22654 22655 22656 22657
    -->
+    <set name="power" val="3557"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
   </skill>
@@ -188,11 +205,12 @@
     22511 22514 22517 22521 22532 22533 22534 22535 22658 22659
    -->
     <set name="isMagic" val="true"/>
+    <set name="power" val="3557"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="800"/>
   </skill>
@@ -742,13 +760,18 @@
     <set name="SSBoost" val="2.0"/>
     <set name="mpInitialConsume" val="10"/>
     <set name="mpConsume" val="41"/>
+    <set name="power" val="916"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
+    <for>
+      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="5962" levels="1" name="Air Defense Cannon">
   <!-- none -->

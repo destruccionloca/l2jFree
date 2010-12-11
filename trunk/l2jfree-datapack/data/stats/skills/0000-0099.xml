@@ -14,7 +14,7 @@
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>
@@ -67,13 +67,13 @@
     <table name="#power"> 30 32 35 46 61 65 71 78 84 </table>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
@@ -108,7 +108,7 @@
     <table name="#power"> 918 971 1025 1081 1140 1200 1262 1327 1393 1461 1531 1603 1677 1753 1830 1908 1988 2070 2153 2237 2322 2408 2494 2581 2669 2757 2846 2934 3022 3109 3196 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="SSBoost" val="2.0"/>
@@ -135,9 +135,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="3"/> <!-- Requires a dualsword weapon whose 3rd energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="3"/ --> <!-- Requires a dualsword weapon whose 3rd energy stage has been recharged. -->
+    <!-- /cond -->
   </skill>
   <skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 1843 1860 1876 1893 1909 1925 1942 1958 1975 1991 2008 2024 2041 2057 2074 2090 2107 2123 2139 2156 2172 2189 2205 2222 2238 2255 2271 2288 2304 2321 </table>
@@ -174,9 +174,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="2"/> <!-- Requires a dualsword, sword or blunt weapon weapon whose 2nd energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Requires a dualsword, sword or blunt weapon weapon whose 2nd energy stage has been recharged. -->
+    <!--/cond -->
   </skill>
   <skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 461 465 469 474 478 482 486 490 494 498 502 506 511 515 519 523 527 531 535 539 543 548 552 556 560 564 568 572 576 581 </table>
@@ -203,6 +203,8 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <set name="baseCritRate" val="15"/>
+    <!-- charge values -->
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -214,9 +216,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="2"/> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
+    <!--/cond -->
   </skill>
   <skill id="8" levels="8" name="Sonic Focus">
     <table name="#maxCharges"> 1 2 3 4 5 6 7 8 </table>
@@ -233,11 +235,11 @@
     <!-- Can be charged up to level 8 -->
     <set name="giveCharges" val="1"/>
     <set name="maxCharges" val="#maxCharges"/>
-    <cond msgId="113" addName="1">
+    <!-- cond msgId="113" addName="1">
       <not>
         <player Charges="#maxCharges"/>
       </not>
-    </cond>
+    </cond -->
   </skill>
   <skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 461 465 469 474 478 482 486 490 494 498 502 506 511 515 519 523 527 531 535 539 543 548 552 556 560 564 568 572 576 581 </table>
@@ -249,7 +251,7 @@
     <table name="#power"> 111 118 124 132 139 147 155 163 172 181 190 199 209 219 229 240 251 262 273 284 296 308 320 332 344 357 369 382 394 407 420 432 445 457 </table>
     <set name="weaponsAllowed" val="18956"/> <!-- Dual Sword/Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="itemConsumeId" val="5589"/>
@@ -267,6 +269,8 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
+    <!-- charge values -->
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -278,9 +282,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="2"/> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
+    <!--/cond -->
   </skill>
   <skill id="10" levels="8" name="Summon Storm Cubic" enchantLevels1="30">
     <table name="#ench1power"> 1980 1985 1990 1995 2000 2005 2010 2015 2020 2025 2030 2035 2040 2045 2050 2055 2060 2065 2070 2075 2080 2085 2090 2095 2100 2105 2110 2115 2120 2125 </table> <!-- Need Verify -->
@@ -300,7 +304,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <!-- Summon-specific -->
     <set name="power" val="#mAtk"/>
-    <set name="npcId" val="1"/>
+    <set name="npcId" val="1"/> <!-- Cubic Id -->
     <set name="activationtime" val="14"/>
     <set name="activationchance" val="80"/>
     <set name="summonTotalLifeTime" val="900000"/>
@@ -391,7 +395,7 @@
     <table name="#magicLvl"> 3 4 5 8 9 10 13 14 15 18 19 20 22 23 24 26 27 28 30 31 32 34 35 36 </table>
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
@@ -416,7 +420,7 @@
     <table name="#power"> 129 137 145 153 162 171 181 190 200 211 222 233 244 256 268 280 293 305 318 332 345 359 373 387 402 416 431 445 460 475 489 504 519 533 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="itemConsumeId" val="5589"/>
@@ -433,6 +437,8 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
+    <!-- charge values -->
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -444,9 +450,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="1"/> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
+    <!--/cond -->
   </skill>
   <skill id="18" levels="37" name="Aura of Hate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1power"> 6591 6601 6611 6621 6631 6642 6652 6662 6672 6682 6692 6703 6713 6723 6733 6743 6753 6764 6774 6784 6794 6804 6814 6825 6835 6845 6855 6865 6875 6886 </table>
@@ -471,13 +477,13 @@
       <effect name="TargetMe" time="3" val="0"/>
     </for>
     <enchant2for>
-      <effect name="TargetMe" time="3" val="0"/>
+      <effect name="TargetMe" time="6" val="0"/>
       <effect name="Debuff" time="6" val="0">
         <mul order="0x30" stat="pDef" val="#enchpDefpAtk"/>
       </effect>
     </enchant2for>
     <enchant3for>
-      <effect name="TargetMe" time="3" val="0"/>
+      <effect name="TargetMe" time="6" val="0"/>
       <effect name="Debuff" time="6" val="0">
         <mul order="0x30" stat="pAtk" val="#enchpDefpAtk"/>
       </effect>
@@ -556,7 +562,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <!-- Summon-specific -->
     <set name="power" val="#mAtk"/>
-    <set name="npcId" val="2"/>
+    <set name="npcId" val="2"/> <!-- Cubic Id -->
     <set name="activationtime" val="14"/> <!-- guessed -->
     <set name="activationchance" val="67"/> <!-- guessed -->
     <set name="summonTotalLifeTime" val="900000"/>
@@ -663,13 +669,13 @@
       <effect name="TargetMe" time="3" val="0"/>
     </for>
     <enchant2for>
-      <effect name="TargetMe" time="3" val="0" noicon="1"/>
+      <effect name="TargetMe" time="6" val="0" noicon="1"/>
       <effect name="Debuff" time="6" val="0">
         <mul order="0x30" stat="pDef" val="#enchpDefpAtk"/>
       </effect>
     </enchant2for>
     <enchant3for>
-      <effect name="TargetMe" time="3" val="0" noicon="1"/>
+      <effect name="TargetMe" time="6" val="0" noicon="1"/>
       <effect name="Debuff" time="6" val="0">
         <mul order="0x30" stat="pAtk" val="#enchpDefpAtk"/>
       </effect>
@@ -681,7 +687,7 @@
     <table name="#power"> 34 38 41 54 59 64 83 91 98 125 136 147 171 185 199 231 248 267 307 328 351 401 428 456 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
@@ -704,7 +710,7 @@
     <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="condition" val="24"/> <!-- Behind/Crit -->
@@ -752,7 +758,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <!-- Summon-specific -->
     <set name="power" val="#mAtk"/>
-    <set name="npcId" val="5"/>
+    <set name="npcId" val="5"/> <!-- Cubic Id -->
     <set name="activationtime" val="14"/> <!-- guessed -->
     <set name="activationchance" val="55"/> <!-- guessed -->
     <set name="summonTotalLifeTime" val="900000"/>
@@ -801,6 +807,8 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <set name="baseCritRate" val="15"/>
+    <!-- charge values -->
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -812,9 +820,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
-    <cond msgId="113" addName="1">
-      <player Charges="1"/> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
-    </cond>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/ --> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
+    <!--/cond -->
   </skill>
   <skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 2763 2788 2813 2837 2862 2887 2911 2936 2961 2985 3010 3035 3059 3084 3109 3133 3158 3183 3207 3232 3257 3281 3306 3331 3355 3380 3405 3429 3454 3479 </table>
@@ -953,9 +961,9 @@
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="ignoreShld" val="true"/>
+    <set name="isDebuff" val="true"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="power" val="#ench2power"/>
-    <set name="isDebuff" val="true"/>
     <for>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" effectPower="50" effectType="STUN"/>
     </for>
@@ -1007,11 +1015,11 @@
     <!-- charge values -->
     <set name="giveCharges" val="1"/>
     <set name="maxCharges" val="#maxCharges"/>
-    <cond msgId="113" addName="1">
+    <!-- cond msgId="113" addName="1">
       <not>
         <player Charges="#maxCharges"/>
       </not>
-    </cond>
+    </cond -->
   </skill>
   <skill id="51" levels="1" name="Lure" enchantLevels1="30">
     <table name="#ench1mpConsume"> 43 43 43 42 42 42 41 41 41 40 40 40 39 39 39 38 38 38 37 37 37 36 36 36 35 35 35 34 34 34 </table>
@@ -1068,6 +1076,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="1"/ -->
+    <!--/cond -->
   </skill>
   <skill id="56" levels="24" name="Power Shot">
     <table name="#mpConsume"> 17 18 19 22 23 25 31 32 34 38 39 40 42 43 45 49 51 53 56 56 58 63 65 67 </table>
@@ -1117,10 +1128,10 @@
     <enchant4 name="negateStats" val="BLEED"/>
     <enchant4 name="negateLvl" val="#enchnegateLvl"/>
     <enchant3for>
-      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+      <effect name="Negate" val="0" noicon="1" effectPower="80" effectType="NEGATE"/>
     </enchant3for>
     <enchant4for>
-      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+      <effect name="Negate" val="0" noicon="1" effectPower="80" effectType="NEGATE"/>
     </enchant4for>
   </skill>
   <skill id="60" levels="1" name="Fake Death">
@@ -1228,10 +1239,10 @@
     <enchant4 name="negateLvl" val="#enchnegateLvl"/>
     <enchant4 name="hpConsume" val="#ench34hpConsume"/>
     <enchant3for>
-      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+      <effect name="Negate" val="0" noicon="1" effectPower="80" effectType="NEGATE"/>
     </enchant3for>
     <enchant4for>
-      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+      <effect name="Negate" val="0" noicon="1" effectPower="80" effectType="NEGATE"/>
     </enchant4for>
   </skill>
   <skill id="70" levels="53" name="Drain Health" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
@@ -1389,7 +1400,7 @@
     <table name="#power"> 4580 6332 9132 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="hpConsume" val="#hpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>
@@ -1787,7 +1798,7 @@
   <skill id="98" levels="5" name="Sword Symphony">
     <table name="#mpConsume"> 116 128 137 146 154 </table>
     <table name="#magicLvl"> 55 60 64 68 72 </table>
-    <table name="#power"> 550 682 796 915 1036 </table> <!-- Needs verify -->
+    <table name="#power"> 550 682 796 915 1036 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>

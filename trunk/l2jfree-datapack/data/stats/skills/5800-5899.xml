@@ -425,14 +425,21 @@
    -->
     <table name="#mpInitialConsume"> 14 15 15 </table>
     <table name="#mpConsume"> 59 60 60 </table>
+    <table name="#magicLvl"> 60 70 75 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="power" val="300"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
+    <set name="overHit" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="coolTime" val="2000"/>
+    <set name="target" val="TARGET_FRONT_AURA"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
   </skill>
@@ -450,14 +457,21 @@
    -->
     <table name="#mpInitialConsume"> 13 14 14 14 14 15 </table>
     <table name="#mpConsume"> 55 56 58 58 59 60 </table>
+    <table name="#magicLvl"> 60 67 70 72 73 75 </table>
+    <table name="#power"> 55 126 263 345 420 501 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="power" val="#power"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="1000"/>
-    <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
   </skill>
@@ -546,11 +560,16 @@
     <set name="SSBoost" val="2.0"/>
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="60"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="power" val="3500"/>
+    <set name="magicLvl" val="85"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillType" val="AGGDAMAGE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="TargetMe" time="3" val="0"/>
+    </for>
   </skill>
   <skill id="5833" levels="1" name="Shield">
   <!-- Increases defense power temporarily. Effect 3. -->
@@ -737,14 +756,20 @@
    -->
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="26000"/>
     <set name="hitTime" val="26000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="coolTime" val="2700"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillType" val="FEAR"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillRadius" val="400"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.0"/>
+      <effect count="15" name="Fear" time="2" val="0" stackOrder="1" stackType="turn_flee"/>
     </for>
   </skill>
   <skill id="5844" levels="1" name="Thunder Storm">
@@ -752,11 +777,19 @@
     <set name="SSBoost" val="2.0"/>
     <set name="mpInitialConsume" val="59"/>
     <set name="mpConsume" val="239"/>
+    <set name="power" val="775"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="8000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="coolTime" val="720"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillRadius" val="150"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="50"/>
+    <for>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="5845" levels="12" name="NPC Trigger Bleed">
   <!-- Lv1: none -->
@@ -1476,14 +1509,33 @@
    -->
     <set name="mpInitialConsume" val="29"/>
     <set name="mpConsume" val="116"/>
+    <set name="power" val="40"/>
+    <set name="magicLvl" val="80"/>
     <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="800"/>
+    <for>
+      <effect name="Debuff" time="30" val="0">
+        <mul order="0x30" stat="pDef" val="0.9"/>
+        <mul order="0x30" stat="mDef" val="0.9"/>
+        <sub order="0x40" stat="rEvas" val="4"/>
+        <mul order="0x30" stat="maxHp" val="0.9"/>
+        <mul order="0x30" stat="regHp" val="0.9"/>
+        <mul order="0x30" stat="pAtk" val="1.2"/>
+        <mul order="0x30" stat="mAtk" val="1.2"/>
+        <mul order="0x30" stat="mAtkSpd" val="1.2"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
+        <add order="0x40" stat="accCombat" val="6"/>
+        <mul order="0x30" stat="cAtk" val="1.2"/>
+        <basemul order="0x30" stat="rCrit" val="0.2"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5895" levels="1" name="Mark of Cowardice">
   <!-- Significantly decreases HP, P. Def., M. Def. and evasion. The use of attack actions and skills and HP Recovery are limited, but movement speed is slightly increased. -->
@@ -1493,14 +1545,27 @@
    -->
     <set name="mpInitialConsume" val="30"/>
     <set name="mpConsume" val="120"/>
+    <set name="power" val="40"/>
+    <set name="magicLvl" val="80"/>
     <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="800"/>
+    <for>
+      <effect name="Debuff" time="10" val="0">
+        <mul order="0x30" stat="maxHp" val="0.9"/>
+        <mul order="0x30" stat="pDef" val="0.9"/>
+        <mul order="0x30" stat="mDef" val="0.9"/>
+        <sub order="0x40" stat="rEvas" val="4"/>
+        <mul order="0x30" stat="regHp" val="0.9"/>
+        <add order="0x40" stat="runSpd" val="40"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5896" levels="2" name="Soulless">
   <!-- Lv1: none -->

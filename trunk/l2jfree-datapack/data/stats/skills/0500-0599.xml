@@ -92,7 +92,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="#skillRadius"/>
@@ -111,7 +111,7 @@
     <table name="#magicLvl"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 </table>
     <set name="weaponsAllowed" val="131072"/> <!-- Rapier -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_ONE"/>
@@ -149,7 +149,7 @@
     <table name="#power"> 1853 1953 2057 2164 2274 2388 2505 2625 2748 2875 3004 3136 3271 3408 3548 3690 3834 3980 4127 4275 4425 4575 4726 4878 5029 5180 5330 5479 </table>
     <set name="weaponsAllowed" val="131072"/> <!-- Rapier -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="condition" val="16"/> <!-- Crit -->
@@ -187,7 +187,7 @@
     <table name="#power"> 2388 3408 4275 5180 </table>
     <set name="weaponsAllowed" val="131072"/> <!-- Rapier -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="nextActionAttack" val="true"/>
+    <!-- set name="nextActionAttack" val="true"/ -->
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
@@ -266,7 +266,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="3200"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -359,7 +359,7 @@
     <set name="magicLvl" val="49"/>
     <set name="power" val="500"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1500"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="target" val="TARGET_ONE"/>
@@ -588,7 +588,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="80"/> <!-- Guess -->
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1500"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
@@ -632,10 +632,9 @@
   </skill>
   <skill id="523" levels="7" name="Imbue Dark Seed">
     <table name="#dot"> 76 76 76 76 83 83 83 </table>
-    <table name="#effectLevel"> 1 2 3 4 5 6 7 </table>
+    <table name="#abnormalLvl"> 1 2 3 4 5 6 7 </table>
     <table name="#magicLvl"> 62 64 66 68 70 72 74 </table>
-    <table name="#triggeredLevel"> 1 2 3 4 5 6 7 </table>
-    <set name="effectLevel" val="#effectLevel"/>
+    <!-- table name="#triggeredLevel"> 1 2 3 4 5 6 7 </table -->
     <set name="mpConsume" val="30"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
@@ -651,9 +650,10 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <for>
       <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="poison"/>
-      <effect name="ChanceSkillTrigger" time="20" noicon="1" val="0" triggeredId="5447" triggeredLevel="#triggeredLevel" chanceType="ON_EXIT"/>
+      <!-- effect name="ChanceSkillTrigger" time="20" noicon="1" val="0" triggeredId="5447" triggeredLevel="#triggeredLevel" chanceType="ON_EXIT"/ -->
     </for>
   </skill>
   <skill id="524" levels="1" name="Cure Dark Seed">
@@ -663,7 +663,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="negateId" val="5447"/>
+    <set name="negateId" val="523"/> <!-- change to 5447 when skill 523 is fixed -->
   </skill>
   <skill id="525" levels="6" name="Decoy" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1mpInitialConsume"> 27 27 26 26 25 25 24 24 23 23 22 22 22 21 21 20 20 19 19 18 18 17 17 17 16 16 15 15 14 14 </table>
@@ -915,7 +915,7 @@
     <set name="effectRange" val="400"/>
     <for>
       <effect name="Spoil" time="10" val="0"/>
-      <effect name="ChanceSkillTrigger" time="10" noicon="1" val="0" triggeredId="5430" triggeredLevel="1" chanceType="ON_EXIT"/>
+      <!-- effect name="ChanceSkillTrigger" time="10" noicon="1" val="0" triggeredId="5430" triggeredLevel="1" chanceType="ON_EXIT"/ -->
     </for>
   </skill>
   <skill id="538" levels="1" name="Final Form">
@@ -1451,7 +1451,7 @@
   <skill id="559" levels="4" name="Spear">
     <table name="#power"> 900 1013 1129 1248 </table>
     <table name="#mpConsume"> 61 63 67 70 </table>
-    <table name="#effectLevel"> 6 6 7 7 </table>
+    <table name="#abnormalLvl"> 6 6 7 7 </table>
     <set name="weaponsAllowed" val="72"/> <!-- Blunt/Pole -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1459,13 +1459,16 @@
     <set name="reuseDelay" val="38000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_AREA"/>
+    <set name="lvlDepend" val="2"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="skillRadius" val="100"/>
     <set name="effectRange" val="400"/>
-    <set name="effectType" val="BLEED"/>
-    <set name="effectLevel" val="#effectLevel"/>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
+    <for>
+      <effect count="10" name="DamOverTime" time="3" val="0" abnormal="bleed" effectPower="80" effectType="BLEED"/>
+    </for>
   </skill>
   <skill id="560" levels="4" name="Power Slash">
     <table name="#mpConsume"> 61 63 67 70 </table>
@@ -1522,7 +1525,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="reuseDelay" val="5000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillType" val="PDAM"/>
@@ -1562,6 +1565,7 @@
     <set name="skillRadius" val="600"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="effectPower" val="80"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <!-- set name="flyType" val="CHARGE"/>
@@ -1591,13 +1595,18 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="reuseDelay" val="5000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="600"/>
     <set name="skillType" val="CHARGEDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="needCharges" val="2"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="2"/>
+    </cond -->
   </skill>
   <skill id="569" levels="4" name="Attack Storm">
     <table name="#power"> 625 703 784 867 </table>
@@ -1611,8 +1620,12 @@
     <set name="skillType" val="CHARGEDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="castRange" val="500"/>
     <set name="needCharges" val="3"/>
+    <set name="castRange" val="500"/>
+    <set name="effectRange" val="1100"/>
+    <!-- cond msgId="113" addName="1">
+      <player Charges="3"/>
+    </cond -->
   </skill>
   <skill id="570" levels="4" name="Attack Rage">
     <table name="#power"> 904 1108 1235 1404 </table>
@@ -1623,7 +1636,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="5200"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1638,16 +1651,18 @@
     <table name="#mpInitialConsume"> 5 5 6 7 </table>
     <table name="#mpConsume"> 18 22 23 26 </table>
     <table name="#dot"> 114 114 132 132 </table>
-    <table name="#effectLevel"> 6 6 7 7 </table>
+    <table name="#abnormalLvl"> 6 6 7 7 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="18000"/>
     <set name="hitTime" val="3000"/>
     <set name="effectType" val="POISON"/>
-    <set name="effectLevel" val="#effectLevel"/>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="skillType" val="POISON"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="effectRange" val="200"/>
@@ -1674,6 +1689,8 @@
     <table name="#power"> 625 703 784 867 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
+    <set name="element" val="3"/> <!-- Earth -->
+    <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="1"/>
     <set name="overHit" val="true"/>
     <set name="hitTime" val="3000"/>
@@ -1685,7 +1702,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="baseCritRate" val="15"/>
     <for>
-      <effect name="Stun" time="5" val="0" stackOrder="1" stackType="Stun" effectPower="50" effectType="STUN"/> <!-- Guess effectPower -->
+      <effect name="Stun" time="5" val="0" stackOrder="1" stackType="Stun" effectPower="50" effectType="STUN"/>
     </for>
   </skill>
   <skill id="574" levels="4" name="Bomb Installation">
@@ -1713,7 +1730,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="13000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
@@ -1738,8 +1755,10 @@
   <skill id="577" levels="4" name="Fire Breath">
     <table name="#mpConsume"> 61 63 67 70 </table>
     <table name="#power"> 875 984 1098 1213 </table>
+    <table name="#magicLvl"> 55 60 66 74 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="14000"/>
     <set name="hitTime" val="1000"/>
@@ -1754,10 +1773,12 @@
   <skill id="578" levels="4" name="Blaze Quake">
     <table name="#mpConsume"> 61 63 67 70 </table>
     <table name="#power"> 625 703 784 867 </table>
-    <table name="#effectLevel"> 6 6 7 7 </table>
+    <table name="#magicLvl"> 55 60 66 74 </table>
+    <table name="#abnormalLvl"> 6 6 7 7 </table>
     <table name="#dot"> 114 120 129 132 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="1000"/>
     <set name="element" val="0"/> <!-- Fire -->
@@ -1768,7 +1789,7 @@
     <set name="skillRadius" val="200"/>
     <set name="effectType" val="DOT"/>
     <set name="effectRange" val="200"/>
-    <set name="effectLevel" val="#effectLevel"/>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <for>
       <effect count="11" name="DamOverTime" time="3" val="#dot" abnormal="bleed"/>
     </for>
@@ -1793,11 +1814,12 @@
   </skill>
   <skill id="580" levels="4" name="Death Blow">
     <table name="#mpConsume"> 61 63 67 70 </table>
+    <table name="#magicLvl"> 58 64 68 74 </table>
     <table name="#accCombat"> 13 15 17 19 </table>
     <table name="#power"> 1500 2000 2500 3000 </table>
     <!-- I think the aggro points are missing also... Need check -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="magicLvl" val="50"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="1.05"/>
@@ -1811,7 +1833,7 @@
     <set name="lethal1" val="5"/>
     <set name="lethal2" val="2"/>
     <set name="effectRange" val="360"/>
-    <set name="nextAction" val="attack"/> <!-- To prevent character stop from attacking -->
+    <!-- set name="nextActionAttack" val="true"/ -->
     <for>
       <effect name="Buff" time="15" val="0" stackOrder="#accCombat" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="#accCombat"/>
@@ -1859,7 +1881,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="40" effectType="BLEED"> <!-- Guess effectPower -->
+      <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="40" effectType="BLEED">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -1874,7 +1896,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="dispelOnAttack" val="true"/>
     <for>
-      <effect name="SilentMove" abnormal="stealth" time="120" val="0">
+      <effect name="SilentMove" abnormal="stealth" time="120" val="0" stackOrder="1" stackType="stealth">
         <sub order="0x40" stat="runSpd" val="18"/>
       </effect>
     </for>
@@ -1886,7 +1908,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
@@ -1904,8 +1926,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="438"/>
     <for>
-      <effect name="Buff" time="15" val="0">
-        <mul order="0x30" stat="runSpd" val="1.45"/>
+      <effect name="Buff" time="15" val="0" stackOrder="45" stackType="speed_up_special">
+        <add order="0x40" stat="runSpd" val="45"/>
       </effect>
     </for>
   </skill>
@@ -1937,6 +1959,8 @@
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
+    <set name="element" val="3"/> <!-- Earth -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="720"/>
@@ -1969,11 +1993,11 @@
   <skill id="589" levels="2" name="Darkness Energy Drain">
     <!-- unconfirmed drain power -->
     <table name="#mpConsume"> 54 58 </table>
+    <table name="#absorbAbs"> 260 467 </table>
     <table name="#magicLvl"> 55 58 </table>
-    <table name="#power"> 260 467 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="#power"/>
+    <set name="power" val="100"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
@@ -1983,6 +2007,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="20"/>
     <set name="effectRange" val="200"/>
+    <!-- Drain-specific: absorb from a mob's corpse -->
+    <set name="absorbPart" val="0"/> <!-- no damage, it's dead -->
+    <set name="absorbAbs" val="#absorbAbs"/>
   </skill>
   <skill id="590" levels="1" name="Residence Body">
     <!-- by Sephiroth -->

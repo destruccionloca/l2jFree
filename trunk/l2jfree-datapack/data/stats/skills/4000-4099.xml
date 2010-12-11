@@ -52,6 +52,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
+      <mul order="0x30" stat="crossbowWpnVuln" val="0.2" />
       <mul order="0x30" stat="daggerWpnVuln" val="0.7"/>
       <mul order="0x30" stat="bluntWpnVuln" val="1.1"/>
     </for>
@@ -75,6 +76,7 @@
     <for>
       <sub order="0x40" stat="windRes" val="15"/>
       <mul order="0x30" stat="bowWpnVuln" val="1.1"/>
+      <mul order="0x30" stat="crossbowWpnVuln" val="1.1"/>
     </for>
   </skill>
   <skill id="4006" levels="1" name="Burning Wood">
@@ -274,6 +276,7 @@
     <for>
       <sub order="0x40" stat="fireRes" val="50"/>
       <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
+      <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
     </for>
   </skill>
   <skill id="4022" levels="1" name="Body Of Nurse Ant">
@@ -948,6 +951,7 @@
     <for>
       <sub order="0x40" stat="fireRes" val="100"/>
       <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
+      <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
     </for>
   </skill>
   <skill id="4063" levels="1" name="Paralysis">
@@ -1076,7 +1080,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4070" levels="1" name="Decrease Atk. Spd.">
-    <!-- Done by dc -->
+    <!-- Zone Skill -->
     <set name="lvlDepend" val="1"/>
     <set name="power" val="10"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
@@ -1298,6 +1302,7 @@
   </skill>
   <skill id="4082" levels="1" name="Poison of Death">
     <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="ignoreResists" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_ONE"/>
@@ -1486,7 +1491,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="6000"/>
-    <set name="skillType" val="CANCEL"/> <!-- Needs core support for "CANCEL_ALL" without exceptions -->
+    <set name="skillType" val="NEGATE"/> <!-- Needs core support for "CANCEL_ALL" without exceptions -->
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>

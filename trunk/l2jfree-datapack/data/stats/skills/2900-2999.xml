@@ -37,19 +37,72 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2907" levels="1" name="Battlefield Use Secret Medicine of Life">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="HEAL_PERCENT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <player level="#minLvl"/>
+        <player SiegeZone="126"/>
+         <not>
+          <player level="#maxLvl"/>
+         </not>
+      </and>
+    </cond>
   </skill>
   <skill id="2908" levels="1" name="Battlefield Use Secret Medicine of Mind">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#power"> 150 250 350 500 700 840 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MANAHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <player level="#minLvl"/>
+        <player SiegeZone="126"/>
+         <not>
+          <player level="#maxLvl"/>
+         </not>
+      </and>
+    </cond>
   </skill>
   <skill id="2909" levels="1" name="Battlefield Use Secret Medicine of Will">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#power"> 200 400 1200 1600 2000 2400 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <player level="#minLvl"/>
+        <player SiegeZone="126"/>
+         <not>
+          <player level="#maxLvl"/>
+         </not>
+      </and>
+    </cond>
   </skill>
   <skill id="2910" levels="1" name="Skull Key of Pain">
     <set name="target" val="TARGET_NONE"/>
@@ -87,14 +140,30 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2917" levels="1" name="Big Staccato Silk Cocoon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="14834"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2918" levels="1" name="Small Staccato Silk Cocoon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="14833"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2919" levels="1" name="Ancient Parchment">
     <set name="target" val="TARGET_NONE"/>
@@ -107,6 +176,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2921" levels="1" name="Gludio Supply Box - magic pin">
+    <set name="itemConsumeId" val="13695"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -119,6 +189,7 @@
     </cond>
   </skill>
   <skill id="2922" levels="1" name="Dion supply box - magic pin">
+    <set name="itemConsumeId" val="13696"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -131,6 +202,7 @@
     </cond>
   </skill>
   <skill id="2923" levels="1" name="Giran supply box - magic pin">
+    <set name="itemConsumeId" val="13697"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -143,6 +215,7 @@
     </cond>
   </skill>
   <skill id="2924" levels="1" name="Oren supply box - magic pin">
+    <set name="itemConsumeId" val="13698"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -155,6 +228,7 @@
     </cond>
   </skill>
   <skill id="2925" levels="1" name="Aden supply box - magic pin">
+    <set name="itemConsumeId" val="13699"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -167,6 +241,7 @@
     </cond>
   </skill>
   <skill id="2926" levels="1" name="Innadril supply box - magic pin">
+    <set name="itemConsumeId" val="13700"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -179,6 +254,7 @@
     </cond>
   </skill>
   <skill id="2927" levels="1" name="Goddard supply box - magic pin">
+    <set name="itemConsumeId" val="13701"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -191,6 +267,7 @@
     </cond>
   </skill>
   <skill id="2928" levels="1" name="Rune supply box - magic pin">
+    <set name="itemConsumeId" val="13702"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -203,6 +280,7 @@
     </cond>
   </skill>
   <skill id="2929" levels="1" name="Schuttgart supply box - magic pin">
+    <set name="itemConsumeId" val="13703"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -215,6 +293,7 @@
     </cond>
   </skill>
   <skill id="2930" levels="1" name="Gludio supply box - magic pouch">
+    <set name="itemConsumeId" val="13704"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -227,6 +306,7 @@
     </cond>
   </skill>
   <skill id="2931" levels="1" name="Dion supply box - magic pouch">
+    <set name="itemConsumeId" val="13705"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -239,6 +319,7 @@
     </cond>
   </skill>
   <skill id="2932" levels="1" name="Giran supply box - magic pouch">
+    <set name="itemConsumeId" val="13706"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -251,6 +332,7 @@
     </cond>
   </skill>
   <skill id="2933" levels="1" name="Oren supply box - magic pouch">
+    <set name="itemConsumeId" val="13707"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -263,6 +345,7 @@
     </cond>
   </skill>
   <skill id="2934" levels="1" name="Aden supply box - magic pouch">
+    <set name="itemConsumeId" val="13708"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -275,6 +358,7 @@
     </cond>
   </skill>
   <skill id="2935" levels="1" name="Innadril supply box - magic pouch">
+    <set name="itemConsumeId" val="13709"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -287,6 +371,7 @@
     </cond>
   </skill>
   <skill id="2936" levels="1" name="Goddard supply box - magic pouch">
+    <set name="itemConsumeId" val="13710"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -299,6 +384,7 @@
     </cond>
   </skill>
   <skill id="2937" levels="1" name="Rune supply box - magic pouch">
+    <set name="itemConsumeId" val="13711"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -311,6 +397,7 @@
     </cond>
   </skill>
   <skill id="2938" levels="1" name="Schuttgart supply box - magic pouch">
+    <set name="itemConsumeId" val="13712"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -323,6 +410,7 @@
     </cond>
   </skill>
   <skill id="2939" levels="1" name="Gludio supply box - belt">
+    <set name="itemConsumeId" val="13713"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -335,6 +423,7 @@
     </cond>
   </skill>
   <skill id="2940" levels="1" name="Dion supply box - belt">
+    <set name="itemConsumeId" val="13714"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -347,6 +436,7 @@
     </cond>
   </skill>
   <skill id="2941" levels="1" name="Giran supply box - belt">
+    <set name="itemConsumeId" val="13715"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -359,6 +449,7 @@
     </cond>
   </skill>
   <skill id="2942" levels="1" name="Oren supply box - belt">
+    <set name="itemConsumeId" val="13716"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -371,6 +462,7 @@
     </cond>
   </skill>
   <skill id="2943" levels="1" name="Aden supply box - belt">
+    <set name="itemConsumeId" val="13717"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -383,6 +475,7 @@
     </cond>
   </skill>
   <skill id="2944" levels="1" name="Innadril supply box - belt">
+    <set name="itemConsumeId" val="13718"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -395,6 +488,7 @@
     </cond>
   </skill>
   <skill id="2945" levels="1" name="Goddard supply box - belt">
+    <set name="itemConsumeId" val="13719"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -407,6 +501,7 @@
     </cond>
   </skill>
   <skill id="2946" levels="1" name="Rune supply box - belt">
+    <set name="itemConsumeId" val="13720"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -419,6 +514,7 @@
     </cond>
   </skill>
   <skill id="2947" levels="1" name="Schuttgart supply box - belt">
+    <set name="itemConsumeId" val="13721"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -431,6 +527,7 @@
     </cond>
   </skill>
   <skill id="2948" levels="1" name="Gludio Supply Box - magic pin">
+    <set name="itemConsumeId" val="14531"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -443,6 +540,7 @@
     </cond>
   </skill>
   <skill id="2949" levels="1" name="Dion supply box - magic pin">
+    <set name="itemConsumeId" val="14532"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -455,6 +553,7 @@
     </cond>
   </skill>
   <skill id="2950" levels="1" name="Giran supply box - magic pin">
+    <set name="itemConsumeId" val="14533"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -467,6 +566,7 @@
     </cond>
   </skill>
   <skill id="2951" levels="1" name="Oren supply box - magic pin">
+    <set name="itemConsumeId" val="14534"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -479,6 +579,7 @@
     </cond>
   </skill>
   <skill id="2952" levels="1" name="Aden supply box - magic pin">
+    <set name="itemConsumeId" val="14535"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -491,6 +592,7 @@
     </cond>
   </skill>
   <skill id="2953" levels="1" name="Innadril supply box - magic pin">
+    <set name="itemConsumeId" val="14536"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -503,6 +605,7 @@
     </cond>
   </skill>
   <skill id="2954" levels="1" name="Goddard supply box - magic pin">
+    <set name="itemConsumeId" val="14537"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -515,6 +618,7 @@
     </cond>
   </skill>
   <skill id="2955" levels="1" name="Rune supply box - magic pin">
+    <set name="itemConsumeId" val="14538"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -527,6 +631,7 @@
     </cond>
   </skill>
   <skill id="2956" levels="1" name="Schuttgart supply box - magic pin">
+    <set name="itemConsumeId" val="14539"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -539,6 +644,7 @@
     </cond>
   </skill>
   <skill id="2957" levels="1" name="Gludio supply box - magic pouch">
+    <set name="itemConsumeId" val="14540"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -551,6 +657,7 @@
     </cond>
   </skill>
   <skill id="2958" levels="1" name="Dion supply box - magic pouch">
+    <set name="itemConsumeId" val="14541"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -563,6 +670,7 @@
     </cond>
   </skill>
   <skill id="2959" levels="1" name="Giran supply box - magic pouch">
+    <set name="itemConsumeId" val="14542"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -575,6 +683,7 @@
     </cond>
   </skill>
   <skill id="2960" levels="1" name="Oren supply box - magic pouch">
+    <set name="itemConsumeId" val="14543"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -587,6 +696,7 @@
     </cond>
   </skill>
   <skill id="2961" levels="1" name="Aden supply box - magic pouch">
+    <set name="itemConsumeId" val="14544"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -599,6 +709,7 @@
     </cond>
   </skill>
   <skill id="2962" levels="1" name="Innadril supply box - magic pouch">
+    <set name="itemConsumeId" val="14545"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -611,6 +722,7 @@
     </cond>
   </skill>
   <skill id="2963" levels="1" name="Goddard supply box - magic pouch">
+    <set name="itemConsumeId" val="14546"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -623,6 +735,7 @@
     </cond>
   </skill>
   <skill id="2964" levels="1" name="Rune supply box - magic pouch">
+    <set name="itemConsumeId" val="14547"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -635,6 +748,7 @@
     </cond>
   </skill>
   <skill id="2965" levels="1" name="Schuttgart supply box - magic pouch">
+    <set name="itemConsumeId" val="14548"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -647,6 +761,7 @@
     </cond>
   </skill>
   <skill id="2966" levels="1" name="Gludio supply box - belt">
+    <set name="itemConsumeId" val="14549"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -659,6 +774,7 @@
     </cond>
   </skill>
   <skill id="2967" levels="1" name="Dion supply box - belt">
+    <set name="itemConsumeId" val="14550"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -671,6 +787,7 @@
     </cond>
   </skill>
   <skill id="2968" levels="1" name="Giran supply box - belt">
+    <set name="itemConsumeId" val="14551"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -683,6 +800,7 @@
     </cond>
   </skill>
   <skill id="2969" levels="1" name="Oren supply box - belt">
+    <set name="itemConsumeId" val="14552"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -695,6 +813,7 @@
     </cond>
   </skill>
   <skill id="2970" levels="1" name="Aden supply box - belt">
+    <set name="itemConsumeId" val="14553"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -707,6 +826,7 @@
     </cond>
   </skill>
   <skill id="2971" levels="1" name="Innadril supply box - belt">
+    <set name="itemConsumeId" val="14554"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -719,6 +839,7 @@
     </cond>
   </skill>
   <skill id="2972" levels="1" name="Goddard supply box - belt">
+    <set name="itemConsumeId" val="14555"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -731,6 +852,7 @@
     </cond>
   </skill>
   <skill id="2973" levels="1" name="Rune supply box - belt">
+    <set name="itemConsumeId" val="14556"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -743,6 +865,7 @@
     </cond>
   </skill>
   <skill id="2974" levels="1" name="Schuttgart supply box - belt">
+    <set name="itemConsumeId" val="14557"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -755,6 +878,7 @@
     </cond>
   </skill>
   <skill id="2975" levels="1" name="Gludio supply box - magic rune clip">
+    <set name="itemConsumeId" val="14884"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -767,6 +891,7 @@
     </cond>
   </skill>
   <skill id="2976" levels="1" name="Dion supply box - magic rune clip">
+    <set name="itemConsumeId" val="14885"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -779,6 +904,7 @@
     </cond>
   </skill>
   <skill id="2977" levels="1" name="Giran supply box - magic rune clip">
+    <set name="itemConsumeId" val="14886"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -791,6 +917,7 @@
     </cond>
   </skill>
   <skill id="2978" levels="1" name="Oren supply box - magic rune clip">
+    <set name="itemConsumeId" val="14887"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -803,6 +930,7 @@
     </cond>
   </skill>
   <skill id="2979" levels="1" name="Aden supply box - magic rune clip">
+    <set name="itemConsumeId" val="14888"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -815,6 +943,7 @@
     </cond>
   </skill>
   <skill id="2980" levels="1" name="Innadril supply box - magic rune clip">
+    <set name="itemConsumeId" val="14889"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -827,6 +956,7 @@
     </cond>
   </skill>
   <skill id="2981" levels="1" name="Goddard supply box - magic rune clip">
+    <set name="itemConsumeId" val="14890"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -839,6 +969,7 @@
     </cond>
   </skill>
   <skill id="2982" levels="1" name="Rune supply box - magic rune clip">
+    <set name="itemConsumeId" val="14891"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -851,6 +982,7 @@
     </cond>
   </skill>
   <skill id="2983" levels="1" name="Schuttgart supply box - magic rune clip">
+    <set name="itemConsumeId" val="14892"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -863,6 +995,7 @@
     </cond>
   </skill>
   <skill id="2984" levels="1" name="Gludio supply box - magic ornament">
+    <set name="itemConsumeId" val="14893"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -875,6 +1008,7 @@
     </cond>
   </skill>
   <skill id="2985" levels="1" name="Dion supply box - magic ornament">
+    <set name="itemConsumeId" val="14894"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -887,6 +1021,7 @@
     </cond>
   </skill>
   <skill id="2986" levels="1" name="Giran supply box - magic ornament">
+    <set name="itemConsumeId" val="14895"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -899,6 +1034,7 @@
     </cond>
   </skill>
   <skill id="2987" levels="1" name="Oren supply box - magic ornament">
+    <set name="itemConsumeId" val="14896"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -911,6 +1047,7 @@
     </cond>
   </skill>
   <skill id="2988" levels="1" name="Aden supply box - magic ornament">
+    <set name="itemConsumeId" val="14897"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -923,6 +1060,7 @@
     </cond>
   </skill>
   <skill id="2989" levels="1" name="Innadril supply box - magic ornament">
+    <set name="itemConsumeId" val="14898"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -935,6 +1073,7 @@
     </cond>
   </skill>
   <skill id="2990" levels="1" name="Goddard supply box - magic ornament">
+    <set name="itemConsumeId" val="14899"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -947,6 +1086,7 @@
     </cond>
   </skill>
   <skill id="2991" levels="1" name="Rune supply box - magic ornament">
+    <set name="itemConsumeId" val="14900"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -959,6 +1099,7 @@
     </cond>
   </skill>
   <skill id="2992" levels="1" name="Schuttgart supply box - magic ornament">
+    <set name="itemConsumeId" val="14901"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>

@@ -1098,11 +1098,12 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="15" val="0" triggeredId="6125" triggeredLevel="1" chanceType="ON_EXIT">
+      <!-- effect name="ChanceSkillTrigger" time="15" val="0" triggeredId="6125" triggeredLevel="1" chanceType="ON_EXIT">
         <mul order="0x30" stat="pAtkSpd" val="0.5"/>
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <mul order="0x30" stat="mAtkSpd" val="0.5"/>
-      </effect>
+      </effect -->
+      <effect name="Paralyze" time="10" val="0"/> <!-- TODO -->
     </for>
   </skill>
   <skill id="4165" levels="17" name="Icy Air">
@@ -1740,7 +1741,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="90"/> <!-- Base Land Rate -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="skillType" val="POISON"/>
