@@ -10527,6 +10527,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		getKnownList().updateKnownObjects();
 
+                checkItemRestriction();
+
 		setProtection(true);
 
 		// Trained beast is after teleport lost
