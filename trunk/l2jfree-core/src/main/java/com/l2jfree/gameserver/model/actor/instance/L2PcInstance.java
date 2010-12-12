@@ -2040,7 +2040,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 					|| item.getItem().getCrystalType() <= getExpertiseIndex())
 				continue;
 
-			final int crystalType = item.getItem().getCrystalType();
+                        final int crystalType = item.getItem().getCrystalType();
 
 			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
 				weaponPenalty = crystalType - getExpertiseIndex();
@@ -2048,7 +2048,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				armorPenalty = crystalType;
 		}
 
-		armorPenalty -= getExpertiseIndex();
+                armorPenalty -= getExpertiseIndex();
 
 		L2Skill skill = getKnownSkill(6209);
 		int skillLevel = skill == null ? 0 : skill.getLevel();
@@ -7789,12 +7789,13 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Check if the attacker is a L2PcInstance
 		if (attacker instanceof L2PcInstance)
 		{
+                        L2PcInstance cha = attacker.getActingPlayer();
 			// Check if the L2PcInstance is in an arena or a siege area
 			if (isInsideZone(L2Zone.FLAG_PVP) && attacker.isInsideZone(L2Zone.FLAG_PVP))
 				return true;
 
 			// Check if the L2PcInstance holds a cursed weapon
-			if (((L2PcInstance) attacker).isCursedWeaponEquipped())
+			if (cha.isCursedWeaponEquipped())
 				return true;
 
 			if (getClan() != null)
@@ -7803,20 +7804,20 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 				if (siege != null)
 				{
 					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Defender clan
-					if (siege.checkIsDefender(((L2PcInstance) attacker).getClan()) && siege.checkIsDefender(getClan()))
+					if (siege.checkIsDefender(cha.getClan()) && siege.checkIsDefender(getClan()))
 						return false;
 
 					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Attacker clan
-					if (siege.checkIsAttacker(((L2PcInstance) attacker).getClan()) && siege.checkIsAttacker(getClan()))
+					if (siege.checkIsAttacker(cha.getClan()) && siege.checkIsAttacker(getClan()))
 						return false;
 				}
 
 				// Check if clan is at war
 				if (getClan() != null
-						&& ((L2PcInstance) attacker).getClan() != null
-						&& (getClan().isAtWarWith(((L2PcInstance) attacker).getClanId())
-								&& ((L2PcInstance)attacker).getClan().isAtWarWith(getClanId())
-								&& getWantsPeace() == 0 && ((L2PcInstance) attacker).getWantsPeace() == 0 && !isAcademyMember()))
+						&& cha.getClan() != null
+						&& (getClan().isAtWarWith(cha.getClanId())
+								&& cha.getClan().isAtWarWith(getClanId())
+								&& getWantsPeace() == 0 && cha.getWantsPeace() == 0 && !isAcademyMember()))
 					return true;
 			}
 		}
@@ -8022,12 +8023,15 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Are the target and the player in the same duel?
 		if (isInDuel())
 		{
-			if (!(target instanceof L2Playable && target.getActingPlayer().getDuelId() == getDuelId()))
-			{
-				sendMessage("You cannot do this while duelling.");
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
+                        if (target instanceof L2Playable)
+                        {
+                                if (target.getActingPlayer().getDuelId() != getDuelId())
+                                {
+                                        sendMessage("You cannot do this while duelling.");
+                                        sendPacket(ActionFailed.STATIC_PACKET);
+                                        return false;
+                                }
+                        }
 		}
 
 		//************************************* Check skill availability *******************************************
@@ -13654,7 +13658,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		/* TODO Instant Zone still not implement
 		else if (this.isInsideZone(ZONE_INSTANT))
 		{
-			sendPacket(SystemMessageId.UNNAMED_2357);
+			sendPacket(SystemMessageId.YOU_CANNOT_USE_MY_TELEPORTS_IN_AN_INSTANT_ZONE);
 			return;
 		}
 		 */
@@ -13778,7 +13782,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		setIsFlying(val);
 	}
 
-	public synchronized boolean enterOfflineMode()
+        public synchronized boolean enterOfflineMode()
 	{
 		if (isInOfflineMode())
 			return false;

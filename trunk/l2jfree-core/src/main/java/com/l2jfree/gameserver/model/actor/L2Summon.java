@@ -482,6 +482,12 @@ public abstract class L2Summon extends L2Playable
 
 			getKnownList().removeAllKnownObjects();
 			setTarget(null);
+                        for (final int itemId : owner.getShots().getAutoSoulShots())
+                        {
+                                final String handler = owner.getInventory().getItemByItemId(itemId).getEtcItem().getHandlerName();
+                                if (handler.contains("Beast"))
+                                        owner.getShots().removeAutoSoulShot(itemId);
+                        }
 			
 			LeakTaskManager.getInstance().add(this);
 			
@@ -723,7 +729,7 @@ public abstract class L2Summon extends L2Playable
 			return false;
 		}
 		
-		if (!actingPlayer.checkPvpSkill(getTarget(), skill))
+		if (!actingPlayer.checkPvpSkill(getTarget(), skill, true))
 		{
 			// Send a System Message to the L2PcInstance
 			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);

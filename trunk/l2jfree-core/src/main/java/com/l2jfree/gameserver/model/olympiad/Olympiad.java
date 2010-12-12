@@ -83,10 +83,10 @@ public final class Olympiad
 		+ "olympiad_points = ?, competitions_done = ?, competitions_won = ?, competitions_lost = ?, competitions_drawn = ? WHERE charId = ?";
 	private static final String OLYMPIAD_GET_HEROS = "SELECT olympiad_nobles.charId, characters.char_name "
 		+ "FROM olympiad_nobles, characters WHERE characters.charId = olympiad_nobles.charId "
-		+ "AND olympiad_nobles.class_id = ? AND olympiad_nobles.competitions_done >= 9 "
-		+ "ORDER BY olympiad_nobles.olympiad_points DESC, olympiad_nobles.competitions_done DESC";
+		+ "AND olympiad_nobles.class_id = ? AND olympiad_nobles.competitions_done >= 9 AND olympiad_nobles.competitions_won > 0"
+		+ "ORDER BY olympiad_nobles.olympiad_points DESC, olympiad_nobles.competitions_done DESC, olympiad_nobles.competitions_won DESC";
 	private static final String GET_ALL_CLASSIFIED_NOBLESS = "SELECT charId from olympiad_nobles_eom "
-			+ "WHERE competitions_done >= 9 ORDER BY olympiad_points DESC, competitions_done DESC";
+			+ "WHERE competitions_done >= 9 ORDER BY olympiad_points DESC, competitions_done DESC, competitions_won DESC";
 	private static final String GET_EACH_CLASS_LEADER;
 	private static final String GET_EACH_CLASS_LEADER_CURRENT;
 	private static final String GET_EACH_CLASS_LEADER_SOULHOUND;
@@ -97,7 +97,7 @@ public final class Olympiad
 		final String defaultBase = "SELECT characters.char_name FROM %nobles_table%, characters "
 				+ "WHERE characters.charId = %nobles_table%.charId AND %classId_check% "
 				+ "AND %nobles_table%.competitions_done >= 9 "
-				+ "ORDER BY %nobles_table%.olympiad_points DESC, %nobles_table%.competitions_done DESC LIMIT 10";
+				+ "ORDER BY %nobles_table%.olympiad_points DESC, %nobles_table%.competitions_done DESC, %nobles_table%.competitions_won DESC LIMIT 10";
 		
 		final String normalBase = defaultBase.replace("%classId_check%", "%nobles_table%.class_id = ?");
 		final String soulhoundBase = defaultBase.replace("%classId_check%", "(%nobles_table%.class_id = 132 OR %nobles_table%.class_id = 133)");
@@ -1296,6 +1296,8 @@ public final class Olympiad
 					int hero2Points = hero2.getInteger(POINTS);
 					int hero1Comps = hero1.getInteger(COMP_DONE);
 					int hero2Comps = hero2.getInteger(COMP_DONE);
+                                        int hero1Wins = hero1.getInteger(COMP_WON);
+                                        int hero2Wins = hero2.getInteger(COMP_WON);
 					
 					if (hero1Points > hero2Points)
 						winner = hero1;
@@ -1305,8 +1307,10 @@ public final class Olympiad
 					{
 						if (hero1Comps > hero2Comps)
 							winner = hero1;
-						else
+						else if (hero2Comps > hero1Comps)
 							winner = hero2;
+                                                else
+                                                        winner = (hero1Wins > hero2Wins) ? hero1 : hero2;
 					}
 					
 					hero.set(CLASS_ID, winner.getInteger(CLASS_ID));

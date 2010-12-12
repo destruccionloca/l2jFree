@@ -82,6 +82,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				exchange(player, 7584, 6649);
 				break;
 			}
+                        return;
 		}
 		else if (command.startsWith("evolve"))
 		{
@@ -114,6 +115,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				html.setFile("data/html/petmanager/evolve_no.htm");
 				player.sendPacket(html);
 			}
+                        return;
 		}
 		else if (command.startsWith("restore"))
 		{
@@ -145,6 +147,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				html.setFile("data/html/petmanager/restore_no.htm");
 				player.sendPacket(html);
 			}
+                        return;
 		}
 		else
 			super.onBypassFeedback(player, command);
