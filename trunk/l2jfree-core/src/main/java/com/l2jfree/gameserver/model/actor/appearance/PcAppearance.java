@@ -172,6 +172,8 @@ public final class PcAppearance
 	
 	public void setNameColor(int nameColor)
 	{
+                if (nameColor < 0)
+                        return;
 		_nameColor = nameColor;
 	}
 	
@@ -195,6 +197,8 @@ public final class PcAppearance
 	
 	public void setTitleColor(int titleColor)
 	{
+                if (titleColor < 0)
+                        return;
 		_titleColor = titleColor;
 	}
 	

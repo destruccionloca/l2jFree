@@ -1136,7 +1136,7 @@ public class Castle extends Siegeable<Siege>
 			statement.setInt(1, getCastleId());
 			statement.execute();
 			statement.close();
-			if (_procure != null)
+			if (_procure != null && _procure.size() > 0)
 			{
 				int count = 0;
 				String query = "INSERT INTO castle_manor_procure VALUES ";
@@ -1158,7 +1158,7 @@ public class Castle extends Siegeable<Siege>
 					statement.close();
 				}
 			}
-			if (_procureNext != null)
+			if (_procureNext != null && _procureNext.size() > 0)
 			{
 				int count = 0;
 				String query = "INSERT INTO castle_manor_procure VALUES ";
@@ -1209,7 +1209,7 @@ public class Castle extends Siegeable<Siege>
 			List<CropProcure> proc = null;
 			proc = getCropProcure(period);
 
-			if (proc != null)
+			if (proc != null && proc.size() > 0)
 			{
 				int count = 0;
 				String query = "INSERT INTO castle_manor_procure VALUES ";
@@ -1304,6 +1304,19 @@ public class Castle extends Siegeable<Siege>
 	{
 		_isNextPeriodApproved = val;
 	}
+
+        public void resetManor()
+        {
+                setCropProcure(new FastList<CropProcure>(), CastleManorManager.PERIOD_CURRENT);
+ 	 	setCropProcure(new FastList<CropProcure>(), CastleManorManager.PERIOD_NEXT);
+ 	 	setSeedProduction(new FastList<SeedProduction>(), CastleManorManager.PERIOD_CURRENT);
+ 	 	setSeedProduction(new FastList<SeedProduction>(), CastleManorManager.PERIOD_NEXT);
+ 	 	if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+ 	 	{
+                        saveCropData();
+                        saveSeedData();
+ 	 	}
+        }
 
 	public void updateClansReputation()
 	{

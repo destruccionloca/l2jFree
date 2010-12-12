@@ -692,8 +692,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public boolean isAvailable(L2PcInstance player, boolean allowAdena, boolean allowNonTradeable)
 	{
 		return ((!isEquipped()) // Not equipped
-				&& (getItem().getType2() != 3) // Not Quest Item
-				&& (getItem().getType2() != 4 || getItem().getType1() != 1) // Not Money or Shield Armor
+				&& (getItem().getType2() != L2Item.TYPE2_QUEST) // Not Quest Item
+				&& (getItem().getType2() != L2Item.TYPE2_MONEY || getItem().getType1() != L2Item.TYPE1_SHIELD_ARMOR) // Not Money or Shield Armor
 				&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
 				&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
 				&& (allowAdena || getItemId() != PcInventory.ADENA_ID) // Not adena
@@ -1578,7 +1578,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				for (L2ItemInstance item: unequiped)
 					iu.addModifiedItem(item);
 				player.sendPacket(iu);
-				player.broadcastUserInfo();
+                                player.broadcastUserInfo();
 			}
 			
 			if (getLocation() != ItemLocation.WAREHOUSE)

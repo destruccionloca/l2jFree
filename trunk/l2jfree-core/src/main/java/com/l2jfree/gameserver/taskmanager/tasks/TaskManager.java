@@ -110,8 +110,14 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 						int days = Integer.parseInt(_params[0]);
 						long interval = days * 86400000;
 						String[] hour = _params[1].split(":");
-						
+
+                                                if (hour.length != 3)
+                                                {
+                                                        throw new IllegalStateException("Task " + _id + " has incorrect parameters.");
+                                                }
+
 						Calendar min = Calendar.getInstance();
+                                                Calendar check = Calendar.getInstance();
 						min.setTimeInMillis(_lastActivation);
 						min.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0]));
 						min.set(Calendar.MINUTE, Integer.parseInt(hour[1]));
@@ -123,7 +129,11 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 						}
 						
 						long delay = min.getTimeInMillis() - System.currentTimeMillis();
-						
+						if (check.after(min) || delay < 0)
+                                                {
+                                                        delay += interval;
+                                                }
+
 						_scheduled = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, interval);
 						break;
 					}
@@ -131,6 +141,8 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 					{
 						break;
 					}
+                                        default:
+                                                break;
 				}
 			}
 			catch (Exception e)

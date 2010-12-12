@@ -225,32 +225,26 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 			command = message.substring(0, message.indexOf(" "));
 			params = message.substring(message.indexOf(" ") + 1);
 		}
-		
+
 		command = command.trim().toLowerCase();
 		params = params.trim();
-		
-		if (!activeChar.isGM() && !command.equals("admin_gm"))
-		{
-			Util.handleIllegalPlayerAction(activeChar, "AdminCommandHandler: A non-gm request.", Config.DEFAULT_PUNISH);
-			return;
-		}
-		
+
 		final IAdminCommandHandler handler = get(command);
-		
+
 		if (handler == null)
 		{
 			activeChar.sendMessage("No handler registered.");
 			_log.warn("No handler registered for bypass '" + message + "'");
 			return;
 		}
-		
+
 		if (!Config.GM_COMMAND_PRIVILEGES.containsKey(command))
 		{
 			activeChar.sendMessage("It has no access level definition. It can't be used.");
 			_log.warn(message + "' has no access level definition. It can't be used.");
 			return;
 		}
-		
+
 		if (activeChar.getAccessLevel() < Config.GM_COMMAND_PRIVILEGES.get(command))
 		{
 			activeChar.sendMessage("You don't have sufficient privileges.");

@@ -98,7 +98,6 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TeleportToLocation;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -6365,7 +6364,7 @@ public abstract class L2Character extends L2Object
 					{
 						L2Skill tempSkill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_PETRIFICATION, 1);
 						if (tempSkill != null)
-						{
+                                                {
 							abortAttack();
 							abortCast();
 							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -6378,7 +6377,7 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Check if over-hit is possible
-				if (skill.isOverhit())
+                                if (skill.isOverhit())
 				{
 					if (target instanceof L2Attackable)
 						((L2Attackable) target).overhitEnabled(true);
@@ -6955,7 +6954,6 @@ public abstract class L2Character extends L2Object
 		{
 			broadcastPacket(new FlyToLocation(L2Character.this, _flyTarget, _skill.getFlyType()));
 			getPosition().setXYZ(_flyTarget.getX(), _flyTarget.getY(), _flyTarget.getZ());
-			broadcastPacket(new ValidateLocation(L2Character.this));
 		}
 	}
 
@@ -6995,6 +6993,15 @@ public abstract class L2Character extends L2Object
 		_isRaid = val;
 		_isMinion = val;
 	}
+
+        /**
+         * Overriden in L2GrandBossInstance
+         * @return true
+         */
+        public boolean giveRaidCurse()
+        {
+                return true;
+        }
 
 	private volatile byte _packetBroadcastMask;
 

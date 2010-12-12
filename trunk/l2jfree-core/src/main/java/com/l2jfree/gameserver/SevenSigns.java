@@ -107,7 +107,7 @@ public class SevenSigns
 	public static final int							GREEN_CONTRIB_POINTS		= 5;
 	public static final int							RED_CONTRIB_POINTS			= 10;
 
-	private final Calendar							_calendar					= Calendar.getInstance();
+	private final Calendar							_nextPeriodChange					= Calendar.getInstance();
 	private final String							RESET_CERTIFICATE_SHOPS		= "UPDATE merchant_buylists SET count = 300 WHERE shop_id BETWEEN 63881 AND 63889";
 
 	protected int									_activePeriod;
@@ -118,6 +118,7 @@ public class SevenSigns
 	protected int									_duskFestivalScore;
 	protected int									_compWinner;
 	protected int									_previousWinner;
+        protected Calendar                                                              _lastSave                       = Calendar.getInstance();
 
 	private final Map<Integer, StatsSet>			_signsPlayerData;
 
@@ -168,8 +169,18 @@ public class SevenSigns
 
 		synchronized (this)
 		{
-			setCalendarForNextPeriodChange();
-			long milliToChange = getMilliToPeriodChange();
+			/*setCalendarForNextPeriodChange();
+			long milliToChange = getMilliToPeriodChange();*/
+                        long milliToChange = 0;
+                        if (isNextPeriodChangeInPast())
+                        {
+                                _log.info("SevenSigns: Next period change was in the past (server was offline), changing periods now!");
+                        }
+                        else
+                        {
+                                setCalendarForNextPeriodChange();
+                                milliToChange = getMilliToPeriodChange();
+                        }
 
 			// Schedule a time for the next period change.
 			SevenSignsPeriodChange sspc = new SevenSignsPeriodChange();
@@ -399,7 +410,7 @@ public class SevenSigns
 
 	public final int getDaysToPeriodChange()
 	{
-		int numDays = _calendar.get(Calendar.DAY_OF_WEEK) - PERIOD_START_DAY;
+		int numDays = _nextPeriodChange.get(Calendar.DAY_OF_WEEK) - PERIOD_START_DAY;
 
 		if (numDays < 0)
 			return 0 - numDays;
@@ -410,10 +421,38 @@ public class SevenSigns
 	public final long getMilliToPeriodChange()
 	{
 		long currTimeMillis = System.currentTimeMillis();
-		long changeTimeMillis = _calendar.getTimeInMillis();
+		long changeTimeMillis = _nextPeriodChange.getTimeInMillis();
 
 		return (changeTimeMillis - currTimeMillis);
 	}
+
+        private boolean isNextPeriodChangeInPast()
+        {
+                Calendar lastPeriodChange = Calendar.getInstance();
+ 	 	switch (getCurrentPeriod())
+ 	 	{
+                        case PERIOD_SEAL_VALIDATION:
+                        case PERIOD_COMPETITION:
+                                lastPeriodChange.set(Calendar.DAY_OF_WEEK, PERIOD_START_DAY);
+                                lastPeriodChange.set(Calendar.HOUR_OF_DAY, PERIOD_START_HOUR);
+                                lastPeriodChange.set(Calendar.MINUTE, PERIOD_START_MINS);
+                                lastPeriodChange.set(Calendar.SECOND, 0);
+                                // if we hit next week, just turn back 1 week
+                                if (Calendar.getInstance().before(lastPeriodChange))
+                                        lastPeriodChange.add(Calendar.HOUR, -24*7);
+                                break;
+                        case PERIOD_COMP_RECRUITING:
+                        case PERIOD_COMP_RESULTS:
+                        // because of the short duration of this period, just check it from last save
+                                lastPeriodChange.setTimeInMillis(_lastSave.getTimeInMillis() + PERIOD_MINOR_LENGTH);
+                                break;
+ 	 	}
+                // because of previous "date" column usage, check only if it already contains usable data for us
+ 	 	if (_lastSave.getTimeInMillis() > 7 && _lastSave.before(lastPeriodChange))
+                        return true;
+                else
+                        return false;
+        }
 
 	protected void setCalendarForNextPeriodChange()
 	{
@@ -426,23 +465,24 @@ public class SevenSigns
 			int daysToChange = getDaysToPeriodChange();
 
 			if (daysToChange == 7)
-				if (_calendar.get(Calendar.HOUR_OF_DAY) < PERIOD_START_HOUR)
+				if (_nextPeriodChange.get(Calendar.HOUR_OF_DAY) < PERIOD_START_HOUR)
 					daysToChange = 0;
-				else if (_calendar.get(Calendar.HOUR_OF_DAY) == PERIOD_START_HOUR && _calendar.get(Calendar.MINUTE) < PERIOD_START_MINS)
+				else if (_nextPeriodChange.get(Calendar.HOUR_OF_DAY) == PERIOD_START_HOUR && _nextPeriodChange.get(Calendar.MINUTE) < PERIOD_START_MINS)
 					daysToChange = 0;
 
 			// Otherwise...
 			if (daysToChange > 0)
-				_calendar.add(Calendar.DATE, daysToChange);
+				_nextPeriodChange.add(Calendar.DATE, daysToChange);
 
-			_calendar.set(Calendar.HOUR_OF_DAY, PERIOD_START_HOUR);
-			_calendar.set(Calendar.MINUTE, PERIOD_START_MINS);
+			_nextPeriodChange.set(Calendar.HOUR_OF_DAY, PERIOD_START_HOUR);
+			_nextPeriodChange.set(Calendar.MINUTE, PERIOD_START_MINS);
 			break;
 		case PERIOD_COMP_RECRUITING:
 		case PERIOD_COMP_RESULTS:
-			_calendar.add(Calendar.MILLISECOND, PERIOD_MINOR_LENGTH);
+			_nextPeriodChange.add(Calendar.MILLISECOND, PERIOD_MINOR_LENGTH);
 			break;
 		}
+                _log.info("SevenSigns: Next period change set to " + _nextPeriodChange.getTime());
 	}
 
 	public final String getCurrentPeriodName()
@@ -729,15 +769,11 @@ public class SevenSigns
 				_signsDuskSealTotals.put(SEAL_AVARICE, rset.getInt("avarice_dusk_score"));
 				_signsDuskSealTotals.put(SEAL_GNOSIS, rset.getInt("gnosis_dusk_score"));
 				_signsDuskSealTotals.put(SEAL_STRIFE, rset.getInt("strife_dusk_score"));
+
+                                _lastSave.setTimeInMillis(rset.getLong("date"));
 			}
 
 			rset.close();
-			statement.close();
-
-			statement = con.prepareStatement("UPDATE seven_signs_status SET date=? WHERE id=0");
-			statement.setInt(1, Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-			statement.execute();
-
 			statement.close();
 		}
 		catch (SQLException e)
@@ -830,7 +866,7 @@ public class SevenSigns
 				for (int i = 0; i < SevenSignsFestival.FESTIVAL_COUNT; i++)
 					statement.setInt(18 + i, SevenSignsFestival.getInstance().getAccumulatedBonus(i));
 
-				statement.setInt(18 + SevenSignsFestival.FESTIVAL_COUNT, Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+				statement.setLong(18 + SevenSignsFestival.FESTIVAL_COUNT, Calendar.getInstance().getTimeInMillis());
 				statement.execute();
 
 				statement.close();

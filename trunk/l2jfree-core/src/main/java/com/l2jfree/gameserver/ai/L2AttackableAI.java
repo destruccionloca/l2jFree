@@ -172,16 +172,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 */
 	private boolean autoAttackCondition(L2Character target)
 	{
-		if (target == null)
+                final L2Attackable me = getActor();
+
+		if (target == null || me == null)
 			return false;
-		
-		L2Attackable me = getActor();
-		
+
 		if (target instanceof L2Attackable)
 		{
 			setClan(((L2Attackable) target).getClan());
 		}
-		
+
 		// Check if the target isn't invulnerable
 		if (target.isInvul())
 		{
@@ -197,7 +197,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if the target isn't dead, is in the Aggro range and is at the same height
 		if (target.isAlikeDead()
 				|| (target instanceof L2PcInstance && !me.isInsideRadius(target, me.getAggroRange(), false, false))
-				|| Math.abs(_actor.getZ() - target.getZ()) > 300
+				|| Math.abs(me.getZ() - target.getZ()) > 300
 				|| (target instanceof L2Summon && !me.isInsideRadius(target, me.getAggroRange(), false, false)))
 			return false;
 		

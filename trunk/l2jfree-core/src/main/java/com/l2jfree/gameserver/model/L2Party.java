@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAll;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowDelete;
@@ -345,6 +346,10 @@ public class L2Party
 		msg.addString(player.getName());
 		broadcastToPartyMembers(msg);
 		broadcastToPartyMembers(new PartySmallWindowAdd(player));
+                // send the position of all party members to the new party member
+                player.sendPacket(new PartyMemberPosition(player));
+                // send the position of the new party member to all party members (except the new one - he knows his own position)
+ 	 	broadcastToPartyMembers(player, new PartyMemberPosition(player));
 
 		// if member has pet/summon add it to other as well
 		if (player.getPet() != null)

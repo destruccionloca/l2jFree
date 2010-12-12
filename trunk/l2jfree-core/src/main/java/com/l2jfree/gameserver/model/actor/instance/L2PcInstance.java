@@ -1770,7 +1770,11 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		if (Config.ALLOW_WATER)
 			checkWaterState();
 
-		if (isInsideZone(L2Zone.FLAG_SIEGE))
+		if (isInsideZone(L2Zone.FLAG_DANGER))
+                {
+                        setLastCompassZone(ExSetCompassZoneCode.ALTERED_1);
+                }
+                else if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
 			setLastCompassZone(ExSetCompassZoneCode.SIEGE_WAR);
 		}
