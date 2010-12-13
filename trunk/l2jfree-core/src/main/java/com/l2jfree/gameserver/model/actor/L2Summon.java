@@ -632,7 +632,7 @@ public abstract class L2Summon extends L2Playable
 		if (isSkillDisabled(skill.getId()))
 		{
 			if (getOwner() != null)
-				getOwner().sendPacket(SystemMessageId.SERVITOR_SKILL_RECHARGING);
+				getOwner().sendPacket(SystemMessageId.PET_SKILL_CANNOT_BE_USED_RECHARCHING);
 			return false;
 		}
 

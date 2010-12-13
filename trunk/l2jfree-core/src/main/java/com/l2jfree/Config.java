@@ -2016,7 +2016,7 @@ public class Config extends L2Config
 			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(olySettings.getProperty("AltOlyRemoveCubics", "false"));
 			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(olySettings.getProperty("AltOlyBattleRewItem", "13722"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyClassedRewItemCount", "50"));
-			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
+			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olySettings.getProperty("AltOlyNonClassedRewItemCount", "40"));
 			ALT_OLY_REG_DISPLAY = Integer.parseInt(olySettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
 			// FIXME 1.4.0
 			//ALT_OLY_COMP_RITEM = Integer.parseInt(olySettings.getProperty("AltOlyCompRewItem","13722"));

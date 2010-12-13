@@ -2548,9 +2548,8 @@ public class L2Clan
 		case 10:
 		{
 			// Upgrade to 11
-			// Missing check for territory
-			if (getReputationScore() >= Config.CLAN_LEVEL_11_COST &&
-					getMembersCount() >= Config.MEMBER_FOR_LEVEL_ELEVEN)
+			// TODO: Must own a territory
+			if (getReputationScore() >= Config.CLAN_LEVEL_11_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_ELEVEN)
 			{
 				takeReputationScore(Config.CLAN_LEVEL_11_COST, true);
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);

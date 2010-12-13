@@ -164,6 +164,9 @@ public final class ChanceSkillList
 	
 	public void onEvent(int event, L2Character evtInitiator, byte element)
 	{
+		if (_owner.isDead())
+			return;
+
 		final boolean playable = evtInitiator instanceof L2Playable;
 		for (IChanceSkillTrigger trigger : _triggers)
 		{

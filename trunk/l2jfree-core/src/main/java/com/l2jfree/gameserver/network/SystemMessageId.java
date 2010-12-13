@@ -14180,7 +14180,7 @@ public enum SystemMessageId
 	 * ID: 2396<br>
 	 * Message: That pet/servitor skill cannot be used because it is recharging.
 	 */
-	SERVITOR_SKILL_RECHARGING(2396),
+	PET_SKILL_CANNOT_BE_USED_RECHARCHING(2396),
 	
 	/**
 	 * ID: 2397<BR>

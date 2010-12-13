@@ -39,7 +39,7 @@ public final class EffectImmobileBuff extends EffectBuff
 	protected boolean onStart()
 	{
 		getEffected().setIsImmobilized(true);
-		return true;
+		return super.onStart();
 	}
 	
 	/** Notify exited */
@@ -47,5 +47,6 @@ public final class EffectImmobileBuff extends EffectBuff
 	protected void onExit()
 	{
 		getEffected().setIsImmobilized(false);
+		super.onExit();
 	}
 }
