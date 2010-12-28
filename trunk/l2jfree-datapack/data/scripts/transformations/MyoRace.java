@@ -23,14 +23,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class MyoRace extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public MyoRace()
 	{
 		// id, colRadius, colHeight
 		super(219, 10, 23);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,10 +41,10 @@ public class MyoRace extends L2Transformation
 			addSkill(player, 899, 4); // Cat Roar (6 levels)
 			addSkill(player, 900, 4); // Energy Blast (6 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class MyoRace extends L2Transformation
 		removeSkill(player, 899); // Cat Roar (6 levels)
 		removeSkill(player, 900); // Energy Blast (6 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new MyoRace());

@@ -25,19 +25,19 @@ public class RedTeam extends L2Transformation
 		// id, colRadius, colHeight
 		super(121, 9, 28.3);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 5853, 1); // Flip Block
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 5853); // Flip Block
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new RedTeam());

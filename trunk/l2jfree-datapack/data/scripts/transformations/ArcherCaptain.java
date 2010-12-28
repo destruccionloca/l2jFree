@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class ArcherCaptain extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public ArcherCaptain()
 	{
 		// id, colRadius, colHeight
 		super(17, 10, 23.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,17 +35,17 @@ public class ArcherCaptain extends L2Transformation
 			addSkill(player, 872, 1); // Archer Captain Power Shot
 			addSkill(player, 873, 1); // Archer Captain Rapid Shot
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 872); // Archer Captain Power Shot
 		removeSkill(player, 873); // Archer Captain Rapid Shot
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new ArcherCaptain());

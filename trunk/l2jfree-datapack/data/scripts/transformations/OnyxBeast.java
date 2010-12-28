@@ -20,37 +20,37 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class OnyxBeast extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public OnyxBeast()
 	{
 		// id, colRadius, colHeight
 		super(1, 14, 14.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-			int level = -1;
-			if (player.getLevel() >= 50)
-				level = 2;
-			else if (player.getLevel() >= 1)
-				level = 1;
+		int level = -1;
+		if (player.getLevel() >= 50)
+			level = 2;
+		else if (player.getLevel() >= 1)
+			level = 1;
 		{
 			addSkill(player, 584, 1); // Power Claw
 			addSkill(player, 585, 1); // Fast Moving
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 584); // Power Claw
 		removeSkill(player, 585); // Fast Moving
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new OnyxBeast());

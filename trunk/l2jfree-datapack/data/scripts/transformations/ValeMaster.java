@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class ValeMaster extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public ValeMaster()
 	{
 		// id, colRadius, colHeight
 		super(4, 12, 40);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -44,10 +44,10 @@ public class ValeMaster extends L2Transformation
 			addSkill(player, 744, level); // Vale Master Dark Flare
 			addSkill(player, 745, level); // Vale Master Dark Cure
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -56,7 +56,7 @@ public class ValeMaster extends L2Transformation
 		removeSkill(player, 744); // Vale Master Dark Flare
 		removeSkill(player, 745); // Vale Master Dark Cure
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new ValeMaster());

@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineKnight extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DivineKnight()
 	{
 		// id, colRadius, colHeight
 		super(252, 16, 30);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,10 +41,10 @@ public class DivineKnight extends L2Transformation
 			addSkill(player, 795, 1); // Divine Knight Brandish
 			addSkill(player, 796, 1); // Divine Knight Explosion
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -57,7 +57,7 @@ public class DivineKnight extends L2Transformation
 		removeSkill(player, 795); // Divine Knight Brandish
 		removeSkill(player, 796); // Divine Knight Explosion
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineKnight());

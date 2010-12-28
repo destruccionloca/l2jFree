@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineEnchanter extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DivineEnchanter()
 	{
 		// id, colRadius, colHeight
 		super(257, 8, 18.25);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -39,10 +39,10 @@ public class DivineEnchanter extends L2Transformation
 			addSkill(player, 708, 1); // Divine Enchanter Mass Binding
 			addSkill(player, 709, 1); // Sacrifice Enchanter
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -53,7 +53,7 @@ public class DivineEnchanter extends L2Transformation
 		removeSkill(player, 708); // Divine Enchanter Mass Binding
 		removeSkill(player, 709); // Sacrifice Enchanter
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineEnchanter());

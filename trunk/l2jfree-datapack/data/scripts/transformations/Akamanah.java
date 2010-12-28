@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Akamanah extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Akamanah()
 	{
 		// id, colRadius, colHeight
 		super(302, 10, 32.73);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,25 +35,25 @@ public class Akamanah extends L2Transformation
 			// Set charachter name to transformed name
 			player.getAppearance().setVisibleName("Akamanah");
 			player.getAppearance().setVisibleTitle("");
-
+			
 			addSkill(player, 3630, 1); // Void Burst
 			addSkill(player, 3631, 1); // Void Flow
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		// set character back to true name.
 		player.getAppearance().setVisibleName(null);
 		player.getAppearance().setVisibleTitle(null);
-
+		
 		removeSkill(player, 3630); // Void Burst
 		removeSkill(player, 3631); // Void Flow
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Akamanah());

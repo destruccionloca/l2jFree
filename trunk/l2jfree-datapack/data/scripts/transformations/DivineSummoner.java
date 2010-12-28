@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineSummoner extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DivineSummoner()
 	{
 		// id, colRadius, colHeight
 		super(258, 10, 25);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -38,10 +38,10 @@ public class DivineSummoner extends L2Transformation
 			addSkill(player, 713, 1); // Divine Summoner Servitor Hill
 			addSkill(player, 714, 1); // Sacrifice Summoner
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -51,7 +51,7 @@ public class DivineSummoner extends L2Transformation
 		removeSkill(player, 713); // Divine Summoner Servitor Hill
 		removeSkill(player, 714); // Sacrifice Summoner
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineSummoner());

@@ -25,17 +25,17 @@ public class Timitran extends L2Transformation
 		// id, colRadius, colHeight
 		super(321, 23, 90);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Timitran());

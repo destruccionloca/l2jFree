@@ -20,30 +20,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Kadomas extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Kadomas()
 	{
 		// id, colRadius, colHeight
 		super(20000, 24.5, 14);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		{
 			addSkill(player, 23154, 1); // Kadomas Special Skill - Fireworks
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 23154); // Kadomas Special Skill - Fireworks
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Kadomas());

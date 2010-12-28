@@ -20,32 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class UnicornWeak extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public UnicornWeak()
 	{
 		// id, colRadius, colHeight
 		super(206, 15, 28);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-			int level = -1;
-			if (player.getLevel() >= 60)
-				level = 2;
-			else if (player.getLevel() >= 1)
-				level = 1;
+		int level = -1;
+		if (player.getLevel() >= 60)
+			level = 2;
+		else if (player.getLevel() >= 1)
+			level = 1;
 		{
 			addSkill(player, 563, level); // Horn of Doom (4 levels)
 			addSkill(player, 564, level); // Gravity Control (4 levels)
 			addSkill(player, 565, level); // Horn Assault (4 levels)
 			addSkill(player, 567, level); // Light of Heal (4 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class UnicornWeak extends L2Transformation
 		removeSkill(player, 565); // Horn Assault (4 levels)
 		removeSkill(player, 567); // Light of Heal (4 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new UnicornWeak());

@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineRogue extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DivineRogue()
 	{
 		// id, colRadius, colHeight
 		super(254, 10, 28);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -40,10 +40,10 @@ public class DivineRogue extends L2Transformation
 			addSkill(player, 691, 1); // Sacrifice Rogue
 			addSkill(player, 797, 1); // Divine Rogue Piercing Attack
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -55,7 +55,7 @@ public class DivineRogue extends L2Transformation
 		removeSkill(player, 691); // Sacrifice Rogue
 		removeSkill(player, 797); // Divine Rogue Piercing Attack
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineRogue());

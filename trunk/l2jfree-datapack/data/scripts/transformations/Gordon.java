@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Gordon extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Gordon()
 	{
 		// id, colRadius, colHeight
 		super(308, 43, 46.6);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -36,10 +36,10 @@ public class Gordon extends L2Transformation
 			addSkill(player, 729, 1); // Gordon Sword Stab
 			addSkill(player, 730, 1); // Gordon Press
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -47,7 +47,7 @@ public class Gordon extends L2Transformation
 		removeSkill(player, 729); // Gordon Sword Stab
 		removeSkill(player, 730); // Gordon Press
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Gordon());

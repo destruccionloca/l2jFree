@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DivineHealer extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{648, 803, 1490};
-
+	private static final int[] SKILLS = new int[] { 648, 803, 1490 };
+	
 	public DivineHealer()
 	{
 		// id, colRadius, colHeight
 		super(255, 10, 25);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -39,10 +39,10 @@ public class DivineHealer extends L2Transformation
 			addSkill(player, 702, 1); // Divine Healer Cleanse
 			addSkill(player, 703, 1); // Sacrifice Healer
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -53,7 +53,7 @@ public class DivineHealer extends L2Transformation
 		removeSkill(player, 702); // Divine Healer Cleanse
 		removeSkill(player, 703); // Sacrifice Healer
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DivineHealer());

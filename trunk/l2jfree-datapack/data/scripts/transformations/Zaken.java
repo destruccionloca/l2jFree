@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Zaken extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Zaken()
 	{
 		// id, colRadius, colHeight
 		super(305, 16, 32);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,16 +41,16 @@ public class Zaken extends L2Transformation
 		else if (player.getLevel() >= 70)
 			level = 1;
 		{
-		addSkill(player, 715, level); // Zaken Energy Drain (4 levels)
-		addSkill(player, 716, level); // Zaken Hold (4 levels)
-		addSkill(player, 717, level); // Zaken Concentrated Attack (4 levels)
-		addSkill(player, 718, level); // Zaken Dancing Sword (4 levels)
-		addSkill(player, 719, 1);	  // Zaken Vampiric Rage
+			addSkill(player, 715, level); // Zaken Energy Drain (4 levels)
+			addSkill(player, 716, level); // Zaken Hold (4 levels)
+			addSkill(player, 717, level); // Zaken Concentrated Attack (4 levels)
+			addSkill(player, 718, level); // Zaken Dancing Sword (4 levels)
+			addSkill(player, 719, 1); // Zaken Vampiric Rage
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -60,7 +60,7 @@ public class Zaken extends L2Transformation
 		removeSkill(player, 718); // Zaken Dancing Sword (4 levels)
 		removeSkill(player, 719); // Zaken Vampiric Rage
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Zaken());

@@ -20,32 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DoomWraith extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DoomWraith()
 	{
 		// id, colRadius, colHeight
 		super(2, 13, 25);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-			int level = -1;
-			if (player.getLevel() >= 55)
-				level = 2;
-			else if (player.getLevel() >= 1)
-				level = 1;
+		int level = -1;
+		if (player.getLevel() >= 55)
+			level = 2;
+		else if (player.getLevel() >= 1)
+			level = 1;
 		{
 			addSkill(player, 586, level); // Rolling Attack (2 levels)
 			addSkill(player, 587, level); // Earth Storm (2 levels)
 			addSkill(player, 588, level); // Curse of Darkness (2 levels)
 			addSkill(player, 589, level); // Darkness Energy Drain (2 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class DoomWraith extends L2Transformation
 		removeSkill(player, 588); // Curse of Darkness (2 levels)
 		removeSkill(player, 589); // Darkness Energy Drain (2 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DoomWraith());

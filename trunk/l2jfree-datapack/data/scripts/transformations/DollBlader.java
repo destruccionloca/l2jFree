@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DollBlader extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DollBlader()
 	{
 		// id, colRadius, colHeight
 		super(7, 6, 12);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,12 +41,12 @@ public class DollBlader extends L2Transformation
 		{
 			addSkill(player, 752, level); // Doll Blader Sting (3 levels)
 			addSkill(player, 753, level); // Doll Blader Throwing Knife (3 levels)
-			addSkill(player, 754, 1);	  // Doll Blader Clairvoyance
+			addSkill(player, 754, 1); // Doll Blader Clairvoyance
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class DollBlader extends L2Transformation
 		removeSkill(player, 753); // Doll Blader Throwing Knife (3 levels)
 		removeSkill(player, 754); // Doll Blader Clairvoyance
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DollBlader());

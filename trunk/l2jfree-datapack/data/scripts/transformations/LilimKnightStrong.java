@@ -20,34 +20,34 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class LilimKnightStrong extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public LilimKnightStrong()
 	{
 		// id, colRadius, colHeight
 		super(207, 12, 25.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-			int level = -1;
-			if (player.getLevel() >= 60)
-				level = 4;
-			else if (player.getLevel() >= 1)
-				level = 1;
+		int level = -1;
+		if (player.getLevel() >= 60)
+			level = 4;
+		else if (player.getLevel() >= 1)
+			level = 1;
 		{
 			addSkill(player, 568, level); // Attack Buster (4 levels)
 			addSkill(player, 569, level); // Attack Storm (4 levels)
 			addSkill(player, 570, level); // Attack Rage (4 levels)
 			addSkill(player, 571, level); // Poison Dust (4 levels)
-
+			
 			player.clearCharges();
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -58,7 +58,7 @@ public class LilimKnightStrong extends L2Transformation
 		
 		player.clearCharges();
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new LilimKnightStrong());

@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DemonPrince extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public DemonPrince()
 	{
 		// id, colRadius, colHeight
 		super(311, 33, 49);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -36,10 +36,10 @@ public class DemonPrince extends L2Transformation
 			addSkill(player, 736, 1); // Devil Seed
 			addSkill(player, 737, 1); // Devil Ultimate Defense
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -47,7 +47,7 @@ public class DemonPrince extends L2Transformation
 		removeSkill(player, 736); // Devil Seed
 		removeSkill(player, 737); // Devil Ultimate Defense
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new DemonPrince());

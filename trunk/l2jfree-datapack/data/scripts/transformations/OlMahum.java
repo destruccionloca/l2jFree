@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class OlMahum extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public OlMahum()
 	{
 		// id, colRadius, colHeight
 		super(6, 23, 61);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -40,13 +40,13 @@ public class OlMahum extends L2Transformation
 			level = 1;
 		{
 			addSkill(player, 749, level); // Oel Mahum Stun Attack (3 levels)
-			addSkill(player, 750, 1);     // Oel Mahum Ultimate Defense
+			addSkill(player, 750, 1); // Oel Mahum Ultimate Defense
 			addSkill(player, 751, level); // Oel Mahum Arm Flourish (3 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class OlMahum extends L2Transformation
 		removeSkill(player, 750); // Oel Mahum Ultimate Defense
 		removeSkill(player, 751); // Oel Mahum Arm Flourish (3 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new OlMahum());

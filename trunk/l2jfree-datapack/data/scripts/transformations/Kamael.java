@@ -20,27 +20,27 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Kamael extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Kamael()
 	{
 		// id, colRadius, colHeight
 		super(251, 9, 38);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		{
-		addSkill(player, 539, 1); // Nail Attack
-		addSkill(player, 540, 1); // Wing Assault
-		addSkill(player, 1471, 1); // Soul Sucking
-		addSkill(player, 1472, 1); // Death Beam
+			addSkill(player, 539, 1); // Nail Attack
+			addSkill(player, 540, 1); // Wing Assault
+			addSkill(player, 1471, 1); // Soul Sucking
+			addSkill(player, 1472, 1); // Death Beam
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -49,7 +49,7 @@ public class Kamael extends L2Transformation
 		removeSkill(player, 1471); // Soul Sucking
 		removeSkill(player, 1472); // Death Beam
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Kamael());

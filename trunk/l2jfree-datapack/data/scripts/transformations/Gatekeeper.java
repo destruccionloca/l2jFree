@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Gatekeeper extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Gatekeeper()
 	{
 		// id, colRadius, colHeight
 		super(319, 8, 25);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -37,10 +37,10 @@ public class Gatekeeper extends L2Transformation
 			addSkill(player, 5658, player.getLevel()); // Gatekeeper Flame Strike
 			addSkill(player, 5659, 2); // Gatekeeper Berserker Spirit
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -49,7 +49,7 @@ public class Gatekeeper extends L2Transformation
 		removeSkill(player, 5658); // Gatekeeper Flame Strike
 		removeSkill(player, 5659); // Gatekeeper Berserker Spirit
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Gatekeeper());

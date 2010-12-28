@@ -25,17 +25,17 @@ public class Yeti extends L2Transformation
 		// id, colRadius, colHeight
 		super(102, 15, 27.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Yeti());

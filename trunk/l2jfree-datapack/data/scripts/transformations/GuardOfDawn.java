@@ -25,17 +25,17 @@ public class GuardOfDawn extends L2Transformation
 		// id, colRadius, colHeight
 		super(113, 8, 23.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new GuardOfDawn());

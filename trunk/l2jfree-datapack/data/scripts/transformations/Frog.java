@@ -20,32 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Frog extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Frog()
 	{
 		// id, colRadius, colHeight
 		super(111, 20, 9);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		{
-			addSkill(player, 959, 1);  // Frog Jump
+			addSkill(player, 959, 1); // Frog Jump
 			addSkill(player, 5437, 1); // Dissonance
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 959);  // Frog Jump
+		removeSkill(player, 959); // Frog Jump
 		removeSkill(player, 5437); // Dissonance
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Frog());

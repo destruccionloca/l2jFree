@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class RoyalGuardCaptain extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public RoyalGuardCaptain()
 	{
 		// id, colRadius, colHeight
 		super(16, 12, 24);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,17 +35,17 @@ public class RoyalGuardCaptain extends L2Transformation
 			addSkill(player, 870, 1); // Royal Guard Captain Power Strike
 			addSkill(player, 871, 1); // Royal Guard Captain Might
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 870); // Royal Guard Captain Power Strike
 		removeSkill(player, 871); // Royal Guard Captain Might
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new RoyalGuardCaptain());

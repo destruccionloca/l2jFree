@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class SaberToothTiger extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public SaberToothTiger()
 	{
 		// id, colRadius, colHeight
 		super(5, 34, 28);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,12 +41,12 @@ public class SaberToothTiger extends L2Transformation
 		{
 			addSkill(player, 746, level); // Saber Tooth Tiger Bite (3 levels)
 			addSkill(player, 747, level); // Saber Tooth Tiger Fear (3 levels)
-			addSkill(player, 748, 1);	  // Saber Tooth Tiger Sprint
+			addSkill(player, 748, 1); // Saber Tooth Tiger Sprint
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class SaberToothTiger extends L2Transformation
 		removeSkill(player, 747); // Saber Tooth Tiger Fear (3 levels)
 		removeSkill(player, 748); // Saber Tooth Tiger Sprint
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new SaberToothTiger());

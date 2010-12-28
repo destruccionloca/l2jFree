@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardPaladin extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{18, 28, 196, 197, 400, 406};
-
+	private static final int[] SKILLS = new int[] { 18, 28, 196, 197, 400, 406 };
+	
 	public VanguardPaladin()
 	{
 		// id
 		super(312);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -38,13 +38,13 @@ public class VanguardPaladin extends L2Transformation
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Cleave
 		}
-
+		
 		if (player.getLevel() > 48)
 		{
 			int level = player.getLevel() - 48;
 			addSkill(player, 957, level); // Guillotine Attack
 		}
-
+		
 		int level = -1;
 		if (player.getLevel() >= 73)
 			level = 3;
@@ -55,10 +55,10 @@ public class VanguardPaladin extends L2Transformation
 		{
 			addSkill(player, 956, level); // Boost Morale
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -68,7 +68,7 @@ public class VanguardPaladin extends L2Transformation
 		removeSkill(player, 956); // Boost Morale
 		removeSkill(player, 957); // Guillotine Attack
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new VanguardPaladin());

@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Heretic extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Heretic()
 	{
 		// id, colRadius, colHeight
 		super(3, 7.7, 28.4);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -44,10 +44,10 @@ public class Heretic extends L2Transformation
 			addSkill(player, 740, level); // Heretic Resurrection (3 levels)
 			addSkill(player, 741, level); // Heretic Heal Side Effect (3 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -56,7 +56,7 @@ public class Heretic extends L2Transformation
 		removeSkill(player, 740); // Heretic Resurrection (3 levels)
 		removeSkill(player, 741); // Heretic Heal Side Effect (3 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Heretic());

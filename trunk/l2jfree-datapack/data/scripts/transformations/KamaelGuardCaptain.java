@@ -20,32 +20,32 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class KamaelGuardCaptain extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public KamaelGuardCaptain()
 	{
 		// id, colRadius, colHeight
 		super(19, 13, 22.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		{
-		addSkill(player, 876, 1); // Kamael Guard Captain Enuma Elish
-		addSkill(player, 877, 1); // Kamael Guard Captain Disarm
+			addSkill(player, 876, 1); // Kamael Guard Captain Enuma Elish
+			addSkill(player, 877, 1); // Kamael Guard Captain Disarm
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 876); // Kamael Guard Captain Enuma Elish
 		removeSkill(player, 877); // Kamael Guard Captain Disarm
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new KamaelGuardCaptain());

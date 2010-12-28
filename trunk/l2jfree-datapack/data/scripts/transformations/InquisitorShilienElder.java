@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class InquisitorShilienElder extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{1430, 1303, 1059};
-
+	private static final int[] SKILLS = new int[] { 1430, 1303, 1059 };
+	
 	public InquisitorShilienElder()
 	{
 		// id
 		super(318);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -38,12 +38,12 @@ public class InquisitorShilienElder extends L2Transformation
 			addSkill(player, 1524, level); // Surrender to the Holy
 			addSkill(player, 1525, level); // Divine Curse
 			addSkill(player, 1528, level); // Divine Flash
-			addSkill(player, 1043, 1);	   // Holy Weapon
+			addSkill(player, 1043, 1); // Holy Weapon
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -53,7 +53,7 @@ public class InquisitorShilienElder extends L2Transformation
 		removeSkill(player, 1528); // Divine Flash
 		removeSkill(player, 1043); // Holy Weapon
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new InquisitorShilienElder());

@@ -20,8 +20,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardTempleKnight extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{10, 18, 28, 67, 197, 400, 449};
-
+	private static final int[] SKILLS = new int[] { 10, 18, 28, 67, 197, 400, 449 };
+	
 	public VanguardTempleKnight()
 	{
 		// id
@@ -38,13 +38,13 @@ public class VanguardTempleKnight extends L2Transformation
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Cleave
 		}
-
+		
 		if (player.getLevel() > 48)
 		{
 			int level = player.getLevel() - 48;
 			addSkill(player, 957, level); // Guillotine Attack
 		}
-
+		
 		int level = -1;
 		if (player.getLevel() >= 73)
 			level = 3;
@@ -55,7 +55,7 @@ public class VanguardTempleKnight extends L2Transformation
 		{
 			addSkill(player, 956, level); // Boost Morale
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
 	

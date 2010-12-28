@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Rabbit extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Rabbit()
 	{
 		// id, colRadius, colHeight
 		super(105, 5, 4.5);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,17 +35,17 @@ public class Rabbit extends L2Transformation
 			addSkill(player, 629, 1); // Rabbit Magic Eye
 			addSkill(player, 630, 1); // Rabbit Tornado
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 629); // Rabbit Magic Eye
 		removeSkill(player, 630); // Rabbit Tornado
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Rabbit());

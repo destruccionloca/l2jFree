@@ -23,14 +23,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class Unicornium extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Unicornium()
 	{
 		// id, colRadius, colHeight
 		super(220, 8, 30);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -41,10 +41,10 @@ public class Unicornium extends L2Transformation
 			addSkill(player, 909, 4); // Ice Focus (6 levels)
 			addSkill(player, 910, 4); // Water Jet (6 levels)
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -54,7 +54,7 @@ public class Unicornium extends L2Transformation
 		removeSkill(player, 909); // Ice Focus (6 levels)
 		removeSkill(player, 910); // Water Jet (6 levels)
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Unicornium());

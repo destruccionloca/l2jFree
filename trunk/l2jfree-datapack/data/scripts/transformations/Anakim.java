@@ -20,22 +20,22 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Anakim extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public Anakim()
 	{
 		// id, colRadius, colHeight
 		super(306, 15.5, 29);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-			int level = -1;
-			if (player.getLevel() >= 82)
-				level = 2;
-			else if (player.getLevel() >= 80)
-				level = 1;
+		int level = -1;
+		if (player.getLevel() >= 82)
+			level = 2;
+		else if (player.getLevel() >= 80)
+			level = 1;
 		{
 			addSkill(player, 720, level); // Anakim Holy Light Burst (2 levels)
 			addSkill(player, 721, level); // Anakim Energy Attack (2 levels)
@@ -43,10 +43,10 @@ public class Anakim extends L2Transformation
 			addSkill(player, 723, 1); // Anakim Sunshine
 			addSkill(player, 724, 1); // Anakim Cleanse
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -56,7 +56,7 @@ public class Anakim extends L2Transformation
 		removeSkill(player, 723); // Anakim Sunshine
 		removeSkill(player, 724); // Anakim Cleanse
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Anakim());

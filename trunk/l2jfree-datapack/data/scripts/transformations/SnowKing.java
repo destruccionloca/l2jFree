@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class SnowKing extends L2Transformation
 {
-	private static final int[] SKILLS = new int[]{};
-
+	private static final int[] SKILLS = new int[] {};
+	
 	public SnowKing()
 	{
 		// id, colRadius, colHeight
 		super(114, 28, 30);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -35,17 +35,17 @@ public class SnowKing extends L2Transformation
 			addSkill(player, 940, 1); // Fake Attack
 			addSkill(player, 943, 1); // Special Motion
 		}
-
+		
 		player.addTransformAllowedSkill(SKILLS);
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 940); // Fake Attack
 		removeSkill(player, 943); // Special Motion
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new SnowKing());
