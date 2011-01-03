@@ -2,14 +2,14 @@
 # 2010-02-17 based on official Franz server
 
 import sys
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.quest				import State
+from com.l2jfree.gameserver.model.quest				import QuestState
+from com.l2jfree.gameserver.model.quest.jython		import QuestJython as JQuest
 
 qn = "376_GiantsExploration1"
 
 # NPC
-SOBLING	= 31147
+SOBLING = 31147
 
 # Items
 ANCIENT_PARCHMENT = 14841
