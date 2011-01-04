@@ -14,23 +14,23 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 qn = "25_HidingBehindTheTruth"
 
 # Npcs
-Agripel = 31348
-Benedict = 31349
-Wizard = 31522
-Tombstone = 31531
-Lidia = 31532
-Bookshelf = 31533
-Bookshelf2 = 31534
-Bookshelf3 = 31535
-Coffin = 31536
-Triol = 27218
+Agripel     = 31348
+Benedict    = 31349
+Wizard      = 31522
+Tombstone   = 31531
+Lidia       = 31532
+Bookshelf   = 31533
+Bookshelf2  = 31534
+Bookshelf3  = 31535
+Coffin      = 31536
+Triol       = 27218
 
 # Items
-Contract = 7066
-Dress = 7155
+Contract        = 7066
+Dress           = 7155
 SuspiciousTotem = 7156
-GemstoneKey = 7157
-TotemDoll = 7158
+GemstoneKey     = 7157
+TotemDoll       = 7158
 
 class Quest (JQuest) :
     def __init__(self,id,name,descr):
